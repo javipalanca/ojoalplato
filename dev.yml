@@ -1,0 +1,55 @@
+version: '2'
+
+services:
+  postgres:
+    build: ./compose/postgres
+    environment:
+      - POSTGRES_USER=ojoalplato
+
+  django_ojoalplato:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    command: python /app/manage.py runserver_plus 0.0.0.0:8000
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=ojoalplato
+      - USE_DOCKER=yes
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+      - mailhog_ojoalplato
+      - mysql
+
+  pycharm:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=ojoalplato
+    volumes:
+      - .:/app
+    links:
+      - postgres
+
+  mailhog_ojoalplato:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+
+  mysql:
+    build: ./compose/mysql
+    volumes:
+      - /data/dev/ojoalplato/mysql:/var/lib/mysql
+      - /data/dev/ojoalplato/mysql-backups:/backups
+    environment:
+      - MYSQL_USER=ojoalplato
+      - MYSQL_PASSWORD=ojoalplato
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_ROOT_PASSWORD=ojoalplato
