@@ -106,9 +106,9 @@ class Post(models.Model):
     title = models.TextField()
     slug = models.SlugField(max_length=200)
     author = models.ForeignKey(User, related_name='posts', blank=True, null=True)
-    excerpt = models.TextField()
+    excerpt = models.TextField(blank=True)
     content = models.TextField()
-    content_filtered = models.TextField()
+    content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
 
@@ -117,19 +117,19 @@ class Post(models.Model):
     comment_count = models.IntegerField(default=0)
 
     # ping stuff
-    ping_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    to_ping = models.TextField()
-    pinged = models.TextField()
+    ping_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True)
+    to_ping = models.TextField(blank=True)
+    pinged = models.TextField(blank=True)
 
     # statuses
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=20, blank=True)
 #    category_id = models.IntegerField(db_column='post_category')
 
     # other various lame fields
     parent_id = models.IntegerField(default=0)
     # parent = models.ForeignKey('self', related_name="children", db_column="post_parent", blank=True, null=True)
     menu_order = models.IntegerField(default=0)
-    mime_type = models.CharField(max_length=100)
+    mime_type = models.CharField(max_length=100, blank=True)
 
     terms = models.ManyToManyField('Taxonomy', through='TermTaxonomyRelationship', blank=True)
 
@@ -233,7 +233,7 @@ class PostMeta(models.Model):
     id = models.IntegerField(primary_key=True)
     post = models.ForeignKey(Post, related_name='meta', blank=True, null=True)
     key = models.CharField(max_length=255)
-    value = models.TextField()
+    value = models.TextField(blank=True)
 
     def __unicode__(self):
         return u"%s: %s" % (self.key, self.value)

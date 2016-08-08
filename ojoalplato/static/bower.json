@@ -1,0 +1,20 @@
+{
+  "name": "ojoalplato",
+  "version": "2.0.0",
+  "authors": [
+    "jpalanca <jpalanca@gmail.com>"
+  ],
+  "description": "Ojo al plato",
+  "license": "MIT",
+  "homepage": "ojoalplato.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lightbox2": "~2.8.2"
+  }
+}

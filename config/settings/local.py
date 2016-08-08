@@ -75,7 +75,6 @@ CELERY_ALWAYS_EAGER = True
 DATABASES = {
     'default': env.db("DATABASE_URL", default="sqlite:///ojoalplato.sqlite"),
     'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
-    #'blog': env.db("DATABASE_URL", default="sqlite:///ojoalplato.sqlite"),
 }
 
 WP_TABLE_PREFIX = 'wp_d3r46v'

@@ -53,3 +53,6 @@ services:
       - MYSQL_PASSWORD=ojoalplato
       - MYSQL_DATABASE=wordpress
       - MYSQL_ROOT_PASSWORD=ojoalplato
+
+    ports:
+      - "3306:3306"
