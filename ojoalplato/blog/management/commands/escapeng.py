@@ -43,12 +43,13 @@ class Command(BaseCommand):
         align = {"right": "margin: 0px 0px 10px 10px; float: right;",
                  "left": "float: left; margin: 0px 10px 10px 0px;",
                  "center": "margin: auto; display: block;"}
-        img = '<p><img data-lightbox="{lightbox}" src="{src}" alt="{alt}" style="width: {width}px; {align}" width="{width}"></p>'
+        img = '<p><img data-lightbox="{lightbox}" src="{src}" alt="{alt}" style="width: {width}px; {align}" width="{width}"/></p>'
 
         for post in Post.objects.filter(status="publish"):
             print(post.title)
             content = post.content
             match = singlepic_re.search(content)
+            images = ""
             while match is not None:
                 span = match.span()
                 subs = content[span[0]:span[1]]
@@ -67,6 +68,34 @@ class Command(BaseCommand):
                 content = content.replace(subs, img.format(src=src, lightbox=lb, alt=alt, width=width,
                                                            align=align[values["float"]]), 1)
                 match = singlepic_re.search(content)
+
+            match = gallery_re.search(content)
+            while match is not None:
+                span = match.span()
+                subs = content[span[0]:span[1]]
+                galleryid = int(match.groupdict()["id"])
+                con = mdb.connect("mysql", 'ojoalplato', 'ojoalplato', 'wordpress')
+                cur = con.cursor()
+                cur.execute("""SELECT sortorder,filename,description,alttext
+                               FROM wordpress.wp_d3r46v_ngg_pictures
+                               WHERE galleryid = {gid}
+                               ORDER BY sortorder ASC;""".format(gid=galleryid))
+                for i in cur.fetchall():
+                    gallery = galleries[galleryid]
+                    src = settings.MEDIA_URL + "gallery/" + gallery + "/" + i[1]
+                    if i[2]:
+                        alt = i[2]
+                    elif i[3]:
+                        alt = i[3]
+                    else:
+                        alt = ""
+                    images += '''<a href="{src}" data-lightbox="{gid}" alt="{alt}" class="image-link">
+                                    <img src={src} alt="{alt}" style="width: 7rem; border-radius:4px" width="7rem">
+                                </a>'''.format(src=src, gid=galleryid, alt=alt)
+                content = content.replace(subs, images)
+
+                match = gallery_re.search(content)
+
             post.content_filtered = post.content
             post.content = content
             post.save()
