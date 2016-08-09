@@ -1,4 +1,4 @@
-{% load wordpress_filters %}
+{% load content_filters %}
 {% load static %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -293,7 +293,7 @@
                     </div>
 
                     <div class="entry">
-                        {{ post.content|dropcap|safe }}
+                        {{ post.content|dropcap|lightbox|safe }}
                         <p>&nbsp;</p>
 
                         <a href="http://nuevo.ojoalplato.com/archivos/11590#more-11590" class="more-link">Continue

@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 else:
                     alt = ""
                 lb = slugify(alt)
-                width = str(max(480, int(values["width"])))
+                width = str(min(480, int(values["width"])))
                 content = content.replace(subs, img.format(src=src, lightbox=lb, alt=alt, width=width,
                                                            align=align[values["float"]]), 1)
                 match = singlepic_re.search(content)

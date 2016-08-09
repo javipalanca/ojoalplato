@@ -1,0 +1,51 @@
+# coding=utf-8
+import re
+from uuid import uuid4
+
+from bs4 import BeautifulSoup
+
+from django import template
+from django.utils.encoding import force_text
+from django.utils.text import normalize_newlines, slugify
+from ojoalplato.blog.models import PostMeta
+
+register = template.Library()
+
+
+@register.filter()
+def dropcap(value):
+    value = normalize_newlines(force_text(value))
+    paras = re.split('\n{2,}', value)
+    first, paras = paras[0], paras[1:]
+    first = ['<p class="dropcap-first">%s</p>' % first.replace('\n', '<br />')]
+    paras = ['<p>%s</p>' % p.replace('\n', '<br />') for p in paras]
+    paras = first + paras
+    return '\n\n'.join(paras)
+
+
+@register.filter()
+def views(post):
+    try:
+        return PostMeta.objects.get(post=post, key="views").value
+    except:
+        return 0
+
+
+@register.filter()
+def lightbox(post):
+    soup = BeautifulSoup(post)
+    for img in soup.findAll('img'):
+        src = img.attrs["src"]
+        if "alt" in img.attrs:
+            alt = slugify(img.attrs["alt"])
+        else:
+            alt = uuid4()
+        a = soup.new_tag("a", **{"href": src, "data-lightbox": alt, "alt": alt, "class": "image-link"})  # create an A element
+        img.replaceWith(a)  # Put it where the IMG element is
+        if "style" in img.attrs:
+            img.attrs["style"] += ' border-radius:4px;'
+        else:
+            img.attrs["style"] = ' border-radius:4px;'
+        a.insert(0, img)  # Put the IMG element inside the A (between <a> and </a>)
+
+    return str(soup)

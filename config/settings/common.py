@@ -272,7 +272,8 @@ SUIT_CONFIG = {
 # END DJANGO SUIT CONFIGURATION
 
 REDACTOR_OPTIONS = {'lang': 'es'}
-REDACTOR_UPLOAD = 'uploads/'
-REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.DateDirectoryUploader'
+REDACTOR_UPLOAD = 'gallery/'
+REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
+REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
 

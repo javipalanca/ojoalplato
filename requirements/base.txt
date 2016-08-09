@@ -60,3 +60,4 @@ git+http://github.com/javipalanca/django-wordpress.git
 django-reversion
 django-wysiwyg-redactor
 django-suit-redactor
+beautifulsoup4

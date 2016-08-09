@@ -62,7 +62,7 @@ class Command(BaseCommand):
                 pass
             taxonomy.save(using="default")
 
-        for p in Post.objects.using("mysql").all():
+        for p in Post.objects.using("mysql").filter(status="publish"):
             post = BlogPost()
             post.id = p.id
             post.guid = p.guid
