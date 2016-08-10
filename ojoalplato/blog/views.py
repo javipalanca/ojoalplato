@@ -6,8 +6,8 @@ from ojoalplato.blog.models import Post
 
 class PostList(ListView):
     model = Post
-    template_name = 'blog/post_list.html'
-    paginate_by = 1
+    template_name = 'blog/wpfamily/home.html'
+    paginate_by = 10
 
     def get_queryset(self):
         return Post.objects.filter(status="publish")

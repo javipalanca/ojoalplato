@@ -49,3 +49,10 @@ def lightbox(post):
         a.insert(0, img)  # Put the IMG element inside the A (between <a> and </a>)
 
     return str(soup)
+
+
+@register.filter()
+def first_img(post):
+    soup = BeautifulSoup(post)
+    img = soup.find('img')
+    return img.attrs["src"]
