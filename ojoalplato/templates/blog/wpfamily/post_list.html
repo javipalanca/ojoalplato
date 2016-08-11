@@ -1,0 +1,67 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load static %}
+{% load content_filters %}
+
+
+{% block content %}
+    {% for post in object_list %}
+        <article id="post-1"
+                 class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-friends family_blog_memberscat-maddie">
+
+            <!--div class="family-icon">
+
+            </div-->
+            <div class="featured-image"
+                 style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
+                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"><img
+                        src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
+            </div>
+
+
+            <div class="article-padding has-family-list">
+
+                <ul class="family-list">
+                    <li><a href="{{ post.categories.0.name }}">
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% static 'wpfamily/img/' %}{{ post.categories.0.name | cat_img }});">
+                        </div>
+                    </a></li>
+                </ul><!-- .family-list -->
+                <header class="entry-header">
+                    <h2 class="entry-title"><a href="2016/01/22/maddie-and-her-friend-cora/index.html"
+                                               rel="bookmark">{{ post.title }}</a></h2>
+                    <div class="meta"><span class="posted-on"><time class="entry-date published"
+                                                                    datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
+                            class="updated"
+                            datetime="2016-02-13T15:37:18+00:00">{{ post.post_date }}</time></span></div>
+                </header><!-- .entry-header -->
+
+                <div class="entry-content">
+                    {{ post.content | truncatewords_html:50 | lightbox | safe }}
+                </div><!-- .entry-content -->
+
+            </div><!-- .article-padding -->
+
+            <footer class="entry-footer">
+                <div class="entry-meta">
+                                <span class="cat-links">Publicado en <a href="category/friends/index.html"
+                                                                        rel="category tag">{{ post.categories.0.name }}</a></span><span
+                        class="comments-link"><a
+                        href="2016/01/22/maddie-and-her-friend-cora/index.html#respond">Dejar un comentario</a></span>
+                </div><!-- .entry-meta -->
+                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"
+                   class="read-more-button btn btn-primary">Leer más</a>
+            </footer><!-- .entry-footer -->
+        </article><!-- #post-## -->
+
+    {% endfor %}
+
+    <nav class="navigation posts-navigation" role="navigation">
+        <h2 class="screen-reader-text">Posts navigation</h2>
+        <div class="nav-links">
+            <div class="nav-previous"><a href="page/2/index.html">Older posts</a></div>
+        </div>
+    </nav>
+
+{% endblock content %}

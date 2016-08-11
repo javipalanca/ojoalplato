@@ -8,13 +8,14 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from ojoalplato.blog.views import PostList
+from ojoalplato.blog.views import PostList, PostDetail
 
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^$', PostList.as_view(), name='home'),
+    url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-    url(r'^wordpress/', include('wordpress.urls')),
+    #url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
 

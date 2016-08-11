@@ -33,7 +33,7 @@ def views(post):
 
 @register.filter()
 def lightbox(post):
-    soup = BeautifulSoup(post)
+    soup = BeautifulSoup(post, "html.parser")
     for img in soup.findAll('img'):
         src = img.attrs["src"]
         if "alt" in img.attrs:
@@ -53,6 +53,20 @@ def lightbox(post):
 
 @register.filter()
 def first_img(post):
-    soup = BeautifulSoup(post)
+    soup = BeautifulSoup(post, "html.parser")
     img = soup.find('img')
     return img.attrs["src"]
+
+
+@register.filter()
+def cat_img(category):
+    images = {
+        "restaurantes": "restaurant.jpg",
+        "vinos": "wine.jpg",
+        "recetas": "recipe.jpg",
+        "cigarros": "cigars.jpg",
+    }
+    if category.lower() in images:
+        return images[category.lower()]
+    else:
+        return "restaurant.jpg"
