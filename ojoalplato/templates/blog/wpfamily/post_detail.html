@@ -4,58 +4,52 @@
 
 
 {% block content %}
-    {% for post in object_list %}
-        <article id="post-1"
-                 class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-friends family_blog_memberscat-maddie">
+    <article id="post-1"
+             class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-friends family_blog_memberscat-maddie">
 
-            <!--div class="family-icon">
+        <!--div class="family-icon">
 
-            </div-->
-            <div class="featured-image"
-                 style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
-                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"><img
-                        src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
-            </div>
+        </div-->
+        <div class="featured-image"
+             style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
+            <a href="{% url 'post-detail' slug=post.slug %}"><img
+                    src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
+        </div>
 
 
-            <div class="article-padding has-family-list">
+        <div class="article-padding has-family-list">
 
-                <ul class="family-list">
-                    <li><a href="{{ post.categories.0.name }}">
-                        <div class="circle"
-                             style="background-image:url(
-                                     {% static 'wpfamily/img/' %}{{ post.categories.0.name | cat_img }});">
-                        </div>
-                    </a></li>
-                </ul><!-- .family-list -->
-                <header class="entry-header">
-                    <h2 class="entry-title"><a href="2016/01/22/maddie-and-her-friend-cora/index.html"
-                                               rel="bookmark">{{ post.title }}</a></h2>
-                    <div class="meta"><span class="posted-on"><time class="entry-date published"
-                                                                    datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
-                            class="updated"
-                            datetime="2016-02-13T15:37:18+00:00">{{ post.post_date }}</time></span></div>
-                </header><!-- .entry-header -->
+            <ul class="family-list">
+                <li><a href="{{ post.categories.0.name }}">
+                    <div class="circle"
+                         style="background-image:url(
+                                 {% static 'wpfamily/img/' %}{{ post.categories.0.name | cat_img }});">
+                    </div>
+                </a></li>
+            </ul><!-- .family-list -->
+            <header class="entry-header">
+                <h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"
+                                           rel="bookmark">{{ post.title }}</a></h2>
+                <div class="meta"><span class="posted-on"><time class="entry-date published"
+                                                                datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
+                        class="updated"
+                        datetime="2016-02-13T15:37:18+00:00">{{ post.post_date }}</time></span></div>
+            </header><!-- .entry-header -->
 
-                <div class="entry-content">
-                    {{ post.content | truncatewords_html:50 | lightbox | safe }}
-                </div><!-- .entry-content -->
+            <div class="entry-content">
+                {{ post.content | lightbox | safe }}
+            </div><!-- .entry-content -->
 
-            </div><!-- .article-padding -->
+        </div><!-- .article-padding -->
 
-            <footer class="entry-footer">
-                <div class="entry-meta">
-                                <span class="cat-links">Publicado en <a href="category/friends/index.html"
-                                                                        rel="category tag">{{ post.categories.0.name }}</a></span><span
-                        class="comments-link"><a
-                        href="2016/01/22/maddie-and-her-friend-cora/index.html#respond">Dejar un comentario</a></span>
-                </div><!-- .entry-meta -->
-                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"
-                   class="read-more-button btn btn-primary">Leer más</a>
-            </footer><!-- .entry-footer -->
-        </article><!-- #post-## -->
+        <footer class="entry-footer">
+            <div class="entry-meta">
+                <span class="cat-links">Publicado en <a href="category/friends/index.html"
+                                                        rel="category tag">{{ post.categories.0.name }}</a></span>
+            </div><!-- .entry-meta -->
+        </footer><!-- .entry-footer -->
+    </article><!-- #post-## -->
 
-    {% endfor %}
 
     <div id="comments" class="comments-area">
 
@@ -64,7 +58,18 @@
                 <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel
                     reply</a></small>
             </h3>
+            {% if post.comment_count <= 0 %}
             <p class="must-log-in">Registrate para dejar un comentario.</p></div><!-- #respond -->
+            {% else %}
+            <ol class="comment-list">
+                {% for comment in post.comments %}
+                <li class="comment-body" id="{{ comment.id }}">
+                <p class="comment-content">{{ comment.content }}</p>
+
+                </li>
+                {% endfor %}
+            </ol>
+            {% endif %}
 
     </div><!-- #comments -->
 

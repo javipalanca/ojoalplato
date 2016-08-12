@@ -71,3 +71,5 @@ ojoalplato/media/
 # Hitch directory
 tests/.hitch
 
+ojoalplato.sqlite
+utf8.dump

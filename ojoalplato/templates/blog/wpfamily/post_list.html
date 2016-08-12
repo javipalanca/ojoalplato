@@ -13,7 +13,7 @@
             </div-->
             <div class="featured-image"
                  style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
-                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"><img
+                <a href="{% url 'post-detail' slug=post.slug %}"><img
                         src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
             </div>
 
@@ -29,7 +29,7 @@
                     </a></li>
                 </ul><!-- .family-list -->
                 <header class="entry-header">
-                    <h2 class="entry-title"><a href="2016/01/22/maddie-and-her-friend-cora/index.html"
+                    <h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"
                                                rel="bookmark">{{ post.title }}</a></h2>
                     <div class="meta"><span class="posted-on"><time class="entry-date published"
                                                                     datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
@@ -50,7 +50,7 @@
                         class="comments-link"><a
                         href="2016/01/22/maddie-and-her-friend-cora/index.html#respond">Dejar un comentario</a></span>
                 </div><!-- .entry-meta -->
-                <a href="2016/01/22/maddie-and-her-friend-cora/index.html"
+                <a href="{% url 'post-detail' slug=post.slug %}"
                    class="read-more-button btn btn-primary">Leer más</a>
             </footer><!-- .entry-footer -->
         </article><!-- #post-## -->
