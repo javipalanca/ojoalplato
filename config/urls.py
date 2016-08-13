@@ -14,6 +14,7 @@ urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^$', PostList.as_view(), name='home'),
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
+    url(r'^archivos/(?P<pk>\d+)/*$', PostDetail.as_view(), name='post-detail-wp'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     #url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}

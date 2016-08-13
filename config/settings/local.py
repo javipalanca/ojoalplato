@@ -74,7 +74,7 @@ CELERY_ALWAYS_EAGER = True
 # Your local stuff: Below this line define 3rd party library settings
 DATABASES = {
     'default': env.db("DATABASE_URL", default="sqlite:///ojoalplato.sqlite"),
-    'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
+    #'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
 }
 
 WP_TABLE_PREFIX = 'wp_d3r46v'
