@@ -1,6 +1,8 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static %}
 {% load content_filters %}
+{% load disqus_tags %}
+{% load pagination %}
 
 
 {% block content %}
@@ -21,12 +23,21 @@
             <div class="article-padding has-family-list">
 
                 <ul class="family-list">
-                    <li><a href="{{ post.categories.0.name }}">
+                    {% if post.categories.0.name %}
+                    <li><a href="{% url 'category-list' post.categories.0.slug %}">
                         <div class="circle"
                              style="background-image:url(
-                                     {% static 'wpfamily/img/' %}{{ post.categories.0.name | cat_img }});">
+                                     {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
                         </div>
                     </a></li>
+                    {% else %}
+                    <li>
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% static 'wpfamily/img/uncategorized.gif' %});">
+                        </div>
+                    </li>
+                    {% endif %}
                 </ul><!-- .family-list -->
                 <header class="entry-header">
                     <h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"
@@ -45,10 +56,20 @@
 
             <footer class="entry-footer">
                 <div class="entry-meta">
-                                <span class="cat-links">Publicado en <a href="category/friends/index.html"
-                                                                        rel="category tag">{{ post.categories.0.name }}</a></span><span
-                        class="comments-link"><a
-                        href="2016/01/22/maddie-and-her-friend-cora/index.html#respond">Dejar un comentario</a></span>
+                    <span class="cat-links">Publicado en <a href="category/friends/index.html"
+                                                            rel="category tag">{{ post.categories.0.name }}</a></span>
+                    <span class="comments-link">
+                    <a href="{% url 'post-detail' slug=post.slug %}#comments">
+                        <span class="disqus-comment-count"
+                              data-disqus-identifier="{{ post.id }} http://www.ojoalplato.com/?p={{ post.id }}"
+                              data-disqus-url="http://nuevo.ojoalplato.com/archivos/{{ post.id }}">
+                            Dejar un comentario
+                        </span>
+                    </a>
+                    </span>
+
+                    <span class="tags-links"><a
+                            href="{% url 'post-detail' slug=post.slug %}">{{ post.views }} visitas</a></span>
                 </div><!-- .entry-meta -->
                 <a href="{% url 'post-detail' slug=post.slug %}"
                    class="read-more-button btn btn-primary">Leer más</a>
@@ -57,11 +78,10 @@
 
     {% endfor %}
 
-    <nav class="navigation posts-navigation" role="navigation">
-        <h2 class="screen-reader-text">Posts navigation</h2>
-        <div class="nav-links">
-            <div class="nav-previous"><a href="page/2/index.html">Older posts</a></div>
-        </div>
-    </nav>
+    <script id="dsq-count-scr" src="//ojoalplato.disqus.com/count.js" async></script>
 
 {% endblock content %}
+
+{% block paginator %}
+    {% pagination page_obj %}
+{% endblock paginator %}

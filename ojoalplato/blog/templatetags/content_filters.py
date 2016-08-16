@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from bs4 import BeautifulSoup
 
+from django.conf import settings
 from django import template
 from django.utils.encoding import force_text
 from django.utils.text import normalize_newlines, slugify
@@ -55,18 +56,23 @@ def lightbox(post):
 def first_img(post):
     soup = BeautifulSoup(post, "html.parser")
     img = soup.find('img')
-    return img.attrs["src"]
+    if img:
+        return img.attrs["src"]
+    else:
+        return settings.STATIC_URL + "wpfamily/img/logo2.png"
 
 
 @register.filter()
 def cat_img(category):
     images = {
-        "restaurantes": "restaurant.jpg",
+        "restaurantes": "restaurant4.jpg",
         "vinos": "wine.jpg",
         "recetas": "recipe.jpg",
+        "cervezas": "beer.jpg",
         "cigarros": "cigars.jpg",
+        "comentarios-propios": "microphone.jpg",
     }
     if category.lower() in images:
         return images[category.lower()]
     else:
-        return "restaurant.jpg"
+        return "uncategorized.gif"

@@ -61,6 +61,21 @@ class PostManager(models.Manager):
         except Taxonomy.DoesNotExist:
             return self.none()
 
+    def category(self, categories, taxonomy='category'):
+        """
+        @arg terms Can either be a string (name of the term) or an list of term names.
+        """
+
+        categories = categories if isinstance(categories, (list, tuple)) else [categories]
+
+        try:
+            tx = Taxonomy.objects.filter(name=taxonomy, term__slug__in=categories)
+            post_ids = TermTaxonomyRelationship.objects.filter(term_taxonomy__in=tx).values_list('object_id', flat=True)
+
+            return self.published().filter(pk__in=post_ids)
+        except Taxonomy.DoesNotExist:
+            return self.none()
+
     def from_path(self, path):
 
         (ymd, slug) = path.strip('/').rsplit('/', 1)

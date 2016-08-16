@@ -96,30 +96,25 @@
                 </div><!-- .site-branding -->
 
                 <ul class="family-list">
-                    <li><a href="family-members/ryan/index.html">
+                    <li><a href="{% url "category-list" category="restaurantes" %}">
                         <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/restaurant.jpg' %})"></div>
+                             style="background-image:url({% static 'wpfamily/img/restaurant4.jpg' %})"></div>
                         <div class="name">Restaurantes</div>
                     </a></li>
-                    <li><a href="family-members/alyssa/index.html">
+                    <li><a href="{% url "category-list" category="vinos" %}">
                         <div class="circle"
                              style="background-image:url({% static 'wpfamily/img/wine.jpg' %})"></div>
                         <div class="name">Vinos</div>
                     </a></li>
-                    <li><a href="family-members/maddie/index.html">
+                    <li><a href="{% url "category-list" category="recetas" %}">
                         <div class="circle"
                              style="background-image:url({% static 'wpfamily/img/recipe.jpg' %})"></div>
                         <div class="name">Recetas</div>
                     </a></li>
-                    <li><a href="family-members/brayden/index.html">
+                    <li><a href="{% url "category-list" category="cervezas" %}">
                         <div class="circle"
                              style="background-image:url({% static 'wpfamily/img/beer.jpg' %})"></div>
                         <div class="name">Cervezas</div>
-                    </a></li>
-                    <li><a href="family-members/brayden/index.html">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/cigars.jpg' %})"></div>
-                        <div class="name">Cigarros</div>
                     </a></li>
                     <li style="position: absolute"><a href="family-members/brayden/index.html">
                         <div class="circle"
@@ -132,6 +127,8 @@
             <div id="primary" class="content-area">
                 <main id="main" class="site-main" role="main">
 
+                    {% block header %}{% endblock header %}
+
                     {% block content %}{% endblock content %}
 
                 </main><!-- #main -->
@@ -139,6 +136,8 @@
 
 
         </div><!-- #content -->
+
+        {% block paginator %}{% endblock paginator %}
 
     </div><!-- #page -->
 
@@ -163,21 +162,7 @@
     <script type='text/javascript' src='{% static "wpfamily/js/wp-family-blog4b68.js" %}'></script>
     <script type='text/javascript'
             src='{% static "wpfamily/js/jquery.infinitescroll.min3c94.js" %}'></script>
-    <script>
-        var infinite_scroll = {
-            loading: {
-                img: "http://familywp.com/topbardemo/wp-content/themes/wp-family-blog/img/loading-spin.svg",
-                msgText: "Loading the next set of posts...",
-                finishedMsg: "All posts loaded."
-            },
-            "nextSelector": ".nav-links .nav-previous a",
-            "navSelector": ".posts-navigation",
-            "itemSelector": ".hentry",
-            "contentSelector": "#main"
-        };
-        jQuery(infinite_scroll.contentSelector).infinitescroll(infinite_scroll);
-        jQuery(".posts-navigation").css("visibility", "hidden");
-    </script>
+
 {% endblock javascript %}
 
 </body>

@@ -1,7 +1,7 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static %}
 {% load content_filters %}
-
+{% load disqus %}
 
 {% block content %}
     <article id="post-1"
@@ -20,10 +20,10 @@
         <div class="article-padding has-family-list">
 
             <ul class="family-list">
-                <li><a href="{{ post.categories.0.name }}">
+                <li><a href="{{ post.categories.0.slug }}">
                     <div class="circle"
                          style="background-image:url(
-                                 {% static 'wpfamily/img/' %}{{ post.categories.0.name | cat_img }});">
+                                 {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
                     </div>
                 </a></li>
             </ul><!-- .family-list -->
@@ -53,22 +53,13 @@
 
     <div id="comments" class="comments-area">
 
-        <div id="respond" class="comment-respond">
-            <h3 id="reply-title" class="comment-reply-title">Dejar un comentario
-                <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel
-                    reply</a></small>
-            </h3>
-            {% if post.comment_count <= 0 %}
-            <p class="must-log-in">Registrate para dejar un comentario.</p></div><!-- #respond -->
-            {% else %}
-            <ol class="comment-list">
+    <div id="respond" class="comment-respond">
+        <h3 id="reply-title" class="comment-reply-title">Dejar un comentario
+            <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel
+                reply</a></small>
+        </h3>
 
-                <li class="comment-body" id="22">
-                <p class="comment-content">Comment body</p>
-
-                </li>
-            </ol>
-            {% endif %}
+        {% disqus_comments post %}
 
     </div><!-- #comments -->
 

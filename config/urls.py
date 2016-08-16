@@ -5,18 +5,19 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from ojoalplato.blog.views import PostList, PostDetail
+from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList
 
 urlpatterns = [
-    #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^$', PostList.as_view(), name='home'),
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
-    url(r'^archivos/(?P<pk>\d+)/*$', PostDetail.as_view(), name='post-detail-wp'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
-    #url(r'^wordpress/', include('wordpress.urls')),
+    url(r'^archivos/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp'),
+    url(r'^archives/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp-en'),
+    url(r'^categoria/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
+    # url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    # url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
 

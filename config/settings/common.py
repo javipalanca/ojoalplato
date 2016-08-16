@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = (
     'reversion',
     'redactor',
     'suit_redactor',
+    'disqus',
     'wordpress',
 )
 
@@ -277,3 +278,5 @@ REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
 REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
 
+# DISQUS_API_KEY = env('DISQUS_API_KEY', default='XXXXXXXXX')
+DISQUS_WEBSITE_SHORTNAME = 'ojoalplato'
