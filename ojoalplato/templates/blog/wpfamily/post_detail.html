@@ -1,5 +1,7 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static %}
+{% load social_share %}
+
 {% load content_filters %}
 {% load disqus %}
 
@@ -12,7 +14,7 @@
         </div-->
         <div class="featured-image"
              style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
-            <a href="{% url 'post-detail' slug=post.slug %}"><img
+            <a href="{{ post.get_absolute_url }}"><img
                     src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
         </div>
 
@@ -20,15 +22,24 @@
         <div class="article-padding has-family-list">
 
             <ul class="family-list">
-                <li><a href="{{ post.categories.0.slug }}">
-                    <div class="circle"
-                         style="background-image:url(
-                                 {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
-                    </div>
-                </a></li>
+                {% if post.categories.0.name %}
+                    <li><a href="{% url 'category-list' post.categories.0.slug %}">
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
+                        </div>
+                    </a></li>
+                {% else %}
+                    <li>
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% static 'wpfamily/img/uncategorized.gif' %});">
+                        </div>
+                    </li>
+                {% endif %}
             </ul><!-- .family-list -->
             <header class="entry-header">
-                <h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"
+                <h2 class="entry-title"><a href="{{ post.get_absolute_url }}"
                                            rel="bookmark">{{ post.title }}</a></h2>
                 <div class="meta"><span class="posted-on"><time class="entry-date published"
                                                                 datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
@@ -44,22 +55,30 @@
 
         <footer class="entry-footer">
             <div class="entry-meta">
-                <span class="cat-links">Publicado en <a href="category/friends/index.html"
-                                                        rel="category tag">{{ post.categories.0.name }}</a></span>
+                {% if post.categories.0.name %}
+                    <span class="cat-links">Publicado en <a href="{% url 'category-list' post.categories.0.slug %}"
+                                                            rel="category tag">{{ post.categories.0.name }}</a>
+                    </span>
+                {% endif %}
+                <span class="tags-links"><a
+                        href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
             </div><!-- .entry-meta -->
+            <span class="read-more-button btn btn-primary">
+                {% post_to_twitter "" post.get_absolute_url '<i class="fa fa-twitter social-button"></i>' %}
+                {% post_to_facebook post.get_absolute_url '<i class="fa fa-facebook social-button"></i>'%}
+                {% send_email post.title "Ojoalplato: {{post.title}}" post.get_absolute_url '<i class="fa fa-envelope social-button"></i>' %}
+            </span>
         </footer><!-- .entry-footer -->
     </article><!-- #post-## -->
 
 
     <div id="comments" class="comments-area">
 
-    <div id="respond" class="comment-respond">
-        <h3 id="reply-title" class="comment-reply-title">Dejar un comentario
-            <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel
-                reply</a></small>
-        </h3>
+        <div id="respond" class="comment-respond">
+            <h3 id="reply-title" class="comment-reply-title">Dejar un comentario</h3>
 
-        {% disqus_comments post %}
+            {% disqus_comments post %}
+        </div>
 
     </div><!-- #comments -->
 

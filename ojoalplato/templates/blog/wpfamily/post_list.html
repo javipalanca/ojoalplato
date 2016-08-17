@@ -1,7 +1,6 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static %}
 {% load content_filters %}
-{% load disqus_tags %}
 {% load pagination %}
 
 
@@ -15,7 +14,7 @@
             </div-->
             <div class="featured-image"
                  style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
-                <a href="{% url 'post-detail' slug=post.slug %}"><img
+                <a href="{{ post.get_absolute_url }}"><img
                         src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
             </div>
 
@@ -24,23 +23,24 @@
 
                 <ul class="family-list">
                     {% if post.categories.0.name %}
-                    <li><a href="{% url 'category-list' post.categories.0.slug %}">
-                        <div class="circle"
-                             style="background-image:url(
-                                     {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
-                        </div>
-                    </a></li>
+                        <li><a href="{% url 'category-list' post.categories.0.slug %}">
+                            <div class="circle"
+                                 style="background-image:url(
+                                         {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
+                            </div>
+                        </a></li>
                     {% else %}
-                    <li>
-                        <div class="circle"
-                             style="background-image:url(
-                                     {% static 'wpfamily/img/uncategorized.gif' %});">
-                        </div>
-                    </li>
+                        <li>
+                            <div class="circle"
+                                 style="background-image:url(
+                                         {% static 'wpfamily/img/uncategorized.gif' %});">
+                            </div>
+                        </li>
                     {% endif %}
                 </ul><!-- .family-list -->
                 <header class="entry-header">
-                    <h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"
+                    <!--h2 class="entry-title"><a href="{% url 'post-detail' slug=post.slug %}"-->
+                    <h2 class="entry-title"><a href="{{ post.get_absolute_url }}"
                                                rel="bookmark">{{ post.title }}</a></h2>
                     <div class="meta"><span class="posted-on"><time class="entry-date published"
                                                                     datetime="2016-01-22T04:13:54+00:00">{{ post.post_date }}</time><time
@@ -56,10 +56,13 @@
 
             <footer class="entry-footer">
                 <div class="entry-meta">
-                    <span class="cat-links">Publicado en <a href="category/friends/index.html"
-                                                            rel="category tag">{{ post.categories.0.name }}</a></span>
+                    {% if post.categories.0.name %}
+                        <span class="cat-links">Publicado en <a href="{% url 'category-list' post.categories.0.slug %}"
+                                                                rel="category tag">{{ post.categories.0.name }}</a>
+                        </span>
+                    {% endif %}
                     <span class="comments-link">
-                    <a href="{% url 'post-detail' slug=post.slug %}#comments">
+                    <a href="{{ post.get_absolute_url }}#comments">
                         <span class="disqus-comment-count"
                               data-disqus-identifier="{{ post.id }} http://www.ojoalplato.com/?p={{ post.id }}"
                               data-disqus-url="http://nuevo.ojoalplato.com/archivos/{{ post.id }}">
@@ -69,9 +72,9 @@
                     </span>
 
                     <span class="tags-links"><a
-                            href="{% url 'post-detail' slug=post.slug %}">{{ post.views }} visitas</a></span>
+                            href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
                 </div><!-- .entry-meta -->
-                <a href="{% url 'post-detail' slug=post.slug %}"
+                <a href="{{ post.get_absolute_url }}"
                    class="read-more-button btn btn-primary">Leer más</a>
             </footer><!-- .entry-footer -->
         </article><!-- #post-## -->

@@ -3,6 +3,7 @@ import datetime
 
 import collections
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 
@@ -238,6 +239,9 @@ class Post(models.Model):
 
     def tags(self):
         return self._get_terms("post_tag")
+
+    def get_absolute_url(self):
+        return reverse("post-detail", args=[self.slug])
 
 
 class PostMeta(models.Model):

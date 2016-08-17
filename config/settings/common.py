@@ -43,7 +43,7 @@ THIRD_PARTY_APPS = (
     'reversion',
     'redactor',
     'suit_redactor',
-    'disqus',
+    'django_social_share',
     'wordpress',
 )
 

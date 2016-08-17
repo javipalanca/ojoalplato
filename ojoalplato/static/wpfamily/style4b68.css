@@ -2662,3 +2662,27 @@ body.grey #cboxOverlay {
   border: 1px solid #ddd;
   background-color: chocolate;
 }
+
+.social-button {
+  color: white;
+}
+.pull-20px-left {
+  margin-left: 20px;
+}
+
+.social-buttons {
+  float: right !important;
+  list-style: none;
+  display: inline-flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.facebook-this, .tweet-this, .mail-this {
+  display: inline-flex;
+}
+
+.facebook-this, .mail-this {
+  margin-left: 20px;
+}
