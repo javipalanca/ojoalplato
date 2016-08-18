@@ -2671,18 +2671,39 @@ body.grey #cboxOverlay {
 }
 
 .social-buttons {
-  float: right !important;
-  list-style: none;
-  display: inline-flex;
+  display: block;
   position: absolute;
   top: 0;
+  right: 0;
   bottom: 0;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 50px;
+  padding: 0 20px;
+  color: #FFF;
+  background-color: chocolate;
 }
 
-.facebook-this, .tweet-this, .mail-this {
+.facebook-this, .tweet-this, .mail-this, .fb-like {
   display: inline-flex;
 }
 
 .facebook-this, .mail-this {
   margin-left: 20px;
+}
+
+.fb-lile-btn {
+  position: relative;
+  margin-top: 20px;
+  left: 90%;
+}
+
+.badge {
+  background-color: chocolate;
+}
+
+a.badge {
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
 }

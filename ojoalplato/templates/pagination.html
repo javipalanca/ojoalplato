@@ -1,0 +1,51 @@
+<nav aria-label="Page navigation" class="text-center">
+    <ul class="pagination">
+
+        {% if page.has_previous %}
+            <li>
+                <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for pnum in begin %}
+            <li {% if page.number == pnum %} class="active"{% endif %}>
+                <a href="?page={{ pnum }}">{{ pnum }}</a>
+            </li>
+        {% endfor %}
+
+        {% if middle %}
+            <li>
+                <a href="#">...</a>
+            </li>
+
+            {% for pnum in middle %}
+                <li {% if page.number == pnum %} class="active"{% endif %}>
+                    <a href="?page={{ pnum }}">{{ pnum }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        {% if end %}
+            <li>
+                <a href="#">...</a>
+            </li>
+
+            {% for pnum in end %}
+                <li {% if page.number == pnum %} class="active"{% endif %}>
+                    <a href="?page={{ pnum }}">{{ pnum }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        {% if page.has_next %}
+            <li>
+                <a href="?page={{ page.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>

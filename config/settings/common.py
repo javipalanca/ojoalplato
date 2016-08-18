@@ -44,6 +44,10 @@ THIRD_PARTY_APPS = (
     'redactor',
     'suit_redactor',
     'django_social_share',
+    'categories',
+    'categories.editor',
+    'taggit',
+    'taggit_autosuggest',
     'wordpress',
 )
 
@@ -53,6 +57,7 @@ LOCAL_APPS = (
     'ojoalplato.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'ojoalplato.blog',
+    'ojoalplato.category',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -280,3 +285,7 @@ REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
 
 # DISQUS_API_KEY = env('DISQUS_API_KEY', default='XXXXXXXXX')
 DISQUS_WEBSITE_SHORTNAME = 'ojoalplato'
+
+# Taggit settings
+# ------------------------------------------------------------------------------
+TAGGIT_CASE_INSENSITIVE = True

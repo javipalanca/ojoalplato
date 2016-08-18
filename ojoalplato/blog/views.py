@@ -48,3 +48,17 @@ class CategoryList(ListView):
         context = super(CategoryList, self).get_context_data(**kwargs)
         context["category"] = self.kwargs['category']
         return context
+
+
+class TagList(ListView):
+    model = Post
+    template_name = 'blog/wpfamily/tag_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Post.objects.term(self.kwargs['tag'].lower())
+
+    def get_context_data(self, **kwargs):
+        context = super(TagList, self).get_context_data(**kwargs)
+        context["tag"] = self.kwargs['tag']
+        return context

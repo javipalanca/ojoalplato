@@ -61,3 +61,7 @@ django-wysiwyg-redactor
 django-suit-redactor
 beautifulsoup4
 django-disqus
+django-categories
+django-taggit
+django-taggit-autosuggest
+

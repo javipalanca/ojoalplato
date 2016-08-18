@@ -7,7 +7,10 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 
+from taggit_autosuggest.managers import TaggableManager
+
 from ojoalplato.users.models import User
+from ojoalplato.category.models import Category
 
 STATUS_CHOICES = (
     ('closed', 'closed'),
@@ -127,6 +130,10 @@ class Post(models.Model):
     content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True)
+    tags = TaggableManager(verbose_name="Etiquetas",
+                           help_text="Lista de etiquetas separadas por comas.",
+                           blank=True)
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
@@ -221,7 +228,7 @@ class Post(models.Model):
 
     # related objects
 
-    def categories(self):
+    def categories_terms(self):
         return self._get_terms("category")
 
     def attachments(self):
@@ -237,7 +244,7 @@ class Post(models.Model):
                     'mimetype': post.mime_type,
                 }
 
-    def tags(self):
+    def tags_terms(self):
         return self._get_terms("post_tag")
 
     def get_absolute_url(self):

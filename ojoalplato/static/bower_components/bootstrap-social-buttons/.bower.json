@@ -1,0 +1,15 @@
+{
+  "name": "bootstrap-social-buttons",
+  "homepage": "https://github.com/noizwaves/bootstrap-social-buttons",
+  "version": "1.0.0",
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "bddf787f927a6dcfcbc97c35800c3b86cba36864"
+  },
+  "_source": "https://github.com/noizwaves/bootstrap-social-buttons.git",
+  "_target": "^1.0.0",
+  "_originalSource": "bootstrap-social-buttons",
+  "_direct": true
+}
