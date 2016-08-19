@@ -7,6 +7,7 @@ from .models import Category
 
 admin.site.unregister(Categories)
 
+
 @admin.register(Category)
 class CategoryAdmin(CategoryBaseAdmin):
     pass

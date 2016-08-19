@@ -23,21 +23,25 @@
         <div class="article-padding has-family-list">
 
             <ul class="family-list">
-                {% if post.categories.0.name %}
-                    <li><a href="{% url 'category-list' post.categories.0.slug %}">
-                        <div class="circle"
-                             style="background-image:url(
-                                     {% static 'wpfamily/img/' %}{{ post.categories.0.slug | cat_img }});">
-                        </div>
-                    </a></li>
-                {% else %}
-                    <li>
-                        <div class="circle"
-                             style="background-image:url(
-                                     {% static 'wpfamily/img/uncategorized.gif' %});">
-                        </div>
-                    </li>
-                {% endif %}
+                    {% if post.category %}
+                        <li><a href="{% url 'category-list' post.category.slug %}">
+                            <div class="circle"
+                                 style="background-image:url(
+                                 {% if post.category.thumbnail.name != "" %}
+                                         {{ post.category.thumbnail_url }});">
+                                 {% else %}
+                                    {% static 'wpfamily/img/uncategorized.gif' %});">
+                                 {% endif %}
+                            </div>
+                        </a></li>
+                    {% else %}
+                        <li>
+                            <div class="circle"
+                                 style="background-image:url(
+                                         {% static 'wpfamily/img/uncategorized.gif' %});">
+                            </div>
+                        </li>
+                    {% endif %}
             </ul><!-- .family-list -->
             <header class="entry-header">
                 <h2 class="entry-title"><a href="{{ post.get_absolute_url }}"

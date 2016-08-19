@@ -1,11 +1,28 @@
 # coding=utf-8
+import collections
 from django.core.management import BaseCommand
 from wordpress.models import User, UserMeta, Post, PostMeta, Term, Taxonomy, Comment, TermTaxonomyRelationship
 
 from ojoalplato.blog.models import Post as BlogPost, PostMeta as BlogPostMeta, Term as BlogTerm, \
     Taxonomy as BlogTaxonomy, Comment as BlogComment, TermTaxonomyRelationship as BlogTermTaxonomyRelationship, \
     ObjectDoesNotExist
+from ojoalplato.category.models import Category
 from ojoalplato.users.models import User as BlogUser, UserMeta as BlogUserMeta
+
+
+def get_terms(p):
+    terms_dict = collections.defaultdict(list)
+    qs = Taxonomy.objects.using("mysql").filter(relationships__object_id=p.id).select_related()
+    qs = qs.order_by('relationships__order', 'term__name')
+    term_ids = [tax.term_id for tax in qs]
+    terms = {}
+    for term in Term.objects.using("mysql").filter(id__in=term_ids):
+        terms[term.id] = term
+    for tax in qs:
+        if tax.term_id in terms:
+            terms_dict[tax.name].append(terms[tax.term_id])
+
+    return terms_dict
 
 
 class Command(BaseCommand):
@@ -152,3 +169,36 @@ class Command(BaseCommand):
                 pass
 
             comment.save(using="default")
+
+        # migrate Categories and Tags
+        for p in Post.objects.using("mysql").filter(status="publish"):
+            post = BlogPost.objects.get(id=p.id)
+            print(p.title)
+
+            terms = get_terms(p)
+
+            print("Category: ", [x.name for x in terms["category"]])
+            print("Tags: ", [x.name for x in terms["post_tag"]])
+
+            trans = {
+                "Ir de vinos": "Vinos",
+                "vinos": "Vinos"
+            }
+
+            if len(terms["category"]) > 0:
+                category_str = terms["category"][0].name
+                if category_str in trans.keys():
+                    category_str = trans[category_str]
+                try:
+                    category = Category.objects.get(name=category_str)
+                except ObjectDoesNotExist:
+                    category = Category(name=category_str)
+                    category.save(using="default")
+
+                post.category = category
+
+            for tag in terms["post_tag"]:
+                post.tags.add(tag.name)
+
+            post.save(using="default")
+

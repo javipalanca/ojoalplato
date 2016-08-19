@@ -4,8 +4,10 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import View
+from taggit.models import Tag
 
 from ojoalplato.blog.models import Post
+from ojoalplato.category.models import Category
 
 
 class PostList(ListView):
@@ -42,11 +44,11 @@ class CategoryList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.category(self.kwargs['category'].lower())
+        return Post.objects.filter(category__slug=self.kwargs['category'])
 
     def get_context_data(self, **kwargs):
         context = super(CategoryList, self).get_context_data(**kwargs)
-        context["category"] = self.kwargs['category']
+        context["category"] = get_object_or_404(Category, slug=self.kwargs['category']).name
         return context
 
 
@@ -56,9 +58,9 @@ class TagList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.term(self.kwargs['tag'].lower())
+        return Post.objects.filter(tags__slug__in=[self.kwargs['tag']])
 
     def get_context_data(self, **kwargs):
         context = super(TagList, self).get_context_data(**kwargs)
-        context["tag"] = self.kwargs['tag']
+        context["tag"] = get_object_or_404(Tag, slug=self.kwargs['tag']).name
         return context
