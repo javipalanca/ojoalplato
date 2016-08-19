@@ -8,6 +8,7 @@ from taggit.models import Tag
 
 from ojoalplato.blog.models import Post
 from ojoalplato.category.models import Category
+from ojoalplato.users.models import User
 
 
 class PostList(ListView):
@@ -63,4 +64,18 @@ class TagList(ListView):
     def get_context_data(self, **kwargs):
         context = super(TagList, self).get_context_data(**kwargs)
         context["tag"] = get_object_or_404(Tag, slug=self.kwargs['tag']).name
+        return context
+
+
+class AuthorList(ListView):
+    model = Post
+    template_name = 'blog/wpfamily/author_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Post.objects.filter(author__username=self.kwargs['author'])
+
+    def get_context_data(self, **kwargs):
+        context = super(AuthorList, self).get_context_data(**kwargs)
+        context["author"] = get_object_or_404(User, username=self.kwargs['author']).name
         return context

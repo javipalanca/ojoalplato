@@ -2707,3 +2707,8 @@ a.badge {
     color: white;
     font-weight: 100;
 }
+
+a.author {
+  color: #b0ab92;
+  text-decoration: underline;
+}

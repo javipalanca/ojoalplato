@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
 
-from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList
+from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
 
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^archivos/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp'),
     url(r'^archives/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp-en'),
     url(r'^tag/(?P<tag>[-\w]+)/$', TagList.as_view(), name='tag-list'),
+    url(r'^author/(?P<author>[-\w]+)/$', AuthorList.as_view(), name='author-list'),
 
     # Category app
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),

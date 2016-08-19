@@ -69,9 +69,9 @@
 
             <footer class="entry-footer">
                 <div class="entry-meta">
-                    {% if post.categories.0.name %}
-                        <span class="cat-links">Publicado en <a href="{% url 'category-list' post.categories.0.slug %}"
-                                                                rel="category tag">{{ post.categories.0.name }}</a>
+                    {% if post.category%}
+                        <span class="cat-links">Publicado en <a href="{% url 'category-list' post.category.slug %}"
+                                                                rel="category tag">{{ post.category.name }}</a>
                         </span>
                     {% endif %}
                     <span class="comments-link">

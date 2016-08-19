@@ -130,7 +130,8 @@ class Post(models.Model):
     content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
-    category = models.ForeignKey(Category, blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True,
+                                 verbose_name="Categorías")
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
                            blank=True)
