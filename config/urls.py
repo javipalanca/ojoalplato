@@ -19,7 +19,7 @@ urlpatterns = [
 
     # User management
     url(r'^users/', include('ojoalplato.users.urls', namespace='users')),
-    url(r'^accounts/', include('allauth.urls')),
+    # url(r'^accounts/', include('allauth.urls')),
 
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),

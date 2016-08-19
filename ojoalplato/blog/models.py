@@ -164,7 +164,7 @@ class Post(models.Model):
         get_latest_by = 'post_date'
         ordering = ["-post_date"]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def save(self, **kwargs):
@@ -262,8 +262,8 @@ class PostMeta(models.Model):
     key = models.CharField(max_length=255)
     value = models.TextField(blank=True)
 
-    def __unicode__(self):
-        return u"%s: %s" % (self.key, self.value)
+    def __str__(self):
+        return "{}: {}".format(self.key, self.value)
 
 
 class Comment(models.Model):
@@ -295,8 +295,11 @@ class Comment(models.Model):
     class Meta:
         ordering = ['-post_date']
 
-    def __unicode__(self):
-        return u"%s on %s" % (self.author_name, self.post.title)
+    def __str__(self):
+        if self.post:
+            return u"%s on %s" % (self.author_name, self.post.title)
+        else:
+            return self.author_name
 
     def parent(self):
         return self._get_object(Comment, self.parent_id)
@@ -318,7 +321,7 @@ class Term(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -326,7 +329,6 @@ class Taxonomy(models.Model):
 
     id = models.IntegerField(primary_key=True)
     term = models.ForeignKey(Term, related_name='taxonomies', blank=True, null=True)
-    #term_id = models.IntegerField()
     name = models.CharField(max_length=32)
     description = models.TextField()
     parent_id = models.IntegerField(default=0)
@@ -335,12 +337,12 @@ class Taxonomy(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         try:
             term = self.term
         except Term.DoesNotExist:
             term = ''
-        return u"%s: %s" % (self.name, term)
+        return "{0}: {1}".format(self.name, term)
 
     def parent(self):
         return self._get_object(Taxonomy, self.parent_id)

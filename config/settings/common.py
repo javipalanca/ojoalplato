@@ -37,9 +37,9 @@ DJANGO_APPS = (
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
-    'allauth',  # registration
-    'allauth.account',  # registration
-    'allauth.socialaccount',  # registration
+    # 'allauth',  # registration
+    # 'allauth.account',  # registration
+    # 'allauth.socialaccount',  # registration
     'reversion',
     'redactor',
     'suit_redactor',
@@ -263,17 +263,15 @@ ADMIN_URL = r'^admin/'
 # DJANGO SUIT CONFIGURATION
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Ojoalplato',
-    'MENU_ICONS': {
-        'auth': 'icon-lock',
-        'blog': 'icon-pencil',
-        'sites': 'icon-leaf',
-        'conference': 'icon-globe',
-        'proposals': 'icon-inbox',
-        'schedule': 'icon-calendar',
-        'speakers': 'icon-bullhorn',
-        'sponsorship': 'icon-briefcase',
-        'attendees': 'icon-user',
-    }
+    'MENU': (
+        {'app': 'auth', 'icon':'icon-lock'},
+        {'app': 'users', 'label': 'Usuarios', 'icon':'icon-user'},
+        {'app': 'blog', 'label': 'Blog', 'icon':'icon-pencil'},
+        {'app': 'category', 'label': 'Categorías', 'icon':'icon-inbox'},
+        {'app': 'taggit', 'label': 'Etiquetas', 'icon':'icon-tags'},
+        {'app': 'sites', 'icon':'icon-globe'},
+    ),
+    'CONFIRM_UNSAVED_CHANGES': True,
 }
 # END DJANGO SUIT CONFIGURATION
 
