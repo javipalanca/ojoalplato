@@ -21,5 +21,5 @@ class Category(CategoryBase):
         return settings.MEDIA_URL + relative
 
     class Meta:
-        verbose_name_plural = 'categories'
-
+        verbose_name_plural = 'Categorías'
+        verbose_name = 'Categoría'
