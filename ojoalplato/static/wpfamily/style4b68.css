@@ -2647,18 +2647,17 @@ body.grey #cboxOverlay {
   cursor: pointer;
 }
 
-
 /* My own style */
-.pagination>li>a {
+.pagination > li > a {
   color: chocolate;
   border: 1px solid #ddd;
 }
 
-.pagination>li>a:hover {
+.pagination > li > a:hover {
   color: #d2753f
 }
 
-.pagination>.active>a {
+.pagination > .active > a {
   border: 1px solid #ddd;
   background-color: chocolate;
 }
@@ -2666,6 +2665,7 @@ body.grey #cboxOverlay {
 .social-button {
   color: white;
 }
+
 .pull-20px-left {
   margin-left: 20px;
 }
@@ -2703,12 +2703,16 @@ body.grey #cboxOverlay {
 }
 
 a.badge {
-    text-decoration: none;
-    color: white;
-    font-weight: 100;
+  text-decoration: none;
+  color: white;
+  font-weight: 100;
 }
 
 a.author {
   color: #b0ab92;
   text-decoration: underline;
+}
+
+.login-link {
+  font-size: 15px;
 }

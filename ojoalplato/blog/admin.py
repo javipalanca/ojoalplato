@@ -25,7 +25,25 @@ class PostAdmin(VersionAdmin):
     form = PostChangeForm
     list_filter = ['title', 'author', 'status']
     list_display = ['title', 'author']
-    inlines = [PostMetaAdmin]
+    advanced_options = ['guid', 'post_type', 'excerpt', 'content_filtered', 'post_date', 'modified',
+                        'comment_status', 'comment_count', 'ping_status', 'to_ping', 'pinged',
+                        'password', 'parent_id', 'menu_order', 'mime_type']
+    fieldsets = (
+        (None, {
+            'fields': ('status', 'title', 'slug', 'author', 'category', 'tags', 'content')
+        }),
+    )
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            self.inlines = [PostMetaAdmin]
+            self.fieldsets = (self.fieldsets[0],
+                              ('Opciones avanzadas', {
+                                  'classes': ('collapse',),
+                                  'fields': tuple(self.advanced_options),
+                              }),
+                              )
+        return super(PostAdmin, self).get_form(request, obj, **kwargs)
 
 
 @admin.register(Comment)
@@ -36,6 +54,7 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(Term)
 class TermAdmin(VersionAdmin):
     pass
+
 
 @admin.register(Taxonomy)
 class TaxonomyAdmin(VersionAdmin):

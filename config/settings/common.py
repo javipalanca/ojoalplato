@@ -32,7 +32,12 @@ DJANGO_APPS = (
     # 'django.contrib.humanize',
 
     # Admin
-    'suit',
+    # 'suit',
+    # 'material',
+    # 'material.admin',
+    'admin_bootstrapped_plus',
+    'django_admin_bootstrapped',
+    'bootstrap3',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -40,9 +45,11 @@ THIRD_PARTY_APPS = (
     # 'allauth',  # registration
     # 'allauth.account',  # registration
     # 'allauth.socialaccount',  # registration
+    'mptt',
+    'guardian',
     'reversion',
     'redactor',
-    'suit_redactor',
+    # 'suit_redactor',
     'django_social_share',
     'categories',
     'categories.editor',
@@ -218,6 +225,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
 )
 
 # Some really nice defaults
@@ -287,3 +295,7 @@ DISQUS_WEBSITE_SHORTNAME = 'ojoalplato'
 # Taggit settings
 # ------------------------------------------------------------------------------
 TAGGIT_CASE_INSENSITIVE = True
+
+SESSION_COOKIE_NAME = "ojoalplato_cookie"
+
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'

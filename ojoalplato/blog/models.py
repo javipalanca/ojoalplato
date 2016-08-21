@@ -18,10 +18,10 @@ STATUS_CHOICES = (
 )
 
 POST_STATUS_CHOICES = (
-    ('draft', 'draft'),
-    ('inherit', 'inherit'),
-    ('private', 'private'),
-    ('publish', 'publish'),
+    ('draft', 'borrador'),
+    #('inherit', 'inherit'),
+    #('private', 'private'),
+    ('publish', 'publicado'),
 )
 
 POST_TYPE_CHOICES = (
@@ -120,18 +120,18 @@ class Post(models.Model):
 
     # post data
     guid = models.CharField(max_length=255)
-    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES)
-    status = models.CharField(max_length=20, choices=POST_STATUS_CHOICES)
-    title = models.TextField()
-    slug = models.SlugField(max_length=200)
-    author = models.ForeignKey(User, related_name='posts', blank=True, null=True)
+    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="draft")
+    status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
+    title = models.CharField(verbose_name="Título", max_length=500)
+    slug = models.SlugField(verbose_name="Slug", max_length=200)
+    author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True)
     excerpt = models.TextField(blank=True)
-    content = models.TextField()
+    content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True,
-                                 verbose_name="Categorías")
+                                 verbose_name="Categoría")
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
                            blank=True)
