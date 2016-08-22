@@ -65,3 +65,4 @@ django-social-share
 django-categories
 django-taggit
 django-taggit-autosuggest
+git+http://github.com/javipalanca/django-admin-bootstrapped.git
