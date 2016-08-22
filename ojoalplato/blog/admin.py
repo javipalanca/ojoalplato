@@ -1,3 +1,4 @@
+import floppyforms
 from django.contrib import admin
 from django import forms
 from redactor.widgets import RedactorEditor
@@ -11,11 +12,16 @@ class PostMetaAdmin(admin.TabularInline):
     model = PostMeta
 
 
+class ImageThumbnailFileInput(floppyforms.ClearableFileInput):
+    template_name = 'image_thumbnail.html'
+
+
 class PostChangeForm(forms.ModelForm):
     class Meta:
         model = Post
         widgets = {
             'content': RedactorEditor(),
+            'image_header': ImageThumbnailFileInput,
         }
         fields = '__all__'
 
@@ -30,7 +36,7 @@ class PostAdmin(VersionAdmin):
                         'password', 'parent_id', 'menu_order', 'mime_type']
     fieldsets = (
         (None, {
-            'fields': ('status', 'title', 'slug', 'author', 'category', 'tags', 'content')
+            'fields': ('status', 'title', 'slug', 'author', 'tags', 'category', 'image_header', 'content')
         }),
     )
 

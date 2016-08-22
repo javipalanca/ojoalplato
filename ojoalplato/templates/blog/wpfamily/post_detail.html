@@ -16,7 +16,11 @@
 
         </div-->
         <div class="featured-image"
-             style="background-image:url('{{ post.content|first_img }}'); background-position: center top;">
+                 {% if post.image_header %}
+                 style="background-image:url('{{ post.image_header.url|relative_url }}');"
+                 {% else %}
+                 style="background-image:url('{{ post.content|first_img }}'); background-position: center top;"
+                 {% endif %}
             <a href="{{ post.get_absolute_url }}"><img
                     src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
         </div>

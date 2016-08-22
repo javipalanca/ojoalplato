@@ -5,7 +5,9 @@ import collections
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import ImageField
 from django.db.models import Q
+from django.conf import settings
 
 from taggit_autosuggest.managers import TaggableManager
 
@@ -19,8 +21,8 @@ STATUS_CHOICES = (
 
 POST_STATUS_CHOICES = (
     ('draft', 'borrador'),
-    #('inherit', 'inherit'),
-    #('private', 'private'),
+    # ('inherit', 'inherit'),
+    # ('private', 'private'),
     ('publish', 'publicado'),
 )
 
@@ -38,7 +40,7 @@ class PostManager(models.Manager):
     """
 
     def _by_status(self, status, post_type='post'):
-        return self.filter(status=status, post_type=post_type)\
+        return self.filter(status=status, post_type=post_type) \
             .select_related().prefetch_related('meta')
 
     def drafts(self, post_type='post'):
@@ -99,7 +101,6 @@ class PostManager(models.Manager):
 
 
 class TermTaxonomyRelationship(models.Model):
-
     object = models.ForeignKey('Post')
     term_taxonomy = models.ForeignKey('Taxonomy', related_name='relationships')
     order = models.IntegerField()
@@ -136,6 +137,11 @@ class Post(models.Model):
                            help_text="Lista de etiquetas separadas por comas.",
                            blank=True)
 
+    image_header = ImageField(
+        verbose_name="Imagen de cabecera",
+        upload_to=settings.MEDIA_ROOT,
+        null=True, blank=True, )
+
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     comment_count = models.IntegerField(default=0)
@@ -147,7 +153,7 @@ class Post(models.Model):
 
     # statuses
     password = models.CharField(max_length=20, blank=True)
-#    category_id = models.IntegerField(db_column='post_category')
+    #    category_id = models.IntegerField(db_column='post_category')
 
     # other various lame fields
     parent_id = models.IntegerField(default=0)
@@ -312,7 +318,6 @@ class Comment(models.Model):
 
 
 class Term(models.Model):
-
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=200)
     slug = models.CharField(max_length=200)
@@ -326,7 +331,6 @@ class Term(models.Model):
 
 
 class Taxonomy(models.Model):
-
     id = models.IntegerField(primary_key=True)
     term = models.ForeignKey(Term, related_name='taxonomies', blank=True, null=True)
     name = models.CharField(max_length=32)
@@ -346,5 +350,3 @@ class Taxonomy(models.Model):
 
     def parent(self):
         return self._get_object(Taxonomy, self.parent_id)
-
-

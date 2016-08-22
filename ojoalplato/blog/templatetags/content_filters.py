@@ -63,6 +63,17 @@ def first_img(post):
 
 
 @register.filter()
+def relative_url(url):
+    try:
+        relative = url.split(settings.MEDIA_ROOT)[1]
+    except IndexError:
+        relative = url
+    if relative.startswith("/"):
+        relative = relative[1:]
+    return settings.MEDIA_URL + relative
+
+
+@register.filter()
 def cat_img(category):
     images = {
         "restaurantes": "restaurant4.jpg",
