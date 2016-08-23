@@ -2716,3 +2716,11 @@ a.author {
 .login-link {
   font-size: 15px;
 }
+
+a.btn-edit {
+  color: #333;
+  border: 1px solid;
+  border-color: #ccc;
+  border-radius: 4px;
+  font-weight: 400;
+}

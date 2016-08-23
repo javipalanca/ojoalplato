@@ -169,6 +169,8 @@ class Post(models.Model):
     class Meta:
         get_latest_by = 'post_date'
         ordering = ["-post_date"]
+        verbose_name= "Artículo"
+        verbose_name_plural = "Artículos"
 
     def __str__(self):
         return self.title

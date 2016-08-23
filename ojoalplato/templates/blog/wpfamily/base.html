@@ -150,7 +150,13 @@
 {% block footer %}
     <footer id="colophon" class="site-footer" role="contentinfo">
         <div class="site-info">
-            &copy; Copyright {% now "Y" %}. Ojoalplato.com<span class="login-link pull-right"><a href="">Login</a></span></div>
+            &copy; Copyright {% now "Y" %}. Ojoalplato.com<span class="login-link pull-right">
+            {% if not user.is_authenticated %}
+            <a href="{% url 'admin:index' %}">Login</a>
+            {% else %}
+             <a href="{% url 'admin:index' %}">Administración</a>&nbsp;|&nbsp;<a href="{% url 'admin:logout' %}">Salir</a>
+            {% endif %}
+        </span></div>
     </footer><!-- #colophon -->
 {% endblock footer %}
 

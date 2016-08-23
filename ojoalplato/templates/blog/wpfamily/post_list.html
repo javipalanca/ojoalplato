@@ -55,7 +55,12 @@
                                             datetime="2016-01-22T04:13:54+00:00">{{ post.post_date|date:"j \\d\\e F \\d\\e Y" }}</time><time
                         class="updated"
                         datetime="2016-02-13T15:37:18+00:00">{{ post.post_date }}</time>
-                    por <a class="author" href="{% url 'author-list' post.author.username %}">{{ post.author.name }}</a></span></div>
+                    por <a class="author" href="{% url 'author-list' post.author.username %}">
+                            {{ post.author.name }}</a></span>
+                    {% if user.is_superuser or user.is_staff%}
+                        &nbsp;&nbsp;<a href="{% url 'admin:blog_post_change' post.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% endif %}
+                    </div>
 
                     {% for tag in post.tags.all %}
                         <a href="{% url 'tag-list' tag.slug %}" class="badge">{{ tag.name }}</a>

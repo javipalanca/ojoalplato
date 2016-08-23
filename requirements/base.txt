@@ -30,7 +30,7 @@ django-allauth==0.26.1
 
 # Python-PostgreSQL Database Adapter
 #psycopg2==2.6.2
-mysqlclient
+#mysqlclient
 
 # Unicode slugification
 unicode-slugify==0.1.3
@@ -66,3 +66,6 @@ django-categories
 django-taggit
 django-taggit-autosuggest
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
+django-admin-bootstrapped-plus
+django-bootstrap3
+django-guardian==1.4.5
