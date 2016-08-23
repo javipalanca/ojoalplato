@@ -16,6 +16,7 @@ urlpatterns = [
     # url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
+    url(r'^adminactions/', include('adminactions.urls')),
 
     # User management
     # url(r'^users/', include('ojoalplato.users.urls', namespace='users')),

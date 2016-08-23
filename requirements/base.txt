@@ -69,3 +69,4 @@ git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus
 django-bootstrap3
 django-guardian==1.4.5
+django-adminactions

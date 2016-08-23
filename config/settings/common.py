@@ -32,6 +32,7 @@ DJANGO_APPS = (
     # 'django.contrib.humanize',
 
     # Admin
+    'adminactions',
     # 'suit',
     # 'material',
     # 'material.admin',

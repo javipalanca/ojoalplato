@@ -7,6 +7,12 @@ from reversion.admin import VersionAdmin
 
 from ojoalplato.blog.models import Post, PostMeta, Comment, Term, Taxonomy
 
+from django.contrib.admin import site
+import adminactions.actions as actions
+
+# register all adminactions
+actions.add_to_site(site)
+
 
 class PostMetaAdmin(admin.TabularInline):
     model = PostMeta
