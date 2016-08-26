@@ -6,6 +6,11 @@ ENV PYTHONUNBUFFERED 1
 COPY ./requirements /requirements
 RUN pip install -r /requirements/local.txt
 
+# Install spatialite
+RUN apt-get update && apt-get install --no-install-recommends -y \
+	spatialite-bin \
+	&& rm -rf /var/lib/apt/lists/*
+
 COPY ./compose/django/entrypoint.sh /entrypoint.sh
 RUN sed -i 's/\r//' /entrypoint.sh
 RUN chmod +x /entrypoint.sh

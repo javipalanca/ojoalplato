@@ -13,9 +13,11 @@ class Category(CategoryBase):
         default=settings.MEDIA_ROOT + "uncategorized.gif",
         null=True, blank=True,)
 
+    @property
     def thumbnail_url(self):
         url = self.thumbnail.url
-        relative = url.split(settings.MEDIA_ROOT)[1]
+        split = "/media/"
+        relative = url.split(split)[1]
         if relative.startswith("/"):
             relative = relative[1:]
         return settings.MEDIA_URL + relative

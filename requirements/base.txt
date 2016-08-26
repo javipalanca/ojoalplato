@@ -70,3 +70,8 @@ django-admin-bootstrapped-plus
 django-bootstrap3
 django-guardian==1.4.5
 django-adminactions
+django-likert-field
+django-phonenumber-field
+django_select2
+django-fontawesome
+

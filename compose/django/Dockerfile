@@ -5,6 +5,11 @@ ENV PYTHONUNBUFFERED 1
 # Requirements have to be pulled and installed here, otherwise caching won't work
 COPY ./requirements /requirements
 
+# Install spatialite
+RUN apt-get update && apt-get install --no-install-recommends -y \
+	spatialite-bin \
+	&& rm -rf /var/lib/apt/lists/*
+
 RUN pip install -r /requirements/production.txt \
     && groupadd -r django \
     && useradd -r -g django django

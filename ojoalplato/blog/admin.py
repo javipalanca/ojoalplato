@@ -5,7 +5,7 @@ from redactor.widgets import RedactorEditor
 
 from reversion.admin import VersionAdmin
 
-from ojoalplato.blog.models import Post, PostMeta, Comment, Term, Taxonomy
+from .models import Post, PostMeta, Comment, Term, Taxonomy
 
 from django.contrib.admin import site
 import adminactions.actions as actions
@@ -42,7 +42,9 @@ class PostAdmin(VersionAdmin):
                         'password', 'parent_id', 'menu_order', 'mime_type']
     fieldsets = (
         (None, {
-            'fields': ('status', 'title', 'slug', 'author', 'tags', 'category', 'image_header', 'content')
+            'fields': ('status', 'title', 'slug', 'author', 'tags', 'category',
+                       'restaurant_card', 'wine_card', 'recipe_card',
+                       'image_header', 'content')
         }),
     )
 

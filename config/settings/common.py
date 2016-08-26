@@ -27,6 +27,7 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
 
     # Useful template tags:
     # 'django.contrib.humanize',
@@ -57,6 +58,7 @@ THIRD_PARTY_APPS = (
     'categories.editor',
     'taggit',
     'taggit_autosuggest',
+    'likert_field',
     'wordpress',
 )
 
@@ -67,6 +69,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'ojoalplato.blog',
     'ojoalplato.category',
+    'ojoalplato.cards',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -124,7 +127,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///ojoalplato'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -262,24 +264,23 @@ else:
 
 # django-compressor
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ("compressor", )
-STATICFILES_FINDERS += ("compressor.finders.CompressorFinder", )
+INSTALLED_APPS += ("compressor",)
+STATICFILES_FINDERS += ("compressor.finders.CompressorFinder",)
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
-
 
 # Your common stuff: Below this line define 3rd party library settings
 # DJANGO SUIT CONFIGURATION
 SUIT_CONFIG = {
     'ADMIN_NAME': 'Ojoalplato',
     'MENU': (
-        {'app': 'auth', 'icon':'icon-lock'},
-        {'app': 'users', 'label': 'Usuarios', 'icon':'icon-user'},
-        {'app': 'blog', 'label': 'Blog', 'icon':'icon-pencil'},
-        {'app': 'category', 'label': 'Categorías', 'icon':'icon-inbox'},
-        {'app': 'taggit', 'label': 'Etiquetas', 'icon':'icon-tags'},
-        {'app': 'sites', 'icon':'icon-globe'},
+        {'app': 'auth', 'icon': 'icon-lock'},
+        {'app': 'users', 'label': 'Usuarios', 'icon': 'icon-user'},
+        {'app': 'blog', 'label': 'Blog', 'icon': 'icon-pencil'},
+        {'app': 'category', 'label': 'Categorías', 'icon': 'icon-inbox'},
+        {'app': 'taggit', 'label': 'Etiquetas', 'icon': 'icon-tags'},
+        {'app': 'sites', 'icon': 'icon-globe'},
     ),
     'CONFIRM_UNSAVED_CHANGES': True,
 }

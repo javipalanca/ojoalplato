@@ -5,12 +5,16 @@ import collections
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models import ForeignKey
 from django.db.models import ImageField
 from django.db.models import Q
 from django.conf import settings
+from model_utils.fields import MonitorField
+from model_utils.models import TimeStampedModel
 
 from taggit_autosuggest.managers import TaggableManager
 
+from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
 
@@ -109,7 +113,7 @@ class TermTaxonomyRelationship(models.Model):
         ordering = ['order']
 
 
-class Post(models.Model):
+class Post(TimeStampedModel):
     """
     The mother lode.
     The WordPress post.
@@ -130,7 +134,8 @@ class Post(models.Model):
     content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
-    modified = models.DateTimeField(blank=True, null=True)
+    published_at = MonitorField(monitor='status', when=['publish'])
+    modified_date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True,
                                  verbose_name="Categoría")
     tags = TaggableManager(verbose_name="Etiquetas",
@@ -141,6 +146,10 @@ class Post(models.Model):
         verbose_name="Imagen de cabecera",
         upload_to=settings.MEDIA_ROOT,
         null=True, blank=True, )
+
+    restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante", blank=True, null=True)
+    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", blank=True, null=True)
+    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", blank=True, null=True)
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
