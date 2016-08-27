@@ -3,6 +3,7 @@
 # See http://bitly.com/wheel-building-fails-CPython-35
 # Verified bug on Python 3.5.1
 wheel==0.29.0
+conda
 
 # Bleeding edge Django
 django==1.9.8
@@ -72,6 +73,5 @@ django-guardian==1.4.5
 django-adminactions
 django-likert-field
 django-phonenumber-field
-django_select2
-django-fontawesome
+geopy
 

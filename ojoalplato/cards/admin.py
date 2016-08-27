@@ -1,10 +1,12 @@
 from django import forms
 from django.contrib import admin
+from django.contrib.gis.geos import Point
+from geopy import Nominatim, GoogleV3
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from reversion.admin import VersionAdmin
 
 from .widgets import WeekdayWidget, StarsWidget, PointWidget
-from . import DAY_CHOICES
+from . import DAY_CHOICES, DEFAULT_WGS84_SRID
 from .models import Restaurant, Wine, Recipe
 
 
@@ -18,6 +20,22 @@ class RestaurantAdminForm(forms.ModelForm):
             'stars': StarsWidget(),
         }
         fields = '__all__'
+
+    def clean(self):
+        cleaned_data = super(RestaurantAdminForm, self).clean()
+        address = cleaned_data.get("address")
+        location = cleaned_data.get("location")
+
+        if address and self.instance.address != address:
+            if location == self.instance.location:
+                geolocator = GoogleV3()
+                location = geolocator.geocode(address)
+                if location:
+                    point = Point((location.point.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
+                    cleaned_data["location"] = point
+
+        # Always return the full collection of cleaned data.
+        return cleaned_data
 
 
 @admin.register(Restaurant)
