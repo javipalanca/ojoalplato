@@ -3,6 +3,7 @@
 # Bootstrap glyphicon stars ver 2
 from django import forms
 from django.utils.safestring import mark_safe
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from six import string_types
 import floppyforms
 
@@ -15,6 +16,14 @@ star_set_2 = {
 
 class PointWidget(floppyforms.gis.PointWidget, floppyforms.gis.BaseOsmWidget):
     pass
+
+
+class PhoneNumberWidget(PhoneNumberPrefixWidget):
+    def value_from_datadict(self, data, files, name):
+        values = super(PhoneNumberPrefixWidget, self).value_from_datadict(data, files, name)
+        if not any(values):
+            return None
+        return '%s.%s' % tuple(values)
 
 
 def render_stars(num, max_stars, star_set):

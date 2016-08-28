@@ -2,11 +2,10 @@ from django import forms
 from django.forms import widgets
 from django.contrib import admin
 from django.contrib.gis.geos import Point
-from geopy import Nominatim, GoogleV3
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from geopy import GoogleV3
 from reversion.admin import VersionAdmin
 
-from .widgets import WeekdayWidget, StarsWidget, PointWidget
+from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget
 from . import DAY_CHOICES, DEFAULT_WGS84_SRID
 from .models import Restaurant, Wine, Recipe
 
@@ -17,7 +16,7 @@ class RestaurantAdminForm(forms.ModelForm):
         widgets = {
             'location': PointWidget(),
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
-            'phone': PhoneNumberPrefixWidget,
+            'phone': PhoneNumberWidget(),
             'stars': StarsWidget(),
             'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder':'€ sin vino'}),
             'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder':'€ medio'}),
@@ -35,7 +34,7 @@ class RestaurantAdminForm(forms.ModelForm):
                 geolocator = GoogleV3()
                 location = geolocator.geocode(address)
                 if location:
-                    point = Point((location.point.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
+                    point = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
                     cleaned_data["location"] = point
 
         # Always return the full collection of cleaned data.
