@@ -29,7 +29,7 @@ def render_stars(num, max_stars, star_set):
     _input = '<input class="vIntegerField" id="id_stars" name="stars" value="{}" '.format(num)
     _input += 'title="" type="number" data-original-title="" min=0 max=3 style="width: 50px;">'
     if num is None or (isinstance(num, string_types) and len(num) == 0):
-        return '<span>'+ _input + "&nbsp;" + star_set['noanswer']+'</span>'
+        return '<span>' + _input + "&nbsp;" + star_set['noanswer'] + '</span>'
 
     difference = int(max_stars) - int(num)
     if difference < 0:

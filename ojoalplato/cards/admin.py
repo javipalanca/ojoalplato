@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import widgets
 from django.contrib import admin
 from django.contrib.gis.geos import Point
 from geopy import Nominatim, GoogleV3
@@ -18,6 +19,9 @@ class RestaurantAdminForm(forms.ModelForm):
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
             'phone': PhoneNumberPrefixWidget,
             'stars': StarsWidget(),
+            'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder':'€ sin vino'}),
+            'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder':'€ medio'}),
+            'menu_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder':'€ menu'}),
         }
         fields = '__all__'
 
@@ -60,5 +64,3 @@ class WineAdmin(VersionAdmin):
 class RecipeAdmin(VersionAdmin):
     list_filter = ['name']
     list_display = ['name']
-
-

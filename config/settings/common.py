@@ -302,3 +302,5 @@ TAGGIT_CASE_INSENSITIVE = True
 SESSION_COOKIE_NAME = "ojoalplato_cookie"
 
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+
+ADMIN_SITE_HEADER = 'Administración de Ojo al plato'

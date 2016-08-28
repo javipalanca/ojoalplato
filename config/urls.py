@@ -9,6 +9,8 @@ from django.views import defaults as default_views
 
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
 
+admin.site.site_header = settings.ADMIN_SITE_HEADER
+
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^$', PostList.as_view(), name='home'),
