@@ -59,6 +59,7 @@ THIRD_PARTY_APPS = (
     'taggit',
     'taggit_autosuggest',
     'likert_field',
+    'leaflet',
     'wordpress',
 )
 
@@ -304,3 +305,10 @@ SESSION_COOKIE_NAME = "ojoalplato_cookie"
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
 ADMIN_SITE_HEADER = 'Administración de Ojo al plato'
+
+LEAFLET_CONFIG = {
+    # conf here
+    'DEFAULT_CENTER': (40.383, -3.716),
+    'DEFAULT_ZOOM': 6,
+    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+}

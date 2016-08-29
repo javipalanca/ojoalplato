@@ -34,6 +34,9 @@ urlpatterns = [
     # Category app
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
 
+    # Cards app
+    url(r'^cards/', include('ojoalplato.cards.urls', namespace='cards')),
+
     # Your stuff: custom urls includes go here
     url(r'^redactor/', include('redactor.urls')),
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),

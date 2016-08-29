@@ -74,4 +74,4 @@ django-adminactions
 django-likert-field
 django-phonenumber-field
 geopy
-
+django-leaflet

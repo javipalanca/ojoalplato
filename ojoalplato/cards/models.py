@@ -1,4 +1,7 @@
+from copy import copy
 from django.contrib.gis.db.models import PointField
+from django.contrib.gis.gdal import CoordTransform
+from django.contrib.gis.gdal import SpatialReference
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, PositiveSmallIntegerField, BooleanField
 from likert_field.models import LikertField
@@ -6,7 +9,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from model_utils.models import TimeStampedModel
 from taggit_autosuggest.managers import TaggableManager
 
-from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DAY_CHOICES
+from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DAY_CHOICES, DEFAULT_WGS84_SRID
 
 
 class Restaurant(TimeStampedModel):
@@ -25,6 +28,16 @@ class Restaurant(TimeStampedModel):
                          max_length=80, blank=True, null=True)
     is_closed = BooleanField(verbose_name="Restaurante cerrado", default=False)
     notes = TextField(verbose_name="Notas", blank=True, null=True)
+
+    def get_position_wgs84(self):
+        """Transforms position to WGS-84 system."""
+        destination_coord = SpatialReference(DEFAULT_WGS84_SRID)
+        origin_coord = SpatialReference(DEFAULT_PROJECTED_SRID)
+        trans = CoordTransform(origin_coord, destination_coord)
+        # Copy transformed point...
+        position = copy(self.location)
+        position.transform(trans)
+        return [position[1], position[0]]
 
     def __str__(self):
         return self.name
