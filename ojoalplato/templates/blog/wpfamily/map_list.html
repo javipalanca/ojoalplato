@@ -46,7 +46,10 @@
             var detail = e.detail;
             detail.map.scrollWheelZoom.disable();
             {% for rest in object_list %}
-                L.marker({{ rest.get_position_wgs84 }}, {icon: restIcon}).addTo(detail.map);
+                L.marker({{ rest.get_position_wgs84 }}, {icon: restIcon}).addTo(detail.map)
+                .bindPopup("<b>{{ rest.name }}</b> <br>\{% for post in rest.posts.all %}
+                <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a><br>\{% endfor %}
+                ");
             {% endfor %}
         }, false);
     </script>

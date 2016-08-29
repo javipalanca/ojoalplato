@@ -147,9 +147,10 @@ class Post(TimeStampedModel):
         upload_to=settings.MEDIA_ROOT,
         null=True, blank=True, )
 
-    restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante", blank=True, null=True)
-    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", blank=True, null=True)
-    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", blank=True, null=True)
+    restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante",
+                                 related_name="posts", blank=True, null=True)
+    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True)
+    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True)
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES)

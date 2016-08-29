@@ -3,6 +3,7 @@ from django.contrib.gis.geos import Point
 from django.core.management import BaseCommand
 from geopy import Nominatim
 
+from ojoalplato.blog.models import Post
 from ojoalplato.cards import DEFAULT_WGS84_SRID
 from ojoalplato.cards.models import Restaurant
 
@@ -17,7 +18,10 @@ class Command(BaseCommand):
         for name, v in d.items():
             if name.startswith("Restaurante "):
                 name = name[len("Restaurante "):].strip()
-            r = Restaurant(name=name)
+            try:
+                r = Restaurant.objects.get(name=name)
+            except:
+                r = Restaurant(name=name)
             position_point = Point(v['x'], v['y'], srid=DEFAULT_WGS84_SRID)
             location = position_point
             if 'post_id' in v:
@@ -30,3 +34,16 @@ class Command(BaseCommand):
             r.save()
             r.location = location
             r.save()
+
+            if r.notes:
+                for t in r.notes.split("<br>"):
+                    if "archives/" in t:
+                        post_id = t.split("archives/")[1]
+                        if "#" in post_id:
+                            post_id = post_id.split("#")[0]
+                        try:
+                            post = Post.objects.get(id=post_id)
+                            post.restaurant_card = r
+                            post.save()
+                        except:
+                            pass
