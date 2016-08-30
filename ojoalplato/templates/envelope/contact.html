@@ -1,0 +1,25 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load envelope_tags crispy_forms_tags %}
+
+{% block content %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="text-{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <article id="contact" class="hentry" style="background-color: transparent;">
+
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            {% antispam_fields %}
+            {% crispy form %}
+        </form>
+
+    </article>
+{% endblock content %}

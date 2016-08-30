@@ -2,6 +2,7 @@
 import datetime
 
 import collections
+from autoslug import AutoSlugField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -128,7 +129,7 @@ class Post(TimeStampedModel):
     post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="draft")
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
-    slug = models.SlugField(verbose_name="Slug", max_length=200)
+    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True)
     excerpt = models.TextField(blank=True)
     content = models.TextField(verbose_name="Contenido")

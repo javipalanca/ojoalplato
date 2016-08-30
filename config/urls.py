@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.views import defaults as default_views
 
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
+from ojoalplato.contactform.views import ContactFormView
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
@@ -24,6 +25,13 @@ urlpatterns = [
     # url(r'^users/', include('ojoalplato.users.urls', namespace='users')),
     # url(r'^accounts/', include('allauth.urls')),
 
+    # 3rd party apps
+    url(r'^redactor/', include('redactor.urls')),
+    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    url(r'^contact/', ContactFormView.as_view(), name="contact"),
+    url(r'^contact/envelope/', include('envelope.urls')),
+
+
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
     url(r'^archivos/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp'),
@@ -37,9 +45,6 @@ urlpatterns = [
     # Cards app
     url(r'^cards/', include('ojoalplato.cards.urls', namespace='cards')),
 
-    # Your stuff: custom urls includes go here
-    url(r'^redactor/', include('redactor.urls')),
-    url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

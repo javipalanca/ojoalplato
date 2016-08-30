@@ -2724,3 +2724,11 @@ a.btn-edit {
   border-radius: 4px;
   font-weight: 400;
 }
+
+form label {
+  color: chocolate;
+}
+
+.btn-primary:hover {
+  background-color: darkorange;
+}

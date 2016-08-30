@@ -1,3 +1,4 @@
+from autoslug import AutoSlugField
 from copy import copy
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.gdal import CoordTransform
@@ -14,6 +15,7 @@ from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
 
 class Restaurant(TimeStampedModel):
     name = CharField(verbose_name="Nombre", max_length=200)
+    slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     address = CharField(verbose_name="Dirección", max_length=300, blank=True, null=True)
     phone = PhoneNumberField(verbose_name="Teléfono", blank=True, null=True)
     url = URLField(verbose_name="Web", blank=True, null=True)
@@ -49,6 +51,7 @@ class Restaurant(TimeStampedModel):
 
 class Wine(TimeStampedModel):
     name = CharField(verbose_name="Nombre", max_length=200)
+    slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     kind = CharField(verbose_name="Tipo", max_length=50, choices=WINE_KIND_CHOICES)
     last_taste = DateField(verbose_name="Fecha última cata", blank=True, null=True)
     price = CharField(verbose_name="Precio medio", max_length=50, blank=True, null=True)
@@ -64,6 +67,7 @@ class Wine(TimeStampedModel):
 
 class Recipe(TimeStampedModel):
     name = CharField(verbose_name="Nombre", max_length=200)
+    slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     ingredients = TaggableManager(verbose_name="Ingredientes",
                                   help_text="Lista de ingredientes separados por comas.",
                                   blank=True)

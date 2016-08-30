@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+from django.contrib import messages
 
 ROOT_DIR = environ.Path(__file__) - 3  # (ojoalplato/config/settings/common.py - 3 = ojoalplato/)
 APPS_DIR = ROOT_DIR.path('ojoalplato')
@@ -60,6 +61,7 @@ THIRD_PARTY_APPS = (
     'taggit_autosuggest',
     'likert_field',
     'leaflet',
+    'envelope',
     'wordpress',
 )
 
@@ -71,6 +73,7 @@ LOCAL_APPS = (
     'ojoalplato.blog',
     'ojoalplato.category',
     'ojoalplato.cards',
+    'ojoalplato.contactform',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -238,7 +241,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', False)
 ACCOUNT_ADAPTER = 'ojoalplato.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'ojoalplato.users.adapters.SocialAccountAdapter'
 
@@ -270,6 +273,14 @@ STATICFILES_FINDERS += ("compressor.finders.CompressorFinder",)
 
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger' # 'error' by default
+}
 
 # Your common stuff: Below this line define 3rd party library settings
 # DJANGO SUIT CONFIGURATION
@@ -313,3 +324,7 @@ LEAFLET_CONFIG = {
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     'RESET_VIEW': True,
 }
+
+# Envelope config
+DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
+ENVELOPE_SUBJECT_INTRO = "[Ojoalplato]"
