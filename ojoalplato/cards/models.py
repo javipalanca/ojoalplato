@@ -9,7 +9,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from model_utils.models import TimeStampedModel
 from taggit_autosuggest.managers import TaggableManager
 
-from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DAY_CHOICES, DEFAULT_WGS84_SRID
+from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
 
 
 class Restaurant(TimeStampedModel):

@@ -144,6 +144,7 @@ class Post(TimeStampedModel):
 
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
+        help_text="Imagen de 850px x 398px",
         upload_to=settings.MEDIA_ROOT,
         null=True, blank=True, )
 

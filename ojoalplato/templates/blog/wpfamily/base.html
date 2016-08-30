@@ -32,7 +32,8 @@
         <link rel='stylesheet' id='wp-family-blog-style-css' href='{% static "wpfamily/style4b68.css" %}'
               type='text/css' media='all'/>
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel='stylesheet' href='{% static "bower_components/bootstrap-social-buttons/social-buttons.css" %}' type='text/css' media='all'/>
+        <link rel='stylesheet' href='{% static "bower_components/bootstrap-social-buttons/social-buttons.css" %}'
+              type='text/css' media='all'/>
         <script type='text/javascript' src='{% static "wpfamily/js/jquery/jqueryb8ff.js" %}'></script>
         <script type='text/javascript' src='{% static "wpfamily/js/jquery/jquery-migrate.min330a.js" %}'></script>
     {% endblock css %}
@@ -68,10 +69,12 @@
                                     href="category/adventures/index.html">Suscribirse</a></li>
                             <li id="menu-item-31"
                                 class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31"><a
-                                    href="category/friends/index.html">Curso de cata de vinos</a></li>
+                                    href="{% url 'post-detail' slug='curso-rapido-de-cata-de-vinos' %}">
+                                Curso de cata de vinos</a></li>
                             <li id="menu-item-104"
                                 class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-104"><a
-                                    href="category/recipes/index.html">Comida del millón</a></li>
+                                    href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
+                                Comida del millón</a></li>
                             <!--li id="menu-item-116"
                                 class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116"><a
                                     href="category/projects/index.html">Projects</a></li-->
@@ -152,9 +155,10 @@
         <div class="site-info">
             &copy; Copyright {% now "Y" %}. Ojoalplato.com<span class="login-link pull-right">
             {% if not user.is_authenticated %}
-            <a href="{% url 'admin:index' %}">Login</a>
+                <a href="{% url 'admin:index' %}">Login</a>
             {% else %}
-             <a href="{% url 'admin:index' %}">Administración</a>&nbsp;|&nbsp;<a href="{% url 'admin:logout' %}">Salir</a>
+                <a href="{% url 'admin:index' %}">Administración</a>&nbsp;|&nbsp;
+                <a href="{% url 'admin:logout' %}">Salir</a>
             {% endif %}
         </span></div>
     </footer><!-- #colophon -->
