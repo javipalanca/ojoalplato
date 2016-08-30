@@ -18,6 +18,7 @@
     "lightbox2": "~2.8.2",
     "jquery-migrate": "^3.0.0",
     "bootstrap-social-buttons": "^1.0.0",
-    "Leaflet.awesome-markers": "leaflet-awesome-markers#^2.0.2"
+    "Leaflet.awesome-markers": "leaflet-awesome-markers#^2.0.2",
+    "leaflet.fullscreen": "^1.4.2"
   }
 }
