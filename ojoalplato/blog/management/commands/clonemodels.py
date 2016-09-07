@@ -143,7 +143,7 @@ class Command(BaseCommand):
 
         for m in PostMeta.objects.using("mysql").all():
             try:
-                meta = BlogPostMeta.using("default").objects.get(id=m.id)
+                meta = BlogPostMeta.objects.using("default").get(id=m.id)
             except ObjectDoesNotExist:
                 meta = BlogPostMeta()
             meta.id = m.id
@@ -159,7 +159,7 @@ class Command(BaseCommand):
 
         for c in Comment.objects.using("mysql").all():
             try:
-                comment = BlogComment.using("default").objects.get(id=c.id)
+                comment = BlogComment.objects.using("default").get(id=c.id)
             except ObjectDoesNotExist:
                 comment = BlogComment()
             comment.id = c.id
