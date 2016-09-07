@@ -7,6 +7,7 @@ Local settings
 - Add Django Debug Toolbar
 - Add django-extensions as app
 """
+import dj_database_url
 
 from .common import *  # noqa
 import socket
@@ -73,12 +74,8 @@ CELERY_ALWAYS_EAGER = True
 
 # Your local stuff: Below this line define 3rd party library settings
 DATABASES = {
-    #'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
-
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.spatialite',
-        'NAME': 'ojoalplato.sqlite',
-    }
+    'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
+    'default': dj_database_url.parse("postgis://ojoalplato:ojoalplato@postgres/ojoalplato"),
 }
 
 WP_TABLE_PREFIX = 'wp_d3r46v'
