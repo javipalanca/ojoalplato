@@ -31,7 +31,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         for u in User.objects.using("mysql").all():
-            user = BlogUser()
+            try:
+                user = BlogUser.objects.using("default").get(username=u.username)
+            except ObjectDoesNotExist:
+                user = BlogUser()
             user.login = u.login
             user.password = u.password
             user.username = u.username
@@ -44,7 +47,10 @@ class Command(BaseCommand):
             user.save(using="default")
 
         for m in UserMeta.objects.using("mysql").all():
-            meta = BlogUserMeta()
+            try:
+                meta = BlogUserMeta.objects.using("default").get(id=m.id)
+            except ObjectDoesNotExist:
+                meta = BlogUserMeta()
             meta.id = m.id
             meta.key = m.key
             meta.value = m.value
@@ -57,7 +63,10 @@ class Command(BaseCommand):
             meta.save(using="default")
 
         for t in Term.objects.using("mysql").all():
-            term = BlogTerm()
+            try:
+                term = BlogTerm.objects.using("default").get(id=t.id)
+            except ObjectDoesNotExist:
+                term = BlogTerm()
             term.id = t.id
             term.name = t.name
             term.slug = t.slug
@@ -65,22 +74,28 @@ class Command(BaseCommand):
             term.save(using="default")
 
         for t in Taxonomy.objects.using("mysql").all():
-            taxonomy = BlogTaxonomy()
+            try:
+                taxonomy = BlogTaxonomy.objects.using("default").get(id=t.id)
+            except ObjectDoesNotExist:
+                taxonomy = BlogTaxonomy()
             taxonomy.id = t.id
             taxonomy.name = t.name
             taxonomy.description = t.description
             taxonomy.parent_id = t.parent_id
             taxonomy.count = t.count
-            id = t.id
+            comment_id = t.id
             try:
-                term = BlogTerm.objects.using("default").get(id=id)
+                term = BlogTerm.objects.using("default").get(id=comment_id)
                 taxonomy.term = term
             except ObjectDoesNotExist:
                 pass
             taxonomy.save(using="default")
 
         for p in Post.objects.using("mysql").filter(status="publish"):
-            post = BlogPost()
+            try:
+                post = BlogPost.objects.using("default").get(id=p.id)
+            except ObjectDoesNotExist:
+                post = BlogPost()
             post.id = p.id
             post.guid = p.guid
             post.post_type = p.post_type
@@ -120,30 +135,41 @@ class Command(BaseCommand):
 
             for tt in p.terms.all():
                 taxonomy = BlogTaxonomy.objects.get(id=tt.id)
-                m1 = BlogTermTaxonomyRelationship(object=post, term_taxonomy=taxonomy, order=0)
+                try:
+                    m1 = BlogTermTaxonomyRelationship.objects.get(object=post, term_taxonomy=taxonomy, order=0)
+                except ObjectDoesNotExist:
+                    m1 = BlogTermTaxonomyRelationship(object=post, term_taxonomy=taxonomy, order=0)
                 m1.save(using="default")
 
         for m in PostMeta.objects.using("mysql").all():
-            meta = BlogPostMeta()
+            try:
+                meta = BlogPostMeta.objects.using("default").get(id=m.id)
+            except ObjectDoesNotExist:
+                meta = BlogPostMeta()
             meta.id = m.id
             meta.key = m.key
             meta.value = m.value
             try:
-                id = m.post.id
-                post = BlogPost.objects.using("default").get(id=id)
+                comment_id = m.post.id
+                post = BlogPost.objects.using("default").get(id=comment_id)
                 meta.post = post
             except ObjectDoesNotExist:
                 pass
             meta.save(using="default")
 
         for c in Comment.objects.using("mysql").all():
-            comment = BlogComment()
+            try:
+                comment = BlogComment.objects.using("default").get(id=c.id)
+            except ObjectDoesNotExist:
+                comment = BlogComment()
             comment.id = c.id
             try:
                 user = BlogUser.objects.using("default").get(id=c.user_id)
                 comment.user = user
             except ObjectDoesNotExist:
-                pass
+                user = BlogUser()
+                user.id = c.user_id
+                user.save(using="default")
             comment.parent_id = c.parent_id
 
             # author fields
@@ -162,8 +188,8 @@ class Command(BaseCommand):
             comment.agent = c.agent
             comment.comment_type = c.comment_type
             try:
-                id = c.id
-                post = BlogPost.objects.using("default").get(id=id)
+                comment_id = c.id
+                post = BlogPost.objects.using("default").get(id=comment_id)
                 comment.post = post
             except ObjectDoesNotExist:
                 pass
@@ -172,7 +198,7 @@ class Command(BaseCommand):
 
         # migrate Categories and Tags
         for p in Post.objects.using("mysql").filter(status="publish"):
-            post = BlogPost.objects.get(id=p.id)
+            post = BlogPost.objects.using("default").get(id=p.id)
             print(p.title)
 
             terms = get_terms(p)
@@ -190,7 +216,7 @@ class Command(BaseCommand):
                 if category_str in trans.keys():
                     category_str = trans[category_str]
                 try:
-                    category = Category.objects.get(name=category_str)
+                    category = Category.objects.using("default").get(name=category_str)
                 except ObjectDoesNotExist:
                     category = Category(name=category_str)
                     category.save(using="default")
