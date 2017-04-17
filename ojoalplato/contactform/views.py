@@ -10,3 +10,4 @@ class ContactFormView(FormMessagesMixin, ContactView):
     form_valid_message = _(u"Gracias por su mensaje.")
     form_invalid_message = _(u"Se ha encontrado un error en el formulario de contacto.")
     form_class = ContactForm
+    template_name_html = "envelope/email_body.html"

@@ -141,7 +141,7 @@ DATABASES['default']['ATOMIC_REQUESTS'] = True
 TIME_ZONE = 'UTC'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'es-ES'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
@@ -327,4 +327,5 @@ LEAFLET_CONFIG = {
 
 # Envelope config
 DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
-ENVELOPE_SUBJECT_INTRO = "[Ojoalplato]"
+ENVELOPE_SUBJECT_INTRO = "[Ojoalplato] "
+ENVELOPE_USE_HTML_EMAIL = True

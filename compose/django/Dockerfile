@@ -7,7 +7,7 @@ COPY ./requirements /requirements
 
 # Install spatialite
 RUN apt-get update && apt-get install --no-install-recommends -y \
-	spatialite-bin libsqlite3-dev gdal-bin libgdal-dev python3-gdal \
+	gettext spatialite-bin libsqlite3-dev gdal-bin libgdal-dev python3-gdal \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN pip install -r /requirements/production.txt \

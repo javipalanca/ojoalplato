@@ -4,13 +4,15 @@
 {% block content %}
 
     {% if messages %}
-        <ul class="messages">
+        <!--div class="messages"-->
             {% for message in messages %}
-                <li {% if message.tags %} class="text-{{ message.tags }}"{% endif %}>
+                <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable fade in"{% endif %}
+                role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{ message }}
-                </li>
+                </div>
             {% endfor %}
-        </ul>
+        <!--/div-->
     {% endif %}
 
     <article id="contact" class="hentry" style="background-color: transparent;">

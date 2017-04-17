@@ -3,10 +3,9 @@
 # See http://bitly.com/wheel-building-fails-CPython-35
 # Verified bug on Python 3.5.1
 wheel==0.29.0
-conda
 
 # Bleeding edge Django
-django==1.9.8
+django==1.10.5
 
 # Configuration
 django-environ==0.4.0
@@ -44,13 +43,10 @@ pytz==2016.6.1
 django-redis==4.4.4
 redis>=2.10.0
 
-
+# Celery
 celery==3.1.23
 
-
-
 django_compressor==2.0
-
 
 # Admin
 django-suit
