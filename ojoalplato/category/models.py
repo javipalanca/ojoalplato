@@ -17,9 +17,12 @@ class Category(CategoryBase):
     def thumbnail_url(self):
         url = self.thumbnail.url
         split = "/media/"
-        relative = url.split(split)[1]
-        if relative.startswith("/"):
-            relative = relative[1:]
+        try:
+            relative = url.split(split)[1]
+            if relative.startswith("/"):
+                relative = relative[1:]
+        except:
+            relative = "uncategorized.gif"
         return settings.MEDIA_URL + relative
 
     class Meta:

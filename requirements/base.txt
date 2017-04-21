@@ -5,7 +5,7 @@
 wheel==0.29.0
 
 # Bleeding edge Django
-django==1.10.5
+django==1.9.13
 
 # Configuration
 django-environ==0.4.0
@@ -50,8 +50,10 @@ django_compressor==2.0
 
 # Admin
 django-suit
+django-otto-admin
 
 # Your custom requirements go here
+tqdm
 git+http://github.com/javipalanca/django-wordpress.git
 django-reversion
 django-wysiwyg-redactor
@@ -63,6 +65,7 @@ django-categories
 django-taggit
 django-taggit-autosuggest
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
+#git+http://github.com/Podictive/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus
 django-bootstrap3
 django-guardian==1.4.5

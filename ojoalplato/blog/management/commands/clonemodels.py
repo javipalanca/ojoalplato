@@ -1,5 +1,6 @@
 # coding=utf-8
 import collections
+from tqdm import tqdm
 from django.core.management import BaseCommand
 from wordpress.models import User, UserMeta, Post, PostMeta, Term, Taxonomy, Comment, TermTaxonomyRelationship
 
@@ -30,7 +31,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        for u in User.objects.using("mysql").all():
+        for u in tqdm(User.objects.using("mysql").all()):
             try:
                 user = BlogUser.objects.using("default").get(username=u.username)
             except ObjectDoesNotExist:
@@ -46,7 +47,7 @@ class Command(BaseCommand):
             user.name = u.display_name
             user.save(using="default")
 
-        for m in UserMeta.objects.using("mysql").all():
+        for m in tqdm(UserMeta.objects.using("mysql").all()):
             try:
                 meta = BlogUserMeta.objects.using("default").get(id=m.id)
             except ObjectDoesNotExist:
@@ -62,7 +63,7 @@ class Command(BaseCommand):
                 pass
             meta.save(using="default")
 
-        for t in Term.objects.using("mysql").all():
+        for t in tqdm(Term.objects.using("mysql").all()):
             try:
                 term = BlogTerm.objects.using("default").get(id=t.id)
             except ObjectDoesNotExist:
@@ -73,7 +74,7 @@ class Command(BaseCommand):
             term.group = t.group
             term.save(using="default")
 
-        for t in Taxonomy.objects.using("mysql").all():
+        for t in tqdm(Taxonomy.objects.using("mysql").all()):
             try:
                 taxonomy = BlogTaxonomy.objects.using("default").get(id=t.id)
             except ObjectDoesNotExist:
@@ -91,7 +92,7 @@ class Command(BaseCommand):
                 pass
             taxonomy.save(using="default")
 
-        for p in Post.objects.using("mysql").filter(status="publish"):
+        for p in tqdm(Post.objects.using("mysql").filter(status="publish")):
             try:
                 post = BlogPost.objects.using("default").get(id=p.id)
             except ObjectDoesNotExist:
@@ -141,7 +142,7 @@ class Command(BaseCommand):
                     m1 = BlogTermTaxonomyRelationship(object=post, term_taxonomy=taxonomy, order=0)
                 m1.save(using="default")
 
-        for m in PostMeta.objects.using("mysql").all():
+        for m in tqdm(PostMeta.objects.using("mysql").all()):
             try:
                 meta = BlogPostMeta.objects.using("default").get(id=m.id)
             except ObjectDoesNotExist:
@@ -157,7 +158,7 @@ class Command(BaseCommand):
                 pass
             meta.save(using="default")
 
-        for c in Comment.objects.using("mysql").all():
+        for c in tqdm(Comment.objects.using("mysql").all()):
             try:
                 comment = BlogComment.objects.using("default").get(id=c.id)
             except ObjectDoesNotExist:
@@ -169,6 +170,7 @@ class Command(BaseCommand):
             except ObjectDoesNotExist:
                 user = BlogUser()
                 user.id = c.user_id
+                user.username = c.user_id
                 user.save(using="default")
             comment.parent_id = c.parent_id
 
@@ -197,7 +199,7 @@ class Command(BaseCommand):
             comment.save(using="default")
 
         # migrate Categories and Tags
-        for p in Post.objects.using("mysql").filter(status="publish"):
+        for p in tqdm(Post.objects.using("mysql").filter(status="publish")):
             post = BlogPost.objects.using("default").get(id=p.id)
             print(p.title)
 
