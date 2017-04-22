@@ -333,15 +333,7 @@ DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
 ENVELOPE_SUBJECT_INTRO = "[Ojoalplato] "
 ENVELOPE_USE_HTML_EMAIL = True
 
-OA_ANALYTICS_CREDENTIALS_JSON = {
-    "installed": {
-        "client_id": "644494602380-6n4tgvgnql20p5b1osl1olt15n0uikev.apps.googleusercontent.com",
-        "project_id": "plexiform-being-692",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://accounts.google.com/o/oauth2/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
-    }
-}
+OA_ANALYTICS_CREDENTIALS_JSON = {}
 OA_ANALYTICS_VIEW_ID = "UA-5491851-1"
 
 GOOGLE_ANALYTICS_PROPERTY_ID = "UA-5491851-1"
