@@ -39,6 +39,7 @@ DJANGO_APPS = (
     # 'suit',
     # 'material',
     # 'material.admin',
+    # 'ojoalplato.analytics_admin',
     'admin_bootstrapped_plus',
     'django_admin_bootstrapped',
     'bootstrap3',
@@ -64,6 +65,7 @@ THIRD_PARTY_APPS = (
     'leaflet',
     'envelope',
     'wordpress',
+    'analytical',
 )
 
 # Apps specific for this project go here.
@@ -340,5 +342,8 @@ OA_ANALYTICS_CREDENTIALS_JSON = {
         "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
     }
 }
-
 OA_ANALYTICS_VIEW_ID = "UA-5491851-1"
+
+GOOGLE_ANALYTICS_PROPERTY_ID = "UA-5491851-1"
+GOOGLE_ANALYTICS_DISPLAY_ADVERTISING = True
+GOOGLE_ANALYTICS_SITE_SPEED = True

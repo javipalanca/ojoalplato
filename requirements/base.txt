@@ -50,7 +50,6 @@ django_compressor==2.0
 
 # Admin
 django-suit
-django-otto-admin
 
 # Your custom requirements go here
 tqdm
@@ -76,3 +75,5 @@ geopy
 django-leaflet
 django-envelope
 dj-database-url
+google-api-python-client
+django-analytical
