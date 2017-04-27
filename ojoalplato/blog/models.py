@@ -14,6 +14,7 @@ from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 
 from taggit_autosuggest.managers import TaggableManager
+from hitcount.models import HitCountMixin
 
 from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
@@ -114,7 +115,7 @@ class TermTaxonomyRelationship(models.Model):
         ordering = ['order']
 
 
-class Post(TimeStampedModel):
+class Post(TimeStampedModel, HitCountMixin):
     """
     The mother lode.
     The WordPress post.
@@ -181,7 +182,7 @@ class Post(TimeStampedModel):
     class Meta:
         get_latest_by = 'post_date'
         ordering = ["-post_date"]
-        verbose_name= "Artículo"
+        verbose_name = "Artículo"
         verbose_name_plural = "Artículos"
 
     def __str__(self):
@@ -243,9 +244,9 @@ class Post(TimeStampedModel):
             raise ValueError('parent post must have an ID')
         self.parent_id = post.pk
 
-    @property
     def views(self):
-        return self._get_meta("views")
+        metaviews, hits = int(self._get_meta("views")), int(self.hit_count.hits)
+        return metaviews + hits
 
     # related objects
 

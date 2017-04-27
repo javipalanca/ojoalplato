@@ -77,3 +77,5 @@ django-envelope
 dj-database-url
 google-api-python-client
 django-analytical
+django-request
+django-hitcount

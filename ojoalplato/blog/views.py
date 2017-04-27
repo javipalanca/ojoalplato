@@ -6,6 +6,8 @@ from django.views.generic import ListView
 from django.views.generic import View
 from taggit.models import Tag
 
+from hitcount.views import HitCountDetailView
+
 from ojoalplato.blog.models import Post
 from ojoalplato.category.models import Category
 from ojoalplato.users.models import User
@@ -28,9 +30,10 @@ class PostList(ListView):
             return super(ListView, self).get(request, **kwargs)
 
 
-class PostDetail(DetailView):
+class PostDetail(HitCountDetailView):
     model = Post
     template_name = 'blog/wpfamily/post_detail.html'
+    count_hit = True
 
 
 class PostDetailById(View):

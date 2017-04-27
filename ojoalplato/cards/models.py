@@ -5,15 +5,17 @@ from django.contrib.gis.gdal import CoordTransform
 from django.contrib.gis.gdal import SpatialReference
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, PositiveSmallIntegerField, BooleanField
-from likert_field.models import LikertField
 from phonenumber_field.modelfields import PhoneNumberField
 from model_utils.models import TimeStampedModel
+
+from likert_field.models import LikertField
 from taggit_autosuggest.managers import TaggableManager
+from hitcount.models import HitCountMixin
 
 from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
 
 
-class Restaurant(TimeStampedModel):
+class Restaurant(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     address = CharField(verbose_name="Dirección", max_length=300, blank=True, null=True)
@@ -49,7 +51,7 @@ class Restaurant(TimeStampedModel):
         verbose_name_plural = "Restaurantes"
 
 
-class Wine(TimeStampedModel):
+class Wine(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     kind = CharField(verbose_name="Tipo", max_length=50, choices=WINE_KIND_CHOICES)
@@ -65,7 +67,7 @@ class Wine(TimeStampedModel):
         verbose_name_plural = "Vinos"
 
 
-class Recipe(TimeStampedModel):
+class Recipe(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     ingredients = TaggableManager(verbose_name="Ingredientes",

@@ -66,6 +66,8 @@ THIRD_PARTY_APPS = (
     'envelope',
     'wordpress',
     'analytical',
+    'request',
+    'hitcount',
 )
 
 # Apps specific for this project go here.
@@ -92,6 +94,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'request.middleware.RequestMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -339,3 +342,31 @@ OA_ANALYTICS_VIEW_ID = "UA-5491851-1"
 GOOGLE_ANALYTICS_PROPERTY_ID = "UA-5491851-1"
 GOOGLE_ANALYTICS_DISPLAY_ADVERTISING = True
 GOOGLE_ANALYTICS_SITE_SPEED = True
+
+URI_WITH_GET_PARAMS=True
+
+REQUEST_PLUGINS = (
+    'request.plugins.TrafficInformation',
+    'request.plugins.LatestRequests',
+    'request.plugins.TopPaths',
+    'request.plugins.TopErrorPaths',
+    'request.plugins.TopReferrers',
+    'request.plugins.TopSearchPhrases',
+    'request.plugins.TopBrowsers',
+    # 'request.plugins.ActiveUsers',
+)
+REQUEST_TRAFFIC_MODULES = (
+    'request.traffic.UniqueVisitor',
+    'request.traffic.UniqueVisit',
+    'request.traffic.Hit',
+    'request.traffic.Error',
+    'request.traffic.Error404',
+    # 'request.traffic.User',
+    # 'request.traffic.UniqueUser',
+)
+
+REQUEST_IGNORE_PATHS = (
+    r'^admin/',
+    r'^media/',
+    r'^static/',
+)
