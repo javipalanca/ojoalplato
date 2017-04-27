@@ -304,7 +304,8 @@ SUIT_CONFIG = {
 }
 # END DJANGO SUIT CONFIGURATION
 
-REDACTOR_OPTIONS = {'lang': 'es'}
+REDACTOR_OPTIONS = {'plugins': ['source', 'table', 'fontcolor', 'fontsize', 'video', 'inlinestyle', 'alignment'],
+                    'lang': 'es', 'imageResizable': True, 'imagePosition': True, 'imageFloatMargin': '20px'}
 REDACTOR_UPLOAD = 'gallery/'
 REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'

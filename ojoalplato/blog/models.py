@@ -136,7 +136,7 @@ class Post(TimeStampedModel, HitCountMixin):
     content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
     post_date = models.DateTimeField(blank=True, null=True)
-    published_at = MonitorField(monitor='status', when=['publish'])
+    published_at = MonitorField(monitor='status', when=['publish'], verbose_name="Fecha publicación")
     modified_date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True,
                                  verbose_name="Categoría")

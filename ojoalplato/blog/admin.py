@@ -35,8 +35,10 @@ class PostChangeForm(forms.ModelForm):
 @admin.register(Post)
 class PostAdmin(VersionAdmin):
     form = PostChangeForm
-    list_filter = ['title', 'author', 'status']
-    list_display = ['title', 'author']
+    save_on_top = True
+    list_filter = ['status']
+    list_display = ['title', 'author', 'published_at', 'status']
+    ordering = ('published_at',)
     advanced_options = ['guid', 'post_type', 'excerpt', 'content_filtered', 'post_date',
                         'comment_status', 'comment_count', 'ping_status', 'to_ping', 'pinged',
                         'password', 'parent_id', 'menu_order', 'mime_type']

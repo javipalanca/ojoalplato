@@ -18,9 +18,9 @@ class RestaurantAdminForm(forms.ModelForm):
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
             'phone': PhoneNumberWidget(),
             'stars': StarsWidget(),
-            'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder':'€ sin vino'}),
-            'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder':'€ medio'}),
-            'menu_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder':'€ menu'}),
+            'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ sin vino'}),
+            'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ medio'}),
+            'menu_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ menu'}),
         }
         fields = '__all__'
 
@@ -44,8 +44,9 @@ class RestaurantAdminForm(forms.ModelForm):
 @admin.register(Restaurant)
 class RestaurantAdmin(VersionAdmin):
     form = RestaurantAdminForm
-    list_filter = ['name', 'price']
-    list_display = ['name']
+    list_filter = ['stars', 'is_closed']
+    list_display = ['name', 'is_closed']
+    save_on_top = True
 
     class Meta:
         css = {
@@ -55,11 +56,12 @@ class RestaurantAdmin(VersionAdmin):
 
 @admin.register(Wine)
 class WineAdmin(VersionAdmin):
-    list_filter = ['name', 'kind', 'price']
+    list_filter = ['kind']
     list_display = ['name', 'kind']
+    save_on_top = True
 
 
 @admin.register(Recipe)
 class RecipeAdmin(VersionAdmin):
-    list_filter = ['name']
     list_display = ['name']
+    save_on_top = True
