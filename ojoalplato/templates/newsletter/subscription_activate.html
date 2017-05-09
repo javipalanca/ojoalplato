@@ -1,0 +1,43 @@
+{% extends "newsletter/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block subtitle %}Si decides suscribirte recibirás un correo electrónico con los contenidos publicados y actualizados.
+{% endblock subtitle %}
+
+{% block form%}
+    <div class="entry-content">
+        {% if action == "subscribe" %}
+            {% with "Crear" as verb %}
+            <h1>{{ verb }} suscripción</h1>
+            {% endwith %}
+        {% elif action == "unsubscribe" %}
+            {% with "Dar de baja" as verb %}
+            <h1>{{ verb }} suscripción</h1>
+            {% endwith %}
+        {% elif action == "update" %}
+            {% with "Actualizar" as verb %}
+            <h1>{{ verb }} suscripción</h1>
+            {% endwith %}
+        {% endif %}
+
+        <form enctype="multipart/form-data" method="post" action=".">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <p><input class="btn btn-primary btn-lg fb-lile-btn social-buttons"
+                              {% if action == "subscribe" %}
+            {% with "Suscribir" as verb %}
+            id="id_submit" name="submit" value="{{ verb }}" type="submit" /></p>
+            {% endwith %}
+        {% elif action == "unsubscribe" %}
+            {% with "Dar de baja" as verb %}
+            id="id_submit" name="submit" value="{{ verb }}" type="submit" /></p>
+            {% endwith %}
+        {% elif action == "update" %}
+            {% with "Actualizar" as verb %}
+            id="id_submit" name="submit" value="{{ verb }}" type="submit" /></p>
+            {% endwith %}
+        {% endif %}
+
+        </form>
+    </div>
+{% endblock form %}

@@ -1,0 +1,9 @@
+Estimado/a {{ subscription.name }},
+
+usted, o alguien en su nombre, ha solicitado actualizar la información de su suscripción de {{ newsletter.title }}.
+
+Para realizar cambios de su información en nuestra base de datos por favor pulse en el siguiente enlace de activación:
+http://{{ site.domain }}{{ subscription.update_activate_url }}
+
+Atentamente,
+{{ newsletter.sender }}

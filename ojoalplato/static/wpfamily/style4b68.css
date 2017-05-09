@@ -2695,7 +2695,7 @@ body.grey #cboxOverlay {
 .fb-lile-btn {
   position: relative;
   margin-top: 20px;
-  left: 90%;
+  float: right;
 }
 
 .badge {

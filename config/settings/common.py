@@ -68,6 +68,7 @@ THIRD_PARTY_APPS = (
     'analytical',
     'request',
     'hitcount',
+    'newsletter',
 )
 
 # Apps specific for this project go here.
@@ -75,7 +76,7 @@ LOCAL_APPS = (
     # custom users app
     'ojoalplato.users.apps.UsersConfig',
     # Your stuff: custom apps go here
-    'ojoalplato.blog',
+    'ojoalplato.blog.apps.BlogConfig',
     'ojoalplato.category',
     'ojoalplato.cards',
     'ojoalplato.contactform',
@@ -269,6 +270,20 @@ if BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'
 else:
     CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_BROKER_POOL_LIMIT = 10
+CELERY_BROKER_CONNECTION_TIMEOUT = 5
+
+CELERY_TASK_ALWAYS_EAGER = False
+CELERY_TASK_ACKS_LATE = True
+CELERY_TASK_PUBLISH_RETRY = True
+CELERY_WORKER_DISABLE_RATE_LIMITS = False
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_CREATE_MISSING_QUEUES = True
+CELERY_BROKER_HEARTBEAT = 0
+CELERY_TIMEZONE = TIME_ZONE
 # END CELERY
 
 
@@ -371,3 +386,11 @@ REQUEST_IGNORE_PATHS = (
     r'^media/',
     r'^static/',
 )
+
+NEWSLETTER_CONFIRM_EMAIL = True
+# Amount of seconds to wait between each email. Here 100ms is used.
+NEWSLETTER_EMAIL_DELAY = 0.1
+# Amount of seconds to wait between each batch. Here one minute is used.
+NEWSLETTER_BATCH_DELAY = 60
+# Number of emails in one batch
+NEWSLETTER_BATCH_SIZE = 100

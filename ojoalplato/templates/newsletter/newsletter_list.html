@@ -1,0 +1,12 @@
+{% extends "newsletter/base.html" %}
+
+{% block form %}
+<table>
+    {% for newsletter in object_list %}
+    <tr>
+        <td><a href="{% url "newsletter_detail" newsletter.slug %}">{{ newsletter.title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock form %}

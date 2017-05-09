@@ -10,6 +10,7 @@ from django.views import defaults as default_views
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
 from ojoalplato.contactform.views import ContactFormView
 
+
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
 urlpatterns = [
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     url(r'^contact/', ContactFormView.as_view(), name="contact"),
     url(r'^contact/envelope/', include('envelope.urls')),
+    # Subscriptions
+    url(r'^subscription/', include('newsletter.urls')),
 
 
     # Blog app

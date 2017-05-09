@@ -1,0 +1,30 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<article id="post-1"
+     class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-friends family_blog_memberscat-maddie">
+
+        <div class="featured-image"
+                 style="background-image:url('{% static "images/airmail-envelope.jpg" %}');"
+            <a href="#"><img
+                    src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
+        </div>
+        <div class="article-padding has-family-list">
+
+            <header class="entry-header">
+                <h2 class="entry-title"><a href="#"rel="bookmark">Notificaciones de correo electrónico</a></h2>
+                <div class="meta"><span class="posted-on">{% block subtitle %}{% endblock subtitle %}</span>
+                </div>
+
+            </header><!-- .entry-header -->
+
+        {% block form %}{% endblock form %}
+        </div>
+
+        <footer class="entry-footer">
+        </footer><!-- .entry-footer -->
+
+</article>
+{% endblock content %}

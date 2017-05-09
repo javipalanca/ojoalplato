@@ -18,6 +18,7 @@ services:
     environment:
       - POSTGRES_USER=ojoalplato
       - USE_DOCKER=yes
+      - CELERY_BROKER_URL='redis://redis
     volumes:
       - .:/app
     ports:
@@ -26,6 +27,7 @@ services:
       - postgres
       - mailhog
       - mysql
+      - redis
 
   pycharm:
     build:
@@ -58,3 +60,19 @@ services:
 
     ports:
       - "3306:3306"
+
+  redis:
+    image: redis:latest
+
+  celeryworker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    volumes:
+      - .:/app
+    depends_on:
+     - redis
+    environment:
+      - POSTGRES_USER=ojoalplato
+      - USE_DOCKER=yes
+    command: celery -A ojoalplato.taskapp worker -l INFO
