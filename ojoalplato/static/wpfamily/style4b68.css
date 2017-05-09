@@ -1378,6 +1378,7 @@ table {
 
 .hentry .article-padding.has-family-list {
   padding-top: 75px;
+  padding-bottom: 70px;
 }
 
 @media (max-width: 767px) {
@@ -2634,6 +2635,7 @@ body.grey #cboxOverlay {
   width: 40px;
   height: 40px;
   background-image: url('img/icon-close.svg');
+  background-color: lightgrey;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 20px 20px;
