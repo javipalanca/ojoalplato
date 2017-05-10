@@ -13,7 +13,7 @@ def post_pre_save(sender, instance, **kwargs):
             pre_instance = Post.objects.get(pk=instance.id)
             if pre_instance.status == "draft":
                 print("Sending newsletter (draft->publish)")
-                send_newsletter.delay(instance.id)
+                send_newsletter.apply_async((instance.id,), countdown=60*60)
         except Post.DoesNotExist:
             print("Sending newsletter (post.doesnotexist)")
-            send_newsletter.delay(instance.id)
+            send_newsletter.apply_async((instance.id,), countdown=60*60)
