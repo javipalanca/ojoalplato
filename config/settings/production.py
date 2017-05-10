@@ -62,12 +62,12 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     'DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS', default=True)
 SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
     'DJANGO_SECURE_CONTENT_TYPE_NOSNIFF', default=True)
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
+SECURE_BROWSER_XSS_FILTER = env.bool('SESSION_COOKIE_SECURE', default=False)
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=False)
+SESSION_COOKIE_HTTPONLY = env.bool('SESSION_COOKIE_HTTPONLY', default=False)
 SECURE_SSL_REDIRECT = env.bool('DJANGO_SECURE_SSL_REDIRECT', default=True)
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=False)
+CSRF_COOKIE_HTTPONLY = env.bool('CSRF_COOKIE_HTTPONLY', default=False)
 X_FRAME_OPTIONS = 'DENY'
 
 # SITE CONFIGURATION
@@ -85,52 +85,50 @@ INSTALLED_APPS += ('gunicorn', )
 # Uploaded Media Files
 # ------------------------
 # See: http://django-storages.readthedocs.io/en/latest/index.html
-INSTALLED_APPS += (
-    'storages',
-)
+#INSTALLED_APPS += 'storages',)
 
-AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
-AWS_AUTO_CREATE_BUCKET = True
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+#AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
+#AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
+#AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
+#AWS_AUTO_CREATE_BUCKET = True
+#AWS_QUERYSTRING_AUTH = False
+#AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 
 # AWS cache settings, don't change unless you know what you're doing:
-AWS_EXPIRY = 60 * 60 * 24 * 7
+#AWS_EXPIRY = 60 * 60 * 24 * 7
 
 # TODO See: https://github.com/jschneier/django-storages/issues/47
 # Revert the following and use str after the above-mentioned bug is fixed in
 # either django-storage-redux or boto
-AWS_HEADERS = {
-    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
-        AWS_EXPIRY, AWS_EXPIRY))
-}
+#AWS_HEADERS = {
+#    'Cache-Control': six.b('max-age=%d, s-maxage=%d, must-revalidate' % (
+#        AWS_EXPIRY, AWS_EXPIRY))
+#}
 
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
 
 #  See:http://stackoverflow.com/questions/10390244/
-from storages.backends.s3boto import S3BotoStorage
-StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
-MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
-DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
+#from storages.backends.s3boto import S3BotoStorage
+#StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
+#MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
+#DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 
-MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+#MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 
 # Static Assets
 # ------------------------
 
-STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
-STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
+#STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
+#STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
-AWS_PRELOAD_METADATA = True
+#AWS_PRELOAD_METADATA = True
 INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
-COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 # EMAIL
@@ -159,7 +157,20 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = env.db('DATABASE_URL')
+#DATABASES['default'] = env.db('DATABASE_URL')
+POSTGRES_USER=env("POSTGRES_USER", default="ojoalplato")
+POSTGRES_PASSWORD=env("POSTGRES_PASSWORD")
+POSTGRES_URL="postgis://{}:{}@postgres/ojoalplato".format(POSTGRES_USER, POSTGRES_PASSWORD)
+
+MYSQL_USER = env("MYSQL_USER", default="ojoalplato")
+MYSQL_PASSWORD = env("MYSQL_PASSWORD")
+MYSQL_DATABASE = env("MYSQL_DATABASE")
+MYSQL_URL = "mysql://{}:{}@mysql:3306/{}".format(MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE)
+
+DATABASES = {
+    'mysql': dj_database_url.parse(MYSQL_URL),
+    'default': dj_database_url.parse(POSTGRES_URL),
+}
 
 # CACHING
 # ------------------------------------------------------------------------------
@@ -238,3 +249,6 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 
 # Your production stuff: Below this line define 3rd party library settings
+WP_TABLE_PREFIX = 'wp_d3r46v'
+WP_READ_ONLY = True
+
