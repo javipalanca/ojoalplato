@@ -8,52 +8,65 @@ services:
   postgres:
     build: ./compose/postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - postgres_backup:/backups
+      - /root/data/postgres:/var/lib/postgresql/data
+      - /root/data/postgres_backups:/backups
     env_file: .env
+
+  mysql:
+    build: ./compose/mysql
+    volumes:
+      - /root/data/mysql:/var/lib/mysql
+      - /root/data//mysql_backups:/backups
+    ports:
+      - "3306"
+    env_file: .env
+
 
   django:
     build:
       context: .
       dockerfile: ./compose/django/Dockerfile
-    user: django
+    #user: django
     depends_on:
       - postgres
       - redis
     command: /gunicorn.sh
     env_file: .env
+    volumes:
+      - /staticfiles
+      - /root/data/media:/media
 
   nginx:
     build: ./compose/nginx
     depends_on:
       - django
-
-      - certbot
-
+      #- certbot
     ports:
-      - "0.0.0.0:80:80"
+      - "0.0.0.0:8000:80"
 
     environment:
       - MY_DOMAIN_NAME=ojoalplato.com
     ports:
-      - "0.0.0.0:80:80"
-      #- "0.0.0.0:443:443"
+      - "0.0.0.0:8000:80"
+      - "0.0.0.0:443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/lib/letsencrypt:/var/lib/letsencrypt
+    volumes_from:
+      - django
 
-  certbot:
-    image: quay.io/letsencrypt/letsencrypt
-    command: bash -c "sleep 6 && certbot certonly -n --standalone -d ojoalplato.com --text --agree-tos --email jpalanca@gmail.com --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --standalone-supported-challenges http-01"
-    entrypoint: ""
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /var/lib/letsencrypt:/var/lib/letsencrypt
-    ports:
-      - "80"
-      - "443"
-    environment:
-      - TERM=xterm
+  #certbot:
+  #  image: quay.io/letsencrypt/letsencrypt
+  #  command: bash -c "sleep 6 && certbot certonly -n --standalone -d ojoalplato.com --port 8000 --text --agree-tos --email jpalanca@gmail.com --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --standalone-supported-challenges http-01"
+  #  entrypoint: ""
+  #  volumes:
+  #    - /etc/letsencrypt:/etc/letsencrypt
+  #    - /var/lib/letsencrypt:/var/lib/letsencrypt
+  #  ports:
+  #    - "80"
+  #    - "443"
+  #  environment:
+  #    - TERM=xterm
 
 
   redis:
@@ -70,14 +83,14 @@ services:
      - redis
     command: celery -A ojoalplato.taskapp worker -l INFO
 
-  celerybeat:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    user: django
-    env_file: .env
-    depends_on:
-      - postgres
-      - redis
-    command: celery -A ojoalplato.taskapp beat -l INFO
+  #celerybeat:
+  #  build:
+  #    context: .
+  #    dockerfile: ./compose/django/Dockerfile
+  #  user: django
+  #  env_file: .env
+  #  depends_on:
+  #    - postgres
+  #    - redis
+  #  command: celery -A ojoalplato.taskapp beat -l INFO
 

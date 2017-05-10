@@ -24,7 +24,10 @@ RUN sed -i 's/\r//' /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && chown django /entrypoint.sh \
     && chmod +x /gunicorn.sh \
-    && chown django /gunicorn.sh
+    && chown django /gunicorn.sh \
+    && mkdir -m 777 /staticfiles \
+    && mkdir -p /media \
+    && chmod -R 770 /media
 
 WORKDIR /app
 

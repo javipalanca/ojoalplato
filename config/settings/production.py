@@ -19,7 +19,7 @@ from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
 import logging
-
+import dj_database_url
 
 from .common import *  # noqa
 
@@ -125,7 +125,7 @@ INSTALLED_APPS += ('gunicorn', )
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
 #AWS_PRELOAD_METADATA = True
-INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
+#INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
 #COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
