@@ -12,6 +12,7 @@ from django.db.models import Q
 from django.conf import settings
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
+from django.utils import timezone
 
 from taggit_autosuggest.managers import TaggableManager
 from hitcount.models import HitCountMixin
@@ -115,6 +116,10 @@ class TermTaxonomyRelationship(models.Model):
         ordering = ['order']
 
 
+def get_default_user():
+    return User.objects.get(username="paco").pk
+
+
 class Post(TimeStampedModel, HitCountMixin):
     """
     The mother lode.
@@ -127,16 +132,16 @@ class Post(TimeStampedModel, HitCountMixin):
 
     # post data
     guid = models.CharField(max_length=255, blank=True)
-    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="draft")
+    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="post")
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
-                               default=lambda: User.objects.get(username="paco"))
+                               default=get_default_user)
     excerpt = models.TextField(blank=True)
     content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
-    post_date = models.DateTimeField(blank=True, null=True)
+    post_date = models.DateTimeField(verbose_name="Fecha publicación", default=timezone.now)
     published_at = MonitorField(monitor='status', when=['publish'], verbose_name="Fecha publicación")
     modified_date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True,

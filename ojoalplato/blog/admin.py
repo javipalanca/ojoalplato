@@ -37,14 +37,14 @@ class PostAdmin(VersionAdmin):
     form = PostChangeForm
     save_on_top = True
     list_filter = ['status']
-    list_display = ['title', 'author', 'published_at', 'status']
-    ordering = ('published_at',)
-    advanced_options = ['guid', 'post_type', 'excerpt', 'content_filtered', 'post_date',
+    list_display = ['title', 'author', 'post_date', 'status']
+    ordering = ('-post_date',)
+    advanced_options = ['guid', 'post_type', 'excerpt', 'content_filtered',
                         'comment_status', 'comment_count', 'ping_status', 'to_ping', 'pinged',
                         'password', 'parent_id', 'menu_order', 'mime_type']
     fieldsets = (
         (None, {
-            'fields': ('status', 'title', 'author', 'tags', 'category',
+            'fields': ('status', 'title', 'author', 'tags', 'category', 'post_date',
                        'restaurant_card', 'wine_card', 'recipe_card',
                        'image_header', 'content')
         }),

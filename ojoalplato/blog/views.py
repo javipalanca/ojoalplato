@@ -19,7 +19,7 @@ class PostList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.published()
+        return Post.objects.published().order_by("-post_date")
 
     def get(self, request, **kwargs):
         if request.GET.get("p"):
