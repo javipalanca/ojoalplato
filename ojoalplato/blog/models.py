@@ -131,7 +131,8 @@ class Post(TimeStampedModel, HitCountMixin):
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
-    author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True)
+    author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
+                               default=lambda: User.objects.get(username="paco"))
     excerpt = models.TextField(blank=True)
     content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
