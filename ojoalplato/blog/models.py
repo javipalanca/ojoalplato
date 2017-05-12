@@ -126,7 +126,7 @@ class Post(TimeStampedModel, HitCountMixin):
     id = models.AutoField(primary_key=True)
 
     # post data
-    guid = models.CharField(max_length=255)
+    guid = models.CharField(max_length=255, blank=True)
     post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="draft")
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
@@ -156,7 +156,7 @@ class Post(TimeStampedModel, HitCountMixin):
     recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True)
 
     # comment stuff
-    comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True, null=True)
     comment_count = models.IntegerField(default=0)
 
     # ping stuff

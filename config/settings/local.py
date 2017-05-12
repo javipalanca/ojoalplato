@@ -72,6 +72,8 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 # CELERY_ALWAYS_EAGER = True
 # END CELERY
 
+MEDIA_ROOT = str(APPS_DIR('media'))
+
 # Your local stuff: Below this line define 3rd party library settings
 DATABASES = {
     'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
