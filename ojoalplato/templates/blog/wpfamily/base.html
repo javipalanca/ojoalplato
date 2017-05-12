@@ -1,4 +1,4 @@
-{% load static google_analytics %}
+{% load static content_filters google_analytics %}
 
 <!DOCTYPE html>
 <html lang="es-ES" prefix="og: http://ogp.me/ns#">
@@ -59,21 +59,24 @@
                     <div class="menu-main-menu-container">
                         <ul id="primary-menu" class="menu">
                             <li id="menu-item-32"
-                                class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-32">
-                                <a href="{% url 'home' %}">Inicio</a></li>
+                                class="menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-32
+                                {% active '^/$' %}"> <a href="{% url 'home' %}">Inicio</a></li>
                             <li id="menu-item-30"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30"><a
-                                    href="{% url 'contact' %}">Contacto</a></li>
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30
+                                {% active '/contact/' %}"><a href="{% url 'contact' %}">Contacto</a></li>
                             <li id="menu-item-29"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29"><a
-                                    href="/subscription/ojoalplato/">Suscribirse</a></li>
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29
+                                {% active '/subscription/ojoalplato/.*' %}">
+                                <a href="/subscription/ojoalplato/">Suscribirse</a></li>
                             <li id="menu-item-31"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31"><a
-                                    href="{% url 'post-detail' slug='curso-rapido-de-cata-de-vinos' %}">
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31
+                                {% active '/curso-rapido-de-cata-de-vinos/' %}">
+                                <a href="{% url 'post-detail' slug='curso-rapido-de-cata-de-vinos' %}">
                                 Curso de cata de vinos</a></li>
                             <li id="menu-item-104"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-104"><a
-                                    href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-104
+                                {% active '/la-celebracion-del-millon-de-ojoalplato/' %}">
+                                <a href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
                                 Comida del millón</a></li>
                             <!--li id="menu-item-116"
                                 class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116"><a

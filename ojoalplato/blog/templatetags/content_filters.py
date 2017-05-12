@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from django.conf import settings
 from django import template
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.encoding import force_text
 from django.utils.text import normalize_newlines, slugify
 from ojoalplato.blog.models import PostMeta
@@ -85,3 +86,15 @@ def cat_img(category):
         return images[category.lower()]
     else:
         return "uncategorized.gif"
+
+
+@register.simple_tag(takes_context=True)
+def active(context, pattern_or_urlname):
+    try:
+        pattern = '^' + reverse(pattern_or_urlname)
+    except NoReverseMatch:
+        pattern = pattern_or_urlname
+    path = context['request'].path
+    if re.search(pattern, path):
+        return 'current-menu-item'
+    return ''
