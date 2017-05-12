@@ -61,6 +61,10 @@ class PostAdmin(VersionAdmin):
                               )
         return super(PostAdmin, self).get_form(request, obj, **kwargs)
 
+    class Media:
+        css = {
+             'all': ('wpfamily/style_admin.css',)
+        }
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

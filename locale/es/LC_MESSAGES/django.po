@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-30 23:26+0000\n"
+"POT-Creation-Date: 2017-05-12 20:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,79 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:65
+msgid "Home"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:75
+msgid "Applications"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:110
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:126
+msgid "Add"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:131
+msgid "Change"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:141
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:24
+msgid "Traffic"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:25
+msgid "Sessions and Users, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:31
+msgid "Popular"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:32
+msgid "Page views, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:40
+msgid "Top Browsers"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:41
+msgid "Last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:47
+msgid "Acquisition"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:48
+msgid "Referral Traffic, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:56
+msgid "Audience"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:57
+msgid "Countries, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:63
+msgid "Social"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:64
+msgid "Interactions, last 15 days"
+msgstr ""
 
 #: ojoalplato/contactform/views.py:10
 msgid "Gracias por su mensaje."
@@ -119,7 +192,7 @@ msgstr ""
 #: ojoalplato/templates/account/login.html:7
 #: ojoalplato/templates/account/login.html:11
 #: ojoalplato/templates/account/login.html:44
-#: ojoalplato/templates/base.html:64
+#: ojoalplato/templates/base.html:65
 msgid "Sign In"
 msgstr ""
 
@@ -227,7 +300,7 @@ msgstr ""
 
 #: ojoalplato/templates/account/signup.html:9
 #: ojoalplato/templates/account/signup.html:19
-#: ojoalplato/templates/base.html:61
+#: ojoalplato/templates/base.html:62
 msgid "Sign Up"
 msgstr ""
 
@@ -281,11 +354,11 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: ojoalplato/templates/base.html:54
+#: ojoalplato/templates/base.html:55
 msgid "My Profile"
 msgstr ""
 
-#: ojoalplato/templates/base.html:57
+#: ojoalplato/templates/base.html:58
 msgid "Sign out"
 msgstr ""
 
@@ -294,11 +367,11 @@ msgstr ""
 msgid "Message from the contact form"
 msgstr "Mensaje del formulario de contacto"
 
-#: ojoalplato/templates/envelope/email_body.html:97
+#: ojoalplato/templates/envelope/email_body.html:98
 msgid "Sender"
 msgstr "Enviado por"
 
-#: ojoalplato/templates/envelope/email_body.html:127
+#: ojoalplato/templates/envelope/email_body.html:128
 msgid "message sent with envelope - a contact form app for Django"
 msgstr "mensaje enviado con envelope"
 
@@ -317,3 +390,18 @@ msgstr ""
 #: ojoalplato/users/models.py:19
 msgid "Name of User"
 msgstr "Nombre de usuario"
+
+msgid "Tags"
+msgstr "Etiquetas"
+
+msgid "A comma-separated list of tags."
+msgstr "Lista de etiquetas separadas por comas."
+
+msgid "Enter Tag Here"
+msgstr "Introduzca etiqueta"
+
+msgid "No Results"
+msgstr "Sin Resultados"
+
+msgid "No More Selections Are Allowed"
+msgstr "No hay más selecciones permitidas"

@@ -96,6 +96,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'request.middleware.RequestMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -229,6 +230,8 @@ MEDIA_ROOT = '/media'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
+
+LOCALE_PATHS = (str(ROOT_DIR('locale')),)
 
 # URL Configuration
 # ------------------------------------------------------------------------------
