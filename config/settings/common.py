@@ -324,10 +324,13 @@ SUIT_CONFIG = {
 }
 # END DJANGO SUIT CONFIGURATION
 
+# Redactor settings
+# ------------------------------------------------------------------------------
 REDACTOR_OPTIONS = {'plugins': ['source', 'table', 'fontcolor', 'fontsize', 'video', 'inlinestyle', 'alignment'],
                     'lang': 'es', 'imageResizable': True, 'imagePosition': True, 'imageFloatMargin': '20px'}
 REDACTOR_UPLOAD = 'gallery/'
-REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
+#REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
+REDACTOR_UPLOAD_HANDLER = 'ojoalplato.blog.handlers.WatermarkUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
 REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
 
@@ -344,6 +347,8 @@ DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer
 
 ADMIN_SITE_HEADER = 'Administración de Ojo al plato'
 
+# Leaflet settings
+# ------------------------------------------------------------------------------
 LEAFLET_CONFIG = {
     # conf here
     'DEFAULT_CENTER': (40.383, -3.716),
@@ -352,11 +357,14 @@ LEAFLET_CONFIG = {
     'RESET_VIEW': True,
 }
 
-# Envelope config
+# Envelope settings
+# ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
 ENVELOPE_SUBJECT_INTRO = "[Ojoalplato] "
 ENVELOPE_USE_HTML_EMAIL = True
 
+# Google Analytics settings
+# ------------------------------------------------------------------------------
 OA_ANALYTICS_CREDENTIALS_JSON = {}
 OA_ANALYTICS_VIEW_ID = "UA-5491851-1"
 
@@ -366,6 +374,8 @@ GOOGLE_ANALYTICS_SITE_SPEED = True
 
 URI_WITH_GET_PARAMS=True
 
+# Requests settings
+# ------------------------------------------------------------------------------
 REQUEST_PLUGINS = (
     'request.plugins.TrafficInformation',
     'request.plugins.LatestRequests',
@@ -392,6 +402,8 @@ REQUEST_IGNORE_PATHS = (
     r'^static/',
 )
 
+# Newsletter settings
+# ------------------------------------------------------------------------------
 NEWSLETTER_CONFIRM_EMAIL = True
 # Amount of seconds to wait between each email. Here 100ms is used.
 NEWSLETTER_EMAIL_DELAY = 0.1
