@@ -1,7 +1,7 @@
 {% load static content_filters google_analytics %}
 
 <!DOCTYPE html>
-<html lang="es-ES" prefix="og: http://ogp.me/ns#">
+<html lang="es-ES" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
 
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 <head>
@@ -13,11 +13,13 @@
     <meta name="description" content="Ojo al plato"/>
     <meta name="robots" content="noodp"/>
     <meta property="og:locale" content="es_ES"/>
+    <meta property="og:site_name" content="Ojo al plato"/>
+    {% block meta %}
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Ojo al plato"/>
     <meta property="og:description" content="Ojo al plato"/>
-    <meta property="og:url" content="/"/>
-    <meta property="og:site_name" content="Ojo al plato"/>
+    <meta property="og:url" content="www.ojoalplato.com"/>
+    {% endblock meta %}
     <meta name="twitter:card" content="summary"/>
     <meta name="twitter:description" content="Ojo al plato"/>
     <meta name="twitter:title" content="Ojo al plato"/>

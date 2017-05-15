@@ -98,3 +98,4 @@ def active(context, pattern_or_urlname):
     if re.search(pattern, path):
         return 'current-menu-item'
     return ''
+
