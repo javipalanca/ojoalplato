@@ -330,7 +330,7 @@ REDACTOR_OPTIONS = {'plugins': ['source', 'table', 'fontcolor', 'fontsize', 'vid
                     'lang': 'es', 'imageResizable': True, 'imagePosition': True, 'imageFloatMargin': '20px'}
 REDACTOR_UPLOAD = 'gallery/'
 #REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
-REDACTOR_UPLOAD_HANDLER = 'ojoalplato.blog.handlers.WatermarkUploader'
+REDACTOR_UPLOAD_HANDLER = 'ojoalplato.blog.handlers.DateDirectoryWatermarkUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
 REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
 

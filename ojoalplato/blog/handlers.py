@@ -1,7 +1,7 @@
 import math
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from io import BytesIO
-from redactor.handlers import SimpleUploader
+from redactor.handlers import SimpleUploader, DateDirectoryUploader
 from PIL import Image, ImageEnhance
 
 from ojoalplato.blog.watermark import watermark
@@ -38,3 +38,7 @@ class WatermarkUploader(SimpleUploader):
         image_file.seek(0)
         self.upload_file = image_file
         return image_file
+
+
+class DateDirectoryWatermarkUploader(WatermarkUploader, DateDirectoryUploader):
+    pass

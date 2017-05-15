@@ -46,7 +46,7 @@ class PostAdmin(VersionAdmin):
         (None, {
             'fields': ('status', 'title', 'author', 'tags', 'category', 'post_date',
                        'restaurant_card', 'wine_card', 'recipe_card',
-                       'image_header', 'content')
+                       'image_header', 'content', 'notified')
         }),
     )
 

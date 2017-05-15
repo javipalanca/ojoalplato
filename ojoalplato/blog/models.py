@@ -47,7 +47,8 @@ class PostManager(models.Manager):
     """
 
     def _by_status(self, status, post_type='post'):
-        return self.filter(status=status, post_type=post_type) \
+        now = timezone.now()
+        return self.filter(status=status, post_type=post_type, post_date__lte=now) \
             .select_related().prefetch_related('meta')
 
     def drafts(self, post_type='post'):
@@ -184,6 +185,8 @@ class Post(TimeStampedModel, HitCountMixin):
 
     term_cache = None
     child_cache = None
+
+    notified = models.BooleanField(default=False, verbose_name="Notificación enviada")
 
     class Meta:
         get_latest_by = 'post_date'

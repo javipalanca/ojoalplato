@@ -37,4 +37,6 @@ def send_newsletter(post_id):
 
     submission.submit()
     Submission.submit_queue()
+    post.notified = True
+    post.save()
     print("send_newsletter submitted!!!")
