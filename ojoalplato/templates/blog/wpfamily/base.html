@@ -14,6 +14,8 @@
     <meta name="robots" content="noodp"/>
     <meta property="og:locale" content="es_ES"/>
     <meta property="og:site_name" content="Ojo al plato"/>
+    <meta property="fb:app_id" content="110350462372983"/>
+    <meta property="fb:admins" content="jpalanca,paco.palanca.3"/>
     {% block meta %}
     <meta property="og:type" content="website"/>
     <meta property="og:title" content="Ojo al plato"/>
@@ -168,6 +170,26 @@
         </span></div>
     </footer><!-- #colophon -->
 {% endblock footer %}
+
+<!-- Facebook Analytics -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '110350462372983',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 
 {% block javascript %}
     <script type='text/javascript' src='{% static "wpfamily/js/bootstrap.mine485.js" %}'></script>

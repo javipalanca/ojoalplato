@@ -1,10 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static %}
-{% load social_share %}
-
-{% load content_filters %}
-{% load disqus %}
-{% load fb_like %}
+{% load static social_share content_filters disqus fb_like %}
 
 {% block title %}Ojoalplato: {{ post.title }}{% endblock %}
 
@@ -26,15 +21,22 @@
     <meta property="og:title" content="{{ post.title }}" />
     <meta property="og:description" content="{{ post.content | striptags | truncatewords:20 | safe }}" />
 {% if post.image_header %}
-    <meta property="og:image" content="http://{{ request.get_host  }}{{ post.image_header.url|relative_url }}" />
+    {% with post.image_header.url|relative_url as image %}
+    <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ post.image_header.url|relative_url }}">
-    <meta itemprop="image" content="http://{{ request.get_host  }}{{ post.image_header.url|relative_url }}">
+    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
+    <meta itemprop="image" content="http://{{ request.get_host  }}{{ image }}">
+    {% og_img_size image %}
+    {% endwith %}
 {% else %}
-    <meta property="og:image" content="http://{{ request.get_host  }}{{ post.content|first_img }}" />
+    {% with  post.content|first_img  as image %}
+    <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ post.content|first_img }}">
-    <meta itemprop="image" content="http://{{ request.get_host  }}{{ post.content|first_img }}">
+    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
+    <meta itemprop="image" content="http://{{ request.get_host  }}{{ image }}">
+    {% og_img_size image %}
+    {% endwith %}
+
 {% endif %}
     <meta property="article:published_time" content="{{ post.post_date|date:"Y-m-d\\Th:m:s+00:00" }}" />
     <meta property="article:section" content="{{ post.category.name }}" />

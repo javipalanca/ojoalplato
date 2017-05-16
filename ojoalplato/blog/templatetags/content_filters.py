@@ -1,7 +1,12 @@
 # coding=utf-8
+import urllib
 import re
 from uuid import uuid4
 
+from django.utils.safestring import mark_safe
+from io import BytesIO
+
+from PIL import Image
 from bs4 import BeautifulSoup
 
 from django.conf import settings
@@ -9,6 +14,7 @@ from django import template
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.encoding import force_text
 from django.utils.text import normalize_newlines, slugify
+
 from ojoalplato.blog.models import PostMeta
 
 register = template.Library()
@@ -99,3 +105,13 @@ def active(context, pattern_or_urlname):
         return 'current-menu-item'
     return ''
 
+
+@register.simple_tag(takes_context=True)
+def og_img_size(context, url):
+    domain = context["request"].get_host()
+    url = "http://{}{}".format(domain, url)
+    file = BytesIO(urllib.request.urlopen(url).read())
+    img = Image.open(file)
+    w, h = img.size
+    meta = '<meta property="og:image:width" content="{}"><meta property="og:image:height" content="{}">'.format(w, h)
+    return mark_safe(meta)
