@@ -1,4 +1,6 @@
+import requests
 from celery import shared_task
+from django.conf import settings
 from django.contrib.sites.models import Site
 
 from .models import Post
@@ -40,3 +42,11 @@ def send_newsletter(post_id):
     post.notified = True
     post.save()
     print("send_newsletter submitted!!!")
+
+
+def post_to_facebook(post_id):
+    params = {'client_id': settings.FACEBOOK_CLIENT_ID,
+              'client_secret': settings.FACEBOOK_CLIENT_SECRET,
+              'grant_type': 'client_credentials'}
+    response = requests.get("https://graph.facebook.com/v2.8/oauth/access_token", params=params)
+    access_token = response.json()["access_token"]

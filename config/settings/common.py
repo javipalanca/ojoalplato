@@ -411,3 +411,8 @@ NEWSLETTER_EMAIL_DELAY = 0.1
 NEWSLETTER_BATCH_DELAY = 60
 # Number of emails in one batch
 NEWSLETTER_BATCH_SIZE = 100
+
+# Facebook settings
+# ------------------------------------------------------------------------------
+FACEBOOK_CLIENT_ID = env("FACEBOOK_CLIENT_ID", default="")
+FACEBOOK_CLIENT_SECRET = env("FACEBOOK_CLIENT_SECRET", default="")
