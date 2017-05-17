@@ -186,7 +186,10 @@ class Post(TimeStampedModel, HitCountMixin):
     term_cache = None
     child_cache = None
 
+    notification_delay = models.PositiveSmallIntegerField(default=1, verbose_name="Retardo de notificación (horas)")
     notified = models.BooleanField(default=False, verbose_name="Notificación enviada")
+    post_to_facebook = models.BooleanField(default=True, verbose_name="Publicar en Facebook")
+    post_to_twitter = models.BooleanField(default=True, verbose_name="Publicar en Twitter")
 
     class Meta:
         get_latest_by = 'post_date'

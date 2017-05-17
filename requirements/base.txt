@@ -80,3 +80,4 @@ django-analytical
 django-request
 django-hitcount
 django-newsletter
+requests-facebook

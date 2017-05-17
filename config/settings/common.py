@@ -416,3 +416,7 @@ NEWSLETTER_BATCH_SIZE = 100
 # ------------------------------------------------------------------------------
 FACEBOOK_CLIENT_ID = env("FACEBOOK_CLIENT_ID", default="")
 FACEBOOK_CLIENT_SECRET = env("FACEBOOK_CLIENT_SECRET", default="")
+FACEBOOK_PAGE_NAME = env("FACEBOOK_PAGE_NAME", default="ojoalplato.com")
+FACEBOOK_PAGE_ID = env("FACEBOOK_PAGE_ID", default="ojoalplato")
+FACEBOOK_PAGE_ACCESS_TOKEN = env("FACEBOOK_PAGE_ACCESS_TOKEN", default="")
+
