@@ -1,4 +1,3 @@
-import requests
 from celery import shared_task
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -6,6 +5,7 @@ from django.contrib.sites.models import Site
 from .models import Post
 from newsletter.models import Article, Submission, Message, Newsletter
 
+import requests
 from facebook import GraphAPI
 
 
@@ -52,9 +52,9 @@ def send_newsletter(post_id):
 
 
 def post_to_facebook(post_id):
-    print("post_to_facebook activated")
     post = Post.objects.get(pk=post_id)
     if post.post_to_facebook:
+        print("post_to_facebook activated")
         site = Site.objects.all()[0]
         page_access_token = get_fb_page_access_token()
         graph = GraphAPI(page_access_token)

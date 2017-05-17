@@ -67,6 +67,7 @@ class PostAdmin(VersionAdmin):
              'all': ('wpfamily/style_admin.css',)
         }
 
+
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_filter = ['comment_type', 'author_name']
