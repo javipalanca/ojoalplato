@@ -7,12 +7,14 @@ from newsletter.models import Article, Submission, Message, Newsletter
 
 import requests
 from facebook import GraphAPI
+import tweepy
 
 
 @shared_task
 def post_published_task(post_id):
     send_newsletter(post_id=post_id)
     post_to_facebook(post_id=post_id)
+    post_to_twitter(post_id=post_id)
 
 
 def send_newsletter(post_id):
@@ -78,3 +80,27 @@ def get_fb_page_access_token():
                 return page["access_token"]
     else:
         return settings.FACEBOOK_PAGE_ACCESS_TOKEN
+
+
+def get_api(cfg):
+    auth = tweepy.OAuthHandler(cfg['consumer_key'], cfg['consumer_secret'])
+    auth.set_access_token(cfg['access_token'], cfg['access_token_secret'])
+    return tweepy.API(auth)
+
+
+def post_to_twitter(post_id):
+    post = Post.objects.get(pk=post_id)
+    if post.post_to_twitter:
+        print("post_to_twitter activated")
+        cfg = {
+            "consumer_key": settings.TWITTER_CONSUMER_KEY,
+            "consumer_secret": settings.TWITTER_CONSUMER_SECRET,
+            "access_token": settings.TWITTER_ACCESS_TOKEN,
+            "access_token_secret": settings.TWITTER_ACCESS_TOKEN_SECRET
+        }
+
+        site = Site.objects.all()[0]
+        api = get_api(cfg)
+        tweet = "{}\nhttp://{}{}".format(post.title, site.domain, post.get_absolute_url())
+        status = api.update_status(status=tweet)
+        print("{} posted to twitter".format(post.id))

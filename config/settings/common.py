@@ -412,11 +412,14 @@ NEWSLETTER_BATCH_DELAY = 60
 # Number of emails in one batch
 NEWSLETTER_BATCH_SIZE = 100
 
-# Facebook settings
+# Facebook and Twitter settings
 # ------------------------------------------------------------------------------
 FACEBOOK_CLIENT_ID = env("FACEBOOK_CLIENT_ID", default="")
 FACEBOOK_CLIENT_SECRET = env("FACEBOOK_CLIENT_SECRET", default="")
 FACEBOOK_PAGE_NAME = env("FACEBOOK_PAGE_NAME", default="ojoalplato.com")
 FACEBOOK_PAGE_ID = env("FACEBOOK_PAGE_ID", default="ojoalplato")
 FACEBOOK_PAGE_ACCESS_TOKEN = env("FACEBOOK_PAGE_ACCESS_TOKEN", default="")
-
+TWITTER_CONSUMER_KEY = env("TWITTER_CONSUMER_KEY", default="")
+TWITTER_CONSUMER_SECRET = env("TWITTER_CONSUMER_SECRET", default="")
+TWITTER_ACCESS_TOKEN = env("TWITTER_ACCESS_TOKEN", default="")
+TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET", default="")
