@@ -18,39 +18,40 @@ def post_published_task(post_id):
 
 
 def send_newsletter(post_id):
-    print("send_newsletter activated")
     post = Post.objects.get(pk=post_id)
-    site = Site.objects.all()[0]
+    if not post.notified:
+        print("send_newsletter activated")
+        site = Site.objects.all()[0]
 
-    newsletter = Newsletter.objects.all()[0]
-    submission = Submission()
-    message = Message()
-    article = Article()
-    article.url = "http://{}{}".format(site.domain, post.get_absolute_url())
-    article.title = post.title
-    article.text = post.content.replace('src="/media', 'src="http://'+site.domain+'/media')
-    article.sortorder = 0
+        newsletter = Newsletter.objects.all()[0]
+        submission = Submission()
+        message = Message()
+        article = Article()
+        article.url = "http://{}{}".format(site.domain, post.get_absolute_url())
+        article.title = post.title
+        article.text = post.content.replace('src="/media', 'src="http://'+site.domain+'/media')
+        article.sortorder = 0
 
-    message.title = post.title
-    message.newsletter = newsletter
-    message.slug = post.slug
-    message.save()
-    message.articles.add(article, bulk=False)
-    message.save()
-    article.save()
+        message.title = post.title
+        message.newsletter = newsletter
+        message.slug = post.slug
+        message.save()
+        message.articles.add(article, bulk=False)
+        message.save()
+        article.save()
 
-    submission.newsletter = newsletter
-    submission.message = message
-    submission.save()
-    for s in newsletter.get_subscriptions():
-        submission.subscriptions.add(s)
-    submission.save()
+        submission.newsletter = newsletter
+        submission.message = message
+        submission.save()
+        for s in newsletter.get_subscriptions():
+            submission.subscriptions.add(s)
+        submission.save()
 
-    submission.submit()
-    Submission.submit_queue()
-    post.notified = True
-    post.save()
-    print("send_newsletter submitted")
+        submission.submit()
+        Submission.submit_queue()
+        post.notified = True
+        post.save()
+        print("send_newsletter submitted")
 
 
 def post_to_facebook(post_id):
