@@ -1,5 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static social_share content_filters disqus fb_like %}
+{% load static social_share content_filters disqus fb_like  card_tags %}
 
 {% block title %}Ojoalplato: {{ post.title }}{% endblock %}
 
@@ -109,6 +109,11 @@
             <div class="fb-lile-btn">
                 {% facebook_js %}{% fb_like_button post %}
             </div>
+
+        {% if post.restaurant_card %}
+            {% render_restaurant_mini post.restaurant_card %}
+        {% endif %}
+
         </div><!-- .article-padding -->
 
         <footer class="entry-footer">

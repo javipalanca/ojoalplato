@@ -1,0 +1,51 @@
+{% extends "blog/wpfamily/base.html" %}
+
+{% block title %}Ojoalplato: {{ card.name }}{% endblock %}
+
+{% block content %}
+    <article id="post-4"
+             class="post-4 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry">
+
+        <div class="featured-image-family"
+             style="background-image:url('{% static 'wpfamily/img/uncategorized.gif' %}')"></div>
+
+        <div class="article-padding">
+
+            <header class="entry-header">
+                <h1 class="entry-title">{{ card.name }}</h1>
+                <div class="familymember-meta">
+                    Dad <span class="sep"> / </span> 34 Years Old
+                </div>
+            </header><!-- .entry-header -->
+
+            <div class="entry-content text-center">
+                {% block render_card %}{% endblock %}
+                {% with card.get_posts_images as images %}
+                {% if images %}
+                <div id="gallery-2" class="gallery galleryid-4 gallery-columns-4 gallery-size-thumbnail">
+                    {% for img in images %}
+                    <figure class="gallery-item">
+                        <div class="gallery-icon landscape">
+                            <a href="#"
+                               class="cboxElement"><img width="150" height="150"
+                                                        src="{{ img }}"
+                                                        class="attachment-thumbnail size-thumbnail" alt=""
+                                                        sizes="(max-width: 150px) 100vw, 150px"></a>
+                                                        <!--srcset="http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-150x150.jpg 150w, http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-200x200.jpg 200w, http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-400x400.jpg 400w"-->
+                        </div>
+                    </figure>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                <!--p class="text-center"><a href="http://familywp.com/topbardemo/member/ryan/"
+                                          class="btn btn-primary btn-lg">View Posts</a></p-->
+
+            </div><!-- .entry-content -->
+
+        </div><!-- .article-padding -->
+
+
+    </article>
+{% endblock content %}

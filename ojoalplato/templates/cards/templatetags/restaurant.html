@@ -1,0 +1,35 @@
+{% load card_tags %}
+
+<div class="mini-card">
+    <div class="row">
+        <div class="col-sm-3 map">
+            <a href="{{ restaurant.residence.google_maps_link }}" target="_blank">
+                <img src="{% google_static_map restaurant.get_position_wgs84 235 201 14 %}" class="img-fluid">
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <h4><a href="{{ restaurant.get_absolute_url }}" >{{ restaurant.name }}</a></h4>
+            <p class="lead">
+                {% if restaurant.is_closed%}<span class="label label-danger">"Cerrado"</span>{% endif %}
+            </p>
+            <table class="table table-sm">
+                <tbody>
+                    <tr>
+                        <th scope="row">"Dirección"</th>
+                        <td>{{ restaurant.address }}</td>
+                    </tr>
+                <tr>
+                    <th scope="row">"Teléfono"</th>
+                    <td>{{ restaurant.phone }}</td>
+                </tr>
+                {% if restaurant.url %}
+                <tr>
+                    <th scope="row">"Página web"%}</th>
+                    <td>{{ restaurant.url }}</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -49,9 +49,6 @@ services:
 
   mysql:
     build: ./compose/mysql
-    volumes:
-      - /data/dev/ojoalplato/mysql:/var/lib/mysql
-      - /data/dev/ojoalplato/mysql-backups:/backups
     environment:
       - MYSQL_USER=ojoalplato
       - MYSQL_PASSWORD=ojoalplato
