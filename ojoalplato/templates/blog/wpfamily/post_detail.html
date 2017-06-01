@@ -106,13 +106,15 @@
             <div class="entry-content">
                 {{ post.content | lightbox | safe }}
             </div><!-- .entry-content -->
-            <div class="fb-lile-btn">
-                {% facebook_js %}{% fb_like_button post %}
-            </div>
 
         {% if post.restaurant_card %}
             {% render_restaurant_mini post.restaurant_card %}
         {% endif %}
+
+            <div class="fb-lile-btn">
+                {% facebook_js %}{% fb_like_button post %}
+            </div>
+
 
         </div><!-- .article-padding -->
 

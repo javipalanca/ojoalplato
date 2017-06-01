@@ -1,32 +1,53 @@
-{% load card_tags %}
+{% load card_tags likert_bs_stars %}
 
-<div class="mini-card">
+<figure class="mini-card-header">
+    Ficha de restaurante
+</figure>
+<div class="mini-card ribbon-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+                <h4><a href="{{ restaurant.get_absolute_url }}" >{{ restaurant.name }}</a></h4>
+                {% if restaurant.is_closed%}
+                        <div class="ribbon-wrapper-green"><div class="ribbon-green">Cerrado</div></div>
+                {% endif %}
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-3 map">
-            <a href="{{ restaurant.residence.google_maps_link }}" target="_blank">
-                <img src="{% google_static_map restaurant.get_position_wgs84 235 201 14 %}" class="img-fluid">
+            <a href="{{ restaurant.google_maps_url }}" target="_blank">
+                <img src="{% google_static_map restaurant.get_position_wgs84 235 201 13 %}" class="img-fluid">
             </a>
         </div>
-        <div class="col-sm-6">
-            <h4><a href="{{ restaurant.get_absolute_url }}" >{{ restaurant.name }}</a></h4>
-            <p class="lead">
-                {% if restaurant.is_closed%}<span class="label label-danger">"Cerrado"</span>{% endif %}
-            </p>
-            <table class="table table-sm">
+        <div class="col-sm-9">
+            <table class="table table-sm font-size-16">
                 <tbody>
+                    {% if restaurant.chef %}
                     <tr>
-                        <th scope="row">"Dirección"</th>
+                        <th scope="row" style="width: 20%;">Cocinero</th>
+                        <td>{{ restaurant.chef }}</td>
+                    </tr>
+                {% endif %}
+                    <tr>
+                        <th scope="row" style="width: 20%;">Dirección</th>
                         <td>{{ restaurant.address }}</td>
                     </tr>
-                <tr>
-                    <th scope="row">"Teléfono"</th>
-                    <td>{{ restaurant.phone }}</td>
-                </tr>
+                {% if restaurant.phone %}
+                    <tr>
+                        <th scope="row" style="width: 20%;">Teléfono</th>
+                        <td>{{ restaurant.phone }}</td>
+                    </tr>
+                {% endif %}
                 {% if restaurant.url %}
-                <tr>
-                    <th scope="row">"Página web"%}</th>
-                    <td>{{ restaurant.url }}</td>
-                </tr>
+                    <tr>
+                        <th scope="row" style="width: 20%;">Página web</th>
+                        <td>{{ restaurant.url }}</td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.stars %}
+                    <tr>
+                        <th scope="row" style="width: 20%;">Estrellas Michelín</th>
+                        <td>{{ restaurant.stars | bs_stars3:3 }}</td>
+                    </tr>
                 {% endif %}
                 </tbody>
             </table>
