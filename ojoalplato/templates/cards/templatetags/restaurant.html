@@ -19,34 +19,46 @@
             </a>
         </div>
         <div class="col-sm-9">
-            <table class="table table-sm font-size-16">
+            <table class="table table-responsive table-condensed font-size-16">
                 <tbody>
                     {% if restaurant.chef %}
                     <tr>
-                        <th scope="row" style="width: 20%;">Cocinero</th>
+                        <th scope="row" class="col-xs-4">Cocinero</th>
                         <td>{{ restaurant.chef }}</td>
                     </tr>
                 {% endif %}
                     <tr>
-                        <th scope="row" style="width: 20%;">Dirección</th>
+                        <th scope="row" class="col-xs-4">Dirección</th>
                         <td>{{ restaurant.address }}</td>
                     </tr>
                 {% if restaurant.phone %}
                     <tr>
-                        <th scope="row" style="width: 20%;">Teléfono</th>
+                        <th scope="row" class="col-xs-4">Teléfono</th>
                         <td>{{ restaurant.phone }}</td>
                     </tr>
                 {% endif %}
                 {% if restaurant.url %}
                     <tr>
-                        <th scope="row" style="width: 20%;">Página web</th>
+                        <th scope="row" class="col-xs-4">Página web</th>
                         <td>{{ restaurant.url }}</td>
                     </tr>
                 {% endif %}
                 {% if restaurant.stars %}
                     <tr>
-                        <th scope="row" style="width: 20%;">Estrellas Michelín</th>
-                        <td>{{ restaurant.stars | bs_stars3:3 }}</td>
+                        <th scope="row" class="col-xs-4">Estrellas Michelín</th>
+                        <td>{{ restaurant.stars | card_bs_stars3:3 }}</td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.suns %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Soles Repsol</th>
+                        <td>{{ restaurant.suns | card_bs_suns_fa:3 }}</td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.awards %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Distinciones</th>
+                        <td>{{ restaurant.awards }}</td>
                     </tr>
                 {% endif %}
                 </tbody>

@@ -10,5 +10,5 @@ class MapView(ListView):
 
 class RestaurantDetailView(DetailView):
     model = Restaurant
-    template_name = "cards/card_detail.html"
+    template_name = "cards/restaurant_detail.html"
     context_object_name = "card"

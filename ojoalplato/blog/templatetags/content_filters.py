@@ -81,7 +81,7 @@ def relative_url(url):
 @register.filter()
 def cat_img(category):
     images = {
-        "restaurantes": "restaurant4.jpg",
+        "restaurantes": "cuberteria.jpg",
         "vinos": "wine.jpg",
         "recetas": "recipe.jpg",
         "cervezas": "beer.jpg",
@@ -115,3 +115,8 @@ def og_img_size(context, url):
     w, h = img.size
     meta = '<meta property="og:image:width" content="{}"><meta property="og:image:height" content="{}">'.format(w, h)
     return mark_safe(meta)
+
+
+@register.filter
+def escape_slash(value):
+    return value.replace("/", "\/")

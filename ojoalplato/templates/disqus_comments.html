@@ -1,8 +1,13 @@
+{% load content_filters %}
+
 <script type="application/javascript">
     var disqus_config = function () {
-        this.page.url = '//ojoalplato.com/archivos/'{{ post.id }} + "/";
-        //this.page.identifier = '//ojoalplato.com/archivos/'{{ post.id }};
-        this.page.title = '{{ post.title }}';
+        {% if url %}
+        this.page.url = '//ojoalplato.com{{ url|escape_slash }}';
+        {% else %}
+        this.page.url = '//ojoalplato.com/archivos/'{{ object.id }} + "/";
+        {% endif %}
+        this.page.title = '{{ object.title }}';
     };
 </script>
 <div id="disqus_thread"></div>
@@ -13,9 +18,14 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
 
     var disqus_config = function () {
-        this.page.url = "http:\/\/nuevo.ojoalplato.com\/archivos\/{{ post.id }}";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "{{ post.id }} http:\/\/www.ojoalplato.com\/?p={{ post.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-        this.page.title = "{{ post.title }}";
+        {% if url %}
+        this.page.url = "http:\/\/nuevo.ojoalplato.com\/{{ url|escape_slash }}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{ object.id }} http:\/\/www.ojoalplato.com{{ url|escape_slash }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        {% else %}
+        this.page.url = "http:\/\/nuevo.ojoalplato.com\/archivos\/{{ object.id }}";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "{{ object.id }} http:\/\/www.ojoalplato.com\/?p={{ object.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        {% endif %}
+        this.page.title = "{{ object.title }}";
     };
 
     (function () { // DON'T EDIT BELOW THIS LINE

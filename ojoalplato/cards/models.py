@@ -32,7 +32,9 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     avg_price = PositiveSmallIntegerField(verbose_name="Precio medio", blank=True, null=True)
     menu_price = PositiveSmallIntegerField(verbose_name="Precio de menú", blank=True, null=True)
     location = PointField(srid=DEFAULT_PROJECTED_SRID, verbose_name="Posición en el mapa", blank=True, null=True)
-    stars = LikertField(verbose_name="Estrellas michelín", blank=True)
+    stars = LikertField(verbose_name="Estrellas michelín", default=0)
+    suns = LikertField(verbose_name="Soles Repsol", default=0)
+    awards = CharField(verbose_name="Distinciones", max_length=300, blank=True, null=True)
     freedays = CharField(verbose_name="Días cerrado",
                          validators=[validate_comma_separated_integer_list],
                          max_length=80, blank=True, null=True)
@@ -45,9 +47,12 @@ class Restaurant(TimeStampedModel, HitCountMixin):
         upload_to=settings.MEDIA_ROOT,
         null=True, blank=True, )
 
+    def title(self):
+        return self.name
+
     def get_posts_images(self):
         images = []
-        for post in self.post_set:
+        for post in self.posts.all():
             soup = BeautifulSoup(post.content, "html.parser")
             for img in soup.find_all('img'):
                 if img:

@@ -5,7 +5,7 @@ from django.contrib.gis.geos import Point
 from geopy import GoogleV3
 from reversion.admin import VersionAdmin
 
-from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget
+from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget, SunsWidget
 from . import DAY_CHOICES, DEFAULT_WGS84_SRID
 from .models import Restaurant, Wine, Recipe
 
@@ -18,6 +18,7 @@ class RestaurantAdminForm(forms.ModelForm):
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
             'phone': PhoneNumberWidget(),
             'stars': StarsWidget(),
+            'suns': SunsWidget(),
             'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ sin vino'}),
             'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ medio'}),
             'menu_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ menu'}),

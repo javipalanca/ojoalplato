@@ -12,6 +12,11 @@ star_set_2 = {
     'unlit': "<i class='glyphicon glyphicon-star-empty likert-star'></i>",
     'noanswer': "<i class='glyphicon glyphicon-ban-circle likert-star'></i>"
 }
+sun_set = {
+    'star': "<i class='fa fa-sun-o likert-star'></i>",
+    'unlit': "<i class='likert-star'></i>",
+    'noanswer': "<i class='glyphicon glyphicon-ban-circle likert-star'></i>"
+}
 
 
 class PointWidget(floppyforms.gis.PointWidget, floppyforms.gis.BaseOsmWidget):
@@ -26,7 +31,7 @@ class PhoneNumberWidget(PhoneNumberPrefixWidget):
         return '%s.%s' % tuple(values)
 
 
-def render_stars(num, max_stars, star_set):
+def render_stars(num, max_stars, star_set, name):
     """
     Star renderer returns a HTML string of stars
     If num is None or a blank string, it returns the unanswered tag
@@ -35,7 +40,7 @@ def render_stars(num, max_stars, star_set):
     If num > max_stars, render max_stars solid stars
     star_set is a dictionary of strings with keys: star, unlit, noanswer
     """
-    _input = '<input class="vIntegerField" id="id_stars" name="stars" value="{}" '.format(num)
+    _input = '<input class="vIntegerField" id="id_{}" name="{}" value="{}" '.format(name, name, num)
     _input += 'title="" type="number" data-original-title="" min=0 max=3 style="width: 50px;">'
     if num is None or (isinstance(num, string_types) and len(num) == 0):
         return '<span>' + _input + "&nbsp;" + star_set['noanswer'] + '</span>'
@@ -52,7 +57,13 @@ def render_stars(num, max_stars, star_set):
 class StarsWidget(forms.Widget):
     def render(self, name, value, attrs=None):
         max_stars = 3
-        return mark_safe(render_stars(value, max_stars, star_set_2))
+        return mark_safe(render_stars(value, max_stars, star_set_2, "stars"))
+
+
+class SunsWidget(forms.Widget):
+    def render(self, name, value, attrs=None):
+        max_stars = 3
+        return mark_safe(render_stars(value, max_stars, sun_set, "suns"))
 
 
 class WeekdayWidget(forms.CheckboxSelectMultiple):
