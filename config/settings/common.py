@@ -77,8 +77,8 @@ LOCAL_APPS = (
     'ojoalplato.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'ojoalplato.blog.apps.BlogConfig',
-    'ojoalplato.category',
-    'ojoalplato.cards',
+    'ojoalplato.category.apps.CategoryConfig',
+    'ojoalplato.cards.apps.CardConfig',
     'ojoalplato.contactform',
 )
 

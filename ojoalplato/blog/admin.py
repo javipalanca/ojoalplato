@@ -36,6 +36,7 @@ class PostChangeForm(forms.ModelForm):
 class PostAdmin(VersionAdmin):
     form = PostChangeForm
     save_on_top = True
+    search_fields = ("title",)
     list_filter = ['status']
     list_display = ['title', 'author', 'post_date', 'status']
     ordering = ('-post_date',)

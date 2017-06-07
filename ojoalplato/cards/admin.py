@@ -45,6 +45,7 @@ class RestaurantAdminForm(forms.ModelForm):
 @admin.register(Restaurant)
 class RestaurantAdmin(VersionAdmin):
     form = RestaurantAdminForm
+    search_fields = ("name", )
     list_filter = ['stars', 'is_closed']
     list_display = ['name', 'is_closed']
     save_on_top = True
@@ -57,6 +58,7 @@ class RestaurantAdmin(VersionAdmin):
 
 @admin.register(Wine)
 class WineAdmin(VersionAdmin):
+    search_fields = ("name",)
     list_filter = ['kind']
     list_display = ['name', 'kind']
     save_on_top = True
@@ -64,5 +66,6 @@ class WineAdmin(VersionAdmin):
 
 @admin.register(Recipe)
 class RecipeAdmin(VersionAdmin):
+    search_fields = ("name",)
     list_display = ['name']
     save_on_top = True
