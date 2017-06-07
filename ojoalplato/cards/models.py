@@ -79,6 +79,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     class Meta:
         verbose_name = "Restaurante"
         verbose_name_plural = "Restaurantes"
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -113,6 +114,7 @@ class Wine(TimeStampedModel, HitCountMixin):
     class Meta:
         verbose_name = "Vino"
         verbose_name_plural = "Vinos"
+        ordering = ['name']
 
 
 class Recipe(TimeStampedModel, HitCountMixin):
@@ -143,3 +145,4 @@ class Recipe(TimeStampedModel, HitCountMixin):
     class Meta:
         verbose_name = "Receta"
         verbose_name_plural = "Recetas"
+        ordering = ['name']
