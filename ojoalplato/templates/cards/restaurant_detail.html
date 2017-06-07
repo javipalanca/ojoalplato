@@ -25,13 +25,13 @@
                 {% if restaurant.phone %}
                     <tr>
                         <th scope="row" class="col-xs-4">Teléfono</th>
-                        <td>{{ restaurant.phone }}</td>
+                        <td><a href="tel:{{ restaurant.phone }}">{{ restaurant.phone }}</a></td>
                     </tr>
                 {% endif %}
                 {% if restaurant.url %}
                     <tr>
                         <th scope="row" class="col-xs-4">Página web</th>
-                        <td>{{ restaurant.url }}</td>
+                        <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
                     </tr>
                 {% endif %}
                 {% if restaurant.stars %}
