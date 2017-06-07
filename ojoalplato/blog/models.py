@@ -136,6 +136,7 @@ class Post(TimeStampedModel, HitCountMixin):
     post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="post")
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
+    subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
     slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
                                default=get_default_user)
