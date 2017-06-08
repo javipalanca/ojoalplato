@@ -76,6 +76,8 @@
                         <td>{{ restaurant.menu_price }} €</td>
                     </tr>
                 {% endif %}
+                {% if not restaurant.is_closed %}
+                {% if restaurant.freedays %}
                     <tr>
                         <th scope="row" class="col-xs-4">Días cerrado</th>
                         <td>
@@ -104,6 +106,8 @@
                         </div>
                         </td>
                     </tr>
+                    {% endif %}
+                    {% endif %}
                     <tr>
                         <th scope="row" class="col-xs-4">Actualmente</th>
                         {% if restaurant.is_closed %}
