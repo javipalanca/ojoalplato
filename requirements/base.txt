@@ -82,3 +82,4 @@ django-hitcount
 django-newsletter
 requests-facebook
 tweepy
+django-haystack
