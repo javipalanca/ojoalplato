@@ -29,6 +29,7 @@ services:
       - mailhog
       - mysql
       - redis
+      - elasticsearch
 
   pycharm:
     build:
@@ -76,7 +77,7 @@ services:
     command: celery -A ojoalplato.taskapp worker -l INFO
 
 
-  elastic:
+  elasticsearch:
     image: elasticsearch:latest
     environment:
       - cluster.name=docker-cluster
@@ -93,6 +94,6 @@ services:
   kibana:
     image: kibana
     links:
-      - elastic
+      - elasticsearch
     ports:
       - "5601:5601"

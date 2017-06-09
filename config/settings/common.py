@@ -69,6 +69,7 @@ THIRD_PARTY_APPS = (
     'request',
     'hitcount',
     'newsletter',
+    'haystack',
 )
 
 # Apps specific for this project go here.
@@ -427,3 +428,13 @@ TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET", default="")
 # Google Maps settings
 # ------------------------------------------------------------------------------
 GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY", default="")
+
+# Haystack settings
+# ------------------------------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://elasticsearch:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
