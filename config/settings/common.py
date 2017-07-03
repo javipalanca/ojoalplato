@@ -429,8 +429,7 @@ TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET", default="")
 # ------------------------------------------------------------------------------
 GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY", default="")
 
-
-# Haystack search engine
+# Haystack settings
 # ------------------------------------------------------------------------------
 HAYSTACK_CONNECTIONS = {
     'default': {
