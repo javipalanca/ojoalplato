@@ -1,4 +1,3 @@
 {{ object.name }}
 {{ object.chef }}
 {{ object.address }}
-{{ object.notes }}

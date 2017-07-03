@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.gdal import CoordTransform
 from django.contrib.gis.gdal import SpatialReference
+from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, PositiveSmallIntegerField,\
@@ -68,6 +69,11 @@ class Restaurant(TimeStampedModel, HitCountMixin):
         position = copy(self.location)
         position.transform(trans)
         return [position[1], position[0]]
+
+    @property
+    def location_wgs84(self):
+        lat, lon = self.get_position_wgs84()
+        return Point(lat, lon)
 
     def google_maps_url(self):
         point = self.get_position_wgs84()
