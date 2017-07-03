@@ -76,8 +76,9 @@ services:
     command: celery -A ojoalplato.taskapp worker -l INFO
 
 
-  elastic:
+  elasticsearch:
     image: elasticsearch:latest
+    hostname: elasticsearch
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -93,6 +94,6 @@ services:
   kibana:
     image: kibana
     links:
-      - elastic
+      - elasticsearch
     ports:
       - "5601:5601"

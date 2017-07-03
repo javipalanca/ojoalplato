@@ -34,6 +34,9 @@ urlpatterns = [
     # Subscriptions
     url(r'^subscription/', include('newsletter.urls')),
 
+    # Search
+    url(r'^search/', include('haystack.urls')),
+
 
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),

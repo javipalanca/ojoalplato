@@ -69,6 +69,7 @@ THIRD_PARTY_APPS = (
     'request',
     'hitcount',
     'newsletter',
+    'haystack',
 )
 
 # Apps specific for this project go here.
@@ -225,7 +226,7 @@ STATICFILES_FINDERS = (
 # MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-#MEDIA_ROOT = str(APPS_DIR('media'))
+# MEDIA_ROOT = str(APPS_DIR('media'))
 MEDIA_ROOT = '/media'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
@@ -329,7 +330,7 @@ SUIT_CONFIG = {
 REDACTOR_OPTIONS = {'plugins': ['source', 'table', 'fontcolor', 'fontsize', 'video', 'inlinestyle', 'alignment'],
                     'lang': 'es', 'imageResizable': True, 'imagePosition': True, 'imageFloatMargin': '20px'}
 REDACTOR_UPLOAD = 'gallery/'
-#REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
+# REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.SimpleUploader'
 REDACTOR_UPLOAD_HANDLER = 'ojoalplato.blog.handlers.DateDirectoryWatermarkUploader'
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
 REDACTOR_FILE_STORAGE = 'django.core.files.storage.DefaultStorage'
@@ -427,3 +428,14 @@ TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET", default="")
 # Google Maps settings
 # ------------------------------------------------------------------------------
 GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY", default="")
+
+
+# Haystack search engine
+# ------------------------------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://elasticsearch:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
