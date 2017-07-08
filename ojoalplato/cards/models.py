@@ -42,6 +42,10 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     is_closed = BooleanField(verbose_name="Restaurante cerrado", default=False)
     notes = TextField(verbose_name="Notas", blank=True, null=True)
 
+    tags = TaggableManager(verbose_name="Etiquetas",
+                           help_text="Lista de etiquetas separadas por comas.",
+                           blank=True)
+
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",

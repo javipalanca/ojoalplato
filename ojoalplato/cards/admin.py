@@ -52,7 +52,8 @@ class RestaurantAdmin(VersionAdmin):
 
     class Meta:
         css = {
-            'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',),
+            'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                    'wpfamily/style_admin.css'),
         }
 
 
