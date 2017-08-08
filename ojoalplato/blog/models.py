@@ -158,7 +158,8 @@ class Post(TimeStampedModel, HitCountMixin):
         null=True, blank=True, )
 
     restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante",
-                                 related_name="posts", blank=True, null=True)
+                                 related_name="posts", blank=True, null=True,
+                                 on_delete=models.SET_NULL)
     wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True)
     recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True)
 
