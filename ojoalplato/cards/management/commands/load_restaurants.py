@@ -35,29 +35,32 @@ class Command(BaseCommand):
                 r.phone = "+34" + v["phone"]
             if v["email"]:
                 r.email = v["email"].strip()
+            if v["web"]:
+                web = v["web"].strip()
+                r.url = web
             if v["precio_medio"]:
                 r.price = float(v["precio_medio"])
             freedays = {'L': 0, 'M': 1, 'X': 2, 'J': 3, 'V': 4, 'S': 5, 'D': 6}
             if v["cierra"]:
                 r.freedays = ",".join([str(freedays[day]) for day in v["cierra"]])
 
-            #if v['x'] and v['y']:
-            #    position_point = Point(v['x'], v['y'], srid=DEFAULT_WGS84_SRID)
-            #    location = position_point
-            #else:
-            #    geolocator = GoogleV3(timeout=5)
-            #    location = geolocator.geocode(r.address)
-            #    if location:
-            #        location = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
-            #    else:
-            #        location = Point((0, 0))
+            if v['x'] and v['y']:
+                position_point = Point(v['x'], v['y'], srid=DEFAULT_WGS84_SRID)
+                location = position_point
+            else:
+                geolocator = GoogleV3(timeout=5)
+                location = geolocator.geocode(r.address)
+                if location:
+                    location = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
+                else:
+                    location = Point((0, 0))
 
                 #geolocator = Nominatim()
                 #x, y = location.x, location.y
                 #reverse_location = geolocator.reverse("{0}, {1}".format(y, x))
                 #r.address = reverse_location.address
                 #r.save()
-            #r.location = location
+            r.location = location
 
             r.save()
 

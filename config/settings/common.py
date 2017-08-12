@@ -70,6 +70,9 @@ THIRD_PARTY_APPS = (
     'hitcount',
     'newsletter',
     'haystack',
+    'rest_framework',
+    'rest_framework_gis',
+    'taggit_serializer',
 )
 
 # Apps specific for this project go here.
@@ -439,3 +442,11 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

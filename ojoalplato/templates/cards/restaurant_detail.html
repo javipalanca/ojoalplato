@@ -34,6 +34,12 @@
                         <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
                     </tr>
                 {% endif %}
+                {% if restaurant.email %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Email</th>
+                        <td><a href="mailto:{{ restaurant.email }}">{{ restaurant.email }}</a></td>
+                    </tr>
+                {% endif %}
                 {% if restaurant.stars %}
                     <tr>
                         <th scope="row" class="col-xs-4">Estrellas Michelín</th>
@@ -76,6 +82,7 @@
                         <td>{{ restaurant.menu_price }} €</td>
                     </tr>
                 {% endif %}
+                {% if restaurant.freedays %}
                     <tr>
                         <th scope="row" class="col-xs-4">Días cerrado</th>
                         <td>
@@ -104,6 +111,7 @@
                         </div>
                         </td>
                     </tr>
+                {% endif %}
                     <tr>
                         <th scope="row" class="col-xs-4">Actualmente</th>
                         {% if restaurant.is_closed %}

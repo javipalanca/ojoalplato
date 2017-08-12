@@ -42,6 +42,8 @@
             type="text/javascript"></script>
     <script src="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.js' %}"
             type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.min.js"></script>
     <script type="text/javascript">
         var restIcon = L.AwesomeMarkers.icon({
             icon: 'cutlery',
@@ -49,13 +51,8 @@
         });
         window.addEventListener("map:init", function (e) {
             var detail = e.detail;
+            detail.map.spin(true);
             detail.map.scrollWheelZoom.disable();
-            {% for rest in object_list %}
-                L.marker({{ rest.get_position_wgs84 }}, {icon: restIcon}).addTo(detail.map)
-                        .bindPopup("<b>{{ rest.name }}</b> <br>\{% for post in rest.posts.all %}
-                <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a><br>\{% endfor %}
-                ");
-            {% endfor %}
             // create a fullscreen button and add it to the map
             L.control.fullscreen({
                 position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
@@ -66,8 +63,26 @@
                 forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
                 fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
             }).addTo(detail.map);
+            axios.get('/api/v1/restaurants/')
+                .then(function (response) {
+                    for (var index in response.data) {
+                        var rest = response.data[index];
+                        //console.log(rest.location.coordinates);
+                        L.marker({'lat':rest.location.coordinates[0],
+                                  'lon': rest.location.coordinates[1]},
+                                {icon: restIcon}).addTo(detail.map)
+                            .bindPopup("<a href='/cards/restaurant/'+rest.slug><b>rest.name</b></a>");
+                    }
+                    detail.map.spin(false);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }, false);
+
+
     </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 {% endblock javascript %}
 
 {% block content %}
@@ -91,7 +106,7 @@
                 <div class="entry-content">
 
 
-                <form method="get" action="{% url 'haystack_search' %}">
+                <form method="GET" action="{% url 'cards:restaurant-search' %}">
                     <table>
 
                         <input name="q" type="text" />
