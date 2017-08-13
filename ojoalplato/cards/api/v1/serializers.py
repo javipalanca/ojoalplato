@@ -12,7 +12,7 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
 
     class Meta:
         model = Restaurant
-        fields = ('id', 'name', 'chef', 'address', 'phone', 'url', 'email',
+        fields = ('id', 'name', 'slug', 'chef', 'address', 'phone', 'url', 'email',
                   'last_visit', 'price', 'avg_price', 'menu_price', 'location',
                   'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags')
 

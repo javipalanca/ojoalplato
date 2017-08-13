@@ -71,7 +71,7 @@
                         L.marker({'lat':rest.location.coordinates[0],
                                   'lon': rest.location.coordinates[1]},
                                 {icon: restIcon}).addTo(detail.map)
-                            .bindPopup("<a href='/cards/restaurant/'+rest.slug><b>rest.name</b></a>");
+                            .bindPopup("<a href='/cards/restaurant/"+rest.slug+"'><b>"+rest.name+"</b></a>");
                     }
                     detail.map.spin(false);
                 })
