@@ -12,16 +12,18 @@
         <div class="col-sm-9">
             <table class="table table-responsive table-condensed font-size-16">
                 <tbody>
-                    {% if restaurant.chef %}
+                {% if restaurant.chef %}
                     <tr>
                         <th scope="row" class="col-xs-4">Cocinero</th>
                         <td>{{ restaurant.chef }}</td>
                     </tr>
                 {% endif %}
+                {% if restaurant.address %}
                     <tr>
                         <th scope="row" class="col-xs-4">Dirección</th>
                         <td>{{ restaurant.address }}</td>
                     </tr>
+                {% endif %}
                 {% if restaurant.phone %}
                     <tr>
                         <th scope="row" class="col-xs-4">Teléfono</th>
@@ -32,6 +34,12 @@
                     <tr>
                         <th scope="row" class="col-xs-4">Página web</th>
                         <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.email %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Email</th>
+                        <td><a href="mailto:{{ restaurant.email }}">{{ restaurant.email }}</a></td>
                     </tr>
                 {% endif %}
                 {% if restaurant.stars %}
@@ -123,3 +131,7 @@
     </div>
     {% endwith %}
 {% endblock %}
+
+{% block nopost_msg %}
+    Todavía no hay artículos sobre este restaurante.
+{% endblock nopost_msg %}

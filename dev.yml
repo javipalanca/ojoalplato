@@ -29,6 +29,7 @@ services:
       - mailhog
       - mysql
       - redis
+      - elasticsearch
 
   pycharm:
     build:
@@ -74,3 +75,26 @@ services:
       - POSTGRES_USER=ojoalplato
       - USE_DOCKER=yes
     command: celery -A ojoalplato.taskapp worker -l INFO
+
+
+  elasticsearch:
+    image: elasticsearch:2.4.5
+    hostname: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: kibana
+    links:
+      - elasticsearch
+    ports:
+      - "5601:5601"

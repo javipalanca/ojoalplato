@@ -19,10 +19,20 @@
 
             <header class="entry-header">
                 <h2 class="entry-title"><a href="{{ card.get_absolute_url }}"
-                                           rel="bookmark">{{ card.name }}</a></h2>
+                                           rel="bookmark">{{ card.name }}</a>
+                </h2>
                 {% comment %}<div class="familymember-meta">
                     Dad <span class="sep"> / </span> 34 Years Old
                 </div>{% endcomment %}
+            {% for tag in card.tags.all %}
+                <span class="badge">{{ tag.name }}</span>
+            {% endfor %}
+            <div class="familymember-meta">
+                {% if user.is_superuser or user.is_staff%}
+                    &nbsp;&nbsp;<a href="{% url 'admin:cards_restaurant_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                {% endif %}
+            </div>
+
             </header><!-- .entry-header -->
 
             <div class="entry-content text-center">
@@ -71,11 +81,10 @@
                 <!--p class="text-center"><a href="http://familywp.com/topbardemo/member/ryan/"
                                           class="btn btn-primary btn-lg">View Posts</a></p-->
 
-                {% if card.posts.all %}
                 <div class="familymember-meta" style="margin-top: 40px;">
                     Artículos relacionados:
                 </div>
-                {% endif %}
+                {% if card.posts.all %}
                     {% for post in card.posts.all %}
                     <div class="media row">
                       <div class="media-left col-md-2 col-xs-4">
@@ -93,6 +102,9 @@
                       </div>
                     </div>
                     {% endfor %}
+                {% else %}
+                    {% block nopost_msg %}{% endblock nopost_msg %}
+                {% endif %}
 
             </div><!-- .entry-content -->
 
