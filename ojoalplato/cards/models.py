@@ -56,6 +56,24 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     def title(self):
         return self.name
 
+    @property
+    def img_src(self):
+        if self.image_header and hasattr(self.image_header, 'url'):
+            split = "/media/"
+            relative = self.image_header.url.split(split)[1]
+            if relative.startswith("/"):
+                relative = relative[1:]
+            url = settings.MEDIA_URL + relative
+        else:
+            url = '#'
+        return url
+
+    @property
+    def autocomplete_text(self):
+        text = "{} {} {}".format(self.name, self.chef, self.address)
+        tags = " ".join([tag.name for tag in self.tags.all()])
+        return " ".join([text, tags])
+
     def get_posts_images(self):
         images = []
         for post in self.posts.all():

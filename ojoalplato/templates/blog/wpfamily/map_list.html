@@ -1,92 +1,16 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static leaflet_tags content_filters %}
 
-{% block css %}
-    {{ block.super }}
+{% block css_custom %}
     {% leaflet_css %}
     <link href="{% static 'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css' %}"
           rel="stylesheet" type="text/css" media="all"/>
     <link href="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.css' %}"
           rel="stylesheet" type="text/css" media="all"/>
-    <style>
-
-        .leaflet-container { /* all maps */
-            width: 100%;
-            height: 500px;
-            position: relative;
-            background-color: white;
-            overflow: hidden;
-        }
-
-        .content-area {
-            padding: 20px 0;
-        }
-
-        .has-family .content-area {
-            padding-top: 160px;
-        }
-
-        .no-padding {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-    </style>
-
-{% endblock css %}
-
-{% block javascript %}
-    {{ block.super }}
-    {% leaflet_js %}
-    <script src="{% static 'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js' %}"
-            type="text/javascript"></script>
-    <script src="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.js' %}"
-            type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.min.js"></script>
-    <script type="text/javascript">
-        var restIcon = L.AwesomeMarkers.icon({
-            icon: 'cutlery',
-            markerColor: 'blue'
-        });
-        window.addEventListener("map:init", function (e) {
-            var detail = e.detail;
-            detail.map.spin(true);
-            detail.map.scrollWheelZoom.disable();
-            // create a fullscreen button and add it to the map
-            L.control.fullscreen({
-                position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
-                title: 'Pantalla completa', // change the title of the button, default Full Screen
-                titleCancel: 'Salir de pantalla completa', // change the title of the button when fullscreen is on, default Exit Full Screen
-                content: null, // change the content of the button, can be HTML, default null
-                forceSeparateButton: false, // force seperate button to detach from zoom buttons, default false
-                forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
-                fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
-            }).addTo(detail.map);
-            axios.get('/api/v1/restaurants/')
-                .then(function (response) {
-                    for (var index in response.data) {
-                        var rest = response.data[index];
-                        //console.log(rest.location.coordinates);
-                        L.marker({'lat':rest.location.coordinates[0],
-                                  'lon': rest.location.coordinates[1]},
-                                {icon: restIcon}).addTo(detail.map)
-                            .bindPopup("<a href='/cards/restaurant/"+rest.slug+"'><b>"+rest.name+"</b></a>");
-                    }
-                    detail.map.spin(false);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }, false);
-
-
-    </script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-{% endblock javascript %}
+    <link href="{% static 'css/search.css' %}" rel="stylesheet" type="text/css" media="all"/>
+{% endblock css_custom %}
 
 {% block content %}
-    <!--div id="map" style="position: relative; background-color: white; overflow: hidden; height: 300px; width: 100%;"></div-->
     <div class="row">
 
     <div class="col-md-8 no-padding">
@@ -102,10 +26,13 @@
 
             <div class="article-padding has-family-list">
                 <header class="entry-header">
-                    <h2 class="entry-title" id="search"><a href="#search">Buscar restaurantes</a></h2>
-                <div class="entry-content">
+                    <h2 class="entry-title" id="search"><a href="#search">Buscador de restaurantes</a></h2>
+                </header>
+                <div class="entry-content" id="search">
 
 
+
+                {% comment %}
                 <form method="GET" action="{% url 'cards:restaurant-search' %}">
                     <table>
 
@@ -153,6 +80,24 @@
                         {# Show some example queries to run, maybe query syntax, something else? #}
                     {% endif %}
                 </form>
+                {% endcomment %}
+
+                <form method="post" action="/cards/search/autocomplete">
+
+                    <div class="Typeahead">
+                        <div class="u-posRelative">
+                            <div id="scrollable-dropdown-menu">
+                            <!--input class="Typeahead-hint" type="text" tabindex="-1" readonly-->
+                            <input class="Typeahead-input" id="typeahead" type="text" name="q"
+                                   placeholder="Buscar restaurante..." autocomplete="off">
+                            <img class="Typeahead-spinner" src="{% static  'images/ST_ICON_LoadScreen_5_1.gif' %}"
+                            style="display: none;">
+                            </div>
+                        </div>
+                        <div class="Typeahead-menu"></div>
+                    </div>
+                </form>
+
                 </div>
             </div><!-- .entry-content -->
         </article>
@@ -160,3 +105,137 @@
 
     </div> <!--row-->
 {% endblock content %}
+
+{% block javascript_custom %}
+{% leaflet_js %}
+<script src="{% static 'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js' %}"
+        type="text/javascript"></script>
+<script src="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.js' %}"
+        type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type='text/javascript' src='{% static "bower_components/typeahead.js/dist/typeahead.bundle.js" %}'></script>
+<script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.js' %}"
+        type="text/javascript"></script>
+
+
+<script type="text/javascript">
+        var restIcon = L.AwesomeMarkers.icon({
+            icon: 'cutlery',
+            markerColor: 'orange'
+        });
+        window.addEventListener("map:init", function (e) {
+            var detail = e.detail;
+            detail.map.spin(true);
+            //detail.map.scrollWheelZoom.disable();
+            // create a fullscreen button and add it to the map
+            L.control.fullscreen({
+                position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
+                title: 'Pantalla completa', // change the title of the button, default Full Screen
+                titleCancel: 'Salir de pantalla completa', // change the title of the button when fullscreen is on, default Exit Full Screen
+                content: null, // change the content of the button, can be HTML, default null
+                forceSeparateButton: false, // force seperate button to detach from zoom buttons, default false
+                forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
+                fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
+            }).addTo(detail.map);
+
+            // get restaurants
+            axios.get('/api/v1/restaurants/opened/')
+                .then(function (response) {
+                    for (var index in response.data) {
+                        var rest = response.data[index];
+                        L.marker({'lat':rest.location.coordinates[0],
+                                  'lon': rest.location.coordinates[1]},
+                                {icon: restIcon}).addTo(detail.map)
+                            .bindPopup("<a href='/cards/restaurant/"+rest.slug+"'><b>"+rest.name+"</b></a>");
+                    }
+                    detail.map.spin(false);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }, false);
+
+var best_restaurants = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //prefetch: '../data/films/post_1960.json',
+  limit: 20,
+  remote: {
+    url: '/cards/search/autocomplete?q=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
+    minLength: 3,
+    highlight: true,
+    classNames: {
+        open: 'is-open',
+        empty: 'is-empty',
+        cursor: 'is-active',
+        suggestion: 'Typeahead-suggestion',
+        selectable: 'Typeahead-selectable'
+    },
+    hint: jQuery('.Typeahead-hint'),
+    menu: jQuery('.Typeahead-menu')
+    },
+    {
+    name: 'restaurants',
+    source: best_restaurants,
+    displayKey: 'name',
+    limit: 20,
+    templates: {
+      empty: [
+          '<div class="empty-message">',
+              'no se encuentran restaurantes con el criterio de búsqueda',
+          '</div>'
+    ].join('\n'),
+    suggestion: function(data) {
+        var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
+        //res += "<a href='" + data.url + "' style:'color:white;'>";
+        if (data.img)
+            res += '<img class="ProfileCard-avatar" src="'+ data.img +'">';
+
+        res += '<div class="ProfileCard-details">';
+        res +=  '<div class="ProfileCard-realName">' + data.name +'</div>';
+        if (data.chef)
+            res +=  '<div class="ProfileCard-screenName">' + data.chef + '</div>';
+        if (data.address)
+            res += '<div class="ProfileCard-description">'+ data.address +'</div>';
+        res += '</div>';
+        //res += '</a></div>';
+
+        /*<div class="ProfileCard-stats">
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Tweets:</span> 340</div>
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> 376</div>
+          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> 168</div>
+        </div>*/
+      res += '</div>';
+
+          //res = '<div><strong>' + data.name + '</strong>';
+          //data.chef;
+          //return res + '</div>';
+        return res;
+    }
+  }})
+  .on('typeahead:asyncrequest', function() {
+      jQuery('.Typeahead-spinner').show();
+  })
+  .on('typeahead:asynccancel typeahead:asyncreceive', function() {
+      jQuery('.Typeahead-spinner').hide();
+      jQuery(".tt-dataset").slimscroll({
+            railVisible: true,
+            alwaysVisible: true
+      });
+  })
+  .on('typeahead:selected', function(event, selection) {
+
+  // the second argument has the info you want
+      window.location.href = selection.url;
+});
+
+</script>
+
+{% endblock javascript_custom %}

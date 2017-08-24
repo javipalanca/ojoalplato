@@ -1769,7 +1769,7 @@ table {
   position: absolute;
   bottom: 0;
   margin: 0;
-  left: -80px;
+  /*left: -80px;*/
 }
 
 .big-family.sidebarnav .site-header .family-list {

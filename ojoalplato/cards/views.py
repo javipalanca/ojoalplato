@@ -30,12 +30,13 @@ class RestaurantDetailView(DetailView):
 
 
 def restaurant_search(request):
+    query = request.GET.get('q')
+    page = request.GET.get('page')
+
     form = RestaurantSearchForm(request.GET)
     restaurants = form.search()
     paginator = Paginator(restaurants, 10)  # Show 10 results per page
 
-    query = page = request.GET.get('q')
-    page = request.GET.get('page')
     try:
         restaurants = paginator.page(page)
     except PageNotAnInteger:
@@ -47,17 +48,20 @@ def restaurant_search(request):
     return render(request, 'blog/wpfamily/map_list.html',
                               {
                                   'query': query,
-                                  'object_list': Restaurant.objects.all(),
                                   'page': restaurants
                               })
 
 
 def autocomplete(request):
-    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))[:5]
-    suggestions = [result.title for result in sqs]
+    sqs = SearchQuerySet().autocomplete(content_auto=request.GET.get('q', ''))
+    suggestions = [{"name": r.object.name,
+                    "chef": r.object.chef,
+                    "address": r.object.address,
+                    "url": r.object.get_absolute_url(),
+                    "img": r.object.img_src} for r in sqs]
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
     the_data = json.dumps({
         'results': suggestions
     })
-    return HttpResponse(the_data, content_type='application/json')
+    return HttpResponse(json.dumps(suggestions), content_type='application/json')

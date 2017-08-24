@@ -358,7 +358,7 @@ LEAFLET_CONFIG = {
     'DEFAULT_CENTER': (40.383, -3.716),
     'DEFAULT_ZOOM': 6,
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    'RESET_VIEW': True,
+    'RESET_VIEW': False,
 }
 
 # Envelope settings
