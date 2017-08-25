@@ -1779,6 +1779,7 @@ table {
 .family-list li {
   display: inline-block;
   padding: 0 2px;
+  vertical-align: top;
 }
 
 .site-header .family-list li {
