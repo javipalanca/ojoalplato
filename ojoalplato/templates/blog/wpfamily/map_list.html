@@ -194,7 +194,6 @@ jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
     ].join('\n'),
     suggestion: function(data) {
         var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
-        //res += "<a href='" + data.url + "' style:'color:white;'>";
         if (data.img)
             res += '<img class="ProfileCard-avatar" src="'+ data.img +'">';
 
@@ -205,19 +204,33 @@ jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
         if (data.address)
             res += '<div class="ProfileCard-description">'+ data.address +'</div>';
         res += '</div>';
-        //res += '</a></div>';
 
-        /*<div class="ProfileCard-stats">
-          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Tweets:</span> 340</div>
-          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Following:</span> 376</div>
-          <div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Followers:</span> 168</div>
-        </div>*/
+        if(data.stars > 0 || data.suns > 0) {
+            res += '<div class="ProfileCard-stats">';
+            if (data.stars){
+               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Estrellas Michelín: </span>';
+               var stars = data.stars;
+               while (stars > 0) {
+                   res += '<i class="glyphicon glyphicon-star likert-star"></i>';
+                   stars -= 1;
+               }
+               res += '</div>';
+            }
+            if (data.suns){
+               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Soles Repsol: </span>';
+               var suns = data.suns;
+               while (suns > 0) {
+                   res += '<i class="fa fa-sun-o likert-star"></i>';
+                   suns -= 1;
+               }
+               res += '</div>';
+            }
+            res += '</div>';
+        }
+
       res += '</div>';
 
-          //res = '<div><strong>' + data.name + '</strong>';
-          //data.chef;
-          //return res + '</div>';
-        return res;
+      return res;
     }
   }})
   .on('typeahead:asyncrequest', function() {

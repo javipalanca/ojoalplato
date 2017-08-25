@@ -58,7 +58,9 @@ def autocomplete(request):
                     "chef": r.object.chef,
                     "address": r.object.address,
                     "url": r.object.get_absolute_url(),
-                    "img": r.object.img_src} for r in sqs]
+                    "img": r.object.img_src,
+                    "stars": r.object.stars,
+                    "suns": r.object.suns} for r in sqs]
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
     the_data = json.dumps({
