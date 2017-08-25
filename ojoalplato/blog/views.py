@@ -1,11 +1,11 @@
 # Create your views here.
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import View
-from taggit.models import Tag
+from django.db.models import Count
 
+from taggit.models import Tag
 from hitcount.views import HitCountDetailView
 
 from ojoalplato.blog.models import Post
@@ -54,6 +54,14 @@ class CategoryList(ListView):
         context = super(CategoryList, self).get_context_data(**kwargs)
         context["category"] = get_object_or_404(Category, slug=self.kwargs['category']).name
         return context
+
+
+class CategoriesList(ListView):
+    model = Category
+    template_name = 'blog/wpfamily/categories_list.html'
+
+    def get_queryset(self):
+        return Category.objects.filter(active=True).annotate(num_posts=Count("post")).order_by("-num_posts")
 
 
 class TagList(ListView):

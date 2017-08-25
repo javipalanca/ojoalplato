@@ -9,7 +9,8 @@ from django.views import defaults as default_views
 
 from .router import urlpatterns as api_urlpatterns
 
-from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
+from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList, \
+    CategoriesList
 from ojoalplato.contactform.views import ContactFormView
 
 
@@ -50,6 +51,7 @@ urlpatterns = [
     url(r'^author/(?P<author>[-\w]+)/$', AuthorList.as_view(), name='author-list'),
 
     # Category app
+    url(r'^category/all/$', CategoriesList.as_view(), name='categories-list'),
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
 
     # Cards app
