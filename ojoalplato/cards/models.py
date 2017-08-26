@@ -65,8 +65,18 @@ class Restaurant(TimeStampedModel, HitCountMixin):
                 relative = relative[1:]
             url = settings.MEDIA_URL + relative
         else:
-            url = '#'
+            url = self.first_post_image()
         return url
+
+    def first_post_image(self):
+        result = "#"
+        if self.posts.count() > 0:
+            post = self.posts.first()
+            soup = BeautifulSoup(post.content, "html.parser")
+            img = soup.find('img')
+            if img:
+                result = img.attrs["src"]
+        return result
 
     @property
     def absolute_url(self):
