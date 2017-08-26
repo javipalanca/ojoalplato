@@ -88,6 +88,7 @@
                         <div class="u-posRelative">
                             <div id="scrollable-dropdown-menu">
                             <!--input class="Typeahead-hint" type="text" tabindex="-1" readonly-->
+                            <span class="fa fa-search"></span>
                             <input class="Typeahead-input" id="typeahead" type="text" name="q"
                                    placeholder="Buscar restaurante..." autocomplete="off">
                             <img class="Typeahead-spinner" src="{% static  'images/ST_ICON_LoadScreen_5_1.gif' %}"
@@ -163,7 +164,7 @@ var best_restaurants = new Bloodhound({
   //prefetch: '../data/films/post_1960.json',
   limit: 20,
   remote: {
-    url: '/cards/search/autocomplete?q=%QUERY',
+    url: '/api/v1/restaurants/search/autocomplete?q=%QUERY',
     wildcard: '%QUERY'
   }
 });
@@ -189,12 +190,12 @@ jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
     templates: {
       empty: [
           '<div class="empty-message">',
-              'no se encuentran restaurantes con el criterio de búsqueda',
+              '  No se encuentran restaurantes con el criterio de búsqueda  ',
           '</div>'
     ].join('\n'),
     suggestion: function(data) {
         var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
-        if (data.img)
+        if (data.img != "#")
             res += '<img class="ProfileCard-avatar" src="'+ data.img +'">';
 
         res += '<div class="ProfileCard-details">';
@@ -246,7 +247,7 @@ jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
   .on('typeahead:selected', function(event, selection) {
 
   // the second argument has the info you want
-      window.location.href = selection.url;
+      window.location.href = selection.absolute_url;
 });
 
 </script>

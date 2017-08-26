@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^subscription/', include('newsletter.urls')),
 
     # Haystack search
-    #url(r'^search/', include('haystack.urls')),
+    #  url(r'^search/', include('haystack.urls')),
 
     # django-rest-framework
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

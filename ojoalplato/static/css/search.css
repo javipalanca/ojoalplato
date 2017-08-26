@@ -65,6 +65,16 @@
           box-shadow: 0 0 2px #111;
 }
 
+.Typeahead2 {
+  *z-index: 1;
+  position: relative;
+  width: 40%;
+  margin: 0 auto 20px auto;
+  padding: 0;
+  text-align: left;
+  background-color: #f2f2e7;
+}
+
 .twitter-typeahead {
   display: block !important;
 }
@@ -78,6 +88,14 @@
   height: 28px;
 }
 
+.fa-search {
+  z-index: 10;
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 15px;
+}
+
 .Typeahead-hint,
 .Typeahead-input {
   width: 100%;
@@ -85,10 +103,10 @@
   font-size: 24px;
   line-height: 30px;
   border: 1px solid #024e6a;
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
-  border-radius: 20px;
+  -webkit-border-radius: 20px !important;
+     -moz-border-radius: 20px !important;
+          border-radius: 20px !important;
+  border-radius: 20px !important;
 }
 
 .Typeahead-hint {
@@ -103,6 +121,7 @@
   position: relative;
   background-color: transparent;
   outline: none;
+  text-indent: 20px;
 }
 
 .Typeahead-menu {

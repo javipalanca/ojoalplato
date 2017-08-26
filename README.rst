@@ -21,6 +21,42 @@ Moved to settings_.
 Basic Commands
 --------------
 
+Initial Migrations
+^^^^^^^^^^^^^^^^^^
+
+* First migrate **users** and **auth** apps:
+
+    $ python manage.py migrate users auth
+
+* Then create default users **admin** and **paco**:
+
+    $ python manage.py createsuperuser
+
+* Finally run all migrations
+
+    $ python manage.py migrate
+
+Initial Setup
+^^^^^^^^^^^^^
+
+* Migrate mysql database:
+
+    $ docker exec -it <container_id> bash
+    root@<container_id>:# mysql -uojoalplato -p wordpress < mysql.dump
+
+* Clone models from mysql:
+
+    $ docker-compose run django_ojoalplato python manage.py clonemodels
+
+* Move from ng-gallery to blog images:
+
+    $ docker-compose run django_ojoalplato python manage.py escapeng
+
+* Load restaurant database:
+
+    $ docker-compose run django_ojoalplato python manage.py load_restaurants
+
+
 Setting Up Your Users
 ^^^^^^^^^^^^^^^^^^^^^
 

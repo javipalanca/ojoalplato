@@ -69,6 +69,10 @@ class Restaurant(TimeStampedModel, HitCountMixin):
         return url
 
     @property
+    def absolute_url(self):
+        return self.get_absolute_url()
+
+    @property
     def autocomplete_text(self):
         text = "{} {} {}".format(self.name, self.chef, self.address)
         tags = " ".join([tag.name for tag in self.tags.all()])

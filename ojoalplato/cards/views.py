@@ -6,8 +6,6 @@ from django.http import HttpResponse
 from ojoalplato.cards.forms import RestaurantSearchForm
 from ojoalplato.cards.models import Restaurant
 
-from haystack.forms import HighlightedModelSearchForm
-from haystack.generic_views import SearchView
 from haystack.query import SearchQuerySet
 
 import json
@@ -63,7 +61,5 @@ def autocomplete(request):
                     "suns": r.object.suns} for r in sqs]
     # Make sure you return a JSON object, not a bare list.
     # Otherwise, you could be vulnerable to an XSS attack.
-    the_data = json.dumps({
-        'results': suggestions
-    })
-    return HttpResponse(json.dumps(suggestions), content_type='application/json')
+    the_data = json.dumps(suggestions)
+    return HttpResponse(the_data, content_type='application/json')

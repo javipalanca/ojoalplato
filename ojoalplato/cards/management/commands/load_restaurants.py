@@ -14,7 +14,7 @@ class Command(BaseCommand):
     help = 'Import restaurants from google maps kml'
 
     def handle(self, *args, **options):
-        f = open("restaurant.json", 'r')
+        f = open("restaurant_with_coords.json", 'r')
         d = json.load(f)
 
         for name, v in tqdm(d.items()):
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                 position_point = Point(v['x'], v['y'], srid=DEFAULT_WGS84_SRID)
                 location = position_point
             else:
-                geolocator = GoogleV3(timeout=5)
+                geolocator = GoogleV3(timeout=15)
                 location = geolocator.geocode(r.address)
                 if location:
                     location = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)

@@ -86,3 +86,4 @@ elasticsearch>=2.0.0,<3.0.0
 djangorestframework
 djangorestframework-gis
 django-taggit-serializer
+drf-haystack
