@@ -53,7 +53,7 @@
   position: relative;
   /*width: 90%;*/
   margin: 0 auto 0 auto;
-  padding: 15px;
+  padding: 15px 15px 20px 15px;
   text-align: left;
   background-color: #f2f2e7;
   border: 1px solid #024e6a;
@@ -77,6 +77,10 @@
 
 .twitter-typeahead {
   display: block !important;
+}
+
+.scrollable-dropdown-menu {
+  width: 90%;
 }
 
 .Typeahead-spinner {
@@ -203,6 +207,7 @@
 .ProfileCard-stats {
   float: right;
   text-align: right;
+  margin-right: 5px;
 }
 
 .ProfileCard-stat {
@@ -236,7 +241,7 @@
 
 /* EmptyMessage */
 
-.EmptyMessage {
+.EmptyMessage, .empty-message {
   position: relative;
   padding: 10px;
   font-size: 24px;
@@ -248,8 +253,12 @@
 
 /* Scrollable dropdown menu */
 .Typeahead-menu {
-  max-height: 220px;
+  max-height: 250px;
   overflow-y: scroll;
-
 }
 
+.rating-input i.glyphicon {
+  font-size: small;
+  color: chocolate;
+  top: -6px;
+}

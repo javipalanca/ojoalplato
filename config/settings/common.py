@@ -357,6 +357,8 @@ LEAFLET_CONFIG = {
     # conf here
     'DEFAULT_CENTER': (40.383, -3.716),
     'DEFAULT_ZOOM': 6,
+    'MAX_ZOOM': 20,
+    'MIN_ZOOM': 1,
     'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     'RESET_VIEW': False,
 }

@@ -13,7 +13,6 @@ from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, Category
     CategoriesList
 from ojoalplato.contactform.views import ContactFormView
 
-
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
 urlpatterns = [

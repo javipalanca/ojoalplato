@@ -7,6 +7,12 @@
           rel="stylesheet" type="text/css" media="all"/>
     <link href="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.css' %}"
           rel="stylesheet" type="text/css" media="all"/>
+    <link href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.css' %}"
+          rel="stylesheet" type="text/css" media="all"/>
+    <link href="{% static 'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css' %}"
+          rel="stylesheet" type="text/css" media="all"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link href="{% static 'css/search.css' %}" rel="stylesheet" type="text/css" media="all"/>
 {% endblock css_custom %}
 
@@ -28,7 +34,7 @@
                 <header class="entry-header">
                     <h2 class="entry-title" id="search"><a href="#search">Buscador de restaurantes</a></h2>
                 </header>
-                <div class="entry-content" id="search">
+            <div class="entry-content" id="search">
 
 
 
@@ -82,25 +88,41 @@
                 </form>
                 {% endcomment %}
 
-                <form method="post" action="/cards/search/autocomplete">
-
+                <form method="post" action="/cards/search/autocomplete" class="">
                     <div class="Typeahead">
                         <div class="u-posRelative">
-                            <div id="scrollable-dropdown-menu">
+
+                            <div id="scrollable-dropdown-menu form-horizontal">
                             <!--input class="Typeahead-hint" type="text" tabindex="-1" readonly-->
-                            <span class="fa fa-search"></span>
-                            <input class="Typeahead-input" id="typeahead" type="text" name="q"
-                                   placeholder="Buscar restaurante..." autocomplete="off">
-                            <img class="Typeahead-spinner" src="{% static  'images/ST_ICON_LoadScreen_5_1.gif' %}"
-                            style="display: none;">
+                                <div class="form-group">
+                                    <span class="fa fa-search"></span>
+                                    <input class="Typeahead-input" id="typeahead" type="text" name="q"
+                                           placeholder="Buscar restaurante..." autocomplete="off">
+                                    <img class="Typeahead-spinner" src="{% static  'images/ST_ICON_LoadScreen_5_1.gif' %}"
+                                    style="display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="michelin" style="font-size: x-small; text-align: right;"
+                                           class="col-sm-9 col-xs-9 control-label">
+                                        <i class="fa fa-question-circle-o" id="michelin-help"
+                                           title="Utiliza las estrellas para buscar restaurantes con estrella michelín."
+                                           style="font-size: small; vertical-align: middle;"></i>
+                                        Filtrar estrellas Michelín:
+                                        </label>
+                                    <div class="col-sm-3 col-xs-3" style="padding-left: 0;">
+                                    <input type="number" name="stars" id="michelin" class="rating"
+                                           data-max="3" data-min="1" value="0" data-empty-value="0"
+                                           data-clearable=""/>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="Typeahead-menu"></div>
                     </div>
                 </form>
-
-                </div>
             </div><!-- .entry-content -->
+            </div><!-- .article-padding -->
         </article>
     </div>
 
@@ -113,142 +135,176 @@
         type="text/javascript"></script>
 <script src="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.js' %}"
         type="text/javascript"></script>
+<script src="{% static 'bower_components/leaflet.markercluster/dist/leaflet.markercluster.js' %}"
+        type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.Spin/1.1.0/leaflet.spin.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type='text/javascript' src='{% static "bower_components/typeahead.js/dist/typeahead.bundle.js" %}'></script>
 <script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.js' %}"
         type="text/javascript"></script>
+<script src="{% static 'bower_components/bootstrap-rating-input/build/bootstrap-rating-input.min.js' %}"
+        type="text/javascript"></script>
 
 
 <script type="text/javascript">
-        var restIcon = L.AwesomeMarkers.icon({
-            icon: 'cutlery',
-            markerColor: 'orange'
+
+    jQuery("#michelin-help").tooltip({ placement: 'bottom'});
+
+    var restIcon = L.AwesomeMarkers.icon({
+        icon: 'cutlery',
+        markerColor: 'orange'
+    });
+    window.addEventListener("map:init", function (e) {
+        var detail = e.detail;
+        detail.map.spin(true);
+        //detail.map.scrollWheelZoom.disable();
+        // create a fullscreen button and add it to the map
+        L.control.fullscreen({
+            position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
+            title: 'Pantalla completa', // change the title of the button, default Full Screen
+            titleCancel: 'Salir de pantalla completa', // change the title of the button when fullscreen is on, default Exit Full Screen
+            content: null, // change the content of the button, can be HTML, default null
+            forceSeparateButton: false, // force seperate button to detach from zoom buttons, default false
+            forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
+            fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
+        }).addTo(detail.map);
+
+        // get restaurants
+        var markers = L.markerClusterGroup({
+            spiderLegPolylineOptions: {
+                weight: 1.0,
+                color: '#D2691E',
+                opacity: 0.5
+            }
         });
-        window.addEventListener("map:init", function (e) {
-            var detail = e.detail;
-            detail.map.spin(true);
-            //detail.map.scrollWheelZoom.disable();
-            // create a fullscreen button and add it to the map
-            L.control.fullscreen({
-                position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
-                title: 'Pantalla completa', // change the title of the button, default Full Screen
-                titleCancel: 'Salir de pantalla completa', // change the title of the button when fullscreen is on, default Exit Full Screen
-                content: null, // change the content of the button, can be HTML, default null
-                forceSeparateButton: false, // force seperate button to detach from zoom buttons, default false
-                forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
-                fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
-            }).addTo(detail.map);
+        axios.get('/api/v1/restaurants/opened/')
+            .then(function (response) {
+                for (var index in response.data) {
+                    var rest = response.data[index];
+                    var m = L.marker({'lat':rest.location.coordinates[0],
+                              'lon': rest.location.coordinates[1]},
+                            {icon: restIcon})
+                        .bindPopup("<a href='/cards/restaurant/"+rest.slug+"'><b>"+rest.name+"</b></a>");
+                    markers.addLayer(m);
+                }
+                detail.map.addLayer(markers);
+                detail.map.spin(false);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, false);
 
-            // get restaurants
-            axios.get('/api/v1/restaurants/opened/')
-                .then(function (response) {
-                    for (var index in response.data) {
-                        var rest = response.data[index];
-                        L.marker({'lat':rest.location.coordinates[0],
-                                  'lon': rest.location.coordinates[1]},
-                                {icon: restIcon}).addTo(detail.map)
-                            .bindPopup("<a href='/cards/restaurant/"+rest.slug+"'><b>"+rest.name+"</b></a>");
-                    }
-                    detail.map.spin(false);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        }, false);
+    var best_restaurants = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      //prefetch: '../data/films/post_1960.json',
+      limit: 20,
+      remote: {
+        url: '/api/v1/restaurants/search/autocomplete?q=%QUERY',
+        prepare:  function (query, settings) {
+            var stars = jQuery("#michelin").val();
+            if (stars > 0)
+                return '/api/v1/restaurants/search/autocomplete?q=' + query + '&stars=' + stars;
+            else
+                return '/api/v1/restaurants/search/autocomplete?q=' + query
+        },
+        wildcard: '%QUERY'
+      }
+    });
 
-var best_restaurants = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //prefetch: '../data/films/post_1960.json',
-  limit: 20,
-  remote: {
-    url: '/api/v1/restaurants/search/autocomplete?q=%QUERY',
-    wildcard: '%QUERY'
-  }
-});
+    jQuery('#typeahead').typeahead({
+        minLength: 3,
+        highlight: true,
+        classNames: {
+            open: 'is-open',
+            empty: 'is-empty',
+            cursor: 'is-active',
+            suggestion: 'Typeahead-suggestion',
+            selectable: 'Typeahead-selectable'
+        },
+        hint: jQuery('.Typeahead-hint'),
+        menu: jQuery('.Typeahead-menu')
+        },
+        {
+        name: 'restaurants',
+        source: best_restaurants,
+        displayKey: 'name',
+        limit: 20,
+        templates: {
+          empty: function() {
+              var ret = '<div class="empty-message">';
+              var stars = jQuery("#michelin").val();
+              if (stars > 1)
+                  ret += '  No se encuentran restaurantes de ' +  stars + ' estrellas michelín con el criterio de búsqueda.  ';
+              else if (stars == 1)
+                  ret += '  No se encuentran restaurantes de ' +  stars + ' estrella michelín con el criterio de búsqueda.  ';
+              else
+                  ret += '  No se encuentran restaurantes con el criterio de búsqueda.  ';
+              ret += '</div>';
+              return ret;
+          },
+        suggestion: function(data) {
+            var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
+            if (data.img_src != "#")
+                res += '<img class="ProfileCard-avatar" src="'+ data.img_src +'">';
 
-jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
-    minLength: 3,
-    highlight: true,
-    classNames: {
-        open: 'is-open',
-        empty: 'is-empty',
-        cursor: 'is-active',
-        suggestion: 'Typeahead-suggestion',
-        selectable: 'Typeahead-selectable'
-    },
-    hint: jQuery('.Typeahead-hint'),
-    menu: jQuery('.Typeahead-menu')
-    },
-    {
-    name: 'restaurants',
-    source: best_restaurants,
-    displayKey: 'name',
-    limit: 20,
-    templates: {
-      empty: [
-          '<div class="empty-message">',
-              '  No se encuentran restaurantes con el criterio de búsqueda  ',
-          '</div>'
-    ].join('\n'),
-    suggestion: function(data) {
-        var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
-        if (data.img_src != "#")
-            res += '<img class="ProfileCard-avatar" src="'+ data.img_src +'">';
-
-        res += '<div class="ProfileCard-details">';
-        res +=  '<div class="ProfileCard-realName">' + data.name +'</div>';
-        if (data.chef)
-            res +=  '<div class="ProfileCard-screenName">' + data.chef + '</div>';
-        if (data.address)
-            res += '<div class="ProfileCard-description">'+ data.address +'</div>';
-        res += '</div>';
-
-        if(data.stars > 0 || data.suns > 0) {
-            res += '<div class="ProfileCard-stats">';
-            if (data.stars){
-               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Estrellas Michelín: </span>';
-               var stars = data.stars;
-               while (stars > 0) {
-                   res += '<i class="glyphicon glyphicon-star likert-star"></i>';
-                   stars -= 1;
-               }
-               res += '</div>';
-            }
-            if (data.suns){
-               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Soles Repsol: </span>';
-               var suns = data.suns;
-               while (suns > 0) {
-                   res += '<i class="fa fa-sun-o likert-star"></i>';
-                   suns -= 1;
-               }
-               res += '</div>';
-            }
+            res += '<div class="ProfileCard-details">';
+            res +=  '<div class="ProfileCard-realName">' + data.name +'</div>';
+            if (data.chef)
+                res +=  '<div class="ProfileCard-screenName">' + data.chef + '</div>';
+            if (data.address)
+                res += '<div class="ProfileCard-description">'+ data.address +'</div>';
             res += '</div>';
+
+            if(data.stars > 0 || data.suns > 0) {
+                res += '<div class="ProfileCard-stats">';
+                if (data.stars){
+                   res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Estrellas Michelín: </span>';
+                   var stars = data.stars;
+                   while (stars > 0) {
+                       res += '<i class="glyphicon glyphicon-star likert-star"></i>';
+                       stars -= 1;
+                   }
+                   res += '</div>';
+                }
+                if (data.suns){
+                   res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Soles Repsol: </span>';
+                   var suns = data.suns;
+                   while (suns > 0) {
+                       res += '<i class="fa fa-sun-o likert-star"></i>';
+                       suns -= 1;
+                   }
+                   res += '</div>';
+                }
+                res += '</div>';
+            }
+
+          res += '</div>';
+
+          return res;
         }
+    }})
+    .on('typeahead:asyncrequest', function() {
+          jQuery('.Typeahead-spinner').show();
+    })
+    .on('typeahead:asynccancel typeahead:asyncreceive', function() {
+          jQuery('.Typeahead-spinner').hide();
+          jQuery(".tt-dataset").slimscroll({
+                railVisible: true,
+                alwaysVisible: true
+          });
+    })
+    .on('typeahead:selected', function(event, selection) {
 
-      res += '</div>';
-
-      return res;
-    }
-  }})
-  .on('typeahead:asyncrequest', function() {
-      jQuery('.Typeahead-spinner').show();
-  })
-  .on('typeahead:asynccancel typeahead:asyncreceive', function() {
-      jQuery('.Typeahead-spinner').hide();
-      jQuery(".tt-dataset").slimscroll({
-            railVisible: true,
-            alwaysVisible: true
-      });
-  })
-  .on('typeahead:selected', function(event, selection) {
-
-  // the second argument has the info you want
-      window.location.href = selection.absolute_url;
-});
+          // the second argument has the info you want
+          window.location.href = selection.absolute_url;
+    });
+    jQuery(document).on('mouseover', '.Typeahead-suggestion', function(event){
+        console.log(event);
+        console.log(event.currentTarget);
+    });
 
 </script>
 

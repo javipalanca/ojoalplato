@@ -20,11 +20,13 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags')
 
 
+
 class RestaurantAutocompleteSerializer(HaystackSerializer):
 
     class Meta:
         index_classes = [RestaurantIndex]
-        fields = ["name", "chef", "address", "img_src", "absolute_url", "stars", "suns", "content_auto"]
+        fields = ["name", "chef", "address", "img_src", "absolute_url",
+                  "stars", "suns", "location", "content_auto"]
         ignore_fields = ["content_auto"]
 
         # The `field_aliases` attribute can be used in order to alias a
