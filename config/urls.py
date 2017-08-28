@@ -7,9 +7,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
 
-from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList
-from ojoalplato.contactform.views import ContactFormView
+from .router import urlpatterns as api_urlpatterns
 
+from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList, \
+    CategoriesList
+from ojoalplato.contactform.views import ContactFormView
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
@@ -34,6 +36,11 @@ urlpatterns = [
     # Subscriptions
     url(r'^subscription/', include('newsletter.urls')),
 
+    # Haystack search
+    #  url(r'^search/', include('haystack.urls')),
+
+    # django-rest-framework
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
@@ -43,6 +50,7 @@ urlpatterns = [
     url(r'^author/(?P<author>[-\w]+)/$', AuthorList.as_view(), name='author-list'),
 
     # Category app
+    url(r'^category/all/$', CategoriesList.as_view(), name='categories-list'),
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
 
     # Cards app
@@ -50,7 +58,15 @@ urlpatterns = [
 
 
 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# API URLs
+# Create a router and register our resources with it.
+urlpatterns += [
+    url(r'^api/v1/', include(api_urlpatterns, namespace="api_v1")),
+]
+
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit

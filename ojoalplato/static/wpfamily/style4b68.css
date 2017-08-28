@@ -359,6 +359,7 @@ body.grey {
 
 a, .btn {
   transition: all 0.5s ease;
+  color: chocolate;
 }
 
 a:hover, a:active, a:focus, a:active:focus {
@@ -1769,7 +1770,7 @@ table {
   position: absolute;
   bottom: 0;
   margin: 0;
-  left: -80px;
+  /*left: -80px;*/
 }
 
 .big-family.sidebarnav .site-header .family-list {
@@ -1779,6 +1780,7 @@ table {
 .family-list li {
   display: inline-block;
   padding: 0 2px;
+  vertical-align: top;
 }
 
 .site-header .family-list li {

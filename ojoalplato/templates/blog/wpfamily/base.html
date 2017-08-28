@@ -44,6 +44,8 @@
         <script type='text/javascript' src='{% static "wpfamily/js/jquery/jqueryb8ff.js" %}'></script>
         <script type='text/javascript' src='{% static "wpfamily/js/jquery/jquery-migrate.min330a.js" %}'></script>
     {% endblock css %}
+    {% block css_custom %}{% endblock css_custom %}
+
     {% google_analytics %}
 </head>
 
@@ -111,6 +113,11 @@
                 </div><!-- .site-branding -->
 
                 <ul class="family-list">
+                    <li><a href="{% url 'cards:map-list' %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/mapa.png' %})"></div>
+                        <div class="name" style="max-width: 128px;">Buscador de Restaurantes</div>
+                    </a></li>
                     <li><a href="{% url "category-list" category="restaurantes" %}">
                         <div class="circle"
                              style="background-image:url({% static 'wpfamily/img/cuberteria.jpg' %})"></div>
@@ -131,10 +138,10 @@
                              style="background-image:url({% static 'wpfamily/img/beer.jpg' %})"></div>
                         <div class="name">Cervezas</div>
                     </a></li>
-                    <li style="position: absolute"><a href="{% url 'cards:map-list' %}">
+                    <li><a href="{% url "categories-list" %}">
                         <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/mapa.png' %})"></div>
-                        <div class="name">Mapa de <br/>Restaurantes</div>
+                             style="background-image:url({% static 'wpfamily/img/plus_ic3.png' %})"></div>
+                        <div class="name">Más</div>
                     </a></li>
                 </ul><!-- .family-list -->
             </header><!-- #site-header -->
@@ -201,8 +208,10 @@
     <script type='text/javascript' src='{% static "wpfamily/js/jquery.fitvids4963.js" %}'></script>
     <script type='text/javascript' src='{% static "wpfamily/js/wp-family-blog4b68.js" %}'></script>
     <script type='text/javascript' src='{% static "wpfamily/js/jquery.infinitescroll.min3c94.js" %}'></script>
-
 {% endblock javascript %}
+
+{% block javascript_custom %}
+{% endblock javascript_custom %}
 
 </body>
 

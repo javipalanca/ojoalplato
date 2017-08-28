@@ -103,6 +103,12 @@
                 {% endfor %}
             </header><!-- .entry-header -->
 
+            {% if post.subtitle %}
+            <div class="familymember-meta" style="margin-top: 40px;">
+                    {{ post.subtitle }}
+            </div>
+            {% endif %}
+
             <div class="entry-content">
                 {{ post.content | lightbox | safe }}
             </div><!-- .entry-content -->

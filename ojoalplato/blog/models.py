@@ -2,6 +2,7 @@
 import datetime
 
 import collections
+from bs4 import BeautifulSoup
 from autoslug import AutoSlugField
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
@@ -10,6 +11,7 @@ from django.db.models import ForeignKey
 from django.db.models import ImageField
 from django.db.models import Q
 from django.conf import settings
+from django.utils.html import strip_tags
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 from django.utils import timezone
@@ -20,6 +22,7 @@ from hitcount.models import HitCountMixin
 from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
+
 
 STATUS_CHOICES = (
     ('closed', 'closed'),
@@ -136,6 +139,7 @@ class Post(TimeStampedModel, HitCountMixin):
     post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="post")
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
+    subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
     slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
                                default=get_default_user)
@@ -158,7 +162,8 @@ class Post(TimeStampedModel, HitCountMixin):
         null=True, blank=True, )
 
     restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante",
-                                 related_name="posts", blank=True, null=True)
+                                 related_name="posts", blank=True, null=True,
+                                 on_delete=models.SET_NULL)
     wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True)
     recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True)
 
@@ -190,6 +195,36 @@ class Post(TimeStampedModel, HitCountMixin):
     notified = models.BooleanField(default=False, verbose_name="Notificación enviada")
     post_to_facebook = models.BooleanField(default=True, verbose_name="Publicar en Facebook")
     post_to_twitter = models.BooleanField(default=True, verbose_name="Publicar en Twitter")
+
+    @property
+    def url(self):
+        return self.get_absolute_url()
+
+    @property
+    def autocomplete_text(self):
+        text = "{} {} {} {}".format(self.title, self.subtitle, self.category, strip_tags(self.content))
+        tags = " ".join([tag.name for tag in self.tags.all()])
+        return " ".join([text, tags])
+
+    @property
+    def img_src(self):
+        if self.image_header and hasattr(self.image_header, 'url'):
+            split = "/media/"
+            relative = self.image_header.url.split(split)[1]
+            if relative.startswith("/"):
+                relative = relative[1:]
+            url = settings.MEDIA_URL + relative
+        else:
+            url = self.first_img()
+        return url
+
+    def first_img(self):
+        soup = BeautifulSoup(self.content, "html.parser")
+        img = soup.find('img')
+        if img:
+            return img.attrs["src"]
+        else:
+            return settings.STATIC_URL + "wpfamily/img/logo2.png"
 
     class Meta:
         get_latest_by = 'post_date'

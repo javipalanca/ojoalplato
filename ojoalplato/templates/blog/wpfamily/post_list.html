@@ -1,8 +1,29 @@
 {% extends "blog/wpfamily/base.html" %}
 {% load static content_filters pagination fb_like %}
 
+{% block css_custom %}
+<link href="{% static 'css/search.css' %}" rel="stylesheet" type="text/css" media="all"/>
+{% endblock css_custom %}
 
 {% block content %}
+
+    <form method="post" action="/api/v1/posts/search/autocomplete">
+
+        <div class="Typeahead2">
+            <div class="u-posRelative">
+                <div id="scrollable-dropdown-menu">
+                <!--input class="Typeahead-hint" type="text" tabindex="-1" readonly-->
+                <span class="fa fa-search"></span>
+                <input class="Typeahead-input" id="typeahead" type="text" name="q"
+                       placeholder="Buscar artículos..." autocomplete="off">
+                <img class="Typeahead-spinner" src="{% static  'images/ST_ICON_LoadScreen_5_1.gif' %}"
+                style="display: none;">
+                </div>
+            </div>
+            <div class="Typeahead-menu"></div>
+        </div>
+    </form>
+
     {% for post in object_list %}
         <article id="post-{{ post.id }}"
                  class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-friends family_blog_memberscat-maddie">
@@ -108,3 +129,102 @@
 {% block paginator %}
     {% pagination page_obj %}
 {% endblock paginator %}
+
+{% block javascript_custom %}
+<script type='text/javascript' src='{% static "bower_components/typeahead.js/dist/typeahead.bundle.js" %}'></script>
+<script src="{% static 'bower_components/jquery-slimscroll/jquery.slimscroll.js' %}"
+        type="text/javascript"></script>
+<script type="text/javascript">
+var best_results = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //prefetch: '../data/films/post_1960.json',
+  limit: 20,
+  remote: {
+    url: '/api/v1/posts/search/autocomplete?q=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
+    minLength: 3,
+    highlight: true,
+    classNames: {
+        open: 'is-open',
+        empty: 'is-empty',
+        cursor: 'is-active',
+        suggestion: 'Typeahead-suggestion',
+        selectable: 'Typeahead-selectable'
+    },
+    hint: jQuery('.Typeahead-hint'),
+    menu: jQuery('.Typeahead-menu')
+    },
+    {
+    name: 'restaurants',
+    source: best_results,
+    displayKey: 'name',
+    limit: 20,
+    templates: {
+      empty: [
+          '<div class="empty-message">',
+              '<span>No se encuentran artículos con el criterio de búsqueda</span>',
+          '</div>'
+    ].join('\n'),
+    suggestion: function(data) {
+        var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
+        if (data.img_src != "#")
+            res += '<img class="ProfileCard-avatar" src="'+ data.img_src +'">';
+
+        res += '<div class="ProfileCard-details">';
+        res +=  '<div class="ProfileCard-realName">' + data.title +'</div>';
+        if (data.subtitle)
+            res +=  '<div class="ProfileCard-screenName">' + data.subtitle + '</div>';
+        res += '</div>';
+
+        if(data.stars > 0 || data.suns > 0) {
+            res += '<div class="ProfileCard-stats">';
+            if (data.stars){
+               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Estrellas Michelín: </span>';
+               var stars = data.stars;
+               while (stars > 0) {
+                   res += '<i class="glyphicon glyphicon-star likert-star"></i>';
+                   stars -= 1;
+               }
+               res += '</div>';
+            }
+            if (data.suns){
+               res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Soles Repsol: </span>';
+               var suns = data.suns;
+               while (suns > 0) {
+                   res += '<i class="fa fa-sun-o likert-star"></i>';
+                   suns -= 1;
+               }
+               res += '</div>';
+            }
+            res += '</div>';
+        }
+
+      res += '</div>';
+
+      return res;
+    }
+  }})
+  .on('typeahead:asyncrequest', function() {
+      jQuery('.Typeahead-spinner').show();
+  })
+  .on('typeahead:asynccancel typeahead:asyncreceive', function() {
+      jQuery('.Typeahead-spinner').hide();
+      jQuery(".tt-dataset").slimscroll({
+            railVisible: true,
+            alwaysVisible: true
+      });
+  })
+  .on('typeahead:selected', function(event, selection) {
+
+  // the second argument has the info you want
+      window.location.href = selection.url;
+});
+
+</script>
+
+{% endblock javascript_custom %}

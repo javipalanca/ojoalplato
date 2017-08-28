@@ -51,3 +51,5 @@
     background-color: #4ae;
     transition: none;
 }
+
+.typeahead { z-index: 1051; }

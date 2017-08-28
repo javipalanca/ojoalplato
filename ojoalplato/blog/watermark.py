@@ -14,6 +14,7 @@ from PIL import Image, ImageEnhance
 
 WATERMARK_PERCENTAGE = 10
 
+
 def _percent(var):
     """
     Just a simple interface to the _val function with a more meaningful name.
