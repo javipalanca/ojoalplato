@@ -39,20 +39,26 @@ Initial Migrations
 Initial Setup
 ^^^^^^^^^^^^^
 
-* Migrate mysql database:
+* Migrate mysql database::
 
+    $ mysqldump wordpress  --default-character-set=latin1  -h localhost -u wordpress -p -r mysql.dump
+    # Remove the SET NAMES='latin1' comment at the top of the dump.
+    $ docker-compose build mysql
+    $ docker-compose up -d mysql
     $ docker exec -it <container_id> bash
-    root@<container_id>:# mysql -uojoalplato -p wordpress < mysql.dump
+    root@<container_id>:# mysql -uojoalplato -p --default-character-set=utf8 wordpress
+    mysql> SET names 'utf8';
+    mysql> source mysql.dump;
 
-* Clone models from mysql:
+* Clone models from mysql::
 
     $ docker-compose run django python manage.py clonemodels
 
-* Move from ng-gallery to blog images:
+* Move from ng-gallery to blog images::
 
     $ docker-compose run django python manage.py escapeng
 
-* Load restaurant database:
+* Load restaurant database::
 
     $ docker cp restaurant_with_coords.json <container_id>:/app/restaurant_with_coords.json
     $ docker-compose run django_ojoalplato python manage.py load_restaurants

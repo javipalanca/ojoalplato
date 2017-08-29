@@ -45,7 +45,7 @@ class RestaurantAdminForm(forms.ModelForm):
         location = cleaned_data.get("location")
 
         if address and self.instance.address != address:
-            if location == self.instance.location:
+            if not location or location == self.instance.location:
                     cleaned_data["location"] = self.reverse_location(address)
         elif not location:
             cleaned_data["location"] = self.reverse_location(address)
