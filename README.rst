@@ -46,14 +46,15 @@ Initial Setup
 
 * Clone models from mysql:
 
-    $ docker-compose run django_ojoalplato python manage.py clonemodels
+    $ docker-compose run django python manage.py clonemodels
 
 * Move from ng-gallery to blog images:
 
-    $ docker-compose run django_ojoalplato python manage.py escapeng
+    $ docker-compose run django python manage.py escapeng
 
 * Load restaurant database:
 
+    $ docker cp restaurant_with_coords.json <container_id>:/app/restaurant_with_coords.json
     $ docker-compose run django_ojoalplato python manage.py load_restaurants
 
 

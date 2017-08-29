@@ -9,6 +9,3 @@ npm-debug.log
 typings/
 test.js
 
-# built files
-terraformer-wkt-parser.js
-terraformer-wkt-parser.min.js
