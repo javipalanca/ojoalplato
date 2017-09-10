@@ -182,6 +182,7 @@
 
         // get restaurants
         var markers = L.markerClusterGroup({
+            maxZoom: 18,
             spiderLegPolylineOptions: {
                 weight: 1.0,
                 color: '#D2691E',
@@ -325,12 +326,20 @@
           }).once('moveend', function () {
               var key = element.data("name");
               if (currentmarker !== undefined) {
-                  currentmarker.disablePermanentHighlight();
+                  try {
+                      currentmarker.disablePermanentHighlight();
+                  }
+                  catch (err){
+                  }
               }
               if(key in markers_list){
                   currentmarker = markers_list[key];
                   if (currentmarker !== undefined) {
-                      currentmarker.enablePermanentHighlight();
+                      try {
+                          currentmarker.enablePermanentHighlight();
+                      }
+                      catch (err) {
+                      }
                   }
               }
         });
