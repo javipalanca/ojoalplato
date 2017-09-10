@@ -18,6 +18,7 @@
         {% endcomment %}
     {% else %}
         <form enctype="multipart/form-data" method="post" action=".">
+        <label>Introduzca el correo electrónico del que desea darse de baja.</label>
             {% csrf_token %}
             {{ form | crispy }}
             <p><input class="btn btn-primary btn-lg fb-lile-btn social-buttons"
