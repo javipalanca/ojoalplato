@@ -108,11 +108,15 @@ def active(context, pattern_or_urlname):
 
 @register.simple_tag(takes_context=True)
 def og_img_size(context, url):
-    domain = context["request"].get_host()
-    url = "http://{}{}".format(domain, url)
-    file = BytesIO(urllib.request.urlopen(url).read())
-    img = Image.open(file)
-    w, h = img.size
+    try:
+        if not url.startswith("http"):
+            domain = context["request"].get_host()
+            url = "http://{}{}".format(domain, url)
+        file = BytesIO(urllib.request.urlopen(url).read())
+        img = Image.open(file)
+        w, h = img.size
+    except:
+        w, h = 100, 100
     meta = '<meta property="og:image:width" content="{}"><meta property="og:image:height" content="{}">'.format(w, h)
     return mark_safe(meta)
 

@@ -18,7 +18,8 @@ admin.site.site_header = settings.ADMIN_SITE_HEADER
 urlpatterns = [
     # url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     url(r'^$', PostList.as_view(), name='home'),
-    # url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    url(r'^about/$', PostList.as_view(), name='about'),
+        #TemplateView.as_view(template_name='pages/about.html'), name='about'),
     # url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, include(admin.site.urls)),
