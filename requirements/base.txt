@@ -87,3 +87,5 @@ djangorestframework
 djangorestframework-gis
 django-taggit-serializer
 drf-haystack
+
+django-maintenance-mode

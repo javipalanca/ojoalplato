@@ -73,6 +73,7 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework_gis',
     'taggit_serializer',
+    'maintenance_mode',
 )
 
 # Apps specific for this project go here.
@@ -101,6 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'request.middleware.RequestMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'maintenance_mode.middleware.MaintenanceModeMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -452,3 +454,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+# MAINTENANCE MODE
+# ------------------------------------------------------------------------------
+MAINTENANCE_MODE_IGNORE_STAFF = True
+MAINTENANCE_MODE_IGNORE_SUPERUSER = True
+MAINTENANCE_MODE_IGNORE_URLS = ('/admin', 'admin', '/admin/')
