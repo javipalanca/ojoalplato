@@ -9,7 +9,7 @@ from django.contrib.gis.gdal import SpatialReference
 from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
 from django.core.validators import validate_comma_separated_integer_list
-from django.db.models import CharField, DateField, TextField, URLField, PositiveSmallIntegerField,\
+from django.db.models import CharField, DateField, TextField, URLField, \
     BooleanField, ImageField, EmailField
 from phonenumber_field.modelfields import PhoneNumberField
 from model_utils.models import TimeStampedModel
@@ -31,8 +31,8 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     email = EmailField(verbose_name="E-mail", blank=True, null=True)
     last_visit = DateField(verbose_name="Fecha última visita", blank=True, null=True)
     price = CharField(verbose_name="Precio sin vino", max_length=50, blank=True, null=True)
-    avg_price = PositiveSmallIntegerField(verbose_name="Precio medio", blank=True, null=True)
-    menu_price = PositiveSmallIntegerField(verbose_name="Precio de menú", blank=True, null=True)
+    avg_price = CharField(verbose_name="Precio medio", max_length=50, blank=True, null=True)
+    menu_price = CharField(verbose_name="Precio de menú", max_length=50, blank=True, null=True)
     location = PointField(srid=DEFAULT_PROJECTED_SRID, verbose_name="Posición en el mapa", blank=True, null=True)
     stars = LikertField(verbose_name="Estrellas michelín", default=0)
     suns = LikertField(verbose_name="Soles Repsol", default=0)

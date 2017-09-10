@@ -21,8 +21,8 @@ class RestaurantAdminForm(forms.ModelForm):
             'stars': StarsWidget(),
             'suns': SunsWidget(),
             'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ sin vino'}),
-            'avg_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ medio'}),
-            'menu_price': widgets.NumberInput(attrs={'style': 'width:100px;', 'placeholder': '€ menu'}),
+            'avg_price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ medio'}),
+            'menu_price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ menu'}),
         }
         fields = '__all__'
 
