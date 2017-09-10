@@ -8,10 +8,11 @@ from newsletter.models import Article, Submission, Message, Newsletter
 import requests
 from facebook import GraphAPI
 import tweepy
-
+import time
 
 @shared_task
 def post_published_task(post_id):
+    time.sleep(10)
     send_newsletter(post_id=post_id)
     post_to_facebook(post_id=post_id)
     post_to_twitter(post_id=post_id)
