@@ -110,13 +110,36 @@ AWS_HEADERS = {
 # stored files.
 
 #  See:http://stackoverflow.com/questions/10390244/
-#from storages.backends.s3boto import S3BotoStorage
-#StaticRootS3BotoStorage = lambda: S3BotoStorage(location='static')
-#MediaRootS3BotoStorage = lambda: S3BotoStorage(location='media')
-#DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
+from storages.backends.s3boto3 import S3Boto3Storage
+#StaticRootS3BotoStorage = lambda: S3Boto3Storage(location='static')
+#MediaRootS3BotoStorage = lambda: S3Boto3Storage(location='media')
+
+class StaticRootS3BotoStorage(S3Boto3Storage):
+
+    location = "static"
+
+    def _clean_name(self, name):
+        return name
+
+    def _normalize_name(self, name):
+        return name
+
+
+class MediaRootS3BotoStorage(S3Boto3Storage):
+
+    location = "media"
+
+    def _clean_name(self, name):
+        return name
+
+    def _normalize_name(self, name):
+        return name
+
+
+DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_MEDIA_LOCATION = 'media'
-#MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
+MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 
 # Static Assets
 # ------------------------
@@ -124,13 +147,13 @@ AWS_MEDIA_LOCATION = 'media'
 #STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 #STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 AWS_LOCATION = 'static'
-#STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
 AWS_PRELOAD_METADATA = True
-#INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
+INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
 #COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -201,7 +224,7 @@ LOGGING = {
     'disable_existing_loggers': True,
     'root': {
         'level': 'WARNING',
-        'handlers': ['sentry'],
+        'handlers': ['sentry', 'console'],
     },
     'formatters': {
         'verbose': {
@@ -257,3 +280,4 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 WP_TABLE_PREFIX = 'wp_d3r46v'
 WP_READ_ONLY = True
 
+DEBUG=True

@@ -1,5 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load staticfiles %}
+{% load staticfiles content_filters %}
 
 {% block header %}
     <header class="page-header warm archive">
@@ -15,7 +15,7 @@
             <a href="{% url 'category-list' category.slug %}">
             <div class="circle"
                  {% if category.thumbnail.name != "" %}
-                 style="background-image:url('{{ category.thumbnail_url }}');">
+                 style="background-image:url('{{ category.thumbnail_url | media }}');">
                  {% else %}
                   style="background-image:url({% static 'wpfamily/img/uncategorized.gif' %});">
                  {% endif %}

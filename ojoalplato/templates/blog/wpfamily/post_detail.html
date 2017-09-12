@@ -22,7 +22,7 @@
     <meta property="og:title" content="{{ post.title }}" />
     <meta property="og:description" content="{{ post.content | striptags | truncatewords:20 | safe }}" />
 {% if post.image_header %}
-    {% with post.image_header.url|relative_url as image %}
+    {% with post.image_header.url|media as image %}
     <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
     <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
@@ -30,7 +30,7 @@
     {% og_img_size image %}
     {% endwith %}
 {% else %}
-    {% with  post.content|first_img  as image %}
+    {% with  post.content|first_img|media  as image %}
     <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
     <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
@@ -55,9 +55,9 @@
         </div-->
         <div class="featured-image"
                  {% if post.image_header %}
-                 style="background-image:url('{{ post.image_header.url|relative_url }}');"
+                 style="background-image:url('{{ post.image_header.url|media }}');"
                  {% else %}
-                 style="background-image:url('{{ post.content|first_img }}'); background-position: center top;"
+                 style="background-image:url('{{ post.content|first_img|media }}'); background-position: center top;"
                  {% endif %}
             <a href="{{ post.get_absolute_url }}"><img
                     src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
@@ -72,7 +72,7 @@
                             <div class="circle"
                                  style="background-image:url(
                                  {% if post.category.thumbnail.name != "" %}
-                                         {{ post.category.thumbnail_url }});">
+                                         {{ post.category.thumbnail_url|media }});">
                                  {% else %}
                                     {% static 'wpfamily/img/uncategorized.gif' %});">
                                  {% endif %}
@@ -134,8 +134,10 @@
                                                             rel="category tag">{{ post.category.name }}</a>
                     </span>
                 {% endif %}
+                {% if post.views > 0 %}
                 <span class="tags-links"><a
                         href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
+                {% endif %}
             </div><!-- .entry-meta -->
 
             <div class="social-buttons">

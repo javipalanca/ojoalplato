@@ -15,8 +15,6 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.encoding import force_text
 from django.utils.text import normalize_newlines, slugify
 
-from ojoalplato.blog.models import PostMeta
-
 register = template.Library()
 
 
@@ -34,6 +32,7 @@ def dropcap(value):
 @register.filter()
 def views(post):
     try:
+        from ojoalplato.blog.models import PostMeta
         return PostMeta.objects.get(post=post, key="views").value
     except:
         return 0
@@ -43,7 +42,8 @@ def views(post):
 def lightbox(post):
     soup = BeautifulSoup(post, "html.parser")
     for img in soup.findAll('img'):
-        src = img.attrs["src"]
+        img["src"] = media(img["src"])
+        src = media(img.attrs["src"])
         if "alt" in img.attrs:
             alt = slugify(img.attrs["alt"])
         else:
@@ -61,12 +61,9 @@ def lightbox(post):
 
 @register.filter()
 def first_img(post):
-    AWS_PATH = "https://ojoalplato-static.s3.amazonaws.com"
     soup = BeautifulSoup(post, "html.parser")
     img = soup.find('img')
     if img:
-        if not img.attrs["src"].startswith(AWS_PATH):
-            return AWS_PATH + img.attrs["src"]
         return img.attrs["src"]
     else:
         return settings.STATIC_URL + "wpfamily/img/logo2.png"
@@ -74,12 +71,17 @@ def first_img(post):
 
 @register.filter()
 def relative_url(url):
-    split = "/media/"
-    relative = url.split(split)[1]
-    if relative.startswith("/"):
-        relative = relative[1:]
-    return settings.MEDIA_URL + relative
+    return url
 
+@register.filter()
+def media(url):
+    AWS_PATH = "https://ojoalplato-static.s3.amazonaws.com"
+    if url:
+       if url.startswith("/media"):
+            return AWS_PATH + url
+    url = url.replace("//media", "/media")
+    return url
+        
 
 @register.filter()
 def cat_img(category):

@@ -33,9 +33,9 @@
             </div-->
             <div class="featured-image"
                  {% if post.image_header %}
-                 style="background-image:url('{{ post.image_header.url|relative_url }}');"
+                 style="background-image:url('{{ post.image_header.url|media }}');"
                  {% else %}
-                 style="background-image:url('{{ post.content|first_img }}'); background-position: center top;"
+                 style="background-image:url('{{ post.content|first_img|media }}'); background-position: center top;"
                  {% endif %}
             >
                 <a href="{{ post.get_absolute_url }}"><img
@@ -75,7 +75,7 @@
                         datetime="2016-02-13T15:37:18+00:00">{{ post.post_date }}</time>
                     por <a class="author" href="{% url 'author-list' post.author.username %}">
                             {{ post.author.name }}</a></span>
-                    {% if user.is_superuser or user.is_staff%}
+                    {% if user.is_superuser or user.is_staff %}
                         &nbsp;&nbsp;<a href="{% url 'admin:blog_post_change' post.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
                     {% endif %}
                     </div>
@@ -111,9 +111,10 @@
                         </span>
                     </a>
                     </span>
-
+                    {% if post.views > 0 %} 
                     <span class="tags-links"><a
                             href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
+                    {% endif %}
                 </div><!-- .entry-meta -->
                 <a href="{{ post.get_absolute_url }}"
                    class="read-more-button btn btn-primary">Leer más</a>

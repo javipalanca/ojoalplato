@@ -18,6 +18,8 @@ from likert_field.models import LikertField
 from taggit_autosuggest.managers import TaggableManager
 from hitcount.models import HitCountMixin
 
+from ojoalplato.blog.templatetags.content_filters import media
+
 from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
 
 
@@ -59,11 +61,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     @property
     def img_src(self):
         if self.image_header and hasattr(self.image_header, 'url'):
-            split = "/media/"
-            relative = self.image_header.url.split(split)[1]
-            if relative.startswith("/"):
-                relative = relative[1:]
-            url = settings.MEDIA_URL + relative
+            url = self.image_header.url.replace("//media","/media")
         else:
             url = self.first_post_image()
         return url
@@ -75,7 +73,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
             soup = BeautifulSoup(post.content, "html.parser")
             img = soup.find('img')
             if img:
-                result = img.attrs["src"]
+                result = media(img.attrs["src"])
         return result
 
     @property
@@ -94,7 +92,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
             soup = BeautifulSoup(post.content, "html.parser")
             for img in soup.find_all('img'):
                 if img:
-                    images.append(img.attrs["src"])
+                    images.append(media(img.attrs["src"]))
         return images
 
     def get_position_wgs84(self):

@@ -209,11 +209,7 @@ class Post(TimeStampedModel, HitCountMixin):
     @property
     def img_src(self):
         if self.image_header and hasattr(self.image_header, 'url'):
-            split = "/media/"
-            relative = self.image_header.url.split(split)[1]
-            if relative.startswith("/"):
-                relative = relative[1:]
-            url = settings.MEDIA_URL + relative
+            url = self.image_header.url.replace("//media","/media")
         else:
             url = self.first_img()
         return url
@@ -222,7 +218,8 @@ class Post(TimeStampedModel, HitCountMixin):
         soup = BeautifulSoup(self.content, "html.parser")
         img = soup.find('img')
         if img:
-            return img.attrs["src"]
+            from ojoalplato.blog.templatetags.content_filters import media
+            return media(img.attrs["src"])
         else:
             return settings.STATIC_URL + "wpfamily/img/logo2.png"
 

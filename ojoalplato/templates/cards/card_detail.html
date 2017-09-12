@@ -9,9 +9,9 @@
 
         <div class="featured-image-family"
         {% if card.image_header %}
-            style="background-image:url('{{ card.image_header.url|relative_url }}')">
+            style="background-image:url('{{ card.image_header.url|media}}')">
         {% else %}
-            style="background-image:url('{{ card.posts.first.content|first_img }}')">
+            style="background-image:url('{{ card.posts.first.content|first_img|media }}')">
         {% endif %}
         </div>
 
@@ -90,9 +90,9 @@
                       <div class="media-left col-md-2 col-xs-4">
                         <a href="{{ post.get_absolute_url }}">
                          {% if post.image_header %}
-                             <img class="img-thumbnail img-responsive" src="{{ post.image_header.url|relative_url }}">
+                             <img class="img-thumbnail img-responsive" src="{{ post.image_header.url|media}}">
                          {% else %}
-                             <img class="img-thumbnail img-responsive" src="{{ post.content|first_img }}">
+                             <img class="img-thumbnail img-responsive" src="{{ post.content|first_img|media }}">
                          {% endif %}
                         </a>
                       </div>
