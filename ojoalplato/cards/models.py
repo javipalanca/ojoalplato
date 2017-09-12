@@ -61,7 +61,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     @property
     def img_src(self):
         if self.image_header and hasattr(self.image_header, 'url'):
-            url = self.image_header.url.replace("//media","/media")
+            url = self.image_header.url.replace("//media", "/media")
         else:
             url = self.first_post_image()
         return url
@@ -82,7 +82,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
 
     @property
     def autocomplete_text(self):
-        text = "{} {} {}".format(self.name, self.chef, self.address)
+        text = "{} {} {} {}".format(self.name, self.chef, self.address, self.awards)
         tags = " ".join([tag.name for tag in self.tags.all()])
         return " ".join([text, tags])
 

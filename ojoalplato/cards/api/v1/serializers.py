@@ -20,7 +20,6 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags')
 
 
-
 class RestaurantAutocompleteSerializer(HaystackSerializer):
 
     class Meta:
