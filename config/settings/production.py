@@ -115,10 +115,11 @@ from storages.backends.s3boto3 import S3Boto3Storage
 
 class CustomS3BotoStorage(S3Boto3Storage):
 
-    def _clean_name(self, name):
-        return name
-
     def _normalize_name(self, name):
+        if name.startswith("/"):
+            name = name[1:]
+        if not name.startswith(self.location):
+            return self.location + "/" + name
         return name
 
 
@@ -134,10 +135,10 @@ MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 # ------------------------
 
 #STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-#STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
+STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 AWS_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
