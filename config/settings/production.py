@@ -111,12 +111,9 @@ AWS_HEADERS = {
 
 #  See:http://stackoverflow.com/questions/10390244/
 from storages.backends.s3boto3 import S3Boto3Storage
-#StaticRootS3BotoStorage = lambda: S3Boto3Storage(location='static')
-#MediaRootS3BotoStorage = lambda: S3Boto3Storage(location='media')
 
-class StaticRootS3BotoStorage(S3Boto3Storage):
 
-    location = "static"
+class CustomS3BotoStorage(S3Boto3Storage):
 
     def _clean_name(self, name):
         return name
@@ -125,16 +122,8 @@ class StaticRootS3BotoStorage(S3Boto3Storage):
         return name
 
 
-class MediaRootS3BotoStorage(S3Boto3Storage):
-
-    location = "media"
-
-    def _clean_name(self, name):
-        return name
-
-    def _normalize_name(self, name):
-        return name
-
+StaticRootS3BotoStorage = lambda: CustomS3BotoStorage(location='static')
+MediaRootS3BotoStorage = lambda: CustomS3BotoStorage(location='media')
 
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
