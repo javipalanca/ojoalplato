@@ -61,9 +61,12 @@ def lightbox(post):
 
 @register.filter()
 def first_img(post):
+    AWS_PATH = "https://ojoalplato-static.s3.amazonaws.com"
     soup = BeautifulSoup(post, "html.parser")
     img = soup.find('img')
     if img:
+        if not img.attrs["src"].startswith(AWS_PATH):
+            return AWS_PATH + img.attrs["src"]
         return img.attrs["src"]
     else:
         return settings.STATIC_URL + "wpfamily/img/logo2.png"
