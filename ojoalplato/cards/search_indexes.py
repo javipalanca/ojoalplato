@@ -13,7 +13,7 @@ class RestaurantIndex(indexes.SearchIndex, indexes.Indexable):
     suns = indexes.IntegerField(model_attr="suns", null=True)
     awards = indexes.CharField(model_attr="awards", null=True)
     last_visit = indexes.DateTimeField(model_attr='last_visit', null=True)
-    location = indexes.LocationField(model_attr="location_wgs84", null=True)
+    location = indexes.LocationField(model_attr="location_wgs84_reverse", null=True)
 
     # We add this for autocomplete.
     content_auto = indexes.EdgeNgramField(model_attr='autocomplete_text')

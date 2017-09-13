@@ -33,15 +33,14 @@ def make_point(point, origin_coord_srid, destiny_coord_srid):
 
 @register.simple_tag
 def google_static_map(point, width=600, height=300, zoom=10):
-    #google_maps_point = make_point(point, origin_coord_srid=point.srid, destiny_coord_srid=DEFAULT_GOOGLE_MAPS_SRID)
     base_uri = "https://maps.googleapis.com/maps/api/staticmap"
     args = {
         "maptype": "roadmap",
         "zoom": zoom,
         "size": "{}x{}".format(width, height),
         "key": settings.GOOGLE_MAPS_API_KEY,
-        "center": "{},{}".format(point[0], point[1]),
-        "markers": "color:red|{},{}".format(point[0], point[1]),
+        "center": "{},{}".format(point[1], point[0]),
+        "markers": "color:red|{},{}".format(point[1], point[0]),
     }
     query_dict = QueryDict(mutable=True)
     query_dict.update(args)

@@ -104,21 +104,30 @@ class Restaurant(TimeStampedModel, HitCountMixin):
         position = copy(self.location)
         position.transform(trans)
         if position:
-            return [position[1], position[0]]
+            return [position[0], position[1]]
         else:
             return [None, None]
 
     @property
     def location_wgs84(self):
-        lat, lon = self.get_position_wgs84()
-        if lat and lon:
+        lon, lat = self.get_position_wgs84()
+        if lon and lat:
             return Point(lat, lon)
+        else:
+            return None
+
+    @property
+    def location_wgs84_reverse(self):
+        # this is needed for elasticsearch, since it changes lat/lon order
+        lon, lat = self.get_position_wgs84()
+        if lon and lat:
+            return Point(lon, lat)
         else:
             return None
 
     def google_maps_url(self):
         point = self.get_position_wgs84()
-        return "http://www.google.com/maps/place/{},{}".format(point[0], point[1])
+        return "http://www.google.com/maps/place/{},{}".format(point[1], point[0])
 
     def get_absolute_url(self):
         return reverse("cards:restaurant-detail", kwargs={"slug": self.slug})

@@ -320,7 +320,7 @@
         var element = jQuery(this);
         var x = element.data("x");
         var y = element.data("y");
-        detail.map.flyTo([x, y], 19, {
+        detail.map.flyTo([y, x], 19, {
             animate: true,
             duration: 1 // in seconds
           }).once('moveend', function () {
