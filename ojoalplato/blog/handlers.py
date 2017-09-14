@@ -33,7 +33,11 @@ class WatermarkUploader(SimpleUploader):
         cimage = BytesIO()
         rgba_image.save(cimage, format="PNG")
         cimage.seek(0)
-        image_file = InMemoryUploadedFile(cimage, self.upload_file.field_name, self.upload_file.name,
+        try:
+            field_name = self.upload_file.field_name
+        except:
+            field_name = self.upload_file.name
+        image_file = InMemoryUploadedFile(cimage, field_name, self.upload_file.name,
                                           self.upload_file.content_type, rgba_image.tell, None)
         image_file.seek(0)
         self.upload_file = image_file
