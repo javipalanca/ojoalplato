@@ -174,7 +174,7 @@ jQuery('#scrollable-dropdown-menu').find('#typeahead').typeahead({
     suggestion: function(data) {
         var res = '<div class="ProfileCard u-cf Typeahead-suggestion Typeahead-selectable">';
         if (data.img_src != "#")
-            res += '<img class="ProfileCard-avatar" src="'+ data.img_src +'">';
+            res += '<img class="ProfileCard-avatar" style="object-fit: cover;" src="'+ data.img_src +'">';
 
         res += '<div class="ProfileCard-details">';
         res +=  '<div class="ProfileCard-realName">' + data.title +'</div>';
