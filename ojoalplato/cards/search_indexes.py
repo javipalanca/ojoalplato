@@ -12,6 +12,7 @@ class RestaurantIndex(indexes.SearchIndex, indexes.Indexable):
     stars = indexes.IntegerField(model_attr="stars", null=True)
     suns = indexes.IntegerField(model_attr="suns", null=True)
     awards = indexes.CharField(model_attr="awards", null=True)
+    is_closed = indexes.BooleanField(model_attr="is_closed", null=True)
     last_visit = indexes.DateTimeField(model_attr='last_visit', null=True)
     location = indexes.LocationField(model_attr="location_wgs84_reverse", null=True)
 

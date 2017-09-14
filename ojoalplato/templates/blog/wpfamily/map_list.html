@@ -266,16 +266,16 @@
                 res += '<img class="ProfileCard-avatar" src="'+ data.img_src +'">';
 
             res += '<div class="ProfileCard-details">';
-            res +=  '<div class="ProfileCard-realName">' + data.name +'</div>';
+            res +=  '<div class="ProfileCard-realName">' + data.name + '</div>';
             if (data.chef)
                 res +=  '<div class="ProfileCard-screenName">' + data.chef + '</div>';
             if (data.address)
                 res += '<div class="ProfileCard-description">'+ data.address +'</div>';
             res += '</div>';
 
-            if(data.stars > 0 || data.suns > 0) {
+            if(data.stars > 0 || data.suns > 0 || data.is_closed) {
                 res += '<div class="ProfileCard-stats">';
-                if (data.stars){
+                if (data.stars) {
                    res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Estrellas Michelín: </span>';
                    var stars = data.stars;
                    while (stars > 0) {
@@ -284,7 +284,7 @@
                    }
                    res += '</div>';
                 }
-                if (data.suns){
+                if (data.suns) {
                    res += '<div class="ProfileCard-stat"><span class="ProfileCard-stat-label">Soles Repsol: </span>';
                    var suns = data.suns;
                    while (suns > 0) {
@@ -292,6 +292,9 @@
                        suns -= 1;
                    }
                    res += '</div>';
+                }
+                if (data.is_closed) {
+                    res += '<div class="ProfileCard-stat"><span class="label label-danger">cerrado</span></div>';
                 }
                 res += '</div>';
             }
