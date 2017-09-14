@@ -152,16 +152,20 @@ COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 # EMAIL
 # ------------------------------------------------------------------------------
 DEFAULT_FROM_EMAIL = env('DJANGO_DEFAULT_FROM_EMAIL',
-                         default='Ojoalplato <noreply@ojoalplato.com>')
+                         default='Ojoalplato <no-reply@ojoalplato.com>')
 EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Ojoalplato] ')
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 # Anymail with Mailgun
-INSTALLED_APPS += ("anymail", )
-ANYMAIL = {
-    "MAILGUN_API_KEY": env('DJANGO_MAILGUN_API_KEY'),
-}
-EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+#INSTALLED_APPS += ("anymail", )
+#ANYMAIL = {
+#    "MAILGUN_API_KEY": env('DJANGO_MAILGUN_API_KEY'),
+#}
+#EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+
+EMAIL_BACKEND = "django_ses.SESBackend"
+AWS_SES_REGION_NAME = 'eu-west-1'
+AWS_SES_REGION_ENDPOINT = 'email-smtp.eu-west-1.amazonaws.com'
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------

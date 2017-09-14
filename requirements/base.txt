@@ -89,3 +89,7 @@ django-taggit-serializer
 drf-haystack
 
 django-maintenance-mode
+
+
+# Amazon Simple Email Service SES
+django-ses
