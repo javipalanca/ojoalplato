@@ -23,18 +23,18 @@
     <meta property="og:description" content="{{ post.content | striptags | truncatewords:20 | safe }}" />
 {% if post.image_header %}
     {% with post.image_header.url|media as image %}
-    <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
+    <meta property="og:image" content="{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
-    <meta itemprop="image" content="http://{{ request.get_host  }}{{ image }}">
+    <meta name="twitter:image" content="{{ image }}">
+    <meta itemprop="image" content="{{ image }}">
     {% og_img_size image %}
     {% endwith %}
 {% else %}
     {% with  post.content|first_img|media  as image %}
-    <meta property="og:image" content="http://{{ request.get_host  }}{{ image }}" />
+    <meta property="og:image" content="{{ image }}" />
     <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="http://{{ request.get_host  }}{{ image }}">
-    <meta itemprop="image" content="http://{{ request.get_host  }}{{ image }}">
+    <meta name="twitter:image" content="{{ image }}">
+    <meta itemprop="image" content="{{ image }}">
     {% og_img_size image %}
     {% endwith %}
 

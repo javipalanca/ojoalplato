@@ -33,6 +33,7 @@ class RestaurantAdminForm(forms.ModelForm):
         except GeocoderQueryError:
             location = None
 
+
         if location:
             point = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
         else:
