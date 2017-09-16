@@ -165,7 +165,7 @@ SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 EMAIL_BACKEND = "django_ses.SESBackend"
 AWS_SES_REGION_NAME = 'eu-west-1'
-AWS_SES_REGION_ENDPOINT = 'email-smtp.eu-west-1.amazonaws.com'
+AWS_SES_REGION_ENDPOINT = 'email.eu-west-1.amazonaws.com'
 
 # TEMPLATE CONFIGURATION
 # ------------------------------------------------------------------------------
