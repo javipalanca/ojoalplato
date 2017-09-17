@@ -289,8 +289,12 @@ class Post(TimeStampedModel, HitCountMixin):
         self.parent_id = post.pk
 
     def views(self):
-        metaviews, hits = int(self._get_meta("views")), int(self.hit_count.hits)
-        return metaviews + hits
+        hits = int(self.hit_count.hits)
+        try:
+            metaviews = int(self._get_meta("views"))
+            return metaviews + hits
+        except:
+            return hits
 
     # related objects
 

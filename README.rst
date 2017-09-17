@@ -24,9 +24,11 @@ Basic Commands
 Initial Migrations
 ^^^^^^^^^^^^^^^^^^
 
-* First migrate **users** and **auth** apps:
+* First migrate **sites**, **auth** and **user** apps:
 
-    $ python manage.py migrate users auth
+    $ python manage.py migrate sites
+    $ python manage.py migrate auth
+    $ python manage.py migrate users
 
 * Then create default users **admin** and **paco**:
 
