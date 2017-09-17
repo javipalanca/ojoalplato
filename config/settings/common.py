@@ -408,6 +408,19 @@ REQUEST_IGNORE_PATHS = (
     r'^admin/',
     r'^media/',
     r'^static/',
+    r'^taggit_autosuggest/',
+    r'^api/',
+)
+
+REQUEST_IGNORE_USERNAME = (
+    'paco', 'jpalanca',
+)
+
+REQUEST_IGNORE_USER_AGENTS = (
+    #r'^$', # ignore requests with no user agent string set
+    r'Googlebot',
+    r'Baiduspider',
+    r'bingbot',
 )
 
 # Newsletter settings
