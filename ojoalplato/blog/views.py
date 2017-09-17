@@ -25,7 +25,7 @@ class PostList(ListView):
         if request.GET.get("p"):
             post_id = request.GET.get("p")
             slug = get_object_or_404(Post, id=post_id).slug
-            return redirect(reverse("post-detail", kwargs={"slug": slug}))
+            return redirect(reverse("post-detail", kwargs={"slug": slug}), permanent=True)
         else:
             return super(ListView, self).get(request, **kwargs)
 
@@ -39,7 +39,7 @@ class PostDetail(HitCountDetailView):
 class PostDetailById(View):
     def get(self, request, pk):
         slug = get_object_or_404(Post, id=pk).slug
-        return redirect(reverse("post-detail", kwargs={"slug": slug}))
+        return redirect(reverse("post-detail", kwargs={"slug": slug}), permanent=True)
 
 
 class CategoryList(ListView):
