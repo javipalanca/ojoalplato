@@ -2,6 +2,7 @@
 import datetime
 
 import collections
+import itertools
 from bs4 import BeautifulSoup
 from autoslug import AutoSlugField
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,6 +13,7 @@ from django.db.models import ImageField
 from django.db.models import Q
 from django.conf import settings
 from django.utils.html import strip_tags
+from django.utils.text import slugify
 from model_utils.fields import MonitorField
 from model_utils.models import TimeStampedModel
 from django.utils import timezone
@@ -42,6 +44,20 @@ POST_TYPE_CHOICES = (
     ('post', 'post'),
     ('revision', 'revision'),
 )
+
+
+SLUG_MAX_LENGTH = 200
+
+
+def unique_slug(value):
+    slug = orig = slugify(value)[:SLUG_MAX_LENGTH]
+    if Post.objects.filter(slug=slug).exists():
+        for x in itertools.count(1):
+            # Truncate the original slug dynamically. Minus 1 for the hyphen.
+            slug = "%s-%d" % (orig[:SLUG_MAX_LENGTH - len(str(x)) - 1], x)
+            if not Post.objects.filter(slug=slug).exists():
+                break
+    return slug
 
 
 class PostManager(models.Manager):
@@ -140,7 +156,8 @@ class Post(TimeStampedModel, HitCountMixin):
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
-    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=200)
+    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH, unique=True,
+                         slugify=unique_slug)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
                                default=get_default_user)
     excerpt = models.TextField(blank=True)
@@ -241,6 +258,7 @@ class Post(TimeStampedModel, HitCountMixin):
             self.menu_order = 0
             self.parent_id = 0
 
+            # assign primary key
             last_id = Post.objects.aggregate(largest=models.Max('id'))['largest']
             # aggregate can return None! Check it first.
             # If it isn't none, just use the last ID specified (which should be the greatest) and add one to it
@@ -249,6 +267,9 @@ class Post(TimeStampedModel, HitCountMixin):
             else:
                 from random import randint
                 self.id = randint(100000, 100000000)
+
+            # assign unique slug
+
 
         super(Post, self).save(**kwargs)
         self.child_cache = None
