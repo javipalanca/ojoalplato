@@ -132,7 +132,7 @@ class Post(TimeStampedModel, HitCountMixin):
 
     objects = PostManager()
 
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True, default=0)
 
     # post data
     guid = models.CharField(max_length=255, blank=True)
@@ -193,8 +193,8 @@ class Post(TimeStampedModel, HitCountMixin):
 
     notification_delay = models.PositiveSmallIntegerField(default=1, verbose_name="Retardo de notificación (horas)")
     notified = models.BooleanField(default=False, verbose_name="Notificación enviada")
-    post_to_facebook = models.BooleanField(default=True, verbose_name="Publicar en Facebook")
-    post_to_twitter = models.BooleanField(default=True, verbose_name="Publicar en Twitter")
+    post_to_facebook = models.BooleanField(default=False, verbose_name="Publicar en Facebook")
+    post_to_twitter = models.BooleanField(default=False, verbose_name="Publicar en Twitter")
 
     @property
     def url(self):
@@ -235,6 +235,21 @@ class Post(TimeStampedModel, HitCountMixin):
     def save(self, **kwargs):
         if self.parent_id is None:
             self.parent_id = 0
+        if self._state.adding:
+            self.post_type = "post"
+            self.comment_count = 0
+            self.menu_order = 0
+            self.parent_id = 0
+
+            last_id = Post.objects.aggregate(largest=models.Max('id'))['largest']
+            # aggregate can return None! Check it first.
+            # If it isn't none, just use the last ID specified (which should be the greatest) and add one to it
+            if last_id is not None:
+                self.id = last_id + 1
+            else:
+                from random import randint
+                self.id = randint(100000, 100000000)
+
         super(Post, self).save(**kwargs)
         self.child_cache = None
         self.term_cache = None
