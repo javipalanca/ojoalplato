@@ -30,7 +30,6 @@ def send_newsletter(post_id):
         article = Article()
         article.url = "http://{}{}".format(site.domain, post.get_absolute_url())
         article.title = post.title
-        article.text = post.content.replace('src="/media', 'src="http://'+site.domain+'/media')
         article.sortorder = 0
 
         message.title = post.title
