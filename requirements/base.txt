@@ -72,7 +72,7 @@ geopy
 django-leaflet
 django-envelope
 dj-database-url
-google-api-python-client
+google-api-python-client==1.6.4
 django-analytical
 django-request
 django-hitcount
