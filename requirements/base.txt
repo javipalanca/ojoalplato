@@ -76,7 +76,7 @@ google-api-python-client
 django-analytical
 django-request
 django-hitcount
-django-newsletter
+django-newsletter==0.6
 requests-facebook
 tweepy
 django-haystack
