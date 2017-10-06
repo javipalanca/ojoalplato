@@ -73,7 +73,7 @@ django-leaflet
 django-envelope
 dj-database-url
 google-api-python-client
-django-analytical
+django-analytical==2.2.2
 django-request
 django-hitcount
 django-newsletter
