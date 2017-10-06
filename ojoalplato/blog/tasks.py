@@ -10,6 +10,7 @@ from facebook import GraphAPI
 import tweepy
 import time
 
+
 @shared_task
 def post_published_task(post_id):
     time.sleep(10)
