@@ -74,7 +74,7 @@ django-envelope
 dj-database-url
 google-api-python-client
 django-analytical
-django-request
+django-request==1.5.3
 django-hitcount
 django-newsletter
 requests-facebook
