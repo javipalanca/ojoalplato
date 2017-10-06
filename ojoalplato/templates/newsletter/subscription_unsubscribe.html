@@ -1,0 +1,29 @@
+{% extends "newsletter/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block subtitle %}Si decides anular tu suscripción dejarás de recibir correos electrónicos con los contenidos publicados y actualizados.
+{% endblock subtitle %}
+
+{% block form %}
+    <div class="entry-content">
+    <h1>Dar de baja suscripción</h1>
+
+    {% if error %}
+        <p>Debido a un error técnico no hemos podido enviarte el email de confirmación. Probablemente esto se deba a que la dirección de correo electrónico es incorrecta.</p>
+
+        {% comment %} Replace the the following dummy with a valid email address and remove this comment.
+
+        <p>{% trans "If the error persists, please don't hesitate to contact us at the following email address:" %} <a href="mailto:info@foobar.com">info@foobar.com</a></p>
+
+        {% endcomment %}
+    {% else %}
+        <form enctype="multipart/form-data" method="post" action=".">
+        <label>Introduzca el correo electrónico del que desea darse de baja.</label>
+            {% csrf_token %}
+            {{ form | crispy }}
+            <p><input class="btn btn-primary btn-lg fb-lile-btn social-buttons"
+                      id="id_submit" name="submit" value="Dar de baja" type="submit" /></p>
+        </form>
+    {% endif %}
+    </div>
+{% endblock form %}

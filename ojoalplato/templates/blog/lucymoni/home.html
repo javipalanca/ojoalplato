@@ -1,0 +1,1049 @@
+{% load static %}
+{% load content_filters %}
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="shortcut icon" href="wp-content/themes/lucymoni/images/favicon.ico"/>
+    <title>Ojoalplato</title>
+
+    <link rel='stylesheet' id='bootstrap-style-css' href='{% static "lucymoni/css/bootstrap.css" %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-css' href='{% static "lucymoni/css/font-awesome.css" %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='lucymoni-style-css' href='{% static "lucymoni/style.css" %}' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='lucymoni-minimal-menu-css' href='{% static "lucymoni/css/minimal-menu.css" %}'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='redux-google-fonts-lucymoni_option-css'
+          href='http://fonts.googleapis.com/css?family=Merriweather%3A300%7CLato%3Anormal%7CRaleway%3A400%2C500&#038;ver=1470401566'
+          type='text/css' media='all'/>
+    <script type='text/javascript' src='{% static "bower_components/jquery/dist/jquery.min.js" %}'></script>
+    <script type='text/javascript' src='{% static "bower_components/jquery-migrate/jquery-migrate.min.js" %}'></script>
+
+    <link rel="stylesheet" id="lucimony" href="{% static 'lucymoni/lucimony.css' %}">
+</head>
+
+<body class="home blog">
+
+<header class="top-header">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!--  start of main navigation -->
+                <label class="minimal-menu-button" for="mobile-nav"></label>
+                <input class="minimal-menu-button" type="checkbox" id="mobile-nav" name="mobile-nav"/>
+
+                <div class="minimal-menu" role="navigation" itemscope="itemscope"
+                     itemtype="http://schema.org/SiteNavigationElement">
+                    <ul id="menu-top-menu" class="menu">
+                        <li id="menu-item-34"
+                            class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-has-children menu-item-34">
+                            <a href="index.html">Home</a>
+                            <ul class="sub-menu">
+                                <li id="menu-item-111"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-111"><a
+                                        href="index.html?p=109">Standard Layout</a></li>
+                                <li id="menu-item-112"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-112"><a
+                                        href="index.html?p=107">List Layout</a></li>
+                                <li id="menu-item-113"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-113"><a
+                                        href="index.html?p=105">Grid Layout</a></li>
+                            </ul>
+                        </li>
+                        <li id="menu-item-40"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-40">
+                            <a href="index.html#">Features</a>
+                            <ul class="sub-menu">
+                                <li id="menu-item-78"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a
+                                        href="index.html?p=9">Audio Post</a></li>
+                                <li id="menu-item-79"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-79"><a
+                                        href="index.html?p=54">Video Post</a></li>
+                                <li id="menu-item-80"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a
+                                        href="index.html?p=61">Gallery Post</a></li>
+                                <li id="menu-item-81"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a
+                                        href="index.html?p=57">Image Post</a></li>
+                                <li id="menu-item-86"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a
+                                        href="index.html?p=6">Standard Post</a></li>
+                            </ul>
+                        </li>
+                        <li id="menu-item-87"
+                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-87">
+                            <a href="index.html#">Pages</a>
+                            <ul class="sub-menu">
+                                <li id="menu-item-88"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-88"><a
+                                        href="author/khalilbhai/index.html">Author Page</a></li>
+                                <li id="menu-item-89"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-89"><a
+                                        href="http://khalilthemes.com/lucymoni/123">404 Page</a></li>
+                                <li id="menu-item-90"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-90"><a
+                                        href="2016/04/index.html">Archive Page</a></li>
+                                <li id="menu-item-91"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-91"><a
+                                        href="category/travel/index.html">Category Page</a></li>
+                                <li id="menu-item-92"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-92"><a
+                                        href="index.html?s=lorem#">Search Page</a></li>
+                                <li id="menu-item-93"
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-93"><a
+                                        href="tag/beauty/index.html">Tags Page</a></li>
+                            </ul>
+                        </li>
+                        <li id="menu-item-47"
+                            class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47"><a
+                                href="category/lifestyle/index.html">Lifestyle</a></li>
+                        <li id="menu-item-48"
+                            class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-48"><a
+                                href="category/design/index.html">Design</a></li>
+                        <li id="menu-item-46"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-46"><a
+                                href="index.html?p=41">About Me</a></li>
+                        <li id="menu-item-45"
+                            class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45"><a
+                                href="index.html?p=43">Contact Me</a></li>
+                    </ul>
+                </div>
+
+
+            </div> <!-- end of column 8 -->
+
+            <div class="col-md-4">
+
+                <div class="md-modal md-effect-12" id="modal-12">
+                    <div class="md-content">
+                        <div>
+                            <form method="get" id="ksearchform" action="index.html" role="search">
+                                <input type="text" name="s" id="s" value="Type Keywords and Hit Enter"
+                                       onfocus="if(this.value='Type Keywords and Hit Enter')this.value='';"
+                                       onblur="if(this.value=='')this.value='Type Keywords and Hit Enter';"/>
+                            </form>
+                            <button class="md-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="md-trigger" data-modal="modal-12"><i class="fa fa-search"></i></button>
+                <div class="md-overlay"></div><!-- the overlay element -->
+
+                <div class="social-top">
+
+                    <ul>
+                        <li><a href="https://www.facebook.com/khalilthemes/" target="_blank"><i
+                                class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com/khalilthemes" target="_blank"><i class="fa fa-twitter"></i></a>
+                        </li>
+
+                        <li><a href="index.html#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+
+                        <li><a href="index.html#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+
+
+                        <li><a href="index.html#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+
+                    </ul>
+                </div>
+            </div> <!-- end of col-md-4 -->
+
+
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+
+</header>
+<!-- end of top header area -->
+
+<!-- logo area -->
+<div class="main-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="logo">
+
+                    <a class="logo" href="http://khalilthemes.com/lucymoni">
+                        <img src="{% static 'lucymoni/images/logo3.png' %}"
+                             alt="Ojo al plato"/>
+                    </a>
+
+
+                </div>
+            </div> <!-- end of logo column -->
+
+        </div> <!-- end of row -->
+    </div> <!-- end of logo container -->
+
+    <!-- end of logo area -->
+
+    <!-- Start of main Container -->
+    <div class="container">
+        <!-- Start row of columns for main content -->
+        <div class="row">
+
+            <!-- Start of main Content -->
+            <div class="col-md-8">
+
+                <div class="row">
+
+                {% for post in object_list %}
+                    <!-- a blog post -->
+                    <article id="post-70"
+                             class="col-sm-12 kt-standard post-70 post type-post status-publish format-standard has-post-thumbnail hentry category-design tag-green">
+                        <div class="standard-post-inner">
+                            <div style="max-height: 388px; max-width: 705px; overflow: hidden;">
+                            <a href="index.html?p=70">
+                                <img width="690" height="388"
+                                     style="display: block; max-width: 100%; height: auto !important; width: auto\9; -ms-interpolation-mode: bicubic; "
+                                     src="{{ post.content|first_img }}"
+                                     class="attachment-lucymoni-medium-size size-lucymoni-medium-size wp-post-image"
+                                     alt="15"
+                                     srcset="{{ post.content|first_img }}"
+                                     sizes="(max-width: 690px) 100vw, 690px"/> </a>
+                            </div>
+
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="#" rel="category tag">{{ post.categories.0.name }}</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=70">{{ post.title }}</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                {{ post.content|lightbox|safe }}
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=70" class="button button--moema">Leer más</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Compartir:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/lovely-lush-leaves/&amp;t=Lovely Lush Leaves"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/lovely-lush-leaves/&amp;text=Lovely Lush Leaves&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/lovely-lush-leaves/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/lovely-lush-leaves/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/lovely-lush-leaves/&amp;title=Lovely Lush Leaves&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=Lovely Lush Leaves&amp;body=http://khalilthemes.com/lucymoni/lovely-lush-leaves/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->
+                {% endfor %}
+
+                    {% comment %}
+                    <!-- a blog post -->
+                    <article id="post-68"
+                             class="col-sm-12 kt-standard post-68 post type-post status-publish format-standard has-post-thumbnail hentry category-lifestyle">
+                        <div class="standard-post-inner">
+
+                            <a href="index.html?p=68">
+                                <img width="690" height="461" src="wp-content/uploads/2016/04/12-690x461.jpg"
+                                     class="attachment-lucymoni-medium-size size-lucymoni-medium-size wp-post-image"
+                                     alt="12"
+                                     srcset="http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12-690x461.jpg 690w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12-300x200.jpg 300w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12-768x513.jpg 768w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12-1024x684.jpg 1024w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12-1050x701.jpg 1050w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/12.jpg 1600w"
+                                     sizes="(max-width: 690px) 100vw, 690px"/> </a>
+
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="category/lifestyle/index.html" rel="category tag">Lifestyle</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=68">Incomplete Wooden Story</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                <p>Aliquam diam tellus, auctor vitae nibh vel, dapibus accumsan elit. Donec et lectus
+                                    dapibus, rhoncus purus quis, aliquam risus. Nam porttitor nulla at velit suscipit,
+                                    sit amet porttitor orci pharetra. Vivamus eu ligula sapien. Sed&#8230;</p>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=68" class="button button--moema">Learn More</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Share:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/incomplete-wooden-story/&amp;t=Incomplete Wooden Story"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/incomplete-wooden-story/&amp;text=Incomplete Wooden Story&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/incomplete-wooden-story/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/incomplete-wooden-story/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/incomplete-wooden-story/&amp;title=Incomplete Wooden Story&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=Incomplete Wooden Story&amp;body=http://khalilthemes.com/lucymoni/incomplete-wooden-story/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->
+
+
+                    <!-- a blog post -->
+                    <article id="post-61"
+                             class="col-sm-12 kt-standard post-61 post type-post status-publish format-gallery has-post-thumbnail hentry category-travel tag-gallery post_format-post-format-gallery">
+                        <div class="standard-post-inner">
+
+
+                            <div id="banner-slide">
+                                <ul class="bjqs">
+                                    <li>
+
+                                        <img src="wp-content/uploads/2016/04/64.jpg" alt="64"/>
+
+                                    </li>
+                                    <li>
+
+                                        <img src="wp-content/uploads/2016/04/66.jpg" alt="66"/>
+
+                                    </li>
+                                    <li>
+
+                                        <img src="wp-content/uploads/2016/04/56.jpg" alt="56"/>
+
+                                    </li>
+                                    <li>
+
+                                        <img src="wp-content/uploads/2016/04/57.jpg" alt="57"/>
+
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="category/travel/index.html" rel="category tag">Travel</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=61">My favorite Places</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                <p>Aliquam diam tellus, auctor vitae nibh vel, dapibus accumsan elit. Donec et lectus
+                                    dapibus, rhoncus purus quis, aliquam risus. Nam porttitor nulla at velit suscipit,
+                                    sit amet porttitor orci pharetra. Vivamus eu ligula sapien. Sed&#8230;</p>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=61" class="button button--moema">Learn More</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Share:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/my-favorite-places/&amp;t=My favorite Places"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/my-favorite-places/&amp;text=My favorite Places&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/my-favorite-places/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/my-favorite-places/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/my-favorite-places/&amp;title=My favorite Places&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=My favorite Places&amp;body=http://khalilthemes.com/lucymoni/my-favorite-places/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->
+
+
+                    <!-- a blog post -->
+                    <article id="post-57"
+                             class="col-sm-12 kt-standard post-57 post type-post status-publish format-standard has-post-thumbnail hentry category-design tag-foods">
+                        <div class="standard-post-inner">
+
+                            <a href="index.html?p=57">
+                                <img width="690" height="433" src="wp-content/uploads/2016/04/9-690x433.jpg"
+                                     class="attachment-lucymoni-medium-size size-lucymoni-medium-size wp-post-image"
+                                     alt="9"
+                                     srcset="http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/9-690x433.jpg 690w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/9-300x188.jpg 300w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/9-768x482.jpg 768w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/9.jpg 1024w"
+                                     sizes="(max-width: 690px) 100vw, 690px"/> </a>
+
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="category/design/index.html" rel="category tag">Design</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=57">Enthralling Autumn Season</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                <p>Aliquam diam tellus, auctor vitae nibh vel, dapibus accumsan elit. Donec et lectus
+                                    dapibus, rhoncus purus quis, aliquam risus. Nam porttitor nulla at velit suscipit,
+                                    sit amet porttitor orci pharetra. Vivamus eu ligula sapien. Sed&#8230;</p>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=57" class="button button--moema">Learn More</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Share:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/enthralling-autumn-season/&amp;t=Enthralling Autumn Season"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/enthralling-autumn-season/&amp;text=Enthralling Autumn Season&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/enthralling-autumn-season/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/enthralling-autumn-season/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/enthralling-autumn-season/&amp;title=Enthralling Autumn Season&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=Enthralling Autumn Season&amp;body=http://khalilthemes.com/lucymoni/enthralling-autumn-season/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->
+
+
+                    <!-- a blog post -->
+                    <article id="post-54"
+                             class="col-sm-12 kt-standard post-54 post type-post status-publish format-video has-post-thumbnail hentry category-lifestyle tag-chapter post_format-post-format-video">
+                        <div class="standard-post-inner">
+
+                            <figure class="video-wrapper">
+                                <iframe src="https://player.vimeo.com/video/156395271" width="640" height="360"
+                                        frameborder="0" title="The Next Chapter." webkitallowfullscreen
+                                        mozallowfullscreen allowfullscreen></iframe>
+                            </figure>
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="category/lifestyle/index.html" rel="category tag">Lifestyle</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=54">The Next Chapter</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                <p>Nullam maximus venenatis mollis. Aliquam porttitor nisl nisi, a scelerisque velit
+                                    imperdiet posuere. Donec tortor risus, tempus sit amet metus ac, pellentesque
+                                    dapibus ante. Phasellus ullamcorper turpis odio, ac vehicula nunc porta quis. Donec
+                                    faucibus&#8230;</p>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=54" class="button button--moema">Learn More</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Share:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/the-next-chapter/&amp;t=The Next Chapter"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/the-next-chapter/&amp;text=The Next Chapter&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/the-next-chapter/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/the-next-chapter/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/the-next-chapter/&amp;title=The Next Chapter&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=The Next Chapter&amp;body=http://khalilthemes.com/lucymoni/the-next-chapter/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->  <!-- a blog post -->
+                    <article id="post-51"
+                             class="col-sm-12 kt-standard post-51 post type-post status-publish format-standard has-post-thumbnail hentry category-travel tag-coffee">
+                        <div class="standard-post-inner">
+
+                            <a href="index.html?p=51">
+                                <img width="690" height="515" src="wp-content/uploads/2016/04/4-690x515.jpg"
+                                     class="attachment-lucymoni-medium-size size-lucymoni-medium-size wp-post-image"
+                                     alt="4"
+                                     srcset="http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/4-690x515.jpg 690w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/4-300x224.jpg 300w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/4-768x573.jpg 768w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/4-200x150.jpg 200w, http://khalilthemes.com/lucymoni/wp-content/uploads/2016/04/4.jpg 1006w"
+                                     sizes="(max-width: 690px) 100vw, 690px"/> </a>
+
+                            <div class="standard-meta">
+                                <span class="entry-category"><a href="category/travel/index.html" rel="category tag">Travel</a></span>
+                            </div>
+
+                            <h2 class="standard-post-title">
+                                <a href="index.html?p=51">Everyday Coffee Habit</a>
+                            </h2>
+
+                            <div class="raj-standard-divider"></div>
+                            <div class="kt-standard-excerpt">
+                                <p>Nullam maximus venenatis mollis. Aliquam porttitor nisl nisi, a scelerisque velit
+                                    imperdiet posuere. Donec tortor risus, tempus sit amet metus ac, pellentesque
+                                    dapibus ante. Phasellus ullamcorper turpis odio, ac vehicula nunc porta quis. Donec
+                                    faucibus&#8230;</p>
+                            </div>
+
+                            <div class="text-center">
+
+                                <a href="index.html?p=51" class="button button--moema">Learn More</a>
+
+                            </div>
+
+                            <div class="share-date-author">
+                                <div class="standard-share">
+
+                                    <ul class="standard-social-icons">
+                                        <li class="share-text">Share:</li>
+                                        <li>
+                                            <a href="http://www.facebook.com/sharer.php?u=http://khalilthemes.com/lucymoni/everyday-coffee-habit/&amp;t=Everyday Coffee Habit"
+                                               target="blank">
+                                                <i class="fa fa-facebook"></i></a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://twitter.com/intent/tweet?original_referer=http://khalilthemes.com/lucymoni/everyday-coffee-habit/&amp;text=Everyday Coffee Habit&amp;tw_p=tweetbutton&amp;url=http://khalilthemes.com/lucymoni/everyday-coffee-habit/"
+                                               target="_blank">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://plusone.google.com/_/+1/confirm?hl=en-US&amp;url=http://khalilthemes.com/lucymoni/everyday-coffee-habit/"
+                                               target="_blank">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://khalilthemes.com/lucymoni/everyday-coffee-habit/&amp;title=Everyday Coffee Habit&amp;source=Lucymoni">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="mailto:?subject=Everyday Coffee Habit&amp;body=http://khalilthemes.com/lucymoni/everyday-coffee-habit/">
+                                                <i class="fa fa-envelope"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="standard-date">
+                                    <span class="date">20th April, 2016</span>
+                                    <span class="author">
+			<a href="author/khalilbhai/index.html" rel="author">
+			khalilbhai			</a>
+			</span>
+                                </div>
+
+
+                            </div>
+                            <!-- end of share-date-author -->
+                        </div>
+                        <!-- end of standard-post-inner -->
+                    </article>
+                    <!-- end of a blog post -->
+                    {% endcomment %}
+
+
+                    <nav class="navigation posts-navigation" role="navigation">
+                        <h2 class="screen-reader-text">Posts navigation</h2>
+                        <div class="nav-links">
+                            <div class="nav-previous"><a href="page/2/index.html">Older posts</a></div>
+                        </div>
+                    </nav>
+                </div> <!-- end of row -->
+            </div>  <!-- end of main page content's container -->
+
+            <!-- Start of Right Sidebar -->
+            <div class="col-md-4 raj-sidebar" role="complementary">
+                <div id="kt-about-me-2" class="sidebar-widget widget_kt-about-me"><h2>About Me</h2><img
+                        src='{% static "images/7.jpg" %}' alt="Lucymoni"/>
+                    <p>Sed malesuada lacinia purus. Morbi rutrum metus enim, sit amet ultrices urna commodo a. Quisque
+                        pulvinar nunc augue, nec tempor libero laoreet id</p>
+                </div>
+                <div id="kt-social-follow-2" class="sidebar-widget widget_kt-social-follow"><h2>Seguir</h2>
+                    <ul class="kt-social-icons clearfix">
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-facebook"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-twitter"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-google-plus"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-linkedin"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-instagram"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-vimeo"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-dribbble"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-apple"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-android"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-feed"></a></li>
+                    </ul>
+                </div>
+                <div id="tag_cloud-2" class="sidebar-widget widget_tag_cloud"><h2>Etiquetas</h2>
+                    <div class="tagcloud"><a href='tag/beauty/index.html' class='tag-link-10 tag-link-position-1'
+                                             title='1 topic' style='font-size: 8pt;'>beauty</a>
+                        <a href='tag/camera/index.html' class='tag-link-11 tag-link-position-2' title='1 topic'
+                           style='font-size: 8pt;'>camera</a>
+                        <a href='tag/chapter/index.html' class='tag-link-15 tag-link-position-3' title='1 topic'
+                           style='font-size: 8pt;'>chapter</a>
+                        <a href='tag/coffee/index.html' class='tag-link-13 tag-link-position-4' title='1 topic'
+                           style='font-size: 8pt;'>coffee</a>
+                        <a href='tag/desk/index.html' class='tag-link-2 tag-link-position-5' title='1 topic'
+                           style='font-size: 8pt;'>desk</a>
+                        <a href='tag/foods/index.html' class='tag-link-20 tag-link-position-6' title='1 topic'
+                           style='font-size: 8pt;'>foods</a>
+                        <a href='tag/gallery/index.html' class='tag-link-17 tag-link-position-7' title='1 topic'
+                           style='font-size: 8pt;'>gallery</a>
+                        <a href='tag/green/index.html' class='tag-link-19 tag-link-position-8' title='1 topic'
+                           style='font-size: 8pt;'>green</a>
+                        <a href='tag/unseen/index.html' class='tag-link-9 tag-link-position-9' title='1 topic'
+                           style='font-size: 8pt;'>unseen</a></div>
+                </div>
+
+                <div id="categories-2" class="sidebar-widget widget_categories"><h2>Categorías</h2>
+                    <ul>
+                        <li class="cat-item cat-item-4"><a href="category/design/index.html">Restaurantes</a> (4)
+                        </li>
+                        <li class="cat-item cat-item-3"><a href="category/lifestyle/index.html">Vinos</a> (4)
+                        </li>
+                        <li class="cat-item cat-item-5"><a href="category/travel/index.html">Recetas</a> (4)
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="kt_latest_posts-2" class="sidebar-widget widget_kt_latest_posts"><h2>Últimos posts</h2>
+
+
+                    <ul class="recent-post">
+
+
+                        <li>
+                            <a href="index.html?p=70">
+
+                                <img width="330" height="240" src="wp-content/uploads/2016/04/15-330x240.jpg"
+                                     class="attachment-lucymoni-rectangle-size size-lucymoni-rectangle-size wp-post-image"
+                                     alt="15"/> </a>
+                            <div class="latest-post-text">
+                                <div class="latest-post-inner">
+                                    <h4>
+                                        <a href="index.html?p=70">Lovely Lush Leaves</a>
+                                    </h4>
+
+                                    <span class="date">20th April, 2016</span>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <a href="index.html?p=68">
+
+                                <img width="330" height="240" src="wp-content/uploads/2016/04/12-330x240.jpg"
+                                     class="attachment-lucymoni-rectangle-size size-lucymoni-rectangle-size wp-post-image"
+                                     alt="12"/> </a>
+                            <div class="latest-post-text">
+                                <div class="latest-post-inner">
+                                    <h4>
+                                        <a href="index.html?p=68">Incomplete Wooden Story</a>
+                                    </h4>
+
+                                    <span class="date">20th April, 2016</span>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li>
+                            <a href="index.html?p=61">
+
+                                <img width="330" height="240" src="wp-content/uploads/2016/04/50-330x240.jpg"
+                                     class="attachment-lucymoni-rectangle-size size-lucymoni-rectangle-size wp-post-image"
+                                     alt="50"/> </a>
+                            <div class="latest-post-text">
+                                <div class="latest-post-inner">
+                                    <h4>
+                                        <a href="index.html?p=61">My favorite Places</a>
+                                    </h4>
+
+                                    <span class="date">20th April, 2016</span>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+
+                </div>
+
+                <div id="kt_image_banner-2" class="sidebar-widget widget_kt_image_banner">
+                    <div class="banner-widget">
+                        <a href="index.html" rel="nofollow" target="_blank">
+                            <img src="{%  static 'images/banner.png' %}" alt="Ad"/>
+                        </a>
+                    </div>
+                </div>
+                {% comment %}
+                <div id="calendar-2" class="sidebar-widget widget_calendar"><h2>Calender</h2>
+                    <div id="calendar_wrap" class="calendar_wrap">
+                        <table id="wp-calendar">
+                            <caption>August 2016</caption>
+                            <thead>
+                            <tr>
+                                <th scope="col" title="Monday">M</th>
+                                <th scope="col" title="Tuesday">T</th>
+                                <th scope="col" title="Wednesday">W</th>
+                                <th scope="col" title="Thursday">T</th>
+                                <th scope="col" title="Friday">F</th>
+                                <th scope="col" title="Saturday">S</th>
+                                <th scope="col" title="Sunday">S</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <td colspan="3" id="prev"><a href="2016/04/index.html">&laquo; Apr</a></td>
+                                <td class="pad">&nbsp;</td>
+                                <td colspan="3" id="next" class="pad">&nbsp;</td>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td id="today">9</td>
+                                <td>10</td>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>13</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>16</td>
+                                <td>17</td>
+                                <td>18</td>
+                                <td>19</td>
+                                <td>20</td>
+                                <td>21</td>
+                            </tr>
+                            <tr>
+                                <td>22</td>
+                                <td>23</td>
+                                <td>24</td>
+                                <td>25</td>
+                                <td>26</td>
+                                <td>27</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <td>29</td>
+                                <td>30</td>
+                                <td>31</td>
+                                <td class="pad" colspan="4">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endcomment %}
+            </div>
+            <!-- end of the sidebar -->
+        </div> <!-- end of row -->
+    </div>  <!-- end of main page content's container -->
+</div>
+
+<div class="main-footer">
+
+    <div class="container">
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <div id="text-2" class="footer-widget widget_text"><h2>Contact Me</h2>
+                    <div class="textwidget"><p>71, East Razabazar, Panthopath, Dhaka<br/>
+                        Call us: (+88) 01710 440 320<br/>
+                        Email: ek@email.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /footer-a -->
+
+
+            <div class="col-md-4">
+                <div id="kt-social-follow-3" class="footer-widget widget_kt-social-follow"><h2>Follow Me</h2>
+                    <ul class="kt-social-icons clearfix">
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-facebook"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-twitter"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-google-plus"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-linkedin"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-instagram"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-vimeo"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-dribbble"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-soundcloud"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-android"></a></li>
+                        <li><a href="index.html#" aria-hidden="true" class="fa fa-windows"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- /footer-b -->
+
+
+            <div class="col-md-4">
+                <div id="tag_cloud-3" class="footer-widget widget_tag_cloud"><h2>Tags</h2>
+                    <div class="tagcloud"><a href='tag/beauty/index.html' class='tag-link-10 tag-link-position-1'
+                                             title='1 topic' style='font-size: 8pt;'>beauty</a>
+                        <a href='tag/camera/index.html' class='tag-link-11 tag-link-position-2' title='1 topic'
+                           style='font-size: 8pt;'>camera</a>
+                        <a href='tag/chapter/index.html' class='tag-link-15 tag-link-position-3' title='1 topic'
+                           style='font-size: 8pt;'>chapter</a>
+                        <a href='tag/coffee/index.html' class='tag-link-13 tag-link-position-4' title='1 topic'
+                           style='font-size: 8pt;'>coffee</a>
+                        <a href='tag/desk/index.html' class='tag-link-2 tag-link-position-5' title='1 topic'
+                           style='font-size: 8pt;'>desk</a>
+                        <a href='tag/foods/index.html' class='tag-link-20 tag-link-position-6' title='1 topic'
+                           style='font-size: 8pt;'>foods</a>
+                        <a href='tag/gallery/index.html' class='tag-link-17 tag-link-position-7' title='1 topic'
+                           style='font-size: 8pt;'>gallery</a>
+                        <a href='tag/green/index.html' class='tag-link-19 tag-link-position-8' title='1 topic'
+                           style='font-size: 8pt;'>green</a>
+                        <a href='tag/unseen/index.html' class='tag-link-9 tag-link-position-9' title='1 topic'
+                           style='font-size: 8pt;'>unseen</a></div>
+                </div>
+            </div>
+
+            <!-- /footer-c  -->
+
+
+        </div> <!-- row -->
+
+    </div> <!-- container -->
+</div> <!-- end of main footer with parallax -->
+
+<div class="bottom-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2016 Lucymoni. All Rights Reserved by Khalilthemes</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <p><a href="index.html#" class="back-top">back to top <i class="fa fa-long-arrow-up"></i></a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript' src='{% static "lucymoni/js/navigation.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/skip-link-focus-fix.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/bootstrap.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/kt-custom.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/bjqs-1.3.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/classie.js" %}'></script>
+<script type='text/javascript' src='{% static "lucymoni/js/modalsearch.js" %}'></script>
+
+</body>
+</html>

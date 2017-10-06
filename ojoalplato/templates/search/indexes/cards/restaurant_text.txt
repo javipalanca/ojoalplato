@@ -1,0 +1,5 @@
+{{ object.name }}
+{{ object.chef }}
+{{ object.address }}
+{{ object.awards }}
+{% for tag in object.tags.all %} {{ tag.name }} {% endfor %}

@@ -1,0 +1,21 @@
+FROM python:3.5
+
+ENV PYTHONUNBUFFERED 1
+
+# Install spatialite
+RUN apt-get update && apt-get install --no-install-recommends -y \
+	gettext spatialite-bin libsqlite3-0 libsqlite3-dev gdal-bin libgdal-dev python3-gdal \
+	libspatialite5 libspatialite-dev libgeos-dev libproj-dev python-pysqlite2\
+	&& rm -rf /var/lib/apt/lists/*
+
+# Requirements have to be pulled and installed here, otherwise caching won't work
+COPY ./requirements /requirements
+RUN pip install -r /requirements/local.txt
+
+COPY ./compose/django/entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r//' /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /app
+
+ENTRYPOINT ["/entrypoint.sh"]

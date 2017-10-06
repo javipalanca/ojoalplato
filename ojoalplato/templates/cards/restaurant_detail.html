@@ -1,0 +1,152 @@
+{% extends 'cards/card_detail.html' %}
+{% load card_tags likert_bs_stars %}
+
+{% block render_card %}
+    {% with card as restaurant %}
+        <div class="row">
+            <div class="col-sm-3 map">
+                <a href="{{ card.google_maps_url }}" target="_blank">
+                    <img src="{% google_static_map restaurant.get_position_wgs84 235 201 13 %}" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-responsive table-condensed font-size-16">
+                    <tbody>
+                    {% if restaurant.chef %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Cocinero</th>
+                            <td>{{ restaurant.chef }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.address %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Dirección</th>
+                            <td>{{ restaurant.address }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.phone %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Teléfono</th>
+                            <td><a href="tel:{{ restaurant.phone }}">{{ restaurant.phone }}</a></td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.url %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Página web</th>
+                            <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.email %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Email</th>
+                            <td><a href="mailto:{{ restaurant.email }}">{{ restaurant.email }}</a></td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.stars %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Estrellas Michelín</th>
+                            <td>{{ restaurant.stars | card_bs_stars3:3 }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.suns %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Soles Repsol</th>
+                            <td>{{ restaurant.suns | card_bs_suns_fa:3 }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.awards %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Distinciones</th>
+                            <td>{{ restaurant.awards }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.last_visit %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Última visita</th>
+                            <td>{{ restaurant.last_visit }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.price %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Precio sin vino</th>
+                            <td>{{ restaurant.price }} €</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.avg_price %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Precio medio</th>
+                            <td>{{ restaurant.avg_price }} €</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.menu_price %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Precio de menú</th>
+                            <td>{{ restaurant.menu_price }} €</td>
+                        </tr>
+                    {% endif %}
+                    {% if not restaurant.is_closed %}
+                        {% if restaurant.freedays %}
+                            <tr>
+                                <th scope="row" class="col-xs-4">Días cerrado</th>
+                                <td>
+                                    <div class="btn-toolbar" role="toolbar" aria-label="Días cerrado">
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "0" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Lunes">L
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "1" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Martes">M
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "2" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Miércoles">X
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "3" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Jueves">J
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "4" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Viernes">V
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "5" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Sábado">S
+                                        </div>
+                                        <div role="group"
+                                             class="btn btn-default btn-group {% if "6" in restaurant.freedays %}btn-danger text-white{% endif %}"
+                                             aria-label="Domingo">D
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Actualmente</th>
+                        {% if restaurant.is_closed %}
+                            <td><h2 class="label label-danger">cerrado</h2></td>
+                        {% else %}
+                            <td><h2 class="label label-success">abierto</h2></td>
+                        {% endif %}
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    {% endwith %}
+{% endblock %}
+
+{% block nopost_msg %}
+    Todavía no hay artículos sobre este restaurante.
+{% endblock nopost_msg %}
+
+{% block css_custom %}
+<style>
+.text-white {
+    color: white;
+}
+</style>
+{% endblock css_custom %}

@@ -1,0 +1,107 @@
+.sidebarnav .sidebar {
+  background: #a5e078;
+}
+
+.site-navigation {
+  background: #a5e078;
+}
+
+#cboxClose {
+  background-color: #a5e078;
+}
+
+#cboxClose:hover {
+  background-color: #7accc8;
+}
+
+.site-navigation .navbar-toggle .icon-bar {
+  background: #a5e078;
+}
+
+.btn-primary, .submit, .hentry a.post-edit-link, .posts-navigation a {
+  background: #a5e078;
+}
+
+.btn-primary:hover, .comment-respond .form-submit .submit:hover, .hentry a.post-edit-link:hover, .btn-primary:active, .comment-respond .form-submit .submit:active, .hentry a.post-edit-link:active, .btn-primary:focus, .comment-respond .form-submit .submit:focus, .hentry a.post-edit-link:focus, .btn-primary:hover:focus, .comment-respond .form-submit .submit:hover:focus, .hentry a.post-edit-link:hover:focus, .posts-navigation a:hover, .posts-navigation a:focus, .posts-navigation:hover:focus {
+  background: #7accc8;
+}
+
+#infscr-loading img {
+  background: #7accc8;
+}
+
+a {
+  color: #a5e078;
+}
+
+a:hover, a:active, a:focus, a:active:focus {
+  color: #7accc8;
+}
+
+h1, h2 {
+  color: #7accc8;
+}
+
+.family-list {
+  color: #a5e078;
+}
+
+.family-list .circle {
+  background-color: #7accc8;
+}
+
+.family-list a:hover .circle {
+  border-color: #7accc8;
+}
+
+.hentry .entry-title {
+  color: #a5e078;
+}
+
+.hentry .family-icon {
+  background-color: #7accc8;
+}
+
+.comment-meta {
+  background-color: #a5e078;
+}
+
+.required {
+  color: #7accc8;
+}
+
+.content-area .hentry .entry-footer .entry-meta .page-links a .page-link {
+  background: #7accc8;
+}
+
+.content-area .hentry .entry-footer .entry-meta .page-links a:hover .page-link {
+  background: #a5e078;
+}
+
+.content-area .search-form .search-submit {
+  background-color: #7accc8;
+}
+
+.content-area .search-form .search-submit:hover {
+  background-color: #a5e078;
+}
+
+.social-links li a {
+  background-color: #7accc8;
+}
+
+.social-links li a:hover {
+  background-color: #a5e078;
+}
+
+@media (min-width: 768px) {
+  body.topnav .wrapper .site-navigation .sub-menu li a:hover, body.topnav .wrapper .site-navigation .sub-menu li.hover > a {
+    color: #a5e078;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .sidebarnav .site-navigation .sub-menu li a:hover, .sidebarnav .site-navigation .sub-menu li.hover > a {
+    color: #a5e078;
+  }
+}

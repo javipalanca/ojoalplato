@@ -1,0 +1,100 @@
+version: '2'
+
+services:
+  postgres:
+    build: ./compose/postgres
+    environment:
+      - POSTGRES_USER=ojoalplato
+
+  django_ojoalplato:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    command: python /app/manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgres
+      - mailhog
+      - mysql
+    env_file: .env
+    environment:
+      - POSTGRES_USER=ojoalplato
+      - USE_DOCKER=yes
+      - CELERY_BROKER_URL='redis://redis
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+      - mailhog
+      - mysql
+      - redis
+      - elasticsearch
+
+  pycharm:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=ojoalplato
+    volumes:
+      - .:/app
+    links:
+      - postgres
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+
+  mysql:
+    build: ./compose/mysql
+    environment:
+      - MYSQL_USER=ojoalplato
+      - MYSQL_PASSWORD=ojoalplato
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_ROOT_PASSWORD=ojoalplato
+
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:latest
+
+  celeryworker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile-dev
+    volumes:
+      - .:/app
+    depends_on:
+     - redis
+    environment:
+      - POSTGRES_USER=ojoalplato
+      - USE_DOCKER=yes
+    command: celery -A ojoalplato.taskapp worker -l INFO
+
+
+  elasticsearch:
+    image: elasticsearch:2.4.5
+    hostname: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    ports:
+      - 9200:9200
+
+  kibana:
+    image: kibana
+    links:
+      - elasticsearch
+    ports:
+      - "5601:5601"

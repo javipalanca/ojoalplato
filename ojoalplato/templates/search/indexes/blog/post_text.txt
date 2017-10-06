@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.subtitle }}
+{{ object.content | striptags | safe }}
+{{ object.category.name }}
+{% for tag in object.tags.all %} {{ tag.name }} {% endfor %}

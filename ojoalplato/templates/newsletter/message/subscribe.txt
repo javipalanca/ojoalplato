@@ -1,0 +1,10 @@
+Estimado/a {{ subscription.name }},
+
+usted, o alguien en su nombre, ha solicitado suscribirse a {{ newsletter.title }}.
+
+Si desea confirmar su suscripción, por favor pulse en el siguiente enlace de activación:
+http://{{ site.domain }}{{ subscription.subscribe_activate_url }}
+
+Atentamente,
+{{ newsletter.sender }}
+
