@@ -71,7 +71,7 @@ django-phonenumber-field
 geopy
 django-leaflet
 django-envelope
-dj-database-url
+dj-database-url==0.4.2
 google-api-python-client
 django-analytical
 django-request
