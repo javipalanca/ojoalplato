@@ -58,7 +58,7 @@ django-suit-redactor
 beautifulsoup4
 django-disqus
 django-social-share
-django-categories
+django-categories==1.5.4
 django-taggit
 django-taggit-autosuggest
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
