@@ -83,7 +83,7 @@ django-haystack
 elasticsearch>=2.0.0,<3.0.0
 
 # django rest framework
-djangorestframework
+djangorestframework==3.7.1
 djangorestframework-gis
 django-taggit-serializer
 drf-haystack
