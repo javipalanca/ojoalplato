@@ -80,7 +80,7 @@ django-newsletter
 requests-facebook
 tweepy
 django-haystack
-elasticsearch>=2.0.0,<3.0.0
+elasticsearch==5.5.0
 
 # django rest framework
 djangorestframework
