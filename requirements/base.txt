@@ -69,7 +69,7 @@ django-adminactions
 django-likert-field
 django-phonenumber-field
 geopy
-django-leaflet
+django-leaflet==0.23.0
 django-envelope
 dj-database-url
 google-api-python-client
