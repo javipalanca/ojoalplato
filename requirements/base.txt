@@ -47,7 +47,7 @@ celery==3.1.23
 django_compressor==2.0
 
 # Admin
-django-suit
+django-suit==0.2.25
 
 # Your custom requirements go here
 tqdm
