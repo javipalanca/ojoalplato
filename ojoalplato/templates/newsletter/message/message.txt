@@ -1,0 +1,16 @@
+++++++++++++++++++++
+
+{{ newsletter.title }}: {{ message.title }}
+
+++++++++++++++++++++
+
+{% for article in message.articles.all %}
+{{ article.title }}
+{{ article.text | truncatewords_html:50 | striptags | safe }}
+
+Leer más: {{ article.url }}
+{% endfor %}
+
+++++++++++++++++++++
+
+Darse de baja: http://{{ site }}{% url "newsletter_unsubscribe_request" newsletter.slug %}

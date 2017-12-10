@@ -1,0 +1,9 @@
+Estimado/a {{ subscription.name }},
+
+usted, o alguien en su nombre, ha solicitado darse de baja de {{ newsletter.title }}.
+
+Si desea confirmar su baja, por favor pulse en el siguiente enlace de activación:
+http://{{ site.domain }}{{ subscription.unsubscribe_activate_url }}
+
+Atentamente,
+{{ newsletter.sender }}

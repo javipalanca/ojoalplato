@@ -1,0 +1,28 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load staticfiles content_filters %}
+
+{% block header %}
+    <header class="page-header warm archive">
+        <h1 class="page-title">Todas las Categorías:</h1>
+    </header>
+{% endblock header %}
+
+
+{% block content %}
+    <ul class="family-list" style="position: relative; top: 0;">
+    {% for category in object_list %}
+        <li style="width: 200px;">
+            <a href="{% url 'category-list' category.slug %}">
+            <div class="circle"
+                 {% if category.thumbnail.name != "" %}
+                 style="background-image:url('{{ category.thumbnail_url | media }}');">
+                 {% else %}
+                  style="background-image:url({% static 'wpfamily/img/uncategorized.gif' %});">
+                 {% endif %}
+            </div>
+            <h2>{{ category.name | title }} <br/> ({{ category.num_posts }})</h2>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

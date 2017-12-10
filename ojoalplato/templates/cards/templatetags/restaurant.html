@@ -1,0 +1,76 @@
+{% load card_tags likert_bs_stars %}
+
+<figure class="mini-card-header">
+    Ficha de restaurante
+</figure>
+<div class="mini-card ribbon-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+                <h4><a href="{{ restaurant.get_absolute_url }}" >{{ restaurant.name }}</a></h4>
+                {% if restaurant.is_closed%}
+                        <div class="ribbon-wrapper-green"><div class="ribbon-green">Cerrado</div></div>
+                {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 map">
+            <a href="{{ restaurant.google_maps_url }}" target="_blank">
+                <img src="{% google_static_map restaurant.get_position_wgs84 235 201 13 %}" class="img-fluid">
+            </a>
+        </div>
+        <div class="col-sm-9">
+            <table class="table table-responsive table-condensed font-size-16">
+                <tbody>
+                    {% if restaurant.chef %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Cocinero/a</th>
+                        <td>{{ restaurant.chef }}</td>
+                    </tr>
+                {% endif %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Dirección</th>
+                        <td>{{ restaurant.address }}</td>
+                    </tr>
+                {% if restaurant.phone %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Teléfono</th>
+                        <td><a href="tel:{{ restaurant.phone }}">{{ restaurant.phone }}</a></td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.url %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Página web</th>
+                        <td><a href="{{ restaurant.url }}">{{ restaurant.url }}</a></td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.stars %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Estrellas Michelín</th>
+                        <td>{{ restaurant.stars | card_bs_stars3:3 }}</td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.suns %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Soles Repsol</th>
+                        <td>{{ restaurant.suns | card_bs_suns_fa:3 }}</td>
+                    </tr>
+                {% endif %}
+                {% if restaurant.awards %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Distinciones</th>
+                        <td>{{ restaurant.awards }}</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 col-xs-3 col-xs-offset-3">
+        <a href="{{ restaurant.get_absolute_url }}" type="button"
+           class="btn btn-default btn-edit">
+            Ver ficha completa
+        </a>
+        </div>
+    </div>
+</div>

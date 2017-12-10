@@ -1,0 +1,407 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-12 20:47+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:65
+msgid "Home"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:75
+msgid "Applications"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:110
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:126
+msgid "Add"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:131
+msgid "Change"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/admin/index.html:141
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:24
+msgid "Traffic"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:25
+msgid "Sessions and Users, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:31
+msgid "Popular"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:32
+msgid "Page views, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:40
+msgid "Top Browsers"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:41
+msgid "Last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:47
+msgid "Acquisition"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:48
+msgid "Referral Traffic, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:56
+msgid "Audience"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:57
+msgid "Countries, last 15 days"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:63
+msgid "Social"
+msgstr ""
+
+#: ojoalplato/analytics_admin/templates/analytics_admin/analytics.html:64
+msgid "Interactions, last 15 days"
+msgstr ""
+
+#: ojoalplato/contactform/views.py:10
+msgid "Gracias por su mensaje."
+msgstr ""
+
+#: ojoalplato/contactform/views.py:11
+msgid "Se ha encontrado un error en el formulario de contacto."
+msgstr ""
+
+#: ojoalplato/templates/account/account_inactive.html:5
+#: ojoalplato/templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr ""
+
+#: ojoalplato/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:6
+msgid "Account"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:25
+msgid "Verified"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:27
+msgid "Unverified"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:29
+msgid "Primary"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:35
+msgid "Make Primary"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:37
+msgid "Remove"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:44
+msgid "Warning:"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:54
+msgid "Add E-mail"
+msgstr ""
+
+#: ojoalplato/templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: ojoalplato/templates/account/email_confirm.html:6
+#: ojoalplato/templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: ojoalplato/templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: ojoalplato/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr ""
+
+#: ojoalplato/templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: ojoalplato/templates/account/login.html:7
+#: ojoalplato/templates/account/login.html:11
+#: ojoalplato/templates/account/login.html:44
+#: ojoalplato/templates/base.html:65
+msgid "Sign In"
+msgstr ""
+
+#: ojoalplato/templates/account/login.html:16
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: ojoalplato/templates/account/login.html:26
+msgid "or"
+msgstr ""
+
+#: ojoalplato/templates/account/login.html:33
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: ojoalplato/templates/account/login.html:43
+msgid "Forgot Password?"
+msgstr ""
+
+#: ojoalplato/templates/account/logout.html:5
+#: ojoalplato/templates/account/logout.html:8
+#: ojoalplato/templates/account/logout.html:17
+msgid "Sign Out"
+msgstr ""
+
+#: ojoalplato/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: ojoalplato/templates/account/password_change.html:6
+#: ojoalplato/templates/account/password_change.html:9
+#: ojoalplato/templates/account/password_change.html:14
+#: ojoalplato/templates/account/password_reset_from_key.html:5
+#: ojoalplato/templates/account/password_reset_from_key.html:8
+#: ojoalplato/templates/account/password_reset_from_key_done.html:4
+#: ojoalplato/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset.html:7
+#: ojoalplato/templates/account/password_reset.html:11
+#: ojoalplato/templates/account/password_reset_done.html:6
+#: ojoalplato/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr ""
+
+#: ojoalplato/templates/account/password_reset_from_key.html:21
+#: ojoalplato/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr ""
+
+#: ojoalplato/templates/account/password_set.html:6
+#: ojoalplato/templates/account/password_set.html:9
+#: ojoalplato/templates/account/password_set.html:14
+msgid "Set Password"
+msgstr ""
+
+#: ojoalplato/templates/account/signup.html:6
+msgid "Signup"
+msgstr ""
+
+#: ojoalplato/templates/account/signup.html:9
+#: ojoalplato/templates/account/signup.html:19
+#: ojoalplato/templates/base.html:62
+msgid "Sign Up"
+msgstr ""
+
+#: ojoalplato/templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: ojoalplato/templates/account/signup_closed.html:5
+#: ojoalplato/templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr ""
+
+#: ojoalplato/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: ojoalplato/templates/account/verification_sent.html:5
+#: ojoalplato/templates/account/verification_sent.html:8
+#: ojoalplato/templates/account/verified_email_required.html:5
+#: ojoalplato/templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: ojoalplato/templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: ojoalplato/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: ojoalplato/templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: ojoalplato/templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: ojoalplato/templates/base.html:55
+msgid "My Profile"
+msgstr ""
+
+#: ojoalplato/templates/base.html:58
+msgid "Sign out"
+msgstr ""
+
+#: ojoalplato/templates/envelope/email_body.html:7
+#: ojoalplato/templates/envelope/email_body.html:42
+msgid "Message from the contact form"
+msgstr "Mensaje del formulario de contacto"
+
+#: ojoalplato/templates/envelope/email_body.html:98
+msgid "Sender"
+msgstr "Enviado por"
+
+#: ojoalplato/templates/envelope/email_body.html:128
+msgid "message sent with envelope - a contact form app for Django"
+msgstr "mensaje enviado con envelope"
+
+#: ojoalplato/templates/image_thumbnail.html:3
+msgid "Imagen:"
+msgstr ""
+
+#: ojoalplato/templates/image_thumbnail.html:7
+msgid "Borrar"
+msgstr ""
+
+#: ojoalplato/templates/image_thumbnail.html:10
+msgid "Seleccionar imagen de cabecera:"
+msgstr ""
+
+#: ojoalplato/users/models.py:19
+msgid "Name of User"
+msgstr "Nombre de usuario"
+
+msgid "Tags"
+msgstr "Etiquetas"
+
+msgid "A comma-separated list of tags."
+msgstr "Lista de etiquetas separadas por comas."
+
+msgid "Enter Tag Here"
+msgstr "Introduzca etiqueta"
+
+msgid "No Results"
+msgstr "Sin Resultados"
+
+msgid "No More Selections Are Allowed"
+msgstr "No hay más selecciones permitidas"

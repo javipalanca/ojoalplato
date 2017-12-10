@@ -1,0 +1,264 @@
+/* Leaflet */
+.leaflet-container { /* all maps */
+    width: 100%;
+    height: 500px;
+    position: relative;
+    background-color: white;
+    overflow: hidden;
+}
+
+.content-area {
+    padding: 20px 0;
+}
+
+.has-family .content-area {
+    padding-top: 160px;
+}
+
+.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Typeahead */
+
+.Typeahead *,
+.Typeahead *:before,
+.Typeahead *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.u-cf:before,
+.u-cf:after {
+  content: " ";
+  display: table;
+}
+
+.u-cf:after {
+  clear: both;
+}
+
+.u-hidden {
+  display: none !important;
+}
+
+.u-posRelative {
+  position: relative;
+}
+
+.Typeahead {
+  *z-index: 1;
+  position: relative;
+  /*width: 90%;*/
+  margin: 0 auto 0 auto;
+  padding: 15px 15px 20px 15px;
+  text-align: left;
+  background-color: #f2f2e7;
+  border: 1px solid #024e6a;
+  -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+          border-radius: 10px;
+  -webkit-box-shadow: 0 0 2px #111;
+     -moz-box-shadow: 0 0 2px #111;
+          box-shadow: 0 0 2px #111;
+}
+
+.Typeahead2 {
+  *z-index: 1;
+  position: relative;
+  width: 40%;
+  margin: 0 auto 20px auto;
+  padding: 0;
+  text-align: left;
+  background-color: #f2f2e7;
+}
+
+.twitter-typeahead {
+  display: block !important;
+}
+
+.scrollable-dropdown-menu {
+  width: 90%;
+}
+
+.Typeahead-spinner {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  display: none;
+  width: 28px;
+  height: 28px;
+}
+
+.fa-search {
+  z-index: 10;
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 15px;
+}
+
+.Typeahead-hint,
+.Typeahead-input {
+  width: 100%;
+  padding: 5px 8px;
+  font-size: 24px;
+  line-height: 30px;
+  border: 1px solid #024e6a;
+  -webkit-border-radius: 20px !important;
+     -moz-border-radius: 20px !important;
+          border-radius: 20px !important;
+  border-radius: 20px !important;
+}
+
+.Typeahead-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ccd6dd;
+  opacity: 1;
+}
+
+.Typeahead-input {
+  position: relative;
+  background-color: transparent;
+  outline: none;
+  text-indent: 20px;
+}
+
+.Typeahead-menu {
+  position: absolute;
+  top: 95%;
+  left: 2.5%;
+  z-index: 100;
+  display: none;
+  width: 95%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-color: #fff;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+          box-shadow: 0px 0px 0px 1px green;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.Typeahead-menu.is-open {
+  display: block;
+}
+
+.Typeahead-selectable {
+  cursor: pointer;
+}
+
+.Typeahead-selectable + .Typeahead-selectable {
+  border-top: 1px solid #ccd6dd;
+}
+
+/* ProfileCard */
+
+.ProfileCard {
+  position: relative;
+  padding: 8px;
+}
+
+.ProfileCard-avatar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 52px;
+  height: 52px;
+  border: 2px solid #ccd6dd;
+  border-radius: 5px;
+}
+
+.ProfileCard:hover .ProfileCard-avatar {
+  border-color: #f5f8fa;
+}
+
+.ProfileCard-details {
+  min-height: 60px;
+  padding-left: 60px;
+}
+
+/*.ProfileCard-realName,
+.ProfileCard-screenName {
+  display: inline-block;
+}*/
+
+.ProfileCard-realName {
+  font-weight: 700;
+}
+
+.ProfileCard-screenName {
+  color: #8899a6;
+}
+
+.ProfileCard-description {
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.ProfileCard-stats {
+  float: right;
+  text-align: right;
+  margin-right: 5px;
+}
+
+.ProfileCard-stat {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.ProfileCard-stat-label {
+  color: #8899a6;
+  font-weight: 500;
+}
+
+.ProfileCard-stat + .ProfileCard-stat {
+  margin-left: 5px;
+}
+
+.ProfileCard:hover,
+.ProfileCard.is-active {
+  color: #fff;
+  background: chocolate;
+}
+
+.ProfileCard:hover .ProfileCard-screenName,
+.ProfileCard:hover .ProfileCard-stat-label,
+.ProfileCard.is-active .ProfileCard-screenName,
+.ProfileCard.is-active .ProfileCard-stat-label {
+  color: #fff;
+}
+
+/* EmptyMessage */
+
+.EmptyMessage, .empty-message {
+  position: relative;
+  padding: 10px;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+
+}
+
+
+/* Scrollable dropdown menu */
+.Typeahead-menu {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.rating-input i.glyphicon {
+  font-size: small;
+  color: chocolate;
+  top: -6px;
+}

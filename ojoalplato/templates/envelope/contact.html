@@ -1,0 +1,27 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load envelope_tags crispy_forms_tags %}
+
+{% block content %}
+
+    {% if messages %}
+        <!--div class="messages"-->
+            {% for message in messages %}
+                <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable fade in"{% endif %}
+                role="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        <!--/div-->
+    {% endif %}
+
+    <article id="contact" class="hentry" style="background-color: transparent;">
+
+        <form action="{% url 'contact' %}" method="post">
+            {% csrf_token %}
+            {% antispam_fields %}
+            {% crispy form %}
+        </form>
+
+    </article>
+{% endblock content %}

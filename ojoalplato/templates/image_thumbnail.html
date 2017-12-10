@@ -1,0 +1,12 @@
+{# image_thumbnail.html #}
+{% load i18n %}{% load content_filters %}
+{% if value.url %}{% trans "Imagen:" %}
+    <img src="{{ value.url | relative_url }}" alt="{{ value }}" height="398" width="850"/>
+    {% if not required %}
+        <p><input type="checkbox" name="{{ checkbox_name }}" id="{{ checkbox_id }}">
+            <label for="{{ checkbox_id }}">{% trans "Borrar" %}</label></p>
+    {% else %}<br/>
+    {% endif %}
+    {% trans "Seleccionar imagen de cabecera:" %}
+{% endif %}
+<input type="{{ type }}" name="{{ name }}"{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %}>

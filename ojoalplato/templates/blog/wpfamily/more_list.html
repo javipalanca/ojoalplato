@@ -1,0 +1,44 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load staticfiles content_filters %}
+
+{% block content %}
+  <div class="row">
+      <article class="col-md-6">
+      <header class="page-header warm archive">
+          <h1 class="page-title">Todas las Categorías:</h1>
+      </header>
+        <ul class="family-list" style="position: relative; top: 0;">
+        {% for category in categories_list %}
+            <li style="width: 200px;">
+                <a href="{% url 'category-list' category.slug %}">
+                <div class="circle"
+                     {% if category.thumbnail.name != "" %}
+                     style="background-image:url('{{ category.thumbnail_url | media }}');">
+                     {% else %}
+                      style="background-image:url({% static 'wpfamily/img/uncategorized.gif' %});">
+                     {% endif %}
+                </div>
+                <h2>{{ category.name | title }} <br/> ({{ category.num_posts }})</h2>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    </article>
+
+    <article class="col-md-6">
+      <header class="page-header warm archive">
+          <h1 class="page-title">Todas las Etiquetas:</h1>
+      </header>
+
+        <ul class="family-list" style="position: relative; top: 0;">
+      {% for tag in tags_list %}
+          <li>
+              <a href="{% url 'tag-list' tag.slug %}">
+                <h2 class="badge">{{ tag.name | title }}&nbsp; &nbsp;  <span class="badge badge-light">{{ tag.num_posts }}</span></h2>
+              </a>
+          </li>
+      {% endfor %}
+      </ul>
+    </article>
+  </div>
+{% endblock content %}

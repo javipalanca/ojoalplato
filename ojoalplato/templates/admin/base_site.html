@@ -1,0 +1,4 @@
+{% extends "admin/base.html" %}
+{% load static from staticfiles %} # This might be just {% load static %} in your ENV
+
+{% block extrastyle %}{{ block.super }}<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">{% endblock %}

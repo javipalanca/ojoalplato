@@ -1,0 +1,19 @@
+{% extends "newsletter/base.html" %}
+
+{% block subtitle %}Si decides suscribirte recibirás un correo electrónico con los contenidos publicados y actualizados.
+{% endblock subtitle %}
+
+{% block form %}
+    <table>
+        <tr>
+            <td><a href="{% url "newsletter_subscribe_request" object.slug %}">Suscribirse</a></td>
+        </tr>
+        <tr>
+            <td><a href="{% url "newsletter_update_request" object.slug %}">Actualizar suscripción</a></td>
+        </tr>
+        <tr>
+            <td><a href="{% url "newsletter_unsubscribe_request" object.slug %}">Darse de baja</a></td>
+        </tr>
+    </table>
+{% endblock form %}
+

@@ -1,0 +1,53 @@
+.main-container {
+        background-color: #f5f5f5;
+    }
+
+    .top-header {
+        background-color: #ffffff;
+    }
+
+    .minimal-menu, .minimal-menu > ul > li > a {
+        color: #444444;
+    }
+
+    .minimal-menu:hover, .minimal-menu > ul > li > a:hover {
+        color: #eca525;
+    }
+
+    body {
+        font-family: Merriweather;
+        font-weight: 300;
+        font-style: normal;
+        font-size: 17px;
+        /*font-size: 14px;*/
+    }
+
+    .minimal-menu, .minimal-menu > ul > li > a {
+        font-family: Lato;
+        line-height: 30px;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 10px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: Raleway;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    h2.standard-post-title {
+        font-family: Raleway;
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    .sidebar-widget {
+        font-family: Raleway;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .main-footer {
+        background-color: #ffffff;
+    }

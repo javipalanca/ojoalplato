@@ -1,0 +1,28 @@
+{
+  "name": "ojoalplato",
+  "version": "2.0.0",
+  "authors": [
+    "jpalanca <jpalanca@gmail.com>"
+  ],
+  "description": "Ojo al plato",
+  "license": "MIT",
+  "homepage": "ojoalplato.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lightbox2": "~2.8.2",
+    "jquery-migrate": "^3.0.0",
+    "bootstrap-social-buttons": "^1.0.0",
+    "Leaflet.awesome-markers": "leaflet-awesome-markers#^2.0.2",
+    "leaflet.fullscreen": "^1.4.2",
+    "typeahead.js": "^0.11.1",
+    "handlebars": "^4.0.10",
+    "jquery-slimscroll": "^1.3.8",
+    "bootstrap-rating-input": "^0.4.0"
+  }
+}

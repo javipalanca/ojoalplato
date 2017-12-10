@@ -1,0 +1,218 @@
+{% load static content_filters google_analytics %}
+
+<!DOCTYPE html>
+<html lang="es-ES" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Ojoalplato</title>
+
+    <meta name="description" content="Ojo al plato"/>
+    <meta name="robots" content="noodp"/>
+    <meta property="og:locale" content="es_ES"/>
+    <meta property="og:site_name" content="Ojo al plato"/>
+    <meta property="fb:app_id" content="110350462372983"/>
+    <meta property="fb:admins" content="jpalanca"/>
+    <meta property="fb:admins" content="paco.palanca.3"/>
+    {% block meta %}
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Ojo al plato"/>
+    <meta property="og:description" content="Ojo al plato"/>
+    <meta property="og:url" content="www.ojoalplato.com"/>
+    <meta name="twitter:description" content="Ojo al plato"/>
+    <meta name="twitter:title" content="Ojo al plato"/>
+    {% endblock meta %}
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@ojoalplato"/>
+    <meta name="twitter:creator" content="@ojoalplato"/>
+
+
+    {% block css %}
+        <link rel='stylesheet' id='bootstrap-css'
+              href='{% static "wpfamily/css/bootstrap.min46df.css" %}' type='text/css' media='all'/>
+        <link rel='stylesheet' id='lato-css'
+              href='https://fonts.googleapis.com/css?family=Lato%3A900%2C700%2C400%2C400italic%2C700italic&amp;ver=4.5.3'
+              type='text/css' media='all'/>
+        <link rel='stylesheet' id='wp-family-blog-style-css' href='{% static "wpfamily/style4b68.css" %}'
+              type='text/css' media='all'/>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel='stylesheet' href='{% static "bower_components/bootstrap-social-buttons/social-buttons.css" %}'
+              type='text/css' media='all'/>
+        <script type='text/javascript' src='{% static "wpfamily/js/jquery/jqueryb8ff.js" %}'></script>
+        <script type='text/javascript' src='{% static "wpfamily/js/jquery/jquery-migrate.min330a.js" %}'></script>
+    {% endblock css %}
+    {% block css_custom %}{% endblock css_custom %}
+
+    {% google_analytics %}
+</head>
+
+
+<body class="home blog hfeed topnav warm header-blur primary-bright has-family">
+<div class="wrapper">
+    <div id="page" class="site clearfix">
+        <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+
+        {% block navbar %}
+            <nav id="site-navigation" class="site-navigation clearfix" role="navigation">
+                <button type="button" class="navbar-toggle collapsed">
+                    <span class="navbar-toggle-label">Menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="primary-menu-area">
+                    <div class="menu-main-menu-container">
+                        <ul id="primary-menu" class="menu">
+                            <li id="menu-item-32"
+                                class="menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-32
+                                {% active '^/$' %}"> <a href="{% url 'home' %}">Inicio</a></li>
+                            <li id="menu-item-30"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30
+                                {% active '/contact/' %}"><a href="{% url 'contact' %}">Contacto</a></li>
+                            <li id="menu-item-29"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29
+                                {% active '/subscription/ojoalplato/.*' %}">
+                                <a href="/subscription/ojoalplato/">Suscribirse</a></li>
+                            <li id="menu-item-31"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31
+                                {% active '/curso-rapido-de-cata-de-vinos/' %}">
+                                <a href="{% url 'post-detail' slug='curso-rapido-de-cata-de-vinos' %}">
+                                Curso de cata de vinos</a></li>
+                            <li id="menu-item-104"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-104
+                                {% active '/la-celebracion-del-millon-de-ojoalplato/' %}">
+                                <a href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
+                                Comida del millón</a></li>
+                            <!--li id="menu-item-116"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116"><a
+                                    href="category/projects/index.html">Projects</a></li-->
+                        </ul>
+                    </div>
+                </div><!-- .collapse -->
+            </nav><!-- #site-navigation -->
+        {% endblock navbar %}
+
+
+        <div id="site-content" class="site-content">
+
+            <header id="site-header" class="site-header" role="banner">
+                <div class="background-area">
+                    <div class="background"
+                         style="background-image:url('{% static "wpfamily/img/dsc_0020.jpg" %}')"></div>
+                </div><!-- .background-area -->
+                <div class="site-branding">
+                    <div class="site-title">
+                        <a href="{% url 'home' %}" rel="home">
+                            <img src="{% static 'wpfamily/img/logo_white.png' %}" height="200px">
+                        </a>
+                    </div>
+                </div><!-- .site-branding -->
+
+                <ul class="family-list">
+                    <li><a href="{% url 'cards:map-list' %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/mapa.png' %})"></div>
+                        <div class="name" style="max-width: 128px;">Buscador de Restaurantes</div>
+                    </a></li>
+                    <li><a href="{% url "category-list" category="restaurantes" %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/cuberteria.jpg' %})"></div>
+                        <div class="name">Restaurantes</div>
+                    </a></li>
+                    <li><a href="{% url "category-list" category="vinos" %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/wine.jpg' %})"></div>
+                        <div class="name">Vinos</div>
+                    </a></li>
+                    <li><a href="{% url "category-list" category="recetas" %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/recipe.jpg' %})"></div>
+                        <div class="name">Recetas</div>
+                    </a></li>
+                    <li><a href="{% url "category-list" category="cervezas" %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/beer.jpg' %})"></div>
+                        <div class="name">Cervezas</div>
+                    </a></li>
+                    <li><a href="{% url "more-list" %}">
+                        <div class="circle"
+                             style="background-image:url({% static 'wpfamily/img/plus_ic3.png' %})"></div>
+                        <div class="name" style="max-width: 128px;">Categorías y Etiquetas</div>
+                    </a></li>
+                </ul><!-- .family-list -->
+            </header><!-- #site-header -->
+
+            <div id="primary" class="content-area">
+                <main id="main" class="site-main" role="main">
+
+                    {% block header %}{% endblock header %}
+
+                    {% block content %}{% endblock content %}
+
+                </main><!-- #main -->
+            </div><!-- #primary -->
+
+
+        </div><!-- #content -->
+
+        {% block paginator %}{% endblock paginator %}
+
+    </div><!-- #page -->
+
+    <div class="push"></div>
+
+</div><!-- .wrapper -->
+
+{% block footer %}
+    <footer id="colophon" class="site-footer" role="contentinfo">
+        <div class="site-info">
+            &copy; Copyright {% now "Y" %}. Ojoalplato.com<span class="login-link pull-right">
+            {% if not user.is_authenticated %}
+                <a href="{% url 'admin:index' %}">Login</a>
+            {% else %}
+                <a href="{% url 'admin:index' %}">Administración</a>&nbsp;|&nbsp;
+                <a href="{% url 'admin:logout' %}">Salir</a>
+            {% endif %}
+        </span></div>
+    </footer><!-- #colophon -->
+{% endblock footer %}
+
+<!-- Facebook Analytics -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '110350462372983',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+{% block javascript %}
+    <script type='text/javascript' src='{% static "wpfamily/js/bootstrap.mine485.js" %}'></script>
+    <script type='text/javascript' src='{% static "wpfamily/js/skip-link-focus-fix08e0.js" %}'></script>
+    <script type='text/javascript' src='{% static "wpfamily/js/jquery.colorbox-min905d.js" %}'></script>
+    <script type='text/javascript' src='{% static "wpfamily/js/jquery.fitvids4963.js" %}'></script>
+    <script type='text/javascript' src='{% static "wpfamily/js/wp-family-blog4b68.js" %}'></script>
+    <script type='text/javascript' src='{% static "wpfamily/js/jquery.infinitescroll.min3c94.js" %}'></script>
+{% endblock javascript %}
+
+{% block javascript_custom %}
+{% endblock javascript_custom %}
+
+</body>
+
+</html>

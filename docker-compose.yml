@@ -1,0 +1,111 @@
+version: '2'
+
+volumes:
+  postgres_data: {}
+  postgres_backup: {}
+
+services:
+  postgres:
+    build: ./compose/postgres
+    volumes:
+      - /root/data/postgres:/var/lib/postgresql/data
+      - /root/data/postgres_backups:/backups
+    env_file: .env
+
+  mysql:
+    build: ./compose/mysql
+    volumes:
+      - /root/data/mysql:/var/lib/mysql
+      - /root/data//mysql_backups:/backups
+    ports:
+      - "3306"
+    env_file: .env
+
+
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    #user: django
+    depends_on:
+      - postgres
+      - redis
+    command: /gunicorn.sh
+    env_file: .env
+    volumes:
+      - /staticfiles
+      - /root/data/media:/media
+
+  nginx:
+    build: ./compose/nginx
+    depends_on:
+      - django
+      #- certbot
+    ports:
+      - "0.0.0.0:80:80"
+
+    environment:
+      - MY_DOMAIN_NAME=ojoalplato.com
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+    volumes_from:
+      - django
+
+  #certbot:
+  #  image: quay.io/letsencrypt/letsencrypt
+  #  command: bash -c "sleep 6 && certbot certonly -n --standalone -d ojoalplato.com --port 8000 --text --agree-tos --email jpalanca@gmail.com --server https://acme-v01.api.letsencrypt.org/directory --rsa-key-size 4096 --verbose --keep-until-expiring --standalone-supported-challenges http-01"
+  #  entrypoint: ""
+  #  volumes:
+  #    - /etc/letsencrypt:/etc/letsencrypt
+  #    - /var/lib/letsencrypt:/var/lib/letsencrypt
+  #  ports:
+  #    - "80"
+  #    - "443"
+  #  environment:
+  #    - TERM=xterm
+
+
+  redis:
+    image: redis:latest
+
+  celeryworker:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    user: django
+    env_file: .env
+    depends_on:
+     - postgres
+     - redis
+    command: celery -A ojoalplato.taskapp worker -l INFO
+
+  elasticsearch:
+    image: elasticsearch:2.4.5
+    hostname: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    ports:
+      - 9200:9200
+
+  #celerybeat:
+  #  build:
+  #    context: .
+  #    dockerfile: ./compose/django/Dockerfile
+  #  user: django
+  #  env_file: .env
+  #  depends_on:
+  #    - postgres
+  #    - redis
+  #  command: celery -A ojoalplato.taskapp beat -l INFO
+
