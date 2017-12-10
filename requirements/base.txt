@@ -78,7 +78,7 @@ django-request
 django-hitcount
 django-newsletter
 requests-facebook
-tweepy
+tweepy==3.5.0
 django-haystack
 elasticsearch>=2.0.0,<3.0.0
 
