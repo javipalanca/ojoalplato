@@ -1,0 +1,21 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load staticfiles content_filters %}
+
+{% block header %}
+    <header class="page-header warm archive">
+        <h1 class="page-title">Todas las Etiquetas:</h1>
+    </header>
+{% endblock header %}
+
+
+{% block content %}
+    <ul class="family-list" style="position: relative; top: 0;">
+    {% for tag in object_list %}
+        <li>
+            <a href="{% url 'tag-list' tag.slug %}">
+              <h2 class="badge">{{ tag.name | title }}&nbsp; &nbsp;  <span class="badge badge-light">{{ tag.num_posts }}</span></h2>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

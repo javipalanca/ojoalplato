@@ -10,7 +10,7 @@ from django.views import defaults as default_views
 from .router import urlpatterns as api_urlpatterns
 
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList, \
-    CategoriesList
+    CategoriesList, TagsList, CategoriesAndTagsView
 from ojoalplato.contactform.views import ContactFormView
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
@@ -48,8 +48,14 @@ urlpatterns = [
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
     url(r'^archivos/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp'),
     url(r'^archives/(?P<pk>\d+)/*$', PostDetailById.as_view(), name='post-detail-wp-en'),
-    url(r'^tag/(?P<tag>[-\w]+)/$', TagList.as_view(), name='tag-list'),
     url(r'^author/(?P<author>[-\w]+)/$', AuthorList.as_view(), name='author-list'),
+
+
+    url(r'^categories/and/tags/$', CategoriesAndTagsView.as_view(), name='more-list'),
+
+    # Tags
+    url(r'^tag/all/$', TagsList.as_view(), name='tags-list'),
+    url(r'^tag/(?P<tag>[-\w]+)/$', TagList.as_view(), name='tag-list'),
 
     # Category app
     url(r'^category/all/$', CategoriesList.as_view(), name='categories-list'),

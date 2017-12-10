@@ -78,6 +78,30 @@ class TagList(ListView):
         return context
 
 
+class TagsList(ListView):
+    model = Tag
+    template_name = 'blog/wpfamily/tags_list.html'
+
+    def get_queryset(self):
+        return Tag.objects.all().annotate(num_posts=Count("post")).order_by("-num_posts")
+
+
+class CategoriesAndTagsView(ListView):
+    template_name = 'blog/wpfamily/more_list.html'
+    context_object_name = 'categories_list'
+    model = Category
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoriesAndTagsView, self).get_context_data(**kwargs)
+        context.update({
+            'tags_list': Tag.objects.all().annotate(num_posts=Count("post")).order_by("-num_posts")
+        })
+        return context
+
+    def get_queryset(self):
+        return Category.objects.filter(active=True).annotate(num_posts=Count("post")).order_by("-num_posts")
+
+
 class AuthorList(ListView):
     model = Post
     template_name = 'blog/wpfamily/author_list.html'

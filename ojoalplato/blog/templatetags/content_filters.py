@@ -73,6 +73,7 @@ def first_img(post):
 def relative_url(url):
     return url
 
+
 @register.filter()
 def media(url):
     AWS_PATH = "https://ojoalplato-static.s3.amazonaws.com"
@@ -81,7 +82,7 @@ def media(url):
             return AWS_PATH + url
     url = url.replace("//media", "/media")
     return url
-        
+
 
 @register.filter()
 def cat_img(category):

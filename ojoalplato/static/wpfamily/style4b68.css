@@ -2707,6 +2707,11 @@ body.grey #cboxOverlay {
   background-color: chocolate;
 }
 
+.badge-light {
+  background-color: white;
+  color: chocolate;
+}
+
 a.badge {
   text-decoration: none;
   color: white;
