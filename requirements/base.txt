@@ -64,7 +64,7 @@ django-taggit-autosuggest
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus
 django-bootstrap3
-django-guardian==1.4.5
+django-guardian==1.4.9
 django-adminactions
 django-likert-field
 django-phonenumber-field
