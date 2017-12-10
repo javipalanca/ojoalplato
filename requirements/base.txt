@@ -60,7 +60,7 @@ django-disqus
 django-social-share
 django-categories
 django-taggit
-django-taggit-autosuggest
+django-taggit-autosuggest==0.3.1
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus
 django-bootstrap3
