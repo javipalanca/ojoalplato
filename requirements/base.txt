@@ -56,7 +56,7 @@ django-reversion
 django-wysiwyg-redactor
 django-suit-redactor
 beautifulsoup4
-django-disqus
+django-disqus==0.5
 django-social-share
 django-categories
 django-taggit
