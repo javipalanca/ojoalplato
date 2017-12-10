@@ -31,6 +31,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        print("Importing users")
         for u in tqdm(User.objects.using("mysql").all()):
             try:
                 user = BlogUser.objects.using("default").get(username=u.username)
@@ -47,6 +48,7 @@ class Command(BaseCommand):
             user.name = u.display_name
             user.save(using="default")
 
+        print("Importing users meta")
         for m in tqdm(UserMeta.objects.using("mysql").all()):
             try:
                 meta = BlogUserMeta.objects.using("default").get(id=m.id)
@@ -63,6 +65,7 @@ class Command(BaseCommand):
                 pass
             meta.save(using="default")
 
+        print("Importing terms")
         for t in tqdm(Term.objects.using("mysql").all()):
             try:
                 term = BlogTerm.objects.using("default").get(id=t.id)
@@ -74,6 +77,7 @@ class Command(BaseCommand):
             term.group = t.group
             term.save(using="default")
 
+        print("Importing taxonomies")
         for t in tqdm(Taxonomy.objects.using("mysql").all()):
             try:
                 taxonomy = BlogTaxonomy.objects.using("default").get(id=t.id)
@@ -92,6 +96,7 @@ class Command(BaseCommand):
                 pass
             taxonomy.save(using="default")
 
+        print("Importing posts")
         for p in tqdm(Post.objects.using("mysql").filter(status="publish")):
             try:
                 post = BlogPost.objects.using("default").get(id=p.id)
@@ -142,6 +147,7 @@ class Command(BaseCommand):
                     m1 = BlogTermTaxonomyRelationship(object=post, term_taxonomy=taxonomy, order=0)
                 m1.save(using="default")
 
+        print("Importing posts meta")
         for m in tqdm(PostMeta.objects.using("mysql").all()):
             try:
                 meta = BlogPostMeta.objects.using("default").get(id=m.id)
@@ -158,6 +164,7 @@ class Command(BaseCommand):
                 pass
             meta.save(using="default")
 
+        print("Importing comments")
         for c in tqdm(Comment.objects.using("mysql").all()):
             try:
                 comment = BlogComment.objects.using("default").get(id=c.id)
@@ -198,15 +205,19 @@ class Command(BaseCommand):
 
             comment.save(using="default")
 
+        print("Importing categories and tags")
         # migrate Categories and Tags
         for p in tqdm(Post.objects.using("mysql").filter(status="publish")):
-            post = BlogPost.objects.using("default").get(id=p.id)
-            print(p.title)
+            try:
+                post = BlogPost.objects.using("default").get(id=p.id)
+                # print(p.title)
+            except ObjectDoesNotExist:
+                continue
 
             terms = get_terms(p)
 
-            print("Category: ", [x.name for x in terms["category"]])
-            print("Tags: ", [x.name for x in terms["post_tag"]])
+            # print("Category: ", [x.name for x in terms["category"]])
+            # print("Tags: ", [x.name for x in terms["post_tag"]])
 
             trans = {
                 "Ir de vinos": "Vinos",

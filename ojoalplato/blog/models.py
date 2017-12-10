@@ -25,7 +25,6 @@ from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
 
-
 STATUS_CHOICES = (
     ('closed', 'closed'),
     ('open', 'open'),
@@ -44,7 +43,6 @@ POST_TYPE_CHOICES = (
     ('post', 'post'),
     ('revision', 'revision'),
 )
-
 
 SLUG_MAX_LENGTH = 200
 
@@ -152,7 +150,7 @@ class Post(TimeStampedModel, HitCountMixin):
 
     # post data
     guid = models.CharField(max_length=255, blank=True)
-    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="post")
+    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default="post", blank=True, null=True)
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
@@ -186,7 +184,7 @@ class Post(TimeStampedModel, HitCountMixin):
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True, null=True)
-    comment_count = models.IntegerField(default=0)
+    comment_count = models.IntegerField(default=0, blank=True, null=True)
 
     # ping stuff
     ping_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True)
@@ -198,9 +196,9 @@ class Post(TimeStampedModel, HitCountMixin):
     #    category_id = models.IntegerField(db_column='post_category')
 
     # other various lame fields
-    parent_id = models.IntegerField(default=0)
+    parent_id = models.IntegerField(default=0, blank=True, null=True)
     # parent = models.ForeignKey('self', related_name="children", db_column="post_parent", blank=True, null=True)
-    menu_order = models.IntegerField(default=0)
+    menu_order = models.IntegerField(default=0, blank=True, null=True)
     mime_type = models.CharField(max_length=100, blank=True)
 
     terms = models.ManyToManyField('Taxonomy', through='TermTaxonomyRelationship', blank=True)
@@ -226,7 +224,7 @@ class Post(TimeStampedModel, HitCountMixin):
     @property
     def img_src(self):
         if self.image_header and hasattr(self.image_header, 'url'):
-            url = self.image_header.url.replace("//media","/media")
+            url = self.image_header.url.replace("//media", "/media")
         else:
             url = self.first_img()
         return url
@@ -269,7 +267,6 @@ class Post(TimeStampedModel, HitCountMixin):
                 self.id = randint(100000, 100000000)
 
             # assign unique slug
-
 
         super(Post, self).save(**kwargs)
         self.child_cache = None
