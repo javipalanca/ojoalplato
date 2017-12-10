@@ -26,7 +26,9 @@ from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
 class Restaurant(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
-    chef = CharField(verbose_name="Cocinero", max_length=200, blank=True, null=True)
+    chef = CharField(verbose_name="Cocinero/a", max_length=200, blank=True, null=True)
+    sumiller = CharField(verbose_name="Sumiller", max_length=200, blank=True, null=True)
+    manager = CharField(verbose_name="Jefe/a de Sala", max_length=200, blank=True, null=True)
     address = CharField(verbose_name="Dirección", max_length=300, blank=True, null=True)
     phone = PhoneNumberField(verbose_name="Teléfono", blank=True, null=True)
     url = URLField(verbose_name="Web", blank=True, null=True)

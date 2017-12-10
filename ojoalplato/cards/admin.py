@@ -63,8 +63,8 @@ class RestaurantAdmin(VersionAdmin):
     list_display = ['name', 'is_closed']
     save_on_top = True
 
-    fields = ("name", "chef", "tags", "image_header", "address", "location", "phone", "url", "email",
-              "last_visit", "price", "avg_price", "menu_price",
+    fields = ("name", "chef", "sumiller", "manager", "tags", "image_header", "address", "location", "phone",
+              "url", "email", "last_visit", "price", "avg_price", "menu_price",
               "stars", "suns", "awards", "freedays", "is_closed", "notes")
 
     class Meta:

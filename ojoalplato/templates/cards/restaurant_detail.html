@@ -14,8 +14,20 @@
                     <tbody>
                     {% if restaurant.chef %}
                         <tr>
-                            <th scope="row" class="col-xs-4">Cocinero</th>
+                            <th scope="row" class="col-xs-4">Cocinero/a</th>
                             <td>{{ restaurant.chef }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.sumiller %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Sumiller</th>
+                            <td>{{ restaurant.sumiller }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.manager %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Jefe/a de Sala</th>
+                            <td>{{ restaurant.manager}}</td>
                         </tr>
                     {% endif %}
                     {% if restaurant.address %}
