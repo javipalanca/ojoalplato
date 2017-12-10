@@ -54,7 +54,7 @@ tqdm==4.19.4
 git+http://github.com/javipalanca/django-wordpress.git
 django-reversion==2.0.12
 django-wysiwyg-redactor==0.5.1
-django-suit-redactor
+django-suit-redactor==0.0.4
 beautifulsoup4
 django-disqus
 django-social-share
