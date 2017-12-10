@@ -54,7 +54,7 @@ tqdm
 git+http://github.com/javipalanca/django-wordpress.git
 django-reversion
 django-wysiwyg-redactor
-django-suit-redactor
+django-suit-redactor==0.0.4
 beautifulsoup4
 django-disqus
 django-social-share
