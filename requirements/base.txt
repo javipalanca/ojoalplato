@@ -59,7 +59,7 @@ beautifulsoup4==4.6.0
 django-disqus==0.5
 django-social-share==1.1.2
 django-categories==1.5.4
-django-taggit
+django-taggit==0.22.1
 django-taggit-autosuggest
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus
