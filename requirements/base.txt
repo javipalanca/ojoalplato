@@ -53,7 +53,7 @@ django-suit
 tqdm
 git+http://github.com/javipalanca/django-wordpress.git
 django-reversion
-django-wysiwyg-redactor
+django-wysiwyg-redactor==0.5.1
 django-suit-redactor
 beautifulsoup4
 django-disqus
