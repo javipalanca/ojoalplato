@@ -75,7 +75,7 @@ dj-database-url
 google-api-python-client
 django-analytical
 django-request
-django-hitcount
+django-hitcount==1.2.3
 django-newsletter
 requests-facebook
 tweepy
