@@ -10,6 +10,7 @@ from facebook import GraphAPI
 import tweepy
 import time
 
+
 @shared_task
 def post_published_task(post_id):
     time.sleep(10)
@@ -30,7 +31,6 @@ def send_newsletter(post_id):
         article = Article()
         article.url = "http://{}{}".format(site.domain, post.get_absolute_url())
         article.title = post.title
-        article.text = post.content.replace('src="/media', 'src="http://'+site.domain+'/media')
         article.sortorder = 0
 
         message.title = post.title

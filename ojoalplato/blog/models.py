@@ -25,6 +25,7 @@ from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
 
+
 STATUS_CHOICES = (
     ('closed', 'closed'),
     ('open', 'open'),
@@ -44,18 +45,8 @@ POST_TYPE_CHOICES = (
     ('revision', 'revision'),
 )
 
+
 SLUG_MAX_LENGTH = 200
-
-
-def unique_slug(value):
-    slug = orig = slugify(value)[:SLUG_MAX_LENGTH]
-    if Post.objects.filter(slug=slug).exists():
-        for x in itertools.count(1):
-            # Truncate the original slug dynamically. Minus 1 for the hyphen.
-            slug = "%s-%d" % (orig[:SLUG_MAX_LENGTH - len(str(x)) - 1], x)
-            if not Post.objects.filter(slug=slug).exists():
-                break
-    return slug
 
 
 class PostManager(models.Manager):
@@ -154,8 +145,7 @@ class Post(TimeStampedModel, HitCountMixin):
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
-    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH, unique=True,
-                         slugify=unique_slug)
+    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
                                default=get_default_user)
     excerpt = models.TextField(blank=True)
@@ -265,12 +255,22 @@ class Post(TimeStampedModel, HitCountMixin):
             else:
                 from random import randint
                 self.id = randint(100000, 100000000)
-
             # assign unique slug
+            self.slug = self.unique_slug()
 
-        super(Post, self).save(**kwargs)
         self.child_cache = None
         self.term_cache = None
+        super(Post, self).save(**kwargs)
+
+    def unique_slug(self):
+        slug = orig = slugify(self.title)[:SLUG_MAX_LENGTH]
+        if Post.objects.filter(slug=slug).exists():
+            for x in itertools.count(1):
+                # Truncate the original slug dynamically. Minus 1 for the hyphen.
+                slug = "%s-%d" % (orig[:SLUG_MAX_LENGTH - len(str(x)) - 1], x)
+                if not Post.objects.filter(slug=slug).exists():
+                    break
+        return slug
 
     # cache stuff
 
