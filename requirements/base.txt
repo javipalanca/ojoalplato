@@ -86,7 +86,7 @@ elasticsearch==6.0.0
 djangorestframework==3.7.3
 djangorestframework-gis==0.12
 django-taggit-serializer==0.1.5
-drf-haystack
+drf-haystack==1.6.1
 
 django-maintenance-mode
 
