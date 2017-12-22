@@ -84,7 +84,7 @@ elasticsearch==6.0.0
 
 # django rest framework
 djangorestframework==3.7.7
-djangorestframework-gis
+djangorestframework-gis==0.12
 django-taggit-serializer
 drf-haystack
 
