@@ -67,7 +67,7 @@ django-bootstrap3==9.1.0
 django-guardian==1.4.9
 django-adminactions==1.5
 django-likert-field==0.2.0
-django-phonenumber-field
+django-phonenumber-field==1.3.0
 geopy
 django-leaflet
 django-envelope
