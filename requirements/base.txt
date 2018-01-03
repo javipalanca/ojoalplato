@@ -68,7 +68,7 @@ django-guardian==1.4.9
 django-adminactions==1.5
 django-likert-field==0.2.0
 django-phonenumber-field==1.3.0
-geopy
+geopy==1.11.0
 django-leaflet
 django-envelope
 dj-database-url
