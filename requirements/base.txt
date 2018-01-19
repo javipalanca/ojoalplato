@@ -75,7 +75,7 @@ dj-database-url==0.4.2
 google-api-python-client==1.6.5
 django-analytical==2.4.0
 django-request==1.5.4
-django-hitcount
+django-hitcount==1.2.4
 django-newsletter
 requests-facebook
 tweepy
