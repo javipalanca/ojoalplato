@@ -54,19 +54,19 @@ class PostManager(models.Manager):
     Provides convenience methods for filtering posts by status.
     """
 
-    def _by_status(self, status, post_type='post'):
+    def _by_status(self, status):
         now = timezone.now()
-        return self.filter(status=status, post_type=post_type, post_date__lte=now) \
+        return self.filter(status=status, post_date__lte=now) \
             .select_related().prefetch_related('meta')
 
     def drafts(self, post_type='post'):
-        return self._by_status('draft', post_type)
+        return self._by_status('draft')
 
     def private(self, post_type='post'):
-        return self._by_status('private', post_type)
+        return self._by_status('private')
 
     def published(self, post_type='post'):
-        return self._by_status('publish', post_type)
+        return self._by_status('publish')
 
     def term(self, terms, taxonomy='post_tag'):
         """
@@ -257,7 +257,8 @@ class Post(TimeStampedModel, HitCountMixin):
                 self.id = randint(100000, 100000000)
             # assign unique slug
             self.slug = self.unique_slug()
-
+        if not self.post_type:
+            self.post_type = "post"
         self.child_cache = None
         self.term_cache = None
         super(Post, self).save(**kwargs)
