@@ -79,7 +79,7 @@ django-hitcount==1.2.4
 django-newsletter==0.6
 requests-facebook==0.4.2
 tweepy==3.5.0
-django-haystack
+django-haystack==2.6.1
 elasticsearch>=2.0.0,<3.0.0
 
 # django rest framework
