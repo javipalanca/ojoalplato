@@ -62,7 +62,7 @@ django-categories==1.5.4
 django-taggit==0.22.2
 django-taggit-autosuggest==0.3.2
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
-django-admin-bootstrapped-plus
+django-admin-bootstrapped-plus==0.1.1.2
 django-bootstrap3
 django-guardian==1.4.5
 django-adminactions
