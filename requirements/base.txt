@@ -78,7 +78,7 @@ django-request==1.5.4
 django-hitcount==1.2.4
 django-newsletter==0.6
 requests-facebook==0.4.2
-tweepy
+tweepy==3.5.0
 django-haystack
 elasticsearch>=2.0.0,<3.0.0
 
