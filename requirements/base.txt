@@ -76,7 +76,7 @@ google-api-python-client==1.6.5
 django-analytical==2.4.0
 django-request==1.5.4
 django-hitcount==1.2.4
-django-newsletter
+django-newsletter==0.6
 requests-facebook
 tweepy
 django-haystack
