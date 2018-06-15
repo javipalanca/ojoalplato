@@ -57,7 +57,7 @@ django-wysiwyg-redactor==0.5.1
 django-suit-redactor==0.0.4
 beautifulsoup4==4.6.0
 django-disqus==0.5
-django-social-share
+django-social-share==1.1.2
 django-categories
 django-taggit
 django-taggit-autosuggest
