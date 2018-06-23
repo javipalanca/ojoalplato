@@ -12,7 +12,7 @@ django-environ==0.4.4
 
 # Forms
 django-braces==1.13.0
-django-crispy-forms==1.6.0
+django-crispy-forms==1.7.2
 django-floppyforms==1.6.2
 
 # Models
