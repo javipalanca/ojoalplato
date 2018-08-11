@@ -102,7 +102,7 @@ def determine_scale(scale, img, mark):
         h = int(mark.size[1] * float(scale))
 
         # apply the new width and height, and return the new `mark`
-        return (w, h)
+        return w, h
     else:
         return mark.size
 
@@ -140,7 +140,7 @@ def determine_position(position, img, mark):
     max_left = max(img.size[0] - mark.size[0], 0)
     max_top = max(img.size[1] - mark.size[1], 0)
 
-    #Added a 10px margin from corners to apply watermark.
+    # Added a 10px margin from corners to apply watermark.
     margin = 10
 
     if not position:
@@ -210,7 +210,7 @@ def watermark(img, mark, position=(0, 0), opacity=1, scale=1.0, tile=False,
         new_w = int(mark.size[0] * 1.5)
         new_h = int(mark.size[1] * 1.5)
 
-        new_mark = Image.new('RGBA', (new_w, new_h), (0,0,0,0))
+        new_mark = Image.new('RGBA', (new_w, new_h), (0, 0, 0, 0))
 
         # center the watermark in the newly resized image
         new_l = int((new_w - mark.size[0]) / 2)
@@ -225,11 +225,11 @@ def watermark(img, mark, position=(0, 0), opacity=1, scale=1.0, tile=False,
         img = img.convert('RGBA')
 
     # make sure we have a tuple for a position now
-    assert isinstance(position, tuple), 'Invalid position "%s"!' % position
+    assert isinstance(position, tuple), 'Invalid position "{}"!'.format(position)
 
     # create a transparent layer the size of the image and draw the
     # watermark in that layer.
-    layer = Image.new('RGBA', img.size, (0,0,0,0))
+    layer = Image.new('RGBA', img.size, (0, 0, 0, 0))
     if tile:
         first_y = int(position[1] % mark.size[1] - mark.size[1])
         first_x = int(position[0] % mark.size[0] - mark.size[0])
