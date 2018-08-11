@@ -92,4 +92,4 @@ django-maintenance-mode==0.10.0
 
 
 # Amazon Simple Email Service SES
-django-ses
+django-ses==0.8.6
