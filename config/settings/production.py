@@ -15,7 +15,7 @@ Production Configurations
 """
 from __future__ import absolute_import, unicode_literals
 
-#from boto3.s3.connection import OrdinaryCallingFormat
+# from boto3.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
 import logging
@@ -29,26 +29,27 @@ from .common import *  # noqa
 # Raises ImproperlyConfigured exception if DJANGO_SECRET_KEY not in os.environ
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
-
 # This ensures that Django will be able to detect a secure connection
 # properly on Heroku.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # raven sentry client
 # See https://docs.getsentry.com/hosted/clients/python/integrations/django/
-INSTALLED_APPS += ('raven.contrib.django.raven_compat', )
-RAVEN_MIDDLEWARE = ('raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware', )
+INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
+RAVEN_MIDDLEWARE = ('raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',)
 MIDDLEWARE_CLASSES = RAVEN_MIDDLEWARE + MIDDLEWARE_CLASSES
+
+# opbeat no longer exists
 # opbeat integration
 # See https://opbeat.com/languages/django/
-INSTALLED_APPS += ('opbeat.contrib.django',)
-OPBEAT = {
-    'ORGANIZATION_ID': env('DJANGO_OPBEAT_ORGANIZATION_ID'),
-    'APP_ID': env('DJANGO_OPBEAT_APP_ID'),
-    'SECRET_TOKEN': env('DJANGO_OPBEAT_SECRET_TOKEN')
-}
-MIDDLEWARE_CLASSES = (
-    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
-) + MIDDLEWARE_CLASSES
+# INSTALLED_APPS += ('opbeat.contrib.django',)
+# OPBEAT = {
+#    'ORGANIZATION_ID': env('DJANGO_OPBEAT_ORGANIZATION_ID'),
+#    'APP_ID': env('DJANGO_OPBEAT_APP_ID'),
+#    'SECRET_TOKEN': env('DJANGO_OPBEAT_SECRET_TOKEN')
+# }
+# MIDDLEWARE_CLASSES = (
+#    'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
+# ) + MIDDLEWARE_CLASSES
 
 
 # SECURITY CONFIGURATION
@@ -77,8 +78,7 @@ X_FRAME_OPTIONS = 'DENY'
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['ojoalplato.com'])
 # END SITE CONFIGURATION
 
-INSTALLED_APPS += ('gunicorn', )
-
+INSTALLED_APPS += ('gunicorn',)
 
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
 AWS_AUTO_CREATE_BUCKET = False
 AWS_QUERYSTRING_AUTH = False
-#AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
+# AWS_S3_CALLING_FORMAT = OrdinaryCallingFormat()
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 # AWS cache settings, don't change unless you know what you're doing:
@@ -127,7 +127,7 @@ StaticRootS3BotoStorage = lambda: CustomS3BotoStorage(location='static')
 MediaRootS3BotoStorage = lambda: CustomS3BotoStorage(location='media')
 
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_MEDIA_LOCATION = 'media'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 MEDIA_ROOT = ''
@@ -135,19 +135,19 @@ MEDIA_ROOT = ''
 # Static Assets
 # ------------------------
 
-#STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+# STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 AWS_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # See: https://github.com/antonagestam/collectfast
 # For Django 1.7+, 'collectfast' should come before
 # 'django.contrib.staticfiles'
 AWS_PRELOAD_METADATA = True
-INSTALLED_APPS = ('collectfast', ) + INSTALLED_APPS
+INSTALLED_APPS = ('collectfast',) + INSTALLED_APPS
 # COMPRESSOR
 # ------------------------------------------------------------------------------
-#COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 COMPRESS_URL = STATIC_URL
 COMPRESS_ENABLED = env.bool('COMPRESS_ENABLED', default=True)
 # EMAIL
@@ -158,11 +158,11 @@ EMAIL_SUBJECT_PREFIX = env('DJANGO_EMAIL_SUBJECT_PREFIX', default='[Ojoalplato] 
 SERVER_EMAIL = env('DJANGO_SERVER_EMAIL', default=DEFAULT_FROM_EMAIL)
 
 # Anymail with Mailgun
-#INSTALLED_APPS += ("anymail", )
-#ANYMAIL = {
+# INSTALLED_APPS += ("anymail", )
+# ANYMAIL = {
 #    "MAILGUN_API_KEY": env('DJANGO_MAILGUN_API_KEY'),
-#}
-#EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+# }
+# EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
 
 EMAIL_BACKEND = "django_ses.SESBackend"
 AWS_SES_REGION_NAME = 'eu-west-1'
@@ -180,10 +180,10 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-#DATABASES['default'] = env.db('DATABASE_URL')
-POSTGRES_USER=env("POSTGRES_USER", default="ojoalplato")
-POSTGRES_PASSWORD=env("POSTGRES_PASSWORD")
-POSTGRES_URL="postgis://{}:{}@postgres/ojoalplato".format(POSTGRES_USER, POSTGRES_PASSWORD)
+# DATABASES['default'] = env.db('DATABASE_URL')
+POSTGRES_USER = env("POSTGRES_USER", default="ojoalplato")
+POSTGRES_PASSWORD = env("POSTGRES_PASSWORD")
+POSTGRES_URL = "postgis://{}:{}@postgres/ojoalplato".format(POSTGRES_USER, POSTGRES_PASSWORD)
 
 MYSQL_USER = env("MYSQL_USER", default="ojoalplato")
 MYSQL_PASSWORD = env("MYSQL_PASSWORD")
@@ -205,11 +205,10 @@ CACHES = {
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'IGNORE_EXCEPTIONS': True,  # mimics memcache behavior.
-                                        # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
+            # http://niwinz.github.io/django-redis/latest/#_memcached_exceptions_behavior
         }
     }
 }
-
 
 # Sentry Configuration
 SENTRY_DSN = env('DJANGO_SENTRY_DSN')
@@ -269,7 +268,6 @@ RAVEN_CONFIG = {
 
 # Custom Admin URL, use {% url 'admin:index' %}
 ADMIN_URL = env('DJANGO_ADMIN_URL')
-
 
 # Your production stuff: Below this line define 3rd party library settings
 WP_TABLE_PREFIX = 'wp_d3r46v'
