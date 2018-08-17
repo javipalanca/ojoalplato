@@ -758,6 +758,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 
   .mobile-nav-open .site-navigation .primary-menu-area ul {
     border-top: solid 3px rgba(255, 255, 255, .2);
+    background-color: #f2f2e7;
   }
 
   .mobile-nav-open .site-content {
@@ -942,7 +943,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
   }
 
   .has-family .content-area {
-    padding-top: 150px;
+    padding-top: 60px;
   }
 }
 
