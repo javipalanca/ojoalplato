@@ -526,6 +526,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 .navbar-toggle .icon-bar {
   transition: all 0.5s ease;
   width: 14px;
+  background-color: chocolate;
 }
 
 .navbar-toggle .icon-bar + .icon-bar {
