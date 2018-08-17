@@ -370,6 +370,7 @@ LEAFLET_CONFIG = {
 DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
 ENVELOPE_SUBJECT_INTRO = "[Ojoalplato] "
 ENVELOPE_USE_HTML_EMAIL = True
+ENVELOPE_EMAIL_RECIPIENTS = ["jpalanca@ojoalplato.com", "paco.ojoalplato@gmail.com"]
 
 # Google Analytics settings
 # ------------------------------------------------------------------------------
