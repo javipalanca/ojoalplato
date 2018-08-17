@@ -1777,6 +1777,7 @@ table {
   bottom: 0;
   margin: 0;
   /*left: -80px;*/
+  margin-top: 20px;
 }
 
 .big-family.sidebarnav .site-header .family-list {
