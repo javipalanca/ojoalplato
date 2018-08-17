@@ -67,7 +67,7 @@ class RestaurantAdmin(VersionAdmin):
               "url", "email", "last_visit", "price", "avg_price", "menu_price",
               "stars", "suns", "awards", "freedays", "is_closed", "notes")
 
-    class Meta:
+    class Media:
         css = {
             'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
                     'wpfamily/style_admin.css'),
