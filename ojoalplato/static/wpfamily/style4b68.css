@@ -566,6 +566,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
   list-style: none;
   padding: 0;
   border-top: solid 3px rgba(0, 0, 0, .1);
+  background-color: #f2f2e7;
 }
 
 .sidebarnav .site-navigation li {
@@ -2829,4 +2830,15 @@ form label {
   right: 0;
 }
 
-​
+
+@media (max-width: 766px) {
+  .img-logo {
+    height: 150px;
+  }
+}
+
+@media (min-width: 767px) {
+  .img-logo {
+    height: 200px;
+  }
+}
