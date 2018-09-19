@@ -2,7 +2,7 @@
 from __future__ import unicode_literals, absolute_import
 
 from django.contrib.auth.models import AbstractUser
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
@@ -35,7 +35,7 @@ class UserMeta(models.Model):
     """
 
     id = models.IntegerField(primary_key=True)
-    user = models.ForeignKey(User, related_name="meta", blank=True, null=True)
+    user = models.ForeignKey(User, related_name="meta", on_delete=models.CASCADE, blank=True, null=True)
     key = models.CharField(max_length=255)
     value = models.TextField()
 

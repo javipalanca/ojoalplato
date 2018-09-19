@@ -64,7 +64,7 @@ THIRD_PARTY_APPS = (
     'likert_field',
     'leaflet',
     'envelope',
-    'wordpress',
+    # 'wordpress',
     'analytical',
     'request',
     'hitcount',
@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = (
     'rest_framework_gis',
     'taggit_serializer',
     'maintenance_mode',
+    'captcha',
 )
 
 # Apps specific for this project go here.
@@ -474,3 +475,6 @@ REST_FRAMEWORK = {
 MAINTENANCE_MODE_IGNORE_STAFF = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 MAINTENANCE_MODE_IGNORE_URLS = ('/admin', 'admin', '/admin/')
+
+RECAPTCHA_PUBLIC_KEY = '6LezR2wUAAAAAOyrZdFqlTTvXWrP0b9ig01qCk_1'
+RECAPTCHA_PRIVATE_KEY = '6LezR2wUAAAAAPwneZhZPsrkYGeuFwzhF67DFPVO'

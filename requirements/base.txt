@@ -5,7 +5,8 @@
 wheel==0.31.1
 
 # Bleeding edge Django
-django==1.10.8 # pyup: ignore
+##django==1.10.8 # pyup: ignore
+django==2.0.8
 
 # Configuration
 django-environ==0.4.5
@@ -58,7 +59,8 @@ django-suit-redactor==0.0.4
 beautifulsoup4==4.6.1
 django-disqus==0.5
 django-social-share==1.3.0
-django-categories==1.4.3 # pyup: ignore
+##django-categories==1.4.3 # pyup: ignore
+django-categories==1.6 # pyup: ignore
 django-taggit==0.23.0
 django-taggit-autosuggest==0.3.3
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
@@ -82,6 +84,7 @@ tweepy==3.6.0
 django-haystack==2.8.1
 elasticsearch>=2.0.0,<3.0.0  # pyup: ignore
 django-simple-math-captcha==1.0.7
+django-recaptcha
 
 
 # django rest framework

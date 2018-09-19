@@ -1048,9 +1048,9 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 }
 
 .site-branding .site-since {
-  color: antiquewhite;
+  color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .site-header .site-branding .custom-logo-link img {
