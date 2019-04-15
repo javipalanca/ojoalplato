@@ -65,7 +65,7 @@ django-taggit==1.1.0
 django-taggit-autosuggest==0.3.7
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus==0.1.1.2
-django-bootstrap3==10.0.1
+django-bootstrap3==11.0.0
 django-guardian==1.4.9
 django-adminactions==1.5
 django-likert-field==0.2.0
