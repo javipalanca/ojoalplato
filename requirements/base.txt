@@ -53,7 +53,7 @@ django-suit==0.2.26
 # Your custom requirements go here
 tqdm==4.32.1
 git+http://github.com/javipalanca/django-wordpress.git
-django-reversion==3.0.0
+django-reversion==3.0.4
 django-wysiwyg-redactor==0.5.1
 django-suit-redactor==0.0.4
 beautifulsoup4==4.6.1
