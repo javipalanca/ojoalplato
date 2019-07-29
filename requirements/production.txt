@@ -11,7 +11,7 @@ gunicorn==19.9.0
 
 # Static and Media Storage
 # ------------------------------------------------
-boto3==1.7.75
+boto3==1.9.197
 django-storages==1.6.6
 Collectfast==0.6.2
 
