@@ -91,7 +91,7 @@ django-recaptcha==2.0.5
 djangorestframework==3.10.2
 djangorestframework-gis==0.14
 django-taggit-serializer==0.1.7
-drf-haystack==1.8.3
+drf-haystack==1.8.5
 
 django-maintenance-mode==0.10.0
 
