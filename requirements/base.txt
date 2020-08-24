@@ -39,7 +39,7 @@ django-autoslug==1.9.8
 pytz==2020.1
 
 # Redis support
-django-redis==4.9.0
+django-redis==4.12.1
 redis>=2.10.0
 
 # Celery
