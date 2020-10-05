@@ -93,7 +93,7 @@ djangorestframework-gis==0.16
 django-taggit-serializer==0.1.7
 drf-haystack==1.8.8
 
-django-maintenance-mode==0.10.0
+django-maintenance-mode==0.15.0
 
 
 # Amazon Simple Email Service SES
