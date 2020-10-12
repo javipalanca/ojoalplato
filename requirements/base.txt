@@ -81,7 +81,7 @@ django-hitcount==1.3.3
 django-newsletter==0.9.1
 requests-facebook==0.4.2
 tweepy==3.9.0
-django-haystack==2.8.1
+django-haystack==3.0
 elasticsearch>=2.0.0,<3.0.0  # pyup: ignore
 django-simple-math-captcha==1.0.7
 django-recaptcha
