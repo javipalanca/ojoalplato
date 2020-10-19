@@ -48,7 +48,7 @@ celery==3.1.23  # pyup: ignore
 django_compressor==2.4
 
 # Admin
-django-suit==0.2.26
+django-suit==0.2.28
 
 # Your custom requirements go here
 tqdm==4.24.0
