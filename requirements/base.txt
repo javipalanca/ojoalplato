@@ -88,7 +88,7 @@ django-recaptcha==2.0.6
 
 
 # django rest framework
-djangorestframework==3.8.2
+djangorestframework==3.12.2
 djangorestframework-gis==0.13
 django-taggit-serializer==0.1.7
 drf-haystack==1.8.3
