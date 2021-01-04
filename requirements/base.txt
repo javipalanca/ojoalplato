@@ -61,7 +61,7 @@ django-disqus==0.5
 django-social-share==2.1.0
 ##django-categories==1.4.3 # pyup: ignore
 django-categories==1.6 # pyup: ignore
-django-taggit==0.23.0
+django-taggit==1.3.0
 django-taggit-autosuggest==0.3.3
 git+http://github.com/javipalanca/django-admin-bootstrapped.git
 django-admin-bootstrapped-plus==0.1.1.2
