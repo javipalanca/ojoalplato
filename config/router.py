@@ -11,9 +11,9 @@ router = SimpleRouter()
 
 router.register(r'restaurants', viewset=RestaurantViewSet)
 router.register("posts/search/autocomplete", viewset=AutocompletePostSearchViewSet,
-                base_name="post-search-autocomplete")
+                basename="post-search-autocomplete")
 router.register("restaurants/search/autocomplete", viewset=AutocompleteRestaurantSearchViewSet,
-                base_name="restaurant-search-autocomplete")
+                basename="restaurant-search-autocomplete")
 
 
 urlpatterns = [

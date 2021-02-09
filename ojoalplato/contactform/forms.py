@@ -2,12 +2,10 @@
 from envelope.forms import ContactForm as EnvelopeContactForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from simplemathcaptcha.fields import MathCaptchaField
 from captcha.fields import ReCaptchaField
 
 
 class ContactForm(EnvelopeContactForm):
-    captcha = MathCaptchaField()
     recaptcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):

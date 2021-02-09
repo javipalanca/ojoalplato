@@ -23,7 +23,7 @@ urlpatterns = [
         #TemplateView.as_view(template_name='pages/about.html'), name='about'),
     # url(r'^wordpress/', include('wordpress.urls')),
     # Django Admin, use {% url 'admin:index' %}
-    url(settings.ADMIN_URL, include(admin.site.urls)),
+    url(settings.ADMIN_URL, admin.site.urls),
     url(r'^adminactions/', include('adminactions.urls')),
 
     # User management
@@ -62,7 +62,7 @@ urlpatterns = [
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
 
     # Cards app
-    url(r'^cards/', include('ojoalplato.cards.urls', namespace='cards')),
+    url(r'^cards/', include((   'ojoalplato.cards.urls', "cards"), namespace='cards')),
 
 
 
@@ -72,7 +72,7 @@ urlpatterns = [
 # API URLs
 # Create a router and register our resources with it.
 urlpatterns += [
-    url(r'^api/v1/', include(api_urlpatterns, namespace="api_v1")),
+    url(r'^api/v1/', include((api_urlpatterns, "api_v1"), namespace="api_v1")),
 ]
 
 

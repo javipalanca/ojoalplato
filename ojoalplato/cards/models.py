@@ -7,7 +7,7 @@ from django.contrib.gis.db.models import PointField
 from django.contrib.gis.gdal import CoordTransform
 from django.contrib.gis.gdal import SpatialReference
 from django.contrib.gis.geos import Point
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, \
     BooleanField, ImageField, EmailField
