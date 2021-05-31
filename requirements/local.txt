@@ -13,4 +13,4 @@ django-debug-toolbar==3.2.1
 ipdb==0.13.8
 
 pytest-django==4.3.0
-pytest-sugar==0.9.1
+pytest-sugar==0.9.4
