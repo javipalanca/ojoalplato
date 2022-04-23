@@ -68,6 +68,10 @@ class PostAdmin(VersionAdmin):
              'all': ('wpfamily/style_admin.css',)
         }
 
+        js = (
+            'admin/js/jquery.init.alt.js',
+            )
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from drf_haystack.filters import HaystackAutocompleteFilter
@@ -18,7 +18,7 @@ class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RestaurantSerializer
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
-    @list_route()
+    @action(detail=False)
     def opened(self, request):
         restaurants = Restaurant.objects.filter(is_closed=False)
         serializer = RestaurantSerializer(restaurants, many=True)

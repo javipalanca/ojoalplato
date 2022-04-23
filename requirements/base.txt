@@ -2,37 +2,40 @@
 # like Pillow and psycopg2
 # See http://bitly.com/wheel-building-fails-CPython-35
 # Verified bug on Python 3.5.1
-wheel==0.31.1
+##wheel==0.31.1
+pip==22.0.4
 
 # Bleeding edge Django
-django==2.1
+##django==1.10.8 # pyup: ignore
+##django==2.0.8
+django==3.2.13
 
 # Configuration
 django-environ==0.4.5
 
 # Forms
-django-braces==1.13.0
-django-crispy-forms==1.7.2
-django-floppyforms==1.7.0
+django-braces==1.14.0
+django-crispy-forms==1.11.0
+django-floppyforms==1.9.0
 
 # Models
-django-model-utils==3.1.2
+django-model-utils==4.1.1
 
 # Images
 Pillow==5.2.0
 
 # For user registration, either via email or social
 # Well-built with regular release cycles!
-django-allauth==0.36.0
+django-allauth==0.50.0
 
 
 # Python-PostgreSQL and MySQL Database Adapters
-psycopg2==2.7.5
+psycopg2==2.8.6
 mysqlclient==1.3.13
 
 # Unicode slugification
 unicode-slugify==0.1.3
-django-autoslug==1.9.3
+django-autoslug==1.9.8
 
 # Time zones support
 pytz==2018.5
@@ -42,9 +45,10 @@ django-redis==4.9.0
 redis>=2.10.0
 
 # Celery
-celery==3.1.23  # pyup: ignore
+##celery==3.1.23  # pyup: ignore
+celery==5.0.5  # pyup: ignore
 
-django_compressor==2.2
+django_compressor==2.4
 
 # Admin
 django-suit==0.2.26
@@ -52,43 +56,57 @@ django-suit==0.2.26
 # Your custom requirements go here
 tqdm==4.24.0
 git+http://github.com/javipalanca/django-wordpress.git
-django-reversion==3.0.0
-django-wysiwyg-redactor==0.5.1
+django-reversion==3.0.9
+##django-wysiwyg-redactor==0.5.1
+git+https://github.com/javipalanca/django-wysiwyg-redactor-streetvoice.git
+#git+https://github.com/StreetVoice/django-wysiwyg-redactor.git
 django-suit-redactor==0.0.4
+django-quill-editor
 beautifulsoup4==4.6.1
 django-disqus==0.5
-django-social-share==1.3.0
-django-categories==1.6
-django-taggit==0.23.0
-django-taggit-autosuggest==0.3.3
-git+http://github.com/javipalanca/django-admin-bootstrapped.git
-django-admin-bootstrapped-plus==0.1.1.2
-django-bootstrap3==10.0.1
-django-guardian==1.4.9
-django-adminactions==1.5
-django-likert-field==0.2.0
-django-phonenumber-field==2.0.0
+django-social-share==2.2.1
+##django-categories==1.4.3 # pyup: ignore
+##django-categories==1.6 # pyup: ignore
+django-categories==1.8
+django-taggit==2.1.0
+#django-taggit==1.3.0
+django-taggit-autosuggest==0.3.8
+git+http://github.com/javipalanca/django-admin-bootstrapped.git  # added renderer
+##django-admin-bootstrapped-plus==0.1.1.2
+git+https://github.com/javipalanca/django-admin-bootstrapped-plus.git
+#####bootstrap-admin==0.4.4
+django-jazzmin==2.4.6
+django-bootstrap3==21.2
+django-guardian==2.3.0
+django-adminactions==1.9
+##django-likert-field==0.2.0
+git+http://github.com/javipalanca/django-likert-field.git  # added renderer
+phonenumbers==8.12.18
+django-phonenumber-field==5.0.0
 geopy==1.16.0
-django-leaflet==0.24.0
-django-envelope==1.3
+django-leaflet==0.27.1
+django-envelope==1.4
 dj-database-url==0.5.0
 google-api-python-client==1.7.4
-django-analytical==2.4.0
-django-request==1.5.4
-django-hitcount==1.3.0
-django-newsletter==0.7
+django-analytical==3.0.0
+django-request==1.5.6
+django-hitcount==1.3.3
+django-newsletter==0.9.1
 requests-facebook==0.4.2
-tweepy==3.6.0
-django-haystack==2.8.1
+tweepy==3.10.0
 elasticsearch>=2.0.0,<3.0.0  # pyup: ignore
+django-recaptcha==2.0.6
+django-haystack==3.0
+
 
 # django rest framework
-djangorestframework==3.8.2
-djangorestframework-gis==0.13
+djangorestframework==3.12.2
+djangorestframework-gis==0.17
 django-taggit-serializer==0.1.7
-drf-haystack==1.8.3
+##drf-haystack==1.8.3
+drf-haystack==1.8.11
 
-django-maintenance-mode==0.10.0
+django-maintenance-mode==0.15.1
 
 
 # Amazon Simple Email Service SES

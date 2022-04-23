@@ -6,7 +6,7 @@ import itertools
 from bs4 import BeautifulSoup
 from autoslug import AutoSlugField
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.db.models import ForeignKey
 from django.db.models import ImageField
@@ -24,7 +24,6 @@ from hitcount.models import HitCountMixin
 from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
-
 
 STATUS_CHOICES = (
     ('closed', 'closed'),
@@ -44,7 +43,6 @@ POST_TYPE_CHOICES = (
     ('post', 'post'),
     ('revision', 'revision'),
 )
-
 
 SLUG_MAX_LENGTH = 200
 
@@ -117,8 +115,8 @@ class PostManager(models.Manager):
 
 
 class TermTaxonomyRelationship(models.Model):
-    object = models.ForeignKey('Post')
-    term_taxonomy = models.ForeignKey('Taxonomy', related_name='relationships')
+    object = models.ForeignKey('Post', on_delete=models.CASCADE)
+    term_taxonomy = models.ForeignKey('Taxonomy', related_name='relationships', on_delete=models.CASCADE)
     order = models.IntegerField()
 
     class Meta:
@@ -147,7 +145,7 @@ class Post(TimeStampedModel, HitCountMixin):
     subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
     slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
-                               default=get_default_user)
+                               default=get_default_user, on_delete=models.CASCADE)
     excerpt = models.TextField(blank=True)
     content = models.TextField(verbose_name="Contenido")
     content_filtered = models.TextField(blank=True)
@@ -155,7 +153,7 @@ class Post(TimeStampedModel, HitCountMixin):
     published_at = MonitorField(monitor='status', when=['publish'], verbose_name="Fecha publicación")
     modified_date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, blank=True, null=True,
-                                 verbose_name="Categoría")
+                                 verbose_name="Categoría", on_delete=models.CASCADE)
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
                            blank=True)
@@ -163,14 +161,16 @@ class Post(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen de 850px x 398px",
-        upload_to=settings.MEDIA_ROOT,
+        upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante",
                                  related_name="posts", blank=True, null=True,
                                  on_delete=models.SET_NULL)
-    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True)
-    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True)
+    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True,
+                           on_delete=models.CASCADE)
+    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True,
+                             on_delete=models.CASCADE)
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True, null=True)
@@ -361,7 +361,7 @@ class PostMeta(models.Model):
     """
 
     id = models.IntegerField(primary_key=True)
-    post = models.ForeignKey(Post, related_name='meta', blank=True, null=True)
+    post = models.ForeignKey(Post, related_name='meta', blank=True, null=True, on_delete=models.CASCADE)
     key = models.CharField(max_length=255)
     value = models.TextField(blank=True)
 
@@ -375,8 +375,8 @@ class Comment(models.Model):
     """
 
     id = models.AutoField(primary_key=True)
-    post = models.ForeignKey(Post, related_name="comments", blank=True, null=True)
-    user = models.ForeignKey(User, related_name="comments", blank=True, null=True, default=0)
+    post = models.ForeignKey(Post, related_name="comments", blank=True, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="comments", blank=True, null=True, default=0, on_delete=models.CASCADE)
     parent_id = models.IntegerField(default=0)
 
     # author fields
@@ -429,7 +429,7 @@ class Term(models.Model):
 
 class Taxonomy(models.Model):
     id = models.IntegerField(primary_key=True)
-    term = models.ForeignKey(Term, related_name='taxonomies', blank=True, null=True)
+    term = models.ForeignKey(Term, related_name='taxonomies', blank=True, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
     description = models.TextField()
     parent_id = models.IntegerField(default=0)

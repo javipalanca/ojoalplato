@@ -13,6 +13,8 @@ from __future__ import absolute_import, unicode_literals
 import environ
 from django.contrib import messages
 
+from ojoalplato.blog.handlers import DateDirectoryWatermarkUploader
+
 ROOT_DIR = environ.Path(__file__) - 3  # (ojoalplato/config/settings/common.py - 3 = ojoalplato/)
 APPS_DIR = ROOT_DIR.path('ojoalplato')
 
@@ -43,6 +45,8 @@ DJANGO_APPS = (
     'admin_bootstrapped_plus',
     'django_admin_bootstrapped',
     'bootstrap3',
+    #'bootstrap_admin', # always before django.contrib.admin
+    #'jazzmin',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -55,7 +59,8 @@ THIRD_PARTY_APPS = (
     'guardian',
     'reversion',
     'redactor',
-    # 'suit_redactor',
+    #'suit_redactor',
+    #'django_quill',
     'django_social_share',
     'categories',
     'categories.editor',
@@ -64,7 +69,7 @@ THIRD_PARTY_APPS = (
     'likert_field',
     'leaflet',
     'envelope',
-    'wordpress',
+    # 'wordpress',
     'analytical',
     'request',
     'hitcount',
@@ -74,6 +79,7 @@ THIRD_PARTY_APPS = (
     'rest_framework_gis',
     'taggit_serializer',
     'maintenance_mode',
+    'captcha',
 )
 
 # Apps specific for this project go here.
@@ -92,7 +98,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -269,13 +275,15 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 # CELERY
 INSTALLED_APPS += ('ojoalplato.taskapp.celery.CeleryConfig',)
 # if you are not using the django database broker (e.g. rabbitmq, redis, memcached), you can remove the next line.
-INSTALLED_APPS += ('kombu.transport.django',)
+# INSTALLED_APPS += ('kombu.transport.django',)
 BROKER_URL = env('CELERY_BROKER_URL', default='django://')
 if BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'
@@ -370,6 +378,7 @@ LEAFLET_CONFIG = {
 DEFAULT_FROM_EMAIL = "jpalanca@ojoalplato.com"
 ENVELOPE_SUBJECT_INTRO = "[Ojoalplato] "
 ENVELOPE_USE_HTML_EMAIL = True
+ENVELOPE_EMAIL_RECIPIENTS = ["jpalanca@ojoalplato.com", "paco.ojoalplato@gmail.com"]
 
 # Google Analytics settings
 # ------------------------------------------------------------------------------
@@ -473,3 +482,10 @@ REST_FRAMEWORK = {
 MAINTENANCE_MODE_IGNORE_STAFF = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 MAINTENANCE_MODE_IGNORE_URLS = ('/admin', 'admin', '/admin/')
+
+
+
+
+
+RECAPTCHA_PUBLIC_KEY = '6LezR2wUAAAAAOyrZdFqlTTvXWrP0b9ig01qCk_1'
+RECAPTCHA_PRIVATE_KEY = '6LezR2wUAAAAAPwneZhZPsrkYGeuFwzhF67DFPVO'

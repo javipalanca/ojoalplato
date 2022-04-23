@@ -526,6 +526,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 .navbar-toggle .icon-bar {
   transition: all 0.5s ease;
   width: 14px;
+  background-color: chocolate;
 }
 
 .navbar-toggle .icon-bar + .icon-bar {
@@ -566,6 +567,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
   list-style: none;
   padding: 0;
   border-top: solid 3px rgba(0, 0, 0, .1);
+  background-color: #f2f2e7;
 }
 
 .sidebarnav .site-navigation li {
@@ -757,6 +759,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 
   .mobile-nav-open .site-navigation .primary-menu-area ul {
     border-top: solid 3px rgba(255, 255, 255, .2);
+    background-color: #f2f2e7;
   }
 
   .mobile-nav-open .site-content {
@@ -941,7 +944,7 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
   }
 
   .has-family .content-area {
-    padding-top: 150px;
+    padding-top: 60px;
   }
 }
 
@@ -1042,6 +1045,12 @@ body.sidebarnav .site-navigation .sub-menu li:last-child {
 .site-header .site-branding .custom-logo-link {
   display: block;
   padding: 0 30px;
+}
+
+.site-branding .site-since {
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+  font-size: 14px;
 }
 
 .site-header .site-branding .custom-logo-link img {
@@ -1771,6 +1780,7 @@ table {
   bottom: 0;
   margin: 0;
   /*left: -80px;*/
+  margin-top: 20px;
 }
 
 .big-family.sidebarnav .site-header .family-list {
@@ -2757,7 +2767,7 @@ form label {
   border-width: 1px;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
-  background-color: rgba(224,117,41, 1);
+  background-color: rgba(224, 117, 41, 1);
   color: white;
   text-align: right;
   padding: 5px 15px 5px 5px;
@@ -2783,11 +2793,11 @@ form label {
   font: bold 15px Sans-Serif;
   color: #333;
   text-align: center;
-  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
   -webkit-transform: rotate(45deg);
-  -moz-transform:    rotate(45deg);
-  -ms-transform:     rotate(45deg);
-  -o-transform:      rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
   position: relative;
   padding: 7px 0;
   left: -5px;
@@ -2796,27 +2806,41 @@ form label {
   background-color: #BFDC7A;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45));
   background-image: -webkit-linear-gradient(top, #BFDC7A, #8EBF45);
-  background-image:    -moz-linear-gradient(top, #BFDC7A, #8EBF45);
-  background-image:     -ms-linear-gradient(top, #BFDC7A, #8EBF45);
-  background-image:      -o-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image: -moz-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image: -ms-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image: -o-linear-gradient(top, #BFDC7A, #8EBF45);
   color: #6a6340;
-  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
-  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 }
 
 .ribbon-green:before, .ribbon-green:after {
   content: "";
-  border-top:   3px solid #6e8900;
-  border-left:  3px solid transparent;
+  border-top: 3px solid #6e8900;
+  border-left: 3px solid transparent;
   border-right: 3px solid transparent;
-  position:absolute;
+  position: absolute;
   bottom: -3px;
 }
 
 .ribbon-green:before {
   left: 0;
 }
+
 .ribbon-green:after {
   right: 0;
-}​
+}
+
+
+@media (max-width: 992px) {
+  .img-logo {
+    height: 150px;
+  }
+}
+
+@media (min-width: 992px) {
+  .img-logo {
+    height: 200px;
+  }
+}

@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 from django.conf import settings
 from django import template
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.urls import reverse, NoReverseMatch
 from django.utils.encoding import force_text
 from django.utils.text import normalize_newlines, slugify
 

@@ -7,7 +7,7 @@ from django.contrib.gis.db.models import PointField
 from django.contrib.gis.gdal import CoordTransform
 from django.contrib.gis.gdal import SpatialReference
 from django.contrib.gis.geos import Point
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, \
     BooleanField, ImageField, EmailField
@@ -54,7 +54,7 @@ class Restaurant(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",
-        upload_to=settings.MEDIA_ROOT,
+        upload_to=".", #settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     def title(self):
@@ -154,7 +154,7 @@ class Wine(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",
-        upload_to=settings.MEDIA_ROOT,
+        upload_to=".", #settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     def get_posts_images(self):
@@ -185,7 +185,7 @@ class Recipe(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",
-        upload_to=settings.MEDIA_ROOT,
+        upload_to=".", #settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     def get_posts_images(self):

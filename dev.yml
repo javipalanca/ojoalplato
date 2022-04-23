@@ -31,19 +31,6 @@ services:
       - redis
       - elasticsearch
 
-  pycharm:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile-dev
-    depends_on:
-      - postgres
-    environment:
-      - POSTGRES_USER=ojoalplato
-    volumes:
-      - .:/app
-    links:
-      - postgres
-
   mailhog:
     image: mailhog/mailhog
     ports:
@@ -93,7 +80,7 @@ services:
       - 9200:9200
 
   kibana:
-    image: kibana
+    image: kibana:7.10.1
     links:
       - elasticsearch
     ports:
