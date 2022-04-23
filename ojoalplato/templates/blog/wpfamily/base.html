@@ -87,9 +87,11 @@
                                 {% active '/la-celebracion-del-millon-de-ojoalplato/' %}">
                                 <a href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
                                 Comida del millón</a></li>
-                            <!--li id="menu-item-116"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116"><a
-                                    href="category/projects/index.html">Projects</a></li-->
+                            <li id="menu-item-116"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116
+                                {% active '/sobre-mi/' %}">
+                                <a href="{% url 'post-detail' slug='sobre-mi' %}">
+                                Sobre mí</a></li>
                         </ul>
                     </div>
                 </div><!-- .collapse -->
