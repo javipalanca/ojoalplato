@@ -9,8 +9,8 @@ class Category(CategoryBase):
     A category
     """
     thumbnail = models.ImageField(
-        upload_to=settings.MEDIA_ROOT,
-        default=settings.MEDIA_ROOT + "uncategorized.gif",
+        upload_to=".",  # settings.MEDIA_ROOT,
+        default="uncategorized.gif",  # settings.MEDIA_ROOT + "uncategorized.gif",
         null=True, blank=True,)
 
     @property

@@ -2,7 +2,7 @@ from django import forms
 from django.forms import widgets
 from django.contrib import admin
 from django.contrib.gis.geos import Point
-from geopy import GoogleV3
+from geopy import GoogleV3, Nominatim
 from geopy.exc import GeocoderQueryError
 from reversion.admin import VersionAdmin
 
@@ -27,7 +27,7 @@ class RestaurantAdminForm(forms.ModelForm):
         fields = '__all__'
 
     def reverse_location(self, address):
-        geolocator = GoogleV3()
+        geolocator = Nominatim(user_agent="myGeocoder")  ##GoogleV3()
         try:
             location = geolocator.geocode(address, timeout=20)
         except GeocoderQueryError:

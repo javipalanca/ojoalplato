@@ -25,7 +25,6 @@ from ojoalplato.cards.models import Restaurant, Wine, Recipe
 from ojoalplato.users.models import User
 from ojoalplato.category.models import Category
 
-
 STATUS_CHOICES = (
     ('closed', 'closed'),
     ('open', 'open'),
@@ -44,7 +43,6 @@ POST_TYPE_CHOICES = (
     ('post', 'post'),
     ('revision', 'revision'),
 )
-
 
 SLUG_MAX_LENGTH = 200
 
@@ -163,14 +161,16 @@ class Post(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen de 850px x 398px",
-        upload_to=settings.MEDIA_ROOT,
+        upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     restaurant_card = ForeignKey(Restaurant, verbose_name="Ficha de restaurante",
                                  related_name="posts", blank=True, null=True,
                                  on_delete=models.SET_NULL)
-    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True, on_delete=models.CASCADE)
-    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True, on_delete=models.CASCADE)
+    wine_card = ForeignKey(Wine, verbose_name="Ficha de vino", related_name="posts", blank=True, null=True,
+                           on_delete=models.CASCADE)
+    recipe_card = ForeignKey(Recipe, verbose_name="Ficha de receta", related_name="posts", blank=True, null=True,
+                             on_delete=models.CASCADE)
 
     # comment stuff
     comment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True, null=True)

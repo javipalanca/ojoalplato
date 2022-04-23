@@ -13,6 +13,8 @@ from __future__ import absolute_import, unicode_literals
 import environ
 from django.contrib import messages
 
+from ojoalplato.blog.handlers import DateDirectoryWatermarkUploader
+
 ROOT_DIR = environ.Path(__file__) - 3  # (ojoalplato/config/settings/common.py - 3 = ojoalplato/)
 APPS_DIR = ROOT_DIR.path('ojoalplato')
 
@@ -43,6 +45,8 @@ DJANGO_APPS = (
     'admin_bootstrapped_plus',
     'django_admin_bootstrapped',
     'bootstrap3',
+    #'bootstrap_admin', # always before django.contrib.admin
+    #'jazzmin',
     'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
@@ -55,7 +59,8 @@ THIRD_PARTY_APPS = (
     'guardian',
     'reversion',
     'redactor',
-    # 'suit_redactor',
+    #'suit_redactor',
+    #'django_quill',
     'django_social_share',
     'categories',
     'categories.editor',
@@ -93,7 +98,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIDDLEWARE CONFIGURATION
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -269,6 +274,8 @@ SOCIALACCOUNT_ADAPTER = 'ojoalplato.users.adapters.SocialAccountAdapter'
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
 LOGIN_URL = 'account_login'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
@@ -475,6 +482,10 @@ REST_FRAMEWORK = {
 MAINTENANCE_MODE_IGNORE_STAFF = True
 MAINTENANCE_MODE_IGNORE_SUPERUSER = True
 MAINTENANCE_MODE_IGNORE_URLS = ('/admin', 'admin', '/admin/')
+
+
+
+
 
 RECAPTCHA_PUBLIC_KEY = '6LezR2wUAAAAAOyrZdFqlTTvXWrP0b9ig01qCk_1'
 RECAPTCHA_PRIVATE_KEY = '6LezR2wUAAAAAPwneZhZPsrkYGeuFwzhF67DFPVO'

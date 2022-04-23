@@ -55,13 +55,13 @@ def render_stars(num, max_stars, star_set, name):
 
 
 class StarsWidget(forms.Widget):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         max_stars = 3
         return mark_safe(render_stars(value, max_stars, star_set_2, "stars"))
 
 
 class SunsWidget(forms.Widget):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         max_stars = 3
         return mark_safe(render_stars(value, max_stars, sun_set, "suns"))
 
