@@ -9,7 +9,6 @@ COPY ./requirements /requirements
 RUN apt-get update && apt-get install --no-install-recommends -y \
 	gettext binutils libproj-dev spatialite-bin \
 	gdal-bin libgdal-dev python3-gdal libgeos-dev libproj-dev \
-	libsqlite3-0 libsqlite3-dev python-pysqlite2 \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN pip install -r /requirements/production.txt \
