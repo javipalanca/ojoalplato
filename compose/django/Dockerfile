@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.8
 
 ENV PYTHONUNBUFFERED 1
 
@@ -7,7 +7,8 @@ COPY ./requirements /requirements
 
 # Install spatialite
 RUN apt-get update && apt-get install --no-install-recommends -y \
-	gettext spatialite-bin libsqlite3-dev gdal-bin libgdal-dev python3-gdal \
+	gettext binutils libproj-dev spatialite-bin \
+	gdal-bin libgdal-dev python3-gdal libgeos-dev libproj-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN pip install -r /requirements/production.txt \
