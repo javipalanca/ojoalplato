@@ -7,11 +7,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views import defaults as default_views
 
-from .router import urlpatterns as api_urlpatterns
-
+from ojoalplato.blog.feed import RssLatestEntriesFeed, AtomLatestEntriesFeed
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList, \
     CategoriesList, TagsList, CategoriesAndTagsView
 from ojoalplato.contactform.views import ContactFormView
+from .router import urlpatterns as api_urlpatterns
 
 admin.site.site_header = settings.ADMIN_SITE_HEADER
 
@@ -43,6 +43,10 @@ urlpatterns = [
 
     # django-rest-framework
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Feed
+    url('^feed/', RssLatestEntriesFeed(), name="feed"),
+    url('^atom/', AtomLatestEntriesFeed(), name="atom"),
 
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
