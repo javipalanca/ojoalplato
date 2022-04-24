@@ -5,9 +5,12 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from django.urls import re_path
 from django.views import defaults as default_views
 
 from ojoalplato.blog.feed import RssLatestEntriesFeed, AtomLatestEntriesFeed
+from ojoalplato.blog.sitemap import PostSitemap, SITEMAPS
 from ojoalplato.blog.views import PostList, PostDetail, PostDetailById, CategoryList, TagList, AuthorList, \
     CategoriesList, TagsList, CategoriesAndTagsView
 from ojoalplato.contactform.views import ContactFormView
@@ -47,6 +50,10 @@ urlpatterns = [
     # Feed
     url('^feed/', RssLatestEntriesFeed(), name="feed"),
     url('^atom/', AtomLatestEntriesFeed(), name="atom"),
+
+    # sitemap and robots.txt
+    re_path(r'^sitemap\.xml', sitemap, {'sitemaps': SITEMAPS}, name='django.contrib.sitemaps.views.sitemap'),
+    re_path(r'^robots\.txt', include('robots.urls')),
 
     # Blog app
     url(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
