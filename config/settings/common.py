@@ -31,6 +31,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sitemaps',
 
     # Useful template tags:
     # 'django.contrib.humanize',
@@ -80,6 +81,7 @@ THIRD_PARTY_APPS = (
     'taggit_serializer',
     'maintenance_mode',
     'captcha',
+    'robots',
 )
 
 # Apps specific for this project go here.
