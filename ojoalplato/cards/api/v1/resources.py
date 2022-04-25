@@ -6,7 +6,7 @@ from drf_haystack.filters import HaystackAutocompleteFilter
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework.permissions import AllowAny
 
-from .serializers import RestaurantSerializer, RestaurantAutocompleteSerializer
+from .serializers import SimpleRestaurantSerializer, RestaurantAutocompleteSerializer
 from ojoalplato.cards.models import Restaurant
 
 
@@ -15,13 +15,13 @@ class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
     This viewset automatically provides `list` and `detail` actions.
     """
     queryset = Restaurant.objects.all()
-    serializer_class = RestaurantSerializer
+    serializer_class = SimpleRestaurantSerializer
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
     @action(detail=False)
     def opened(self, request):
         restaurants = Restaurant.objects.filter(is_closed=False)
-        serializer = RestaurantSerializer(restaurants, many=True)
+        serializer = SimpleRestaurantSerializer(restaurants, many=True)
         return Response(serializer.data)
 
 

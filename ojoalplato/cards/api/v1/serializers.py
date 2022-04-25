@@ -20,8 +20,15 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags')
 
 
-class RestaurantAutocompleteSerializer(HaystackSerializer):
+class SimpleRestaurantSerializer(serializers.ModelSerializer):
+    location = GeometryField(source="location_wgs84")
 
+    class Meta:
+        model = Restaurant
+        fields = ('id', 'name', 'url', 'slug', 'location',)
+
+
+class RestaurantAutocompleteSerializer(HaystackSerializer):
     class Meta:
         index_classes = [RestaurantIndex]
         fields = ["name", "chef", "address", "img_src", "absolute_url",
