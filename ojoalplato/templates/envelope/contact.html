@@ -14,14 +14,18 @@
             {% endfor %}
         <!--/div-->
     {% endif %}
+    <article id="contact" style="background-color: transparent;"
+     class="post-1 post type-post hentry ">
+        <div class="article-padding has-family-list">
+            <header class="entry-header">
+                <h2 class="entry-title"><a href="#" rel="bookmark">Contacta con el blog Ojoalplato</a></h2>
+            </header>
 
-    <article id="contact" class="hentry" style="background-color: transparent;">
-
-        <form action="{% url 'contact' %}" method="post">
-            {% csrf_token %}
-            {% antispam_fields %}
-            {% crispy form %}
-        </form>
-
+            <form action="{% url 'contact' %}" method="post">
+                {% csrf_token %}
+                {% antispam_fields %}
+                {% crispy form %}
+            </form>
+        </div>
     </article>
 {% endblock content %}
