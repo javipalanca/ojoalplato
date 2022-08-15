@@ -33,7 +33,6 @@ class RestaurantAdminForm(forms.ModelForm):
         except GeocoderQueryError:
             location = None
 
-
         if location:
             point = Point((location.longitude, location.latitude), srid=DEFAULT_WGS84_SRID)
         else:
@@ -47,7 +46,7 @@ class RestaurantAdminForm(forms.ModelForm):
 
         if address and self.instance.address != address:
             if not location or location == self.instance.location:
-                    cleaned_data["location"] = self.reverse_location(address)
+                cleaned_data["location"] = self.reverse_location(address)
         elif not location:
             cleaned_data["location"] = self.reverse_location(address)
 
@@ -58,7 +57,7 @@ class RestaurantAdminForm(forms.ModelForm):
 @admin.register(Restaurant)
 class RestaurantAdmin(VersionAdmin):
     form = RestaurantAdminForm
-    search_fields = ("name", )
+    search_fields = ("name",)
     list_filter = ['stars', 'is_closed']
     list_display = ['name', 'is_closed']
     save_on_top = True
@@ -72,6 +71,9 @@ class RestaurantAdmin(VersionAdmin):
             'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
                     'wpfamily/style_admin.css'),
         }
+        js = (
+            'admin/js/jquery.init.alt.js',
+        )
 
 
 @admin.register(Wine)

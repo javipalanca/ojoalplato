@@ -4,7 +4,7 @@ import datetime
 import collections
 import itertools
 from bs4 import BeautifulSoup
-from autoslug import AutoSlugField
+#from autoslug import AutoSlugField
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.db import models
@@ -132,7 +132,7 @@ class Post(TimeStampedModel, HitCountMixin):
     The mother lode.
     The WordPress post.
     """
-
+    prepopulated_fields = {"slug": ("title",)}
     objects = PostManager()
 
     id = models.IntegerField(primary_key=True, default=0)
@@ -143,7 +143,8 @@ class Post(TimeStampedModel, HitCountMixin):
     status = models.CharField(verbose_name="Estado", max_length=20, choices=POST_STATUS_CHOICES)
     title = models.CharField(verbose_name="Título", max_length=500)
     subtitle = models.CharField(verbose_name="Subtítulo", max_length=500, blank=True, null=True)
-    slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH)
+    #slug = AutoSlugField(populate_from='title', verbose_name="Slug", max_length=SLUG_MAX_LENGTH)
+    slug = models.SlugField(verbose_name="Slug", max_length=SLUG_MAX_LENGTH)
     author = models.ForeignKey(User, verbose_name="Autor", related_name='posts', blank=True, null=True,
                                default=get_default_user, on_delete=models.CASCADE)
     excerpt = models.TextField(blank=True)
