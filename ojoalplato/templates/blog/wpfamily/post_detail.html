@@ -117,11 +117,12 @@
                 {{ post.content | lightbox | safe }}
             </div><!-- .entry-content -->
 
+            {%  signature post %}
+
             {% if post.restaurant_card %}
                 {% render_restaurant_mini post.restaurant_card %}
             {% endif %}
 
-            {%  signature post %}
 
             <div class="fb-lile-btn">
                 {% facebook_js %}{% fb_like_button post %}
