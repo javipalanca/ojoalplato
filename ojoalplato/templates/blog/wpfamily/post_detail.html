@@ -1,5 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static social_share content_filters disqus fb_like  card_tags %}
+{% load static social_share content_filters disqus fb_like signature card_tags %}
 
 {% block title %}Ojoalplato: {{ post.title }}{% endblock %}
 
@@ -17,32 +17,32 @@
     <meta name="twitter:description" content="{{ post.content | striptags | truncatewords:20 | safe }}">
 
     <!-- Facebook open graph data -->
-    <meta property="og:url" content="http://{{ request.get_host  }}{{ post.get_absolute_url }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ post.title }}" />
-    <meta property="og:description" content="{{ post.content | striptags | truncatewords:20 | safe }}" />
-{% if post.image_header %}
-    {% with post.image_header.url|media as image %}
-    <meta property="og:image" content="{{ image }}" />
-    <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="{{ image }}">
-    <meta itemprop="image" content="{{ image }}">
-    {% og_img_size image %}
-    {% endwith %}
-{% else %}
-    {% with  post.content|first_img|media  as image %}
-    <meta property="og:image" content="{{ image }}" />
-    <!-- Twitter Summary card images must be at least 120x120px -->
-    <meta name="twitter:image" content="{{ image }}">
-    <meta itemprop="image" content="{{ image }}">
-    {% og_img_size image %}
-    {% endwith %}
+    <meta property="og:url" content="http://{{ request.get_host }}{{ post.get_absolute_url }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="{{ post.title }}"/>
+    <meta property="og:description" content="{{ post.content | striptags | truncatewords:20 | safe }}"/>
+    {% if post.image_header %}
+        {% with post.image_header.url|media as image %}
+            <meta property="og:image" content="{{ image }}"/>
+            <!-- Twitter Summary card images must be at least 120x120px -->
+            <meta name="twitter:image" content="{{ image }}">
+            <meta itemprop="image" content="{{ image }}">
+            {% og_img_size image %}
+        {% endwith %}
+    {% else %}
+        {% with  post.content|first_img|media  as image %}
+            <meta property="og:image" content="{{ image }}"/>
+            <!-- Twitter Summary card images must be at least 120x120px -->
+            <meta name="twitter:image" content="{{ image }}">
+            <meta itemprop="image" content="{{ image }}">
+            {% og_img_size image %}
+        {% endwith %}
 
-{% endif %}
-    <meta property="article:published_time" content="{{ post.post_date|date:"Y-m-d\\Th:m:s+00:00" }}" />
-    <meta property="article:section" content="{{ post.category.name }}" />
+    {% endif %}
+    <meta property="article:published_time" content="{{ post.post_date|date:"Y-m-d\\Th:m:s+00:00" }}"/>
+    <meta property="article:section" content="{{ post.category.name }}"/>
     {% for tag in  post.tags.all %}
-    <meta property="article:tag" content="{{ tag.name }}" />
+        <meta property="article:tag" content="{{ tag.name }}"/>
     {% endfor %}
 {% endblock meta %}
 
@@ -54,38 +54,38 @@
 
         </div-->
         <div class="featured-image"
-                 {% if post.image_header %}
-                 style="background-image:url('{{ post.image_header.url|media }}');"
-                 {% else %}
-                 style="background-image:url('{{ post.content|first_img|media }}'); background-position: center top;"
-                 {% endif %}
-            <a href="{{ post.get_absolute_url }}"><img
-                    src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
+                {% if post.image_header %}
+             style="background-image:url('{{ post.image_header.url|media }}');"
+                {% else %}
+             style="background-image:url('{{ post.content|first_img|media }}'); background-position: center top;"
+                {% endif %}
+        <a href="{{ post.get_absolute_url }}"><img
+                src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
         </div>
 
 
         <div class="article-padding has-family-list">
 
             <ul class="family-list">
-                    {% if post.category %}
-                        <li><a href="{% url 'category-list' post.category.slug %}">
-                            <div class="circle"
-                                 style="background-image:url(
-                                 {% if post.category.thumbnail.name != "" %}
+                {% if post.category %}
+                    <li><a href="{% url 'category-list' post.category.slug %}">
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% if post.category.thumbnail.name != "" %}
                                          {{ post.category.thumbnail_url|media }});">
-                                 {% else %}
-                                    {% static 'wpfamily/img/uncategorized.gif' %});">
-                                 {% endif %}
-                            </div>
-                        </a></li>
-                    {% else %}
-                        <li>
-                            <div class="circle"
-                                 style="background-image:url(
+                                     {% else %}
                                          {% static 'wpfamily/img/uncategorized.gif' %});">
-                            </div>
-                        </li>
-                    {% endif %}
+                                     {% endif %}
+                        </div>
+                    </a></li>
+                {% else %}
+                    <li>
+                        <div class="circle"
+                             style="background-image:url(
+                                     {% static 'wpfamily/img/uncategorized.gif' %});">
+                        </div>
+                    </li>
+                {% endif %}
             </ul><!-- .family-list -->
             <header class="entry-header">
                 <h2 class="entry-title"><a href="{{ post.get_absolute_url }}"
@@ -96,8 +96,9 @@
                         datetime="{{ post.post_date|date:"Y-m-d\\Th:m:s+00:00" }}">{{ post.post_date }}</time>
                     por <a class="author" href="{% url 'author-list' post.author.username %}">
                         {{ post.author.name }}</a></span>
-                    {% if user.is_superuser or user.is_staff%}
-                        &nbsp;&nbsp;<a href="{% url 'admin:blog_post_change' post.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% if user.is_superuser or user.is_staff %}
+                        &nbsp;&nbsp;<a href="{% url 'admin:blog_post_change' post.id %}" type="button"
+                                       class="btn btn-default btn-xs btn-edit">Editar</a>
                     {% endif %}
                 </div>
 
@@ -107,18 +108,20 @@
             </header><!-- .entry-header -->
 
             {% if post.subtitle %}
-            <div class="familymember-meta" style="margin-top: 40px;">
+                <div class="familymember-meta" style="margin-top: 40px;">
                     {{ post.subtitle }}
-            </div>
+                </div>
             {% endif %}
 
             <div class="entry-content">
                 {{ post.content | lightbox | safe }}
             </div><!-- .entry-content -->
 
-        {% if post.restaurant_card %}
-            {% render_restaurant_mini post.restaurant_card %}
-        {% endif %}
+            {% if post.restaurant_card %}
+                {% render_restaurant_mini post.restaurant_card %}
+            {% endif %}
+
+            {%  signature post %}
 
             <div class="fb-lile-btn">
                 {% facebook_js %}{% fb_like_button post %}
@@ -129,14 +132,14 @@
 
         <footer class="entry-footer">
             <div class="entry-meta">
-                {% if post.category%}
+                {% if post.category %}
                     <span class="cat-links">Publicado en <a href="{% url 'category-list' post.category.slug %}"
                                                             rel="category tag">{{ post.category.name }}</a>
                     </span>
                 {% endif %}
                 {% if post.views > 0 %}
-                <span class="tags-links"><a
-                        href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
+                    <span class="tags-links"><a
+                            href="{{ post.get_absolute_url }}">{{ post.views }} visitas</a></span>
                 {% endif %}
             </div><!-- .entry-meta -->
 
