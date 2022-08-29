@@ -4,7 +4,7 @@ from django.views.generic import DetailView, TemplateView
 from django.http import HttpResponse
 
 from ojoalplato.cards.forms import RestaurantSearchForm
-from ojoalplato.cards.models import Restaurant
+from ojoalplato.cards.models import Restaurant, Wine
 
 from haystack.query import SearchQuerySet
 
@@ -24,6 +24,12 @@ class MapView(TemplateView):
 class RestaurantDetailView(DetailView):
     model = Restaurant
     template_name = "cards/restaurant_detail.html"
+    context_object_name = "card"
+
+
+class WineDetailView(DetailView):
+    model = Wine
+    template_name = "cards/wine_detail.html"
     context_object_name = "card"
 
 

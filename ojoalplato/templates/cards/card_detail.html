@@ -1,5 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static content_filters disqus %}
+{% load static content_filters disqus card_tags %}
 
 {% block title %}Ojoalplato: {{ card.name }}{% endblock %}
 
@@ -29,7 +29,11 @@
             {% endfor %}
             <div class="familymember-meta">
                 {% if user.is_superuser or user.is_staff%}
+                    {% if card|get_class == "Restaurant" %}
                     &nbsp;&nbsp;<a href="{% url 'admin:cards_restaurant_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% elif card|get_class == "Wine" %}
+                    &nbsp;&nbsp;<a href="{% url 'admin:cards_wine_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% endif %}
                 {% endif %}
             </div>
 
@@ -37,49 +41,6 @@
 
             <div class="entry-content text-center">
                 {% block render_card %}{% endblock %}
-                {% with card.get_posts_images as images %}
-                {% if images %}
-                {% comment %}<div id="gallery-2" class="gallery galleryid-4 gallery-columns-4 gallery-size-thumbnail">
-                    {% for img in images %}
-                    <figure class="gallery-item">
-                        <div class="gallery-icon landscape">
-                            <a href="#"
-                               class="cboxElement"><img width="150" height="150"
-                                                        src="{{ img }}"
-                                                        class="attachment-thumbnail size-thumbnail" alt=""
-                                                        sizes="(max-width: 150px) 100vw, 150px"></a>
-                                                        <!--srcset="http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-150x150.jpg 150w, http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-200x200.jpg 200w, http://familywp.com/topbardemo/wp-content/uploads/sites/5/2016/02/Pearson-Family-Final-Images-0039-400x400.jpg 400w"-->
-                        </div>
-                    </figure>
-                    {% endfor %}
-                </div>{% endcomment %}
-                    <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:809px;height:150px;overflow:hidden;visibility:hidden;">
-                    <!-- Loading Screen -->
-                    <div data-u="loading" style="position:absolute;top:0px;left:0px;background:url('{% static "img/loading.gif" %}') no-repeat 50% 50%;background-color:rgba(0, 0, 0, 0.7);"></div>
-                    <div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:809px;height:150px;overflow:hidden;">
-                    {% for img in images %}
-                    <div>
-                        <img data-u="image" src="{{ img }}" />
-                    </div>
-                    {% endfor %}
-                    </div>
-                    <!-- Bullet Navigator -->
-                    <div data-u="navigator" class="jssorb03" style="bottom:10px;right:10px;">
-                        <!-- bullet navigator item prototype -->
-                        <div data-u="prototype" style="width:21px;height:21px;">
-                            <div data-u="numbertemplate"></div>
-                        </div>
-                    </div>
-                    <!-- Arrow Navigator -->
-                    <span data-u="arrowleft" class="jssora03l" style="top:0px;left:8px;width:55px;height:55px;" data-autocenter="2"></span>
-                    <span data-u="arrowright" class="jssora03r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
-                    </div>
-                <!-- #endregion Jssor Slider End -->
-                {% endif %}
-                {% endwith %}
-
-                <!--p class="text-center"><a href="http://familywp.com/topbardemo/member/ryan/"
-                                          class="btn btn-primary btn-lg">View Posts</a></p-->
 
                 <div class="familymember-meta" style="margin-top: 40px;">
                     Artículos relacionados:

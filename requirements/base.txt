@@ -71,6 +71,8 @@ django-categories==1.8
 django-taggit==2.1.0
 #django-taggit==1.3.0
 django-taggit-autosuggest==0.3.8
+django-multiselectfield==0.1.12
+django-easy-select2==1.5.8
 git+http://github.com/javipalanca/django-admin-bootstrapped.git  # added renderer
 ##django-admin-bootstrapped-plus==0.1.1.2
 git+https://github.com/javipalanca/django-admin-bootstrapped-plus.git

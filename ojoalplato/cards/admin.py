@@ -1,14 +1,15 @@
 from django import forms
-from django.forms import widgets
 from django.contrib import admin
 from django.contrib.gis.geos import Point
-from geopy import GoogleV3, Nominatim
+from django.forms import widgets
+from geopy import Nominatim
 from geopy.exc import GeocoderQueryError
 from reversion.admin import VersionAdmin
 
-from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget, SunsWidget
 from . import DAY_CHOICES, DEFAULT_WGS84_SRID
-from .models import Restaurant, Wine, Recipe
+from .forms import WineForm
+from .models import Restaurant, Wine, Recipe, Winery, VarietyTag
+from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget, SunsWidget
 
 
 class RestaurantAdminForm(forms.ModelForm):
@@ -76,12 +77,60 @@ class RestaurantAdmin(VersionAdmin):
         )
 
 
+@admin.register(Winery)
+class WineryAdmin(VersionAdmin):
+    pass
+
+
+@admin.register(VarietyTag)
+class VarietyTagAdmin(VersionAdmin):
+    pass
+
+
 @admin.register(Wine)
 class WineAdmin(VersionAdmin):
-    search_fields = ("name",)
-    list_filter = ['kind']
-    list_display = ['name', 'kind']
+    search_fields = ("name", "year", "kind")
+    list_filter = ['year']
+    list_display = ['name', 'year']
     save_on_top = True
+    form = WineForm
+
+    fieldsets = (
+        (None, {
+            "fields": ["name", "winery", "year", "kind", "image_header",
+                       "image_bottle", "country", "region",
+                       "tags", "preparation", "last_taste", "price",
+                       "parker_points", "penyin_points", "other",
+                       "opinion", "show_tasting_form"]
+        }),
+        ("Ficha de Cata - Visual", {
+            "fields": ["cata_limpidez", "cata_intensidad",
+                       "cata_color_blanco", "cata_color_tinto",
+                       "cata_color_rosado", "cata_fluidez",
+                       "cata_efervescencia"]
+        }),
+        ("Ficha de Cata - Olfativa", {
+            "fields": ["cata_olf_1a", "cata_olf_intensidad",
+                       "cata_olf_aroma_1", "cata_olf_aroma_2",
+                       "cata_olf_aroma_3"]
+        }),
+        ("Ficha de Cata - Gustativa", {
+            "fields": ["cata_gust_ataque", "cata_gust_dulzor",
+                       "cata_gust_alcohol", "cata_gust_acidez",
+                       "cata_gust_tanino", "cata_gust_cuerpo",
+                       "cata_gust_boca", "cata_gust_persistencia"]
+        })
+
+    )
+
+    class Media:
+        css = {
+            'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                    'wpfamily/style_admin.css'),
+        }
+        js = (
+            'admin/js/jquery.init.alt.js',
+        )
 
 
 @admin.register(Recipe)

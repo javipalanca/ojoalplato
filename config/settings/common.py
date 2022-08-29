@@ -82,6 +82,8 @@ THIRD_PARTY_APPS = (
     'maintenance_mode',
     'captcha',
     'robots',
+    'multiselectfield',
+    'easy_select2',
 )
 
 # Apps specific for this project go here.
