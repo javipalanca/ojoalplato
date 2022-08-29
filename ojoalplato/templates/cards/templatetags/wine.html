@@ -1,0 +1,51 @@
+{% load card_tags likert_bs_stars content_filters %}
+
+<figure class="mini-card-header">
+    Ficha de vino
+</figure>
+<div class="mini-card ribbon-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+                <h4><a href="{{ wine.get_absolute_url }}" >{{ wine.name }}</a></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 map">
+                {% if wine.image_header %}
+                    <img src="{{ wine.image_header.url|media}}" class="img-fluid mx-auto d-block" alt="{{ wine.title }}">
+                {% endif %}
+        </div>
+        <div class="col-sm-9">
+            <table class="table table-responsive table-condensed font-size-16">
+                <tbody>
+                    {% if wine.winery %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Bodega</th>
+                            <td>{{ wine.winery }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.year %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Añada</th>
+                            <td>{{ wine.year }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.kind %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Tipo</th>
+                            <td>{{ wine.get_kind_display|get_wine_icons|safe }}</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 col-xs-3 col-xs-offset-3">
+        <a href="{{ wine.get_absolute_url }}" type="button"
+           class="btn btn-default btn-edit">
+            Ver ficha completa
+        </a>
+        </div>
+    </div>
+</div>

@@ -123,6 +123,10 @@
                 {% render_restaurant_mini post.restaurant_card %}
             {% endif %}
 
+            {% if post.wine_card %}
+                {% render_wine_mini post.wine_card %}
+            {% endif %}
+
 
             <div class="fb-lile-btn">
                 {% facebook_js %}{% fb_like_button post %}

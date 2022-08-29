@@ -1,26 +1,33 @@
-from autoslug import AutoSlugField
 from copy import copy
-from bs4 import BeautifulSoup
 
-from django.conf import settings
+from autoslug import AutoSlugField
+from bs4 import BeautifulSoup
 from django.contrib.gis.db.models import PointField
-from django.contrib.gis.gdal import CoordTransform
-from django.contrib.gis.gdal import SpatialReference
+from django.contrib.gis.gdal import CoordTransform, SpatialReference
 from django.contrib.gis.geos import Point
-from django.urls import reverse
 from django.core.validators import validate_comma_separated_integer_list
 from django.db.models import CharField, DateField, TextField, URLField, \
-    BooleanField, ImageField, EmailField
-from phonenumber_field.modelfields import PhoneNumberField
-from model_utils.models import TimeStampedModel
-
-from likert_field.models import LikertField
-from taggit_autosuggest.managers import TaggableManager
+    BooleanField, ImageField, EmailField, ForeignKey, CASCADE, IntegerField
+from django.urls import reverse
 from hitcount.models import HitCountMixin
+from likert_field.models import LikertField
+from model_utils.models import TimeStampedModel
+from multiselectfield import MultiSelectField
+from phonenumber_field.modelfields import PhoneNumberField
+from taggit.models import TaggedItemBase, TagBase
+from taggit_autosuggest.managers import TaggableManager
 
 from ojoalplato.blog.templatetags.content_filters import media
+from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID, CATA_LIMPIDEZ, CATA_INTENSIDAD, \
+    CATA_TONALIDADES_BLANCO, CATA_TONALIDADES_ROSADO, CATA_TONALIDADES_TINTO, CATA_FLUIDEZ, CATA_EFERVESCENCIA, \
+    CATA_OLFATIVA_1IMPRESION, CATA_OLFATIVA_INTENSIDAD, CATA_OLFATIVA_AROMA_PRIMARIOS, CATA_OLFATIVA_AROMA_SECUNDARIOS, \
+    CATA_OLFATIVA_AROMA_TERCIARIOS, CATA_GUSTATIVA_ATAQUE, CATA_GUSTATIVA_DULZOR, CATA_GUSTATIVA_ALCOHOL, CATA_GUSTATIVA_ACIDEZ, \
+    CATA_GUSTATIVA_TANINO, CATA_GUSTATIVA_CUERPO, CATA_GUSTATIVA_BOCA, CATA_GUSTATIVA_PERSISTENCIA, VIEW_ICON, SMELL_ICON, \
+    TASTE_ICON
 
-from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID
+
+class TaggedRestaurantTag(TaggedItemBase):
+    content_object = ForeignKey('Restaurant', on_delete=CASCADE)
 
 
 class Restaurant(TimeStampedModel, HitCountMixin):
@@ -49,12 +56,13 @@ class Restaurant(TimeStampedModel, HitCountMixin):
 
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
+                           through=TaggedRestaurantTag,
                            blank=True)
 
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",
-        upload_to=".", #settings.MEDIA_ROOT,
+        upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     def title(self):
@@ -143,28 +151,117 @@ class Restaurant(TimeStampedModel, HitCountMixin):
         return self.name
 
 
+class Winery(TimeStampedModel, HitCountMixin):
+    name = CharField(verbose_name="Nombre de Bodega", max_length=80)
+    url = URLField(verbose_name="Web", blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Bodega"
+        verbose_name_plural = "Bodegas"
+        ordering = ['name']
+
+
+class VarietyTag(TagBase):
+    class Meta:
+        verbose_name = "Variedad"
+        verbose_name_plural = "Variedades"
+
+
+class TaggedVariety(TaggedItemBase):
+    tag = ForeignKey(VarietyTag, on_delete=CASCADE, related_name="%(app_label)s_%(class)s_items")
+    content_object = ForeignKey('Wine', on_delete=CASCADE)
+
+
 class Wine(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
-    kind = CharField(verbose_name="Tipo", max_length=50, choices=WINE_KIND_CHOICES)
+    winery = ForeignKey(Winery, verbose_name="Bodega", on_delete=CASCADE, blank=True, null=True)
+    year = IntegerField(verbose_name="Añada", max_length=5, blank=True, null=True)
+    kind = MultiSelectField(verbose_name="Tipo", choices=WINE_KIND_CHOICES, max_length=10, blank=True, null=True)
+    country = CharField(verbose_name="País", max_length=50, blank=True, null=True)
+    region = CharField(verbose_name="Región", max_length=50, blank=True, null=True)
+    tags = TaggableManager(verbose_name="Variedades",
+                           help_text="Lista de variedades de uva separadas por comas.",
+                           through=TaggedVariety,
+                           blank=True)
+    preparation = CharField(verbose_name="Elaboración", max_length=50, blank=True, null=True)
     last_taste = DateField(verbose_name="Fecha última cata", blank=True, null=True)
     price = CharField(verbose_name="Precio medio", max_length=50, blank=True, null=True)
+    other = TextField(verbose_name="Otros datos", blank=True, null=True)
     opinion = TextField(verbose_name="Opinión", blank=True, null=True)
 
-    image_header = ImageField(
-        verbose_name="Imagen de cabecera",
-        help_text="Imagen",
-        upload_to=".", #settings.MEDIA_ROOT,
+    parker_points = IntegerField(verbose_name="Puntos Parker", blank=True, null=True)
+    penyin_points = IntegerField(verbose_name="Puntos Peñin", blank=True, null=True)
+
+    image_bottle = ImageField(
+        verbose_name="Imagen de la botella",
+        help_text="Imagen de la botella",
+        upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
-    def get_posts_images(self):
-        images = []
-        for post in self.post_set:
-            soup = BeautifulSoup(post.content, "html.parser")
-            for img in soup.find_all('img'):
-                if img:
-                    images.append(img.attrs["src"])
-        return images
+    image_header = ImageField(
+        verbose_name="Imagen de la etiqueta",
+        help_text="Imagen de la etiqueta",
+        upload_to=".",  # settings.MEDIA_ROOT,
+        null=True, blank=True, )
+
+    show_tasting_form = BooleanField(verbose_name="Mostrar Ficha de cata", default=False)
+
+    cata_limpidez = MultiSelectField(verbose_name="Limpidez", choices=CATA_LIMPIDEZ, max_length=10, blank=True, null=True)
+    cata_intensidad = MultiSelectField(verbose_name="Intensidad", choices=CATA_INTENSIDAD, max_length=10, blank=True, null=True)
+    cata_color_blanco = MultiSelectField(verbose_name="Tonalidades del Color (Blanco)", choices=CATA_TONALIDADES_BLANCO,
+                                         max_length=10, blank=True, null=True)
+    cata_color_rosado = MultiSelectField(verbose_name="Tonalidades del Color (Rosado)", choices=CATA_TONALIDADES_ROSADO,
+                                         max_length=10, blank=True, null=True)
+    cata_color_tinto = MultiSelectField(verbose_name="Tonalidades del Color (Tinto)", choices=CATA_TONALIDADES_TINTO,
+                                        max_length=10, blank=True, null=True)
+    cata_fluidez = MultiSelectField(verbose_name="Fluidez", choices=CATA_FLUIDEZ, max_length=10, blank=True, null=True)
+    cata_efervescencia = MultiSelectField(verbose_name="Efervescencia", choices=CATA_EFERVESCENCIA, max_length=10, blank=True,
+                                          null=True)
+    cata_olf_1a = MultiSelectField(verbose_name="1ª Impresión", choices=CATA_OLFATIVA_1IMPRESION, max_length=10, blank=True,
+                                   null=True)
+    cata_olf_intensidad = MultiSelectField(verbose_name="Intensidad", choices=CATA_OLFATIVA_INTENSIDAD, max_length=10, blank=True,
+                                           null=True)
+    cata_olf_aroma_1 = MultiSelectField(verbose_name="Aroma (Carácter) Primarios (cepa)", choices=CATA_OLFATIVA_AROMA_PRIMARIOS,
+                                        max_length=10, blank=True, null=True)
+    cata_olf_aroma_2 = MultiSelectField(verbose_name="Aroma (Carácter) Secundarios (fermentación)",
+                                        choices=CATA_OLFATIVA_AROMA_SECUNDARIOS, max_length=10, blank=True, null=True)
+    cata_olf_aroma_3 = MultiSelectField(verbose_name="Aroma (Carácter) Terciarios (maduración)",
+                                        choices=CATA_OLFATIVA_AROMA_TERCIARIOS, max_length=10, blank=True, null=True)
+    cata_gust_ataque = MultiSelectField(verbose_name="Ataque", choices=CATA_GUSTATIVA_ATAQUE, max_length=10, blank=True,
+                                        null=True)
+    cata_gust_dulzor = MultiSelectField(verbose_name="Dulzor", choices=CATA_GUSTATIVA_DULZOR, max_length=10, blank=True,
+                                        null=True)
+    cata_gust_alcohol = MultiSelectField(verbose_name="Alcohol", choices=CATA_GUSTATIVA_ALCOHOL, max_length=10, blank=True,
+                                         null=True)
+    cata_gust_acidez = MultiSelectField(verbose_name="Acidez", choices=CATA_GUSTATIVA_ACIDEZ, max_length=10, blank=True,
+                                        null=True)
+    cata_gust_tanino = MultiSelectField(verbose_name="Tanino", choices=CATA_GUSTATIVA_TANINO, max_length=10, blank=True,
+                                        null=True)
+    cata_gust_cuerpo = MultiSelectField(verbose_name="Cuerpo", choices=CATA_GUSTATIVA_CUERPO, max_length=10, blank=True,
+                                        null=True)
+    cata_gust_boca = MultiSelectField(verbose_name="Paso en boca", choices=CATA_GUSTATIVA_BOCA, max_length=10, blank=True,
+                                      null=True)
+    cata_gust_persistencia = MultiSelectField(verbose_name="Persistencia", choices=CATA_GUSTATIVA_PERSISTENCIA, max_length=10,
+                                              blank=True, null=True)
+
+    @staticmethod
+    def get_view_icon():
+        return VIEW_ICON
+
+    @staticmethod
+    def get_smell_icon():
+        return SMELL_ICON
+
+    @staticmethod
+    def get_taste_icon():
+        return TASTE_ICON
+
+    def get_absolute_url(self):
+        return reverse("cards:wine-detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.name
@@ -185,7 +282,7 @@ class Recipe(TimeStampedModel, HitCountMixin):
     image_header = ImageField(
         verbose_name="Imagen de cabecera",
         help_text="Imagen",
-        upload_to=".", #settings.MEDIA_ROOT,
+        upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
     def get_posts_images(self):

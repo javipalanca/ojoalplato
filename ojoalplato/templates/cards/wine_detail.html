@@ -1,0 +1,119 @@
+{% extends 'cards/card_detail.html' %}
+{% load card_tags likert_bs_stars content_filters %}
+
+{% block render_card %}
+    {% with card as wine %}
+        <div class="row">
+            <div class="col-sm-3">
+                {% if wine.image_bottle %}
+                    <img src="{{ wine.image_bottle.url|media}}" class="img-fluid mx-auto d-block" alt="{{ wine.title }}">
+                {% endif %}
+            </div>
+            <div class="col-sm-9">
+                <table class="table table-responsive table-condensed font-size-16">
+                    <tbody>
+                    {% if wine.winery %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Bodega</th>
+                            <td>{{ wine.winery }}</td>
+                        </tr>
+                        {% if wine.winery.url %}
+                            <tr>
+                                <th scope="row" class="col-xs-4">Página web</th>
+                                <td><a href="{{ wine.winery.url }}">{{ wine.winery.url }}</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                    {% if wine.year %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Añada</th>
+                            <td>{{ wine.year }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.kind %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Tipo</th>
+                            <td>{{ wine.get_kind_display|get_wine_icons|safe }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.country %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">País</th>
+                            <td>{{ wine.country }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.region %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Región</th>
+                            <td>{{ wine.region }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.preparation %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Preparación</th>
+                            <td>{{ wine.preparation }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if restaurant.email %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Email</th>
+                            <td><a href="mailto:{{ restaurant.email }}">{{ restaurant.email }}</a></td>
+                        </tr>
+                    {% endif %}
+
+                    {% if wine.last_taste %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Última cata</th>
+                            <td>{{ wine.last_taste }}</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.price %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Precio medio</th>
+                            <td>{{ wine.price }} €</td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.parker_points %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Puntos Parker</th>
+                            <td><span class="col-md-8"><div class="progress">{{ wine.parker_points|parker_points|safe }}</div></span></td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.penyin_points %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Puntos Peñín</th>
+                            <td><span class="col-md-8"><div class="progress">{{ wine.penyin_points|penyin_points|safe }}</div></span></td>
+                        </tr>
+                    {% endif %}
+                    {% if wine.other %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Otros datos</th>
+                            <td>{{ wine.other }}</td>
+                        </tr>
+                    {% endif %}
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    {% if wine.show_tasting_form %}
+    <div class="row">
+        {% render_tasting_form wine %}
+    </div>
+    {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block nopost_msg %}
+    Todavía no hay artículos sobre este vino.
+{% endblock nopost_msg %}
+
+{% block css_custom %}
+<style>
+.text-white {
+    color: white;
+}
+</style>
+{% endblock css_custom %}
