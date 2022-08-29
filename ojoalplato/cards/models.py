@@ -179,7 +179,7 @@ class Wine(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
     winery = ForeignKey(Winery, verbose_name="Bodega", on_delete=CASCADE, blank=True, null=True)
-    year = IntegerField(verbose_name="Añada", max_length=5, blank=True, null=True)
+    year = IntegerField(verbose_name="Añada", blank=True, null=True)
     kind = MultiSelectField(verbose_name="Tipo", choices=WINE_KIND_CHOICES, max_length=10, blank=True, null=True)
     country = CharField(verbose_name="País", max_length=50, blank=True, null=True)
     region = CharField(verbose_name="Región", max_length=50, blank=True, null=True)
