@@ -4,12 +4,12 @@
 {% block render_card %}
     {% with card as wine %}
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
                 {% if wine.image_bottle %}
                     <img src="{{ wine.image_bottle.url|media}}" class="img-fluid mx-auto d-block" alt="{{ wine.title }}">
                 {% endif %}
             </div>
-            <div class="col-sm-9">
+            <div class="col-xs-9">
                 <table class="table table-responsive table-condensed font-size-16">
                     <tbody>
                     {% if wine.winery %}
