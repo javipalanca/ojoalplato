@@ -187,7 +187,7 @@ class Wine(TimeStampedModel, HitCountMixin):
                            help_text="Lista de variedades de uva separadas por comas.",
                            through=TaggedVariety,
                            blank=True)
-    preparation = CharField(verbose_name="Elaboración", max_length=50, blank=True, null=True)
+    preparation = TextField(verbose_name="Elaboración", blank=True, null=True)
     last_taste = DateField(verbose_name="Fecha última cata", blank=True, null=True)
     price = CharField(verbose_name="Precio medio", max_length=50, blank=True, null=True)
     other = TextField(verbose_name="Otros datos", blank=True, null=True)
