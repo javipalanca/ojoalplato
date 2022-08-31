@@ -104,21 +104,17 @@ class WineAdmin(VersionAdmin):
                        "opinion", "show_tasting_form"]
         }),
         ("Ficha de Cata - Visual", {
-            "fields": ["cata_limpidez", "cata_intensidad",
+            "fields": ["cata_aspecto", "cata_capa",
                        "cata_color_blanco", "cata_color_tinto",
-                       "cata_color_rosado", "cata_fluidez",
+                       "cata_color_rosado", "cata_ribete", "cata_fluidez",
                        "cata_efervescencia"]
         }),
         ("Ficha de Cata - Olfativa", {
-            "fields": ["cata_olf_1a", "cata_olf_intensidad",
-                       "cata_olf_aroma_1", "cata_olf_aroma_2",
-                       "cata_olf_aroma_3"]
+            "fields": ["cata_olf_intensidad", "cata_olf_aroma"]
         }),
         ("Ficha de Cata - Gustativa", {
-            "fields": ["cata_gust_ataque", "cata_gust_dulzor",
-                       "cata_gust_alcohol", "cata_gust_acidez",
-                       "cata_gust_tanino", "cata_gust_cuerpo",
-                       "cata_gust_boca", "cata_gust_persistencia"]
+            "fields": ["cata_gust_ataque", "cata_gust_sensacion",
+                       "cata_gust_persistencia", "cata_gust_valoracion"]
         })
 
     )

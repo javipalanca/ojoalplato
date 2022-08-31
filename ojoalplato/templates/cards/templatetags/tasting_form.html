@@ -18,16 +18,16 @@
         <div class="col-sm-12">
             <table class="table table-responsive table-condensed font-size-16">
                 <tbody>
-                {% if wine.cata_limpidez %}
+                {% if wine.cata_aspecto %}
                     <tr>
-                        <th scope="row" class="col-xs-4">Limpidez</th>
-                        <td>{{ wine.get_cata_limpidez_display }}</td>
+                        <th scope="row" class="col-xs-4">Aspecto</th>
+                        <td>{{ wine.get_cata_aspecto_display }}</td>
                     </tr>
                 {% endif %}
-                {% if wine.cata_intensidad %}
+                {% if wine.cata_capa %}
                     <tr>
-                        <th scope="row" class="col-xs-4">Intensidad</th>
-                        <td>{{ wine.get_cata_intensidad_display }}</td>
+                        <th scope="row" class="col-xs-4">Capa</th>
+                        <td>{{ wine.get_cata_capa_display }}</td>
                     </tr>
                 {% endif %}
                 {% if wine.cata_color_blanco %}
@@ -46,6 +46,12 @@
                     <tr>
                         <th scope="row" class="col-xs-4">Tonalidades del color</th>
                         <td>{{ wine.get_cata_color_tinto_display }}</td>
+                    </tr>
+                {% endif %}
+                {%  if wine.cata_ribete %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Ribete</th>
+                        <td>{{ wine.get_cata_ribete_display }}</td>
                     </tr>
                 {% endif %}
                 {% if wine.cata_fluidez %}
@@ -74,37 +80,18 @@
         <div class="col-sm-12">
             <table class="table table-responsive table-condensed font-size-16">
                 <tbody>
-                {% if wine.cata_olf_1a %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">1ª impresión</th>
-                        <td>{{ wine.get_cata_olf_1a_display }}</td>
-                    </tr>
-                {% endif %}
                 {% if wine.cata_olf_intensidad %}
                     <tr>
-                        <th scope="row" class="col-xs-4">Intensidad</th>
+                        <th scope="row" class="col-xs-4">Intensidad aromática</th>
                         <td>{{ wine.get_cata_olf_intensidad_display }}</td>
                     </tr>
                 {% endif %}
-                {% if wine.cata_olf_aroma_1 %}
+                {% if wine.cata_olf_aroma %}
                     <tr>
-                        <th scope="row" class="col-xs-4">Aroma (Carácter) Primarios (cepa)</th>
-                        <td>{{ wine.get_cata_olf_aroma_1_display }}</td>
+                        <th scope="row" class="col-xs-4">Aroma</th>
+                        <td>{{ wine.get_cata_olf_aroma_display }}</td>
                     </tr>
                 {% endif %}
-                {% if wine.cata_olf_aroma_2 %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Aroma (Carácter) Secundarios (fermentación)</th>
-                        <td>{{ wine.get_cata_olf_aroma_2_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_olf_aroma_3 %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Aroma (Carácter) Terciarios (maduración)</th>
-                        <td>{{ wine.get_cata_olf_aroma_3_display }}</td>
-                    </tr>
-                {% endif %}
-
                 </tbody>
             </table>
         </div>
@@ -125,46 +112,22 @@
                         <td>{{ wine.get_cata_gust_ataque_display }}</td>
                     </tr>
                 {% endif %}
-                {% if wine.cata_gust_dulzor %}
+                {% if wine.cata_gust_sensacion %}
                     <tr>
-                        <th scope="row" class="col-xs-4">Dulzor</th>
-                        <td>{{ wine.get_cata_gust_dulzor_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_gust_alcohol %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Alcohol</th>
-                        <td>{{ wine.get_cata_gust_alcohol_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_gust_acidez %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Acidez</th>
-                        <td>{{ wine.get_cata_gust_acidez_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_gust_tanino %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Tanino</th>
-                        <td>{{ wine.get_cata_gust_tanino_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_gust_cuerpo %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Cuerpo</th>
-                        <td>{{ wine.get_cata_gust_cuerpo_display }}</td>
-                    </tr>
-                {% endif %}
-                {% if wine.cata_gust_boca %}
-                    <tr>
-                        <th scope="row" class="col-xs-4">Paso en boca</th>
-                        <td>{{ wine.get_cata_gust_boca_display }}</td>
+                        <th scope="row" class="col-xs-4">Sensación</th>
+                        <td>{{ wine.get_cata_gust_sensacion_display }}</td>
                     </tr>
                 {% endif %}
                 {% if wine.cata_gust_persistencia %}
                     <tr>
                         <th scope="row" class="col-xs-4">Persistencia</th>
                         <td>{{ wine.get_cata_gust_persistencia_display }}</td>
+                    </tr>
+                {% endif %}
+                {% if wine.cata_gust_valoracion %}
+                    <tr>
+                        <th scope="row" class="col-xs-4">Valoración</th>
+                        <td>{{ wine.get_cata_gust_valoracion_display }}</td>
                     </tr>
                 {% endif %}
 

@@ -22,42 +22,59 @@ DAY_CHOICES = (
     (6, "Domingo")
 )
 
-CATA_LIMPIDEZ = (
-    (0, "Cristalino"),
-    (1, "Turbio")
+CATA_ASPECTO = (
+    (0, "Limpio"),
+    (1, "Brillante"),
+    (2, "Cristalino"),
+    (3, "Turbio"),
+    (4, "Velado"),
 )
-CATA_INTENSIDAD = (
-    (0, "Despojado"),
-    (1, "Pálido"),
-    (2, "Ligero"),
-    (3, "Medio"),
-    (4, "Intenso"),
-    (5, "Profundo"),
+CATA_CAPA = (
+    (0, "Alta"),
+    (1, "Media"),
+    (2, "Baja"),
 )
 CATA_TONALIDADES_BLANCO = (
-    (0, "Amarillo Verdoso"),
-    (1, "Amarillo Paja"),
+    (0, "Pálido"),
+    (1, "Verdoso"),
     (2, "Limón"),
-    (3, "Dorado"),
-    (4, "Ámbar"),
-    (5, "Castaño"),
+    (3, "Pajizo"),
+    (4, "Oro"),
+    (5, "Dorado"),
+    (6, "Ámbar"),
 )
 CATA_TONALIDADES_ROSADO = (
-    (0, "Fresa"),
-    (1, "Salmón"),
-    (2, "Anaranjado"),
+    (0, "Pálido"),
+    (1, "Claro"),
+    (2, "Frambuesa"),
+    (3, "Fresa"),
+    (4, "Salmón"),
+    (5, "Anaranjado"),
 )
 CATA_TONALIDADES_TINTO = (
-    (0, "Rojo Rubí"),
-    (1, "Rojo Granate"),
-    (2, "Rojo Violeta"),
-    (3, "Rojo Pardo"),
-    (4, "Rojo Teja"),
+    (0, "Violáceo"),
+    (1, "Rubí"),
+    (2, "Granate"),
+    (3, "Cereza"),
+    (4, "Teja"),
+    (5, "Picota"),
+    (6, "Caoba"),
+)
+
+CATA_RIBETE = (
+    (0, "Transparente"),
+    (1, "Amarillo"),
+    (2, "Rosa"),
+    (3, "Violáceo"),
+    (4, "Azul"),
+    (5, "Rojo"),
+    (6, "Granate"),
+    (7, "Teja"),
 )
 
 CATA_FLUIDEZ = (
-    (0, "Muy fluido"),
-    (1, "Fluido"),
+    (0, "Fluido"),
+    (1, "Glicérico"),
     (2, "Untuoso"),
     (3, "Graso"),
     (4, "Viscoso"),
@@ -75,44 +92,64 @@ CATA_EFERVESCENCIA = (
     (8, "Sin corona"),
 )
 
-CATA_OLFATIVA_1IMPRESION = (
-    (0, "Desagradable"),
-    (1, "Ordinaria"),
-    (2, "Agradable"),
-)
-
 CATA_OLFATIVA_INTENSIDAD = (
     (0, "Inexistente"),
     (1, "Débil"),
-    (2, "Medio"),
-    (3, "Intenso"),
+    (2, "Media"),
+    (3, "Intensa"),
     (4, "Potente"),
 )
 
-CATA_OLFATIVA_AROMA_PRIMARIOS = (
-    (0, "Afrutados"),
-    (1, "Florales"),
-    (2, "Vegetales"),
-    (3, "Especias"),
-    (4, "Mineral"),
-)
-
-CATA_OLFATIVA_AROMA_SECUNDARIOS = (
-    (0, "Alcoholes"),
-    (1, "Lácticos"),
-    (2, "Ácidos"),
-    (3, "Levadura"),
-    (4, "Azufroso"),
-)
-
-CATA_OLFATIVA_AROMA_TERCIARIOS = (
-    (0, "Madera"),
-    (1, "Tabaco"),
-    (2, "Frutos secos"),
-    (3, "Cuero"),
-    (4, "Acético"),
-    (5, "Mohoso"),
-    (6, "Corcho"),
+CATA_OLFATIVA_AROMA = (
+    (0, "Florales"),
+    (1, "Flor blanca"),
+    (2, "Clavel"),
+    (3, "Violeta"),
+    (4, "Rosa"),
+    (5, "Afrutados"),
+    (6, "Manzana"),
+    (7, "Pera"),
+    (8, "Melocotón"),
+    (9, "Albaricoque"),
+    (10, "Cítricos"),
+    (11, "Frutas tropicales"),
+    (12, "Cereza"),
+    (13, "Frutos rojos"),
+    (14, "Frutos negros"),
+    (15, "Membrillo"),
+    (16, "Vegetales"),
+    (17, "Hinojo"),
+    (18, "Pimiento verde"),
+    (19, "Trufa"),
+    (20, "Hojarasca"),
+    (21, "Especias"),
+    (22, "Pimienta"),
+    (23, "Canela"),
+    (24, "Clavo"),
+    (25, "Coco"),
+    (26, "Mineral"),
+    (27, "Tiza"),
+    (28, "Yeso"),
+    (29, "Grafito"),
+    (30, "Yodo"),
+    (31, "Pedernal"),
+    (32, "Sílice"),
+    (33, "Lácticos"),
+    (34, "Mantequilla"),
+    (35, "Yogur"),
+    (36, "Levadura"),
+    (37, "Miga de pan"),
+    (38, "Azufroso"),
+    (39, "Barniz"),
+    (40, "Laca de uñas"),
+    (41, "Caramelo"),
+    (42, "Madera"),
+    (43, "Tabaco"),
+    (44, "Frutos secos"),
+    (45, "Cuero"),
+    (46, "Vainilla"),
+    (47, "Café"),
+    (48, "Tostados"),
 )
 
 CATA_GUSTATIVA_ATAQUE = (
@@ -122,59 +159,31 @@ CATA_GUSTATIVA_ATAQUE = (
     (3, "Muy agradable"),
 )
 
-CATA_GUSTATIVA_DULZOR = (
-    (0, "Brut"),
-    (1, "Seco"),
-    (2, "Dulce"),
-    (3, "Azucarado"),
-)
-
-CATA_GUSTATIVA_ALCOHOL = (
-    (0, "Liviano"),
-    (1, "Suficiente"),
-    (2, "Medio"),
-    (3, "Cálido"),
-    (4, "Espirituoso"),
-)
-
-CATA_GUSTATIVA_ACIDEZ = (
-    (0, "Escasa"),
-    (1, "Apreciable"),
-    (2, "Equilibrada"),
-    (3, "Acídulo"),
-    (4, "Excesiva"),
-)
-
-CATA_GUSTATIVA_TANINO = (
-    (0, "Blando"),
-    (1, "Poco tánico"),
-    (2, "Equilibrado"),
+CATA_GUSTATIVA_SENSACION = (
+    (0, "Dulce"),
+    (1, "Salado"),
+    (2, "Amargo"),
+    (3, "Ácido"),
     (3, "Astringente"),
-    (4, "Áspero"),
-    (5, "Amargo"),
-)
-
-CATA_GUSTATIVA_CUERPO = (
-    (0, "Flaco"),
-    (1, "Delgado"),
-    (2, "Lleno"),
-    (3, "Redondo"),
-    (4, "Graso"),
-    (5, "Corpulento"),
-)
-
-CATA_GUSTATIVA_BOCA = (
-    (0, "Desecado"),
-    (1, "Fluyente"),
-    (2, "Aterciopelado"),
-    (3, "Untuoso"),
+    (3, "Cálido"),
+    (3, "Acuoso"),
 )
 
 CATA_GUSTATIVA_PERSISTENCIA = (
-    (0, "Poco persistente"),
-    (1, "Moderado"),
-    (2, "Bastante"),
-    (3, "Muy persistente"),
+    (0, "Alta"),
+    (1, "Media"),
+    (2, "Baja"),
+)
+
+CATA_VALORACION = (
+    (0, "Aterciopelado"),
+    (1, "Equilibrado"),
+    (2, "Elegante"),
+    (3, "Redondo"),
+    (4, "Estructurado"),
+    (5, "Suave"),
+    (6, "Ligero"),
+    (7, "Denso"),
 )
 
 RED_ICON = """<img class="icon" src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAMZlWElmTU0AKgAAAAgABgESAAMAAAABAAEAAAEaAAUAAAABAAAAVgEbAAUAAAABAAAAXgEoAAMAAAABAAIAAAExAAIAAAAVAAAAZodpAAQAAAABAAAAfAAAAAAAAABIAAAAAQAAAEgAAAABUGl4ZWxtYXRvciBQcm8gMS42LjQAAAAEkAQAAgAAABQAAACyoAEAAwAAAAEAAQAAoAIABAAAAAEAAAAUoAMABAAAAAEAAAAUAAAAADIwMjI6MDg6MjkgMTQ6MTE6NTgAOhOWegAAAAlwSFlzAAALEwAACxMBAJqcGAAAA9NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICAgICAgICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgICAgICAgICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8ZXhpZjpQaXhlbFlEaW1lbnNpb24+MjA8L2V4aWY6UGl4ZWxZRGltZW5zaW9uPgogICAgICAgICA8ZXhpZjpQaXhlbFhEaW1lbnNpb24+MjA8L2V4aWY6UGl4ZWxYRGltZW5zaW9uPgogICAgICAgICA8ZXhpZjpDb2xvclNwYWNlPjE8L2V4aWY6Q29sb3JTcGFjZT4KICAgICAgICAgPHRpZmY6WFJlc29sdXRpb24+NzIwMDAwLzEwMDAwPC90aWZmOlhSZXNvbHV0aW9uPgogICAgICAgICA8dGlmZjpSZXNvbHV0aW9uVW5pdD4yPC90aWZmOlJlc29sdXRpb25Vbml0PgogICAgICAgICA8dGlmZjpZUmVzb2x1dGlvbj43MjAwMDAvMTAwMDA8L3RpZmY6WVJlc29sdXRpb24+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgICAgIDx4bXA6Q3JlYXRvclRvb2w+UGl4ZWxtYXRvciBQcm8gMS42LjQ8L3htcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhtcDpDcmVhdGVEYXRlPjIwMjItMDgtMjlUMTQ6MTE6NTg8L3htcDpDcmVhdGVEYXRlPgogICAgICAgICA8eG1wOk1ldGFkYXRhRGF0ZT4yMDIyLTA4LTMwVDA4OjIxOjQ2WjwveG1wOk1ldGFkYXRhRGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+CrymOHgAAAKnSURBVDgRlVTfS5NRGH7Ot81tLWULzaIfpqlDDSbdFAVW0oVSEQZ1FY2669edXRT9B16aXgQRQUFRIEJBhBejELrTMJVKK1cpprRNnG5z307P++lXaSLbC+85Z+d93mfnnPd9PoX1zcntIP2kAg644dglsDTMbxp4y+Vz+kd6lr7KiP/PQtzpqFbeo20od9XDBz9cFiiOJQwjiR5MZ8b1YoSb7fQhK7gyrCUMb0NR53W1u7gVpTCwNryclYPGC8zijo7OTSNzlbsPbdJ/M8KV8N7rVnWO7XDb8Q3nST7CFT1ifkUqTOAjAduEIZ7szX21rzhfMvufhPSifp/gSQ9zb9jBQQrw4KaqrNuPEhuX91zM9BLl9EQQq2LSY4NDkAU4Im8m5vD7YPjyu7KVwOEUylCpvMe4rBHCE6xmkRTAVVGO6v67CFxosbF5zZLbhq1yilaDj3hQWkOs/FYYnmAFFgc+WL8LGeqxWeCNBpt2p/SZXDVwvgW5+QWkR6KFcFnYAN/SBbVXrmyZs9QP5XIhl87AnFuwtwudtSFyEgWYiSQ0yZxlW+BrErEUZjGqcAl63BBtipyyM3HMdj4FtEbptbOFsRE9jHnJGZTGrq9S3oFnCBU5vR74zzVj/vUgMl+mBJCXmZTiGQymJ3QqJI0d43EP7VCe6tqsG4vvxmDGrX/Li0xAvZhBr555xWWXFEU+Qe1dOpr4QRkVat+RQreOxoWDbsoJxX4mWZx+xE43qYBRYqlxObDRKGSX9ag5hcwl4iKCtQllPZRAdqwPv46LNmuxif1vfzsk/NfkzeSat/Wn+ArZEzu6XkYDgx17lKeZknQ3UAHStOwGSGtINXv0dHoCqT5u3aCP0v/YeoQSlJPX0EXUjaIAzpp99pnzAP0lfYxu0lfZb1pe0BALDU0uAAAAAElFTkSuQmCC'/>"""

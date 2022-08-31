@@ -3,11 +3,10 @@ from easy_select2 import Select2Multiple
 from haystack.forms import SearchForm
 from multiselectfield.forms.fields import MultiSelectFormField
 
-from . import WINE_KIND_CHOICES, CATA_LIMPIDEZ, CATA_INTENSIDAD, \
+from . import WINE_KIND_CHOICES, \
     CATA_TONALIDADES_BLANCO, CATA_TONALIDADES_ROSADO, CATA_TONALIDADES_TINTO, CATA_FLUIDEZ, CATA_EFERVESCENCIA, \
-    CATA_OLFATIVA_1IMPRESION, CATA_OLFATIVA_INTENSIDAD, CATA_OLFATIVA_AROMA_PRIMARIOS, CATA_OLFATIVA_AROMA_SECUNDARIOS, \
-    CATA_OLFATIVA_AROMA_TERCIARIOS, CATA_GUSTATIVA_ATAQUE, CATA_GUSTATIVA_DULZOR, CATA_GUSTATIVA_ALCOHOL, CATA_GUSTATIVA_ACIDEZ, \
-    CATA_GUSTATIVA_TANINO, CATA_GUSTATIVA_CUERPO, CATA_GUSTATIVA_BOCA, CATA_GUSTATIVA_PERSISTENCIA
+    CATA_OLFATIVA_INTENSIDAD, CATA_GUSTATIVA_ATAQUE, CATA_GUSTATIVA_PERSISTENCIA, CATA_ASPECTO, CATA_CAPA, CATA_RIBETE, \
+    CATA_OLFATIVA_AROMA, CATA_GUSTATIVA_SENSACION, CATA_VALORACION
 from .models import Wine
 
 
@@ -23,16 +22,16 @@ class WineForm(ModelForm):
                                 choices=WINE_KIND_CHOICES,
                                 required=False
                                 )
-    cata_limpidez = MultiSelectFormField(label="Limpidez",
-                                         widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                         choices=CATA_LIMPIDEZ,
-                                         required=False
-                                         )
-    cata_intensidad = MultiSelectFormField(label="Intensidad",
-                                           widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                           choices=CATA_INTENSIDAD,
-                                           required=False
-                                           )
+    cata_aspecto = MultiSelectFormField(label="Aspecto",
+                                        widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                        choices=CATA_ASPECTO,
+                                        required=False
+                                        )
+    cata_capa = MultiSelectFormField(label="Capa",
+                                     widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                     choices=CATA_CAPA,
+                                     required=False
+                                     )
     cata_color_blanco = MultiSelectFormField(label="Tonalidades de colro (Blanco)",
                                              widget=Select2Multiple(select2attrs={'width': '250px'}),
                                              choices=CATA_TONALIDADES_BLANCO,
@@ -48,6 +47,11 @@ class WineForm(ModelForm):
                                             choices=CATA_TONALIDADES_TINTO,
                                             required=False
                                             )
+    cata_ribete = MultiSelectFormField(label="Ribete",
+                                       widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                       choices=CATA_RIBETE,
+                                       required=False
+                                       )
     cata_fluidez = MultiSelectFormField(label="Fluidez",
                                         widget=Select2Multiple(select2attrs={'width': '250px'}),
                                         choices=CATA_FLUIDEZ,
@@ -58,71 +62,38 @@ class WineForm(ModelForm):
                                               choices=CATA_EFERVESCENCIA,
                                               required=False
                                               )
-    cata_olf_1a = MultiSelectFormField(label="1ª impresión",
-                                       widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                       choices=CATA_OLFATIVA_1IMPRESION,
-                                       required=False
-                                       )
-    cata_olf_intensidad = MultiSelectFormField(label="Intensidad",
+    cata_olf_intensidad = MultiSelectFormField(label="Intensidad aromática",
                                                widget=Select2Multiple(select2attrs={'width': '250px'}),
                                                choices=CATA_OLFATIVA_INTENSIDAD,
                                                required=False
                                                )
-    cata_olf_aroma_1 = MultiSelectFormField(label="Aroma (Carácter) Primarios (cepa)",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_OLFATIVA_AROMA_PRIMARIOS,
-                                            required=False
-                                            )
-    cata_olf_aroma_2 = MultiSelectFormField(label="Aroma (Carácter) Secundarios (fermentación)",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_OLFATIVA_AROMA_SECUNDARIOS,
-                                            required=False
-                                            )
-    cata_olf_aroma_3 = MultiSelectFormField(label="Aroma (Carácter) Terciarios (maduración)",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_OLFATIVA_AROMA_TERCIARIOS,
-                                            required=False
-                                            )
+    cata_olf_aroma = MultiSelectFormField(label="Aroma",
+                                          widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                          choices=CATA_OLFATIVA_AROMA,
+                                          required=False
+                                          )
+
     cata_gust_ataque = MultiSelectFormField(label="Ataque",
                                             widget=Select2Multiple(select2attrs={'width': '250px'}),
                                             choices=CATA_GUSTATIVA_ATAQUE,
                                             required=False
                                             )
-    cata_gust_dulzor = MultiSelectFormField(label="Dulzor",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_GUSTATIVA_DULZOR,
-                                            required=False
-                                            )
-    cata_gust_alcohol = MultiSelectFormField(label="Alcohol",
-                                             widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                             choices=CATA_GUSTATIVA_ALCOHOL,
-                                             required=False
-                                             )
-    cata_gust_acidez = MultiSelectFormField(label="Acidez",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_GUSTATIVA_ACIDEZ,
-                                            required=False
-                                            )
-    cata_gust_tanino = MultiSelectFormField(label="Tanino",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_GUSTATIVA_TANINO,
-                                            required=False
-                                            )
-    cata_gust_cuerpo = MultiSelectFormField(label="Cuerpo",
-                                            widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                            choices=CATA_GUSTATIVA_CUERPO,
-                                            required=False
-                                            )
-    cata_gust_boca = MultiSelectFormField(label="Paso en boca",
-                                          widget=Select2Multiple(select2attrs={'width': '250px'}),
-                                          choices=CATA_GUSTATIVA_BOCA,
-                                          required=False
-                                          )
+    cata_gust_sensacion = MultiSelectFormField(label="Sensación",
+                                               widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                               choices=CATA_GUSTATIVA_SENSACION,
+                                               required=False
+                                               )
+
     cata_gust_persistencia = MultiSelectFormField(label="Persistencia",
                                                   widget=Select2Multiple(select2attrs={'width': '250px'}),
                                                   choices=CATA_GUSTATIVA_PERSISTENCIA,
                                                   required=False
                                                   )
+    cata_gust_valoracion = MultiSelectFormField(label="Valoración",
+                                                widget=Select2Multiple(select2attrs={'width': '250px'}),
+                                                choices=CATA_VALORACION,
+                                                required=False
+                                                )
 
     class Meta:
         model = Wine

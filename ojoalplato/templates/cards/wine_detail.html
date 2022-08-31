@@ -36,6 +36,12 @@
                             <td>{{ wine.get_kind_display|get_wine_icons|safe }}</td>
                         </tr>
                     {% endif %}
+                    {% if wine.tags %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Variedades</th>
+                            <td>{{ wine.tags|as_comma_list }}</td>
+                        </tr>
+                    {% endif %}
                     {% if wine.country %}
                         <tr>
                             <th scope="row" class="col-xs-4">País</th>
