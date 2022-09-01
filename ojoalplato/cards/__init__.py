@@ -70,6 +70,8 @@ CATA_RIBETE = (
     (5, "Rojo"),
     (6, "Granate"),
     (7, "Teja"),
+    (8, "Verde"),
+    (9, "Dorado"),
 )
 
 CATA_FLUIDEZ = (
@@ -160,13 +162,17 @@ CATA_GUSTATIVA_ATAQUE = (
 )
 
 CATA_GUSTATIVA_SENSACION = (
-    (0, "Dulce"),
-    (1, "Salado"),
-    (2, "Amargo"),
-    (3, "Ácido"),
-    (3, "Astringente"),
-    (3, "Cálido"),
-    (3, "Acuoso"),
+    (0, "Acidez agradable"),
+    (1, "Acidez marcada"),
+    (2, "Amargor varietal suave"),
+    (3, "Amargor varietal marcado"),
+    (4, "Dulzor ligero"),
+    (5, "Dulzor marcado"),
+    (6, "Salinidad del terreno"),
+    (7, "Astringencia suave"),
+    (8, "Astringencia marcada"),
+    (9, "Validez alcohólica notable"),
+    (10, "Acuoso"),
 )
 
 CATA_GUSTATIVA_PERSISTENCIA = (

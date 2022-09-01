@@ -227,7 +227,7 @@ class Wine(TimeStampedModel, HitCountMixin):
 
     cata_gust_ataque = MultiSelectField(verbose_name="Ataque", choices=CATA_GUSTATIVA_ATAQUE, max_length=20, blank=True,
                                         null=True)
-    cata_gust_sensacion = MultiSelectField(verbose_name="Sensacion", choices=CATA_GUSTATIVA_SENSACION, max_length=20, blank=True,
+    cata_gust_sensacion = MultiSelectField(verbose_name="Sensacion", choices=CATA_GUSTATIVA_SENSACION, max_length=40, blank=True,
                                            null=True)
     cata_gust_persistencia = MultiSelectField(verbose_name="Persistencia", choices=CATA_GUSTATIVA_PERSISTENCIA, max_length=20,
                                               blank=True, null=True)
