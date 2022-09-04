@@ -6,7 +6,16 @@
         <div class="row">
             <div class="col-xs-3">
                 {% if wine.image_bottle %}
-                    <img src="{{ wine.image_bottle.url|media}}" class="img-fluid mx-auto d-block" alt="{{ wine.title }}">
+                    <a href="{{ wine.image_bottle.url|media}}" data-lightbox="{{ wine.title }}" alt="{{ wine.title }}"
+                       style='border-radius:4px;' class="image-link">
+                         <img src="{{ wine.image_bottle.url|media}}" class="img-fluid mx-auto d-block" alt="{{ wine.title }}">
+                    </a>
+                {% endif %}
+                {% if wine.image_back %}
+                    <a href="{{ wine.image_back.url|media}}" data-lightbox="{{ wine.title }}" alt="{{ wine.title }}"
+                       style='border-radius:4px;' class="image-link">
+                        <img src="{{ wine.image_back.url|media}}" class="imsg-fluid mx-auto d-block" alt="{{ wine.title }}">
+                    </a>
                 {% endif %}
             </div>
             <div class="col-xs-9">

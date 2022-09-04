@@ -98,7 +98,7 @@ class WineAdmin(VersionAdmin):
     fieldsets = (
         (None, {
             "fields": ["name", "winery", "year", "kind", "image_header",
-                       "image_bottle", "country", "region",
+                       "image_bottle", "image_back", "country", "region",
                        "tags", "preparation", "last_taste", "price",
                        "parker_points", "penyin_points", "other",
                        "opinion", "show_tasting_form"]

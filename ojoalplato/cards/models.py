@@ -207,6 +207,12 @@ class Wine(TimeStampedModel, HitCountMixin):
         upload_to=".",  # settings.MEDIA_ROOT,
         null=True, blank=True, )
 
+    image_back = ImageField(
+        verbose_name="Imagen de la etiqueta trasera",
+        help_text="Imagen de la etiqueta trasera",
+        upload_to=".",  # settings.MEDIA_ROOT,
+        null=True, blank=True, )
+
     show_tasting_form = BooleanField(verbose_name="Mostrar Ficha de cata", default=False)
 
     cata_aspecto = MultiSelectField(verbose_name="Aspecto", choices=CATA_ASPECTO, max_length=10, blank=True, null=True)
