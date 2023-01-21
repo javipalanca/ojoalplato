@@ -119,11 +119,13 @@ CATA_OLFATIVA_AROMA = (
     (13, "Frutos rojos"),
     (14, "Frutos negros"),
     (15, "Membrillo"),
+    (49, 'Golosinas'),
     (16, "Vegetales"),
     (17, "Hinojo"),
     (18, "Pimiento verde"),
     (19, "Trufa"),
     (20, "Hojarasca"),
+    (50, "Hierbas aromáticas"),
     (21, "Especias"),
     (22, "Pimienta"),
     (23, "Canela"),
@@ -149,34 +151,40 @@ CATA_OLFATIVA_AROMA = (
     (43, "Tabaco"),
     (44, "Frutos secos"),
     (45, "Cuero"),
+    (51, 'Balsámicos'),
     (46, "Vainilla"),
     (47, "Café"),
+    (53, "Cacao"),
     (48, "Tostados"),
+    (52, 'Manzana compotada'),
 )
 
 CATA_GUSTATIVA_ATAQUE = (
     (0, "Malo"),
     (1, "Ordinario"),
+    (4, 'Bueno'),
     (2, "Placentero"),
+    (5, 'Goloso'),
     (3, "Muy agradable"),
 )
 
 CATA_GUSTATIVA_SENSACION = (
-    (0, "Acidez agradable"),
+    (0, "Acidez buena"),
     (1, "Acidez marcada"),
-    (2, "Amargor varietal suave"),
-    (3, "Amargor varietal marcado"),
-    (4, "Dulzor ligero"),
-    (5, "Dulzor marcado"),
-    (6, "Salinidad del terreno"),
-    (7, "Astringencia suave"),
-    (8, "Astringencia marcada"),
-    (9, "Validez alcohólica notable"),
+    (11, "Sensación salina"),
+    (2, "Amargor ligero"),
+    (12, "Ácido"),
+    (8, "Astringente"),
+    (13, "Cálido"),
     (10, "Acuoso"),
+    (14, "Fresco"),
+    (15, "Denso"),
 )
 
 CATA_GUSTATIVA_PERSISTENCIA = (
+    (3, "Intensa"),
     (0, "Alta"),
+    (4, "Larga"),
     (1, "Media"),
     (2, "Baja"),
 )
