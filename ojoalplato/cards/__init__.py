@@ -42,6 +42,7 @@ CATA_TONALIDADES_BLANCO = (
     (4, "Oro"),
     (5, "Dorado"),
     (6, "Ámbar"),
+    (7, "Amarillo"),
 )
 CATA_TONALIDADES_ROSADO = (
     (0, "Pálido"),
