@@ -154,3 +154,7 @@ def render_wine_mini(context, wine):
     request = context["request"]
     context["wine"] = wine
     return context
+
+@register.filter
+def as_comma_list(tags):
+    return ", ".join([t.name for t in tags.all()])

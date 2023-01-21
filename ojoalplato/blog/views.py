@@ -48,7 +48,7 @@ class CategoryList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.filter(category__slug=self.kwargs['category'])
+        return Post.objects.published().filter(category__slug=self.kwargs['category'])
 
     def get_context_data(self, **kwargs):
         context = super(CategoryList, self).get_context_data(**kwargs)
@@ -70,7 +70,7 @@ class TagList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.filter(tags__slug__in=[self.kwargs['tag']])
+        return Post.objects.published().filter(tags__slug__in=[self.kwargs['tag']])
 
     def get_context_data(self, **kwargs):
         context = super(TagList, self).get_context_data(**kwargs)
