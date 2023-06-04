@@ -83,7 +83,7 @@ class TagsList(ListView):
     template_name = 'blog/wpfamily/tags_list.html'
 
     def get_queryset(self):
-        return Tag.objects.all().annotate(num_posts=Count("post")).filter(num_posts__gt=0).order_by("-num_posts")
+        return Tag.objects.all().annotate(num_posts=Count("post")).filter(num_posts__gt=0)  # .order_by("-num_posts")
 
 
 class CategoriesAndTagsView(ListView):
