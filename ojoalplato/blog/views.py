@@ -94,7 +94,7 @@ class CategoriesAndTagsView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoriesAndTagsView, self).get_context_data(**kwargs)
         context.update({
-            'tags_list': Tag.objects.all().annotate(num_posts=Count("post")).filter(num_posts__gt=0).order_by("-num_posts")
+            'tags_list': Tag.objects.all().annotate(num_posts=Count("post")).filter(num_posts__gt=0)  # .order_by("-num_posts")
         })
         return context
 
