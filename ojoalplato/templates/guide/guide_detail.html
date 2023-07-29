@@ -1,0 +1,180 @@
+{% extends "blog/wpfamily/base.html" %}
+{% load static content_filters disqus card_tags guide_tags signature fb_like %}
+
+{% block title %}Ojoalplato: {{ guide.title }}{% endblock %}
+
+{% block content %}
+    <article id="post-1"
+             class="post-1 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry">
+
+        <div class="featured-image"
+             style="background-image:url('{{ guide.image.url|media }}');">
+        <a href="{{ guide.get_absolute_url }}"><img
+                src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
+        </div>
+
+        <div class="has-family-list">
+
+            <header class="entry-header">
+                <h2 class="entry-title"><a href="{{ guide.get_absolute_url }}"
+                                           rel="bookmark">{{ guide.title }}</a></h2>
+                <div class="meta"><span class="posted-on">
+                      {% if user.is_superuser or user.is_staff %}
+                        &nbsp;&nbsp;<a href="{% url 'admin:guide_guide_change' guide.id %}" type="button"
+                                       class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% endif %}
+                </span></div>
+
+            </header><!-- .entry-header -->
+
+            <div class="article-padding" style="padding-top:0">
+              <p>{{ guide.introduction }}</p>
+            </div>
+
+            {% for restaurant in guide.restaurants.all %}
+            <div class="entry-content">
+                {% render_restaurant_full restaurant %}
+            </div><!-- .entry-content -->
+            {% endfor %}
+
+            {%  signature guide %}
+
+            <div class="fb-lile-btn">
+                {% facebook_js %}{% fb_like_button post %}
+            </div>
+
+
+        </div><!-- .article-padding -->
+    </article>
+
+    <div id="comments" class="comments-area">
+
+        <div id="respond" class="comment-respond">
+            <h3 id="reply-title" class="comment-reply-title">Dejar un comentario</h3>
+
+            {% disqus_comments card card.get_absolute_url %}
+        </div>
+
+    </div><!-- #comments -->
+{% endblock content %}
+
+
+{% block javascript %}
+    {{ block.super }}
+<script src="{% static 'js/jssor.slider-24.1.5.min.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+        jssor_1_slider_init = function() {
+
+            var jssor_1_options = {
+              $AutoPlay: 1,
+              $AutoPlaySteps: 4,
+              $SlideDuration: 160,
+              $SlideWidth: 200,
+              $SlideSpacing: 3,
+              $Cols: 4,
+              $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$,
+                $Steps: 4
+              },
+              $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$,
+                $SpacingX: 1,
+                $SpacingY: 1
+              }
+            };
+
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+
+            /*responsive code begin*/
+            /*remove responsive code if you don't want the slider scales while window resizing*/
+            function ScaleSlider() {
+                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                if (refSize) {
+                    refSize = Math.min(refSize, 809);
+                    jssor_1_slider.$ScaleWidth(refSize);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $Jssor$.$AddEvent(window, "load", ScaleSlider);
+            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
+            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+            /*responsive code end*/
+        };
+    </script>
+    <script type="text/javascript">jssor_1_slider_init();</script>
+{% endblock javascript %}
+
+{% block css %}
+    {{ block.super }}
+<style>
+        /* jssor slider bullet navigator skin 03 css */
+        /*
+        .jssorb03 div           (normal)
+        .jssorb03 div:hover     (normal mouseover)
+        .jssorb03 .av           (active)
+        .jssorb03 .av:hover     (active mouseover)
+        .jssorb03 .dn           (mousedown)
+        */
+        .jssorb03 {
+            position: absolute;
+        }
+        .jssorb03 div, .jssorb03 div:hover, .jssorb03 .av {
+            position: absolute;
+            /* size of bullet elment */
+            width: 21px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+            color: white;
+            font-size: 12px;
+            background: url('{% static "img/b03.png" %}') no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .jssorb03 div { background-position: -5px -4px; }
+        .jssorb03 div:hover, .jssorb03 .av:hover { background-position: -35px -4px; }
+        .jssorb03 .av { background-position: -65px -4px; }
+        .jssorb03 .dn, .jssorb03 .dn:hover { background-position: -95px -4px; }
+
+        /* jssor slider arrow navigator skin 03 css */
+        /*
+        .jssora03l                  (normal)
+        .jssora03r                  (normal)
+        .jssora03l:hover            (normal mouseover)
+        .jssora03r:hover            (normal mouseover)
+        .jssora03l.jssora03ldn      (mousedown)
+        .jssora03r.jssora03rdn      (mousedown)
+        .jssora03l.jssora03ldn      (disabled)
+        .jssora03r.jssora03rdn      (disabled)
+        */
+        .jssora03l, .jssora03r {
+            display: block;
+            position: absolute;
+            /* size of arrow element */
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            background: url('{% static "img/a03.png" %}') no-repeat;
+            overflow: hidden;
+        }
+        .jssora03l { background-position: -3px -33px; }
+        .jssora03r { background-position: -63px -33px; }
+        .jssora03l:hover { background-position: -123px -33px; }
+        .jssora03r:hover { background-position: -183px -33px; }
+        .jssora03l.jssora03ldn { background-position: -243px -33px; }
+        .jssora03r.jssora03rdn { background-position: -303px -33px; }
+        .jssora03l.jssora03lds { background-position: -3px -33px; opacity: .3; pointer-events: none; }
+        .jssora03r.jssora03rds { background-position: -63px -33px; opacity: .3; pointer-events: none; }
+    </style>
+{% endblock css %}
+
+{% block css_custom %}
+<style>
+.text-white {
+    color: white;
+}
+</style>
+{% endblock css_custom %}

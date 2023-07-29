@@ -24,6 +24,14 @@ def render_restaurant_mini(context, restaurant):
     return context
 
 
+@register.inclusion_tag('cards/templatetags/restaurant_full.html', takes_context=True)
+def render_restaurant(context, restaurant):
+    """Renders a restaurant mini card."""
+    request = context["request"]
+    context["restaurant"] = restaurant
+    return context
+
+
 def make_point(point, origin_coord_srid, destiny_coord_srid):
     origin_coord = SpatialReference(origin_coord_srid)
     destination_coord = SpatialReference(destiny_coord_srid)
@@ -136,7 +144,7 @@ def penyin_points(points):
 
 def scale_points(points, color):
     return f"""<div class="progress-bar progress-bar-striped {color}" role="progressbar"
-     aria-label="{points} Points" style="width: {points}%" aria-valuenow="{points}" 
+     aria-label="{points} Points" style="width: {points}%" aria-valuenow="{points}"
      aria-valuemin="0" aria-valuemax="100">{points}</div>"""
 
 
@@ -154,6 +162,7 @@ def render_wine_mini(context, wine):
     request = context["request"]
     context["wine"] = wine
     return context
+
 
 @register.filter
 def as_comma_list(tags):

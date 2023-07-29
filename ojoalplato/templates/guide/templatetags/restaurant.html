@@ -1,0 +1,31 @@
+{% load card_tags likert_bs_stars content_filters %}
+
+        <div class="featured-image-family" style="position: relative; top: 0;
+        {% if restaurant.image_header %}
+            background-image:url('{{ restaurant.image_header.url|media}}')">
+        {% else %}
+            background-image:url('{{ restaurant.posts.first.content|first_img|media }}')">
+        {% endif %}
+        </div>
+
+        <div class="article-padding" style="padding-top:0">
+
+            <header class="entry-header">
+                <h2 class="entry-title"><a href="{{ restaurant.get_absolute_url }}"
+                                           rel="bookmark">{{ restaurant.name }}</a>
+                </h2>
+
+            {% for tag in restaurant.tags.all %}
+                <span class="badge">{{ tag.name }}</span>
+            {% endfor %}
+
+            </header><!-- .entry-header -->
+
+            <div class="entry-content text-center">
+                <p>{{ restaurant.guide_notes }}</p>
+
+                {% render_restaurant restaurant %}
+
+            </div><!-- .entry-content -->
+
+        </div><!-- .article-padding -->

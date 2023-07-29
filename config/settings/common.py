@@ -95,6 +95,7 @@ LOCAL_APPS = (
     'ojoalplato.category.apps.CategoryConfig',
     'ojoalplato.cards.apps.CardConfig',
     'ojoalplato.contactform',
+    'ojoalplato.guide.apps.GuideConfig',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -211,6 +212,12 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
             ],
+            'libraries': {
+                'signature': 'ojoalplato.blog.templatetags.signature',
+                'fb_like': 'ojoalplato.blog.templatetags.fb_like',
+                'content_filters': 'ojoalplato.blog.templatetags.content_filters',
+                'disqus': 'ojoalplato.blog.templatetags.disqus',
+            },
         },
     },
 ]
