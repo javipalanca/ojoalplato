@@ -42,6 +42,7 @@ CATA_TONALIDADES_BLANCO = (
     (4, "Oro"),
     (5, "Dorado"),
     (6, "Ámbar"),
+    (7, "Amarillo"),
 )
 CATA_TONALIDADES_ROSADO = (
     (0, "Pálido"),
@@ -171,10 +172,14 @@ CATA_GUSTATIVA_ATAQUE = (
 CATA_GUSTATIVA_SENSACION = (
     (0, "Acidez buena"),
     (1, "Acidez marcada"),
-    (11, "Sensación salina"),
-    (2, "Amargor ligero"),
+    (6, "Sensación salina"),
+    (2, "Amargor varietal suave"),
+    (3, "Amargor varietal marcado"),
+    (4, "Dulzor ligero"),
+    (5, "Dulzor marcado"),
     (12, "Ácido"),
-    (8, "Astringente"),
+    (7, "Astringencia suave"),
+    (8, "Astringencia marcada"),
     (13, "Cálido"),
     (10, "Acuoso"),
     (14, "Fresco"),

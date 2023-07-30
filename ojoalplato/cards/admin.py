@@ -9,10 +9,14 @@ from reversion.admin import VersionAdmin
 from . import DAY_CHOICES, DEFAULT_WGS84_SRID
 from .forms import WineForm
 from .models import Restaurant, Wine, Recipe, Winery, VarietyTag
+from .utils import paraphrase_text
 from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget, SunsWidget
 
 
 class RestaurantAdminForm(forms.ModelForm):
+    paraphrase = forms.CharField(widget=forms.TextInput(attrs={'type': 'button', 'value': 'Parafrasear'}),
+                                 required=False)
+
     class Meta:
         model = Restaurant
         widgets = {
@@ -62,10 +66,18 @@ class RestaurantAdmin(VersionAdmin):
     list_filter = ['stars', 'is_closed']
     list_display = ['name', 'is_closed']
     save_on_top = True
+    actions = ['paraphrase_selected_text']
+
+    def paraphrase_selected_text(self, request, queryset):
+        for obj in queryset:
+            obj.guide_notes = paraphrase_text(obj.guide_notes)
+            obj.save()
+
+    paraphrase_selected_text.short_description = 'Parafrasear texto seleccionado'
 
     fields = ("name", "chef", "sumiller", "manager", "tags", "image_header", "address", "location", "phone",
               "url", "email", "last_visit", "price", "avg_price", "menu_price",
-              "stars", "suns", "awards", "freedays", "is_closed", "notes")
+              "stars", "suns", "awards", "freedays", "is_closed", "notes", "guide_notes", "paraphrase")
 
     class Media:
         css = {

@@ -73,7 +73,10 @@ urlpatterns = [
     url(r'^category/(?P<category>[-\w]+)/$', CategoryList.as_view(), name='category-list'),
 
     # Cards app
-    url(r'^cards/', include((   'ojoalplato.cards.urls', "cards"), namespace='cards')),
+    url(r'^cards/', include(('ojoalplato.cards.urls', "cards"), namespace='cards')),
+
+    # Guides app
+    url(r'^guides/', include(('ojoalplato.guide.urls', "guide"), namespace='guides')),
 
 
 

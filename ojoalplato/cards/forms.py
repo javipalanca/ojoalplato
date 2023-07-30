@@ -32,7 +32,7 @@ class WineForm(ModelForm):
                                      choices=CATA_CAPA,
                                      required=False
                                      )
-    cata_color_blanco = MultiSelectFormField(label="Tonalidades de colro (Blanco)",
+    cata_color_blanco = MultiSelectFormField(label="Tonalidades de color (Blanco)",
                                              widget=Select2Multiple(select2attrs={'width': '250px'}),
                                              choices=CATA_TONALIDADES_BLANCO,
                                              required=False

@@ -1,73 +1,65 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static content_filters disqus card_tags %}
+{% load static content_filters disqus card_tags guide_tags signature fb_like %}
 
-{% block title %}Ojoalplato: {{ card.name }}{% endblock %}
+{% block title %}Ojoalplato: {{ guide.title }}{% endblock %}
 
 {% block content %}
-    <article id="{{ card.slug }}"
-             class="post-4 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry">
+    <article id="post-1"
+             class="post-1 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry"
+              style="padding-top:0">
 
-        <div class="featured-image-family"
-        {% if card.image_header %}
-            style="background-image:url('{{ card.image_header.url|media}}')">
-        {% else %}
-            style="background-image:url('{{ card.posts.first.content|first_img|media }}')">
-        {% endif %}
+        <div class="featured-image"
+             style="background-image:url('{{ guide.image.url|media }}');">
+        <a href="{{ guide.get_absolute_url }}"><img
+                src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
         </div>
 
-        <div class="article-padding">
+        <div class="has-family-list">
 
             <header class="entry-header">
-                <h2 class="entry-title"><a href="{{ card.get_absolute_url }}"
-                                           rel="bookmark">{{ card.name }}</a>
-                </h2>
-                {% comment %}<div class="familymember-meta">
-                    Dad <span class="sep"> / </span> 34 Years Old
-                </div>{% endcomment %}
-            {% for tag in card.tags.all %}
-                <span class="badge">{{ tag.name }}</span>
-            {% endfor %}
-            <div class="familymember-meta">
-                {% if user.is_superuser or user.is_staff%}
-                    {% if card|get_class == "Restaurant" %}
-                    &nbsp;&nbsp;<a href="{% url 'admin:cards_restaurant_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
-                    {% elif card|get_class == "Wine" %}
-                    &nbsp;&nbsp;<a href="{% url 'admin:cards_wine_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                <h2 class="entry-title"><a href="{{ guide.get_absolute_url }}"
+                                           rel="bookmark">{{ guide.title }}</a></h2>
+                <div class="meta"><span class="posted-on">
+                      {% if user.is_superuser or user.is_staff %}
+                        &nbsp;&nbsp;<a href="{% url 'admin:guide_guide_change' guide.id %}" type="button"
+                                       class="btn btn-default btn-xs btn-edit">Editar</a>
                     {% endif %}
-                {% endif %}
-            </div>
+                </span></div>
 
             </header><!-- .entry-header -->
 
-            <div class="entry-content text-center">
-                {% block render_card %}{% endblock %}
+            <div class="paragraph-padding">
+              <p>{{ guide.introduction }}</p>
+            </div>
 
-                <div class="familymember-meta" style="margin-top: 40px;">
-                    Artículos relacionados:
-                </div>
-                {% if card.posts.all %}
-                    {% for post in card.posts.all %}
-                    <div class="media row">
-                      <div class="media-left col-md-2 col-xs-4">
-                        <a href="{{ post.get_absolute_url }}">
-                         {% if post.image_header %}
-                             <img class="img-thumbnail img-responsive" src="{{ post.image_header.url|media}}">
-                         {% else %}
-                             <img class="img-thumbnail img-responsive" src="{{ post.content|first_img|media }}">
-                         {% endif %}
-                        </a>
-                      </div>
-                      <div class="col-md-10 col-xs-8">
-                          <h4 class="media-heading"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
-                        {{ post.content | truncatewords_html:25 | striptags | safe }}
-                      </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    {% block nopost_msg %}{% endblock nopost_msg %}
-                {% endif %}
 
+            <div class="paragraph-padding">
+            <h3>Índice de restaurantes</h3>
+            <table>
+              {% for restaurant in guide.restaurants.all %}
+                <tr><td><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></td></tr>
+              {% endfor %}
+            {% if guide.restaurants.all.count|divisibleby:2 %}
+                <tr><td>&nbsp;</td></tr>
+            {% endif %}
+            </table>
+            </div>
+
+            {% for restaurant in guide.restaurants.all %}
+            <div class="entry-content">
+                {% render_restaurant_full restaurant %}
             </div><!-- .entry-content -->
+            {% if not forloop.last %}
+            <div style="margin-left:60px; margin-right:60px; border-bottom:1px solid #ccc; margin-bottom:20px;"></div>
+            {% endif %}
+            {% endfor %}
+
+            {%  signature guide %}
+
+            <div class="fb-lile-btn">
+                {% facebook_js %}{% fb_like_button post %}
+            </div>
+
 
         </div><!-- .article-padding -->
     </article>
@@ -195,3 +187,11 @@
         .jssora03r.jssora03rds { background-position: -63px -33px; opacity: .3; pointer-events: none; }
     </style>
 {% endblock css %}
+
+{% block css_custom %}
+<style>
+.text-white {
+    color: white;
+}
+</style>
+{% endblock css_custom %}

@@ -23,6 +23,7 @@ from . import DEFAULT_PROJECTED_SRID, WINE_KIND_CHOICES, DEFAULT_WGS84_SRID, \
     CATA_OLFATIVA_INTENSIDAD, CATA_GUSTATIVA_ATAQUE, CATA_GUSTATIVA_PERSISTENCIA, CATA_ASPECTO, CATA_CAPA, CATA_RIBETE, \
     CATA_OLFATIVA_AROMA, CATA_GUSTATIVA_SENSACION, \
     VIEW_ICON, SMELL_ICON, TASTE_ICON, CATA_VALORACION
+from .utils import paraphrase_text
 
 
 class TaggedRestaurantTag(TaggedItemBase):
@@ -52,6 +53,12 @@ class Restaurant(TimeStampedModel, HitCountMixin):
                          max_length=80, blank=True, null=True)
     is_closed = BooleanField(verbose_name="Restaurante cerrado", default=False)
     notes = TextField(verbose_name="Notas", blank=True, null=True)
+    guide_notes = TextField(verbose_name="Guía", blank=True, null=True)
+
+    def paraphrase(self):
+        print("Paraphrasing...")
+        self.guide_notes = paraphrase_text(self.guide_notes)
+        self.save()
 
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
@@ -225,17 +232,22 @@ class Wine(TimeStampedModel, HitCountMixin):
                                         max_length=20, blank=True, null=True)
     cata_ribete = MultiSelectField(verbose_name="Ribete", choices=CATA_RIBETE, max_length=20, blank=True, null=True)
     cata_fluidez = MultiSelectField(verbose_name="Fluidez", choices=CATA_FLUIDEZ, max_length=20, blank=True, null=True)
-    cata_efervescencia = MultiSelectField(verbose_name="Efervescencia", choices=CATA_EFERVESCENCIA, max_length=20, blank=True,
+    cata_efervescencia = MultiSelectField(verbose_name="Efervescencia", choices=CATA_EFERVESCENCIA, max_length=20,
+                                          blank=True,
                                           null=True)
-    cata_olf_intensidad = MultiSelectField(verbose_name="Intensidad", choices=CATA_OLFATIVA_INTENSIDAD, max_length=20, blank=True,
+    cata_olf_intensidad = MultiSelectField(verbose_name="Intensidad", choices=CATA_OLFATIVA_INTENSIDAD, max_length=20,
+                                           blank=True,
                                            null=True)
-    cata_olf_aroma = MultiSelectField(verbose_name="Aroma", choices=CATA_OLFATIVA_AROMA, max_length=200, blank=True, null=True)
+    cata_olf_aroma = MultiSelectField(verbose_name="Aroma", choices=CATA_OLFATIVA_AROMA, max_length=200, blank=True,
+                                      null=True)
 
     cata_gust_ataque = MultiSelectField(verbose_name="Ataque", choices=CATA_GUSTATIVA_ATAQUE, max_length=20, blank=True,
                                         null=True)
-    cata_gust_sensacion = MultiSelectField(verbose_name="Sensacion", choices=CATA_GUSTATIVA_SENSACION, max_length=40, blank=True,
+    cata_gust_sensacion = MultiSelectField(verbose_name="Sensacion", choices=CATA_GUSTATIVA_SENSACION, max_length=40,
+                                           blank=True,
                                            null=True)
-    cata_gust_persistencia = MultiSelectField(verbose_name="Persistencia", choices=CATA_GUSTATIVA_PERSISTENCIA, max_length=20,
+    cata_gust_persistencia = MultiSelectField(verbose_name="Persistencia", choices=CATA_GUSTATIVA_PERSISTENCIA,
+                                              max_length=20,
                                               blank=True, null=True)
     cata_gust_valoracion = MultiSelectField(verbose_name="Valoración", choices=CATA_VALORACION, max_length=20,
                                             blank=True, null=True)
