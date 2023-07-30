@@ -34,6 +34,7 @@
 
 
             <div class="paragraph-padding">
+            <h3>Índice de restaurantes</h3>
             <table>
               {% for restaurant in guide.restaurants.all %}
                 <tr><td><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></td></tr>
@@ -48,6 +49,9 @@
             <div class="entry-content">
                 {% render_restaurant_full restaurant %}
             </div><!-- .entry-content -->
+            {% if not forloop.last %}
+            <div style="margin-left:60px; margin-right:60px; border-bottom:1px solid #ccc; margin-bottom:20px;"></div>
+            {% endif %}
             {% endfor %}
 
             {%  signature guide %}
