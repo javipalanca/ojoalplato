@@ -5,7 +5,8 @@
 
 {% block content %}
     <article id="post-1"
-             class="post-1 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry">
+             class="post-1 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry"
+              style="padding-top:0">
 
         <div class="featured-image"
              style="background-image:url('{{ guide.image.url|media }}');">
@@ -27,8 +28,20 @@
 
             </header><!-- .entry-header -->
 
-            <div class="article-padding" style="padding-top:0">
+            <div class="paragraph-padding">
               <p>{{ guide.introduction }}</p>
+            </div>
+
+
+            <div class="paragraph-padding">
+            <table>
+              {% for restaurant in guide.restaurants.all %}
+                <tr><td><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></td></tr>
+              {% endfor %}
+            {% if guide.restaurants.all.count|divisibleby:2 %}
+                <tr><td>&nbsp;</td></tr>
+            {% endif %}
+            </table>
             </div>
 
             {% for restaurant in guide.restaurants.all %}

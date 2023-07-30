@@ -1387,6 +1387,11 @@ table {
     position: relative;
 }
 
+.paragraph-padding {
+    padding: 0 60px 25px;
+    position: relative;
+}
+
 .hentry .article-padding.has-family-list {
     padding-top: 75px;
     padding-bottom: 70px;
@@ -2856,4 +2861,9 @@ form label {
 .icon {
     width: 20px;
     height: 20px;
+}
+
+.background-orange {
+  background-color: rgba(224, 117, 41, 1);
+  color: white;
 }
