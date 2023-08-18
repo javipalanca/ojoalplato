@@ -18,6 +18,8 @@ from ojoalplato.blog.handlers import DateDirectoryWatermarkUploader
 ROOT_DIR = environ.Path(__file__) - 3  # (ojoalplato/config/settings/common.py - 3 = ojoalplato/)
 APPS_DIR = ROOT_DIR.path('ojoalplato')
 
+DECIMAL_SEPARATOR = '.'
+
 env = environ.Env()
 
 # APP CONFIGURATION
@@ -175,7 +177,7 @@ SITE_ID = 1
 USE_I18N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
-USE_L10N = True
+USE_L10N = False
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True

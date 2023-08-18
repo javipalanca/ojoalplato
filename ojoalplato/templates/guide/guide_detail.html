@@ -1,5 +1,5 @@
 {% extends "blog/wpfamily/base.html" %}
-{% load static content_filters disqus card_tags guide_tags signature fb_like %}
+{% load static content_filters disqus card_tags guide_tags signature fb_like leaflet_tags %}
 
 {% block title %}Ojoalplato: {{ guide.title }}{% endblock %}
 
@@ -32,9 +32,14 @@
               <p>{{ guide.introduction }}</p>
             </div>
 
+            <!-- Mapa -->
+            <div class="paragraph-padding">
+                  {% leaflet_map "map" %}
+            </div>
+            <!-- fin de mapa -->
 
             <div class="paragraph-padding">
-            <h3>Índice de restaurantes</h3>
+            <h3 id="indice">Índice de restaurantes</h3>
             <table>
               {% for restaurant in guide.restaurants.all %}
                 <tr><td><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></td></tr>
@@ -49,9 +54,9 @@
             <div class="entry-content">
                 {% render_restaurant_full restaurant %}
             </div><!-- .entry-content -->
-            {% if not forloop.last %}
-            <div style="margin-left:60px; margin-right:60px; border-bottom:1px solid #ccc; margin-bottom:20px;"></div>
-            {% endif %}
+              <div style="margin-left:60px; margin-right:60px; border-bottom:1px solid #ccc; margin-bottom:20px;">
+              <a href="#indice"><i class="fa-solid fa-circle-arrow-up" style="color: chocolate;"></i></a>
+              </div>
             {% endfor %}
 
             {%  signature guide %}
@@ -78,120 +83,66 @@
 
 {% block javascript %}
     {{ block.super }}
-<script src="{% static 'js/jssor.slider-24.1.5.min.js' %}" type="text/javascript"></script>
-<script type="text/javascript">
-        jssor_1_slider_init = function() {
 
-            var jssor_1_options = {
-              $AutoPlay: 1,
-              $AutoPlaySteps: 4,
-              $SlideDuration: 160,
-              $SlideWidth: 200,
-              $SlideSpacing: 3,
-              $Cols: 4,
-              $ArrowNavigatorOptions: {
-                $Class: $JssorArrowNavigator$,
-                $Steps: 4
-              },
-              $BulletNavigatorOptions: {
-                $Class: $JssorBulletNavigator$,
-                $SpacingX: 1,
-                $SpacingY: 1
-              }
-            };
+  {% leaflet_js %}
+<script>
+window.addEventListener("map:init", function (e) {
+            detail = e.detail;
 
-            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            const coordenadas = [
+              {% for rest in guide.restaurants.all %}
+                { lat: {{ rest.get_position_wgs84.1 |floatformat:"-18"}},
+                  lng: {{ rest.get_position_wgs84.0 |floatformat:"-18"}} },
+              {% endfor %}
+            ];
 
-            /*responsive code begin*/
-            /*remove responsive code if you don't want the slider scales while window resizing*/
-            function ScaleSlider() {
-                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
-                if (refSize) {
-                    refSize = Math.min(refSize, 809);
-                    jssor_1_slider.$ScaleWidth(refSize);
-                }
-                else {
-                    window.setTimeout(ScaleSlider, 30);
-                }
+            // Calcula el centro de las coordenadas
+            let latSum = 0;
+            let lngSum = 0;
+            for (const coord of coordenadas) {
+                latSum += coord.lat;
+                lngSum += coord.lng;
             }
-            ScaleSlider();
-            $Jssor$.$AddEvent(window, "load", ScaleSlider);
-            $Jssor$.$AddEvent(window, "resize", ScaleSlider);
-            $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-            /*responsive code end*/
-        };
-    </script>
-    <script type="text/javascript">jssor_1_slider_init();</script>
+            const centroLat = latSum / coordenadas.length;
+            const centroLng = lngSum / coordenadas.length;
+
+            // Ajusta el centro y el zoom
+            detail.map.setView([centroLat, centroLng]);
+
+            // Calcula el nivel de zoom necesario para que todas las coordenadas sean visibles
+            const bounds = new L.LatLngBounds();
+            for (const coord of coordenadas) {
+                L.marker([coord.lat, coord.lng]).addTo(detail.map);
+                bounds.extend([coord.lat, coord.lng]);
+            }
+            detail.map.fitBounds(bounds);
+        }, false);
+  //initMap();
+</script>
+  <script src="{% static 'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js' %}"
+        type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/fontawesome.min.js" integrity="sha512-64O4TSvYybbO2u06YzKDmZfLj/Tcr9+oorWhxzE3yDnmBRf7wvDgQweCzUf5pm2xYTgHMMyk5tW8kWU92JENng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock javascript %}
 
 {% block css %}
     {{ block.super }}
-<style>
-        /* jssor slider bullet navigator skin 03 css */
-        /*
-        .jssorb03 div           (normal)
-        .jssorb03 div:hover     (normal mouseover)
-        .jssorb03 .av           (active)
-        .jssorb03 .av:hover     (active mouseover)
-        .jssorb03 .dn           (mousedown)
-        */
-        .jssorb03 {
-            position: absolute;
-        }
-        .jssorb03 div, .jssorb03 div:hover, .jssorb03 .av {
-            position: absolute;
-            /* size of bullet elment */
-            width: 21px;
-            height: 21px;
-            text-align: center;
-            line-height: 21px;
-            color: white;
-            font-size: 12px;
-            background: url('{% static "img/b03.png" %}') no-repeat;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .jssorb03 div { background-position: -5px -4px; }
-        .jssorb03 div:hover, .jssorb03 .av:hover { background-position: -35px -4px; }
-        .jssorb03 .av { background-position: -65px -4px; }
-        .jssorb03 .dn, .jssorb03 .dn:hover { background-position: -95px -4px; }
-
-        /* jssor slider arrow navigator skin 03 css */
-        /*
-        .jssora03l                  (normal)
-        .jssora03r                  (normal)
-        .jssora03l:hover            (normal mouseover)
-        .jssora03r:hover            (normal mouseover)
-        .jssora03l.jssora03ldn      (mousedown)
-        .jssora03r.jssora03rdn      (mousedown)
-        .jssora03l.jssora03ldn      (disabled)
-        .jssora03r.jssora03rdn      (disabled)
-        */
-        .jssora03l, .jssora03r {
-            display: block;
-            position: absolute;
-            /* size of arrow element */
-            width: 55px;
-            height: 55px;
-            cursor: pointer;
-            background: url('{% static "img/a03.png" %}') no-repeat;
-            overflow: hidden;
-        }
-        .jssora03l { background-position: -3px -33px; }
-        .jssora03r { background-position: -63px -33px; }
-        .jssora03l:hover { background-position: -123px -33px; }
-        .jssora03r:hover { background-position: -183px -33px; }
-        .jssora03l.jssora03ldn { background-position: -243px -33px; }
-        .jssora03r.jssora03rdn { background-position: -303px -33px; }
-        .jssora03l.jssora03lds { background-position: -3px -33px; opacity: .3; pointer-events: none; }
-        .jssora03r.jssora03rds { background-position: -63px -33px; opacity: .3; pointer-events: none; }
-    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% leaflet_css %}
+    <link href="{% static 'bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css' %}"
+          rel="stylesheet" type="text/css" media="all"/>
+    <link href="{% static 'bower_components/leaflet.fullscreen/Control.FullScreen.css' %}"
+          rel="stylesheet" type="text/css" media="all"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 {% endblock css %}
 
 {% block css_custom %}
 <style>
 .text-white {
     color: white;
+}
+html {
+    scroll-behavior: smooth;
 }
 </style>
 {% endblock css_custom %}

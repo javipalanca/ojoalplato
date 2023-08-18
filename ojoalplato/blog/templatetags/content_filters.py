@@ -130,3 +130,8 @@ def og_img_size(context, url):
 @register.filter
 def escape_slash(value):
     return value.replace("/", "\/")
+
+
+@register.filter
+def parse_float(string):
+    return string.replace(',', '.')
