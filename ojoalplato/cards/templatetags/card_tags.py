@@ -16,7 +16,7 @@ from .. import WINE_KIND_CHOICES, RED_ICON, WHITE_ICON, ROSE_ICON, \
     SWEET_ICON, SPARKS_ICON
 
 
-@register.inclusion_tag('cards/templatetags/restaurant.html', takes_context=True)
+@register.inclusion_tag('cards/templatetags/restaurant_mini.html', takes_context=True)
 def render_restaurant_mini(context, restaurant):
     """Renders a restaurant mini card."""
     request = context["request"]
