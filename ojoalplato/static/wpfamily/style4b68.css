@@ -2863,7 +2863,32 @@ form label {
     height: 20px;
 }
 
+.guide-list {
+  list-style: none;
+  padding: 5px;
+}
+
+.guide-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Espacio entre elementos */
+}
+
 .background-orange {
   background-color: rgba(224, 117, 41, 1);
   color: white;
+}
+
+.circle-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: solid 3px #FFF;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.circle-img img {
+  width: 100%; /* Ajusta la imagen al tamaño del contenedor circular */
+  height: auto;
 }

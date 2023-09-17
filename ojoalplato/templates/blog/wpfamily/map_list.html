@@ -20,20 +20,14 @@
 {% block content %}
     <div class="row">
 
-    <div class="col-md-8 no-padding">
-    {% leaflet_map "map" %}
-    </div>
-
-    <div class="col-md-4 no-padding">
-        <!--article id="post-1" style="margin-top: 20px;"-->
-        <article id="post-1"
-                 class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry
-                 category-friends family_blog_memberscat-maddie"
-                 style="min-height: 500px;">
-
+    <div class="col-md-6 article-padding" style="padding-left: 40px; padding-right: 40px;">
+      <div class="row">
+        <div class="col-md-12">
             <div class="article-padding has-family-list">
                 <header class="entry-header">
-                    <h2 class="entry-title" id="search"><a href="#search">Buscador de restaurantes</a></h2>
+                    <h2 class="entry-title" id="search"><a
+                      style="color: chocolate; text-decoration: none !important;"
+                      href="#">Buscador de restaurantes</a></h2>
                 </header>
             <div class="entry-content" id="search">
                 <form method="post" action="/cards/search/autocomplete" class="">
@@ -66,12 +60,46 @@
 
                             </div>
                         </div>
-                        <div class="Typeahead-menu"></div>
+                        <div class="Typeahead-menu" style="z-index:1000;"></div>
                     </div>
                 </form>
             </div><!-- .entry-content -->
             </div><!-- .article-padding -->
-        </article>
+        <!--/article-->
+        </div>
+        <div id="map_container" class="col-md-12"
+             style="z-index:1; padding:20px;">
+          {% leaflet_map "map" %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" style="padding-left: 40px; padding-right: 40px;">
+      <div class="article-padding has-family-list">
+                <header class="entry-header">
+                  <h2 class="entry-title"><a
+                    style="color: chocolate; text-decoration: none !important;"
+                    href="#">Guías por ciudades</a></h2>
+                </header>
+        <div class="entry-content">
+        <ul class="guide-list">
+          {% for guide in object_list %}
+          <li>
+          <div class="circle-img">
+            <img src="url('{{ guide.image.url|media }}')" alt="Guide image">
+          </div>
+            <div>
+              <h2><a href="{{ guide.get_absolute_url }}"
+                     style="color: chocolate; text-decoration: none !important;"
+              >{{ guide.title }}</a></h2>
+            </div>
+            </li>
+          {% endfor %}
+        </ul>
+        </div>
+      </div>
+
+
     </div>
 
     </div> <!--row-->
@@ -112,6 +140,18 @@
         icon: 'cutlery',
         markerColor: 'orange'
     });
+
+    gencard = function (name, image, url) {
+      let html = '<div class="card" style="width: 12rem;">'
+      html += '<img class="card-img-top" src="' + image + '" alt="Restaurant featured image">'
+      html += '<div class="card-body">'
+      html += '<h5 class="card-title">'
+      html += "<a href='" + url + "'><b style='color:chocolate;'>" + name + "</b></a></h5></div></div>"
+
+      return html
+    }
+
+
     window.addEventListener("map:init", function (e) {
         detail = e.detail;
         detail.map.spin(true);
@@ -145,7 +185,7 @@
                       var y = rest.location.coordinates[1];
                       var m = L.marker({'lat': x, 'lon': y},
                         {icon: restIcon})
-                        .bindPopup("<a href='/cards/restaurant/" + rest.slug + "'><b>" + rest.name + "</b></a>");
+                        .bindPopup(gencard(rest.name, rest.image, rest.absolute_url));
                       markers.addLayer(m);
                       markers_list[rest.name] = m;
                     }
