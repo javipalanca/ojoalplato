@@ -1,4 +1,4 @@
-{% load card_tags likert_bs_stars %}
+{% load card_tags guide_tags likert_bs_stars %}
 
 <div class="row">
             <div class="col-sm-3 map">
@@ -60,7 +60,7 @@
                     {% if restaurant.suns %}
                         <tr>
                             <th scope="row" class="col-xs-4">Soles Repsol</th>
-                            <td>{{ restaurant.suns | card_bs_suns_fa:3 }}</td>
+                            <td>{{ restaurant.suns | card_bs_suns_fa }}</td>
                         </tr>
                     {% endif %}
                     {% if restaurant.awards %}
@@ -142,6 +142,6 @@
                     </tr>
                     </tbody>
                 </table>
-                <p>{{ restaurant.guide_notes }}</p>
+
             </div>
         </div>

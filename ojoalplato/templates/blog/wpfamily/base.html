@@ -1,4 +1,4 @@
-{% load static content_filters google_analytics %}
+{% load static content_filters google_analytics l10n %}
 
 <!DOCTYPE html>
 <html lang="es-ES" prefix="og: http://ogp.me/ns#" itemscope itemtype="http://schema.org/Article">
@@ -46,7 +46,15 @@
     {% endblock css %}
     {% block css_custom %}{% endblock css_custom %}
 
-    {% google_analytics %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T2SQJJE288"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-T2SQJJE288');
+</script>
 </head>
 
 

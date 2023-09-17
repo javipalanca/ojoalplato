@@ -18,6 +18,8 @@ from ojoalplato.blog.handlers import DateDirectoryWatermarkUploader
 ROOT_DIR = environ.Path(__file__) - 3  # (ojoalplato/config/settings/common.py - 3 = ojoalplato/)
 APPS_DIR = ROOT_DIR.path('ojoalplato')
 
+DECIMAL_SEPARATOR = '.'
+
 env = environ.Env()
 
 # APP CONFIGURATION

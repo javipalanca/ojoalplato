@@ -1,6 +1,6 @@
-{% load card_tags likert_bs_stars content_filters %}
+{% load guide_tags card_tags content_filters %}
 
-        <div class="featured-image-family" style="position: relative; top: 0;
+        <div id="{{ restaurant.slug }}" class="featured-image-family" style="position: relative; top: 0;
         {% if restaurant.image_header %}
             background-image:url('{{ restaurant.image_header.url|media}}')">
         {% else %}
@@ -8,7 +8,7 @@
         {% endif %}
         </div>
 
-        <div class="article-padding" style="padding-top:0">
+        <div class="paragraph-padding" style="padding-top:0">
 
             <header class="entry-header">
                 <h2 class="entry-title"><a href="{{ restaurant.get_absolute_url }}"
