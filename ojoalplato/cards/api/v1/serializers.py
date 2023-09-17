@@ -26,7 +26,7 @@ class SimpleRestaurantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Restaurant
-        fields = ('id', 'name', 'url', 'slug', 'location',)
+        fields = ('id', 'name', 'absolute_url', 'slug', 'location', 'img_src',)
 
 
 class RestaurantAutocompleteSerializer(HaystackSerializer):

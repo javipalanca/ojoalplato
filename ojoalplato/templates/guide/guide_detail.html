@@ -132,7 +132,11 @@ window.addEventListener("map:init", function (e) {
                 mlat =  {{ rest.get_position_wgs84.1 |floatformat:"-18"|parse_float_to_str }};
                 mlng = {{ rest.get_position_wgs84.0 |floatformat:"-18"|parse_float_to_str }};
                 marker = L.marker({'lat': mlat, 'lon': mlng}, {icon: restIcon})
-                  .bindPopup(gencard('{{ rest.name }}', '{{ rest.image_header.url|media }}', '{{ rest.get_absolute_url }}'));
+                  {% if card.image_header %}
+                    .bindPopup(gencard('{{ rest.name }}', '{{ rest.image_header.url|media }}', '{{ rest.get_absolute_url }}'));
+                  {% else %}
+                    .bindPopup(gencard('{{ rest.name }}', '{{ rest.posts.first.content|first_img|media }}', '{{ rest.get_absolute_url }}'));
+                  {% endif %}
                 marker.addTo(detail.map);
                 bounds.extend([mlat, mlng]);
             {% endfor %}
