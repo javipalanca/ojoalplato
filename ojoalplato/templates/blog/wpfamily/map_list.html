@@ -86,7 +86,7 @@
           {% for guide in object_list %}
           <li>
           <div class="circle-img">
-            <img src="url('{{ guide.image.url|media }}')" alt="Guide image">
+            <img src="{{ guide.image.url|media }}" alt="Guide image">
           </div>
             <div>
               <h2><a href="{{ guide.get_absolute_url }}"
@@ -185,7 +185,7 @@
                       var y = rest.location.coordinates[1];
                       var m = L.marker({'lat': x, 'lon': y},
                         {icon: restIcon})
-                        .bindPopup(gencard(rest.name, rest.image, rest.absolute_url));
+                        .bindPopup(gencard(rest.name, rest.image_src, rest.absolute_url));
                       markers.addLayer(m);
                       markers_list[rest.name] = m;
                     }

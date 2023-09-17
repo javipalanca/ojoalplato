@@ -17,7 +17,8 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
         model = Restaurant
         fields = ('id', 'name', 'slug', 'chef', 'address', 'phone', 'url', 'email',
                   'last_visit', 'price', 'avg_price', 'menu_price', 'location',
-                  'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags')
+                  'stars', 'suns', 'awards', 'freedays', 'is_closed', 'tags',
+                  'img_src', 'absolute_url')
 
 
 class SimpleRestaurantSerializer(serializers.ModelSerializer):
