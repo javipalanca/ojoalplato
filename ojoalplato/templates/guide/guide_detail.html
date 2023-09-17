@@ -86,6 +86,16 @@
 
   {% leaflet_js %}
 <script>
+gencard = function (name, image, url) {
+  let html = '<div class="card" style="width: 12rem;">'
+  html += '<img class="card-img-top" src="' + image + '" alt="Restaurant featured image">'
+  html += '<div class="card-body">'
+  html += '<h5 class="card-title">'
+  html += "<a href='" + url + "'><b style='color:chocolate;'>" + name + "</b></a></h5></div></div>"
+
+  return html
+}
+
 window.addEventListener("map:init", function (e) {
             detail = e.detail;
 
@@ -99,6 +109,10 @@ window.addEventListener("map:init", function (e) {
             // Calcula el centro de las coordenadas
             let latSum = 0;
             let lngSum = 0;
+            var restIcon = L.AwesomeMarkers.icon({
+              icon: 'cutlery',
+              markerColor: 'orange'
+            });
             for (const coord of coordenadas) {
                 latSum += coord.lat;
                 lngSum += coord.lng;
@@ -111,10 +125,18 @@ window.addEventListener("map:init", function (e) {
 
             // Calcula el nivel de zoom necesario para que todas las coordenadas sean visibles
             const bounds = new L.LatLngBounds();
-            for (const coord of coordenadas) {
-                L.marker([coord.lat, coord.lng]).addTo(detail.map);
-                bounds.extend([coord.lat, coord.lng]);
-            }
+            let mlat;
+            let mlng;
+            let marker;
+            {% for rest in guide.restaurants.all %}
+                mlat =  {{ rest.get_position_wgs84.1 |floatformat:"-18"|parse_float_to_str }};
+                mlng = {{ rest.get_position_wgs84.0 |floatformat:"-18"|parse_float_to_str }};
+                marker = L.marker({'lat': mlat, 'lon': mlng}, {icon: restIcon})
+                  .bindPopup(gencard('{{ rest.name }}', '{{ rest.image_header.url|media }}', '{{ rest.get_absolute_url }}'));
+                marker.addTo(detail.map);
+                bounds.extend([mlat, mlng]);
+            {% endfor %}
+
             detail.map.fitBounds(bounds);
         }, false);
   //initMap();

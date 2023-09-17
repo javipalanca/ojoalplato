@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from django.http import HttpResponse
 
 from ojoalplato.cards.forms import RestaurantSearchForm
@@ -10,6 +10,8 @@ from haystack.query import SearchQuerySet
 
 import json
 
+from ojoalplato.guide.models import Guide
+
 
 # class MapView(SearchView):
 #    model = Restaurant
@@ -17,8 +19,9 @@ import json
 #    form = HighlightedModelSearchForm
 
 
-class MapView(TemplateView):
+class MapView(ListView):
     template_name = "blog/wpfamily/map_list.html"
+    model = Guide
 
 
 class RestaurantDetailView(DetailView):
@@ -50,10 +53,10 @@ def restaurant_search(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         restaurants = paginator.page(paginator.num_pages)
     return render(request, 'blog/wpfamily/map_list.html',
-                              {
-                                  'query': query,
-                                  'page': restaurants
-                              })
+                  {
+                      'query': query,
+                      'page': restaurants
+                  })
 
 
 def autocomplete(request):
