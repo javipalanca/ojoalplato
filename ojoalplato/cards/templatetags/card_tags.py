@@ -25,10 +25,11 @@ def render_restaurant_mini(context, restaurant):
 
 
 @register.inclusion_tag('cards/templatetags/restaurant_full.html', takes_context=True)
-def render_restaurant(context, restaurant):
+def render_restaurant(context, restaurant, show_description=True):
     """Renders a restaurant mini card."""
     request = context["request"]
     context["restaurant"] = restaurant
+    context["show_description"] = show_description
     return context
 
 
