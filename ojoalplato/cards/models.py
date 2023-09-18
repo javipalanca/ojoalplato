@@ -2,6 +2,7 @@ from copy import copy
 
 from autoslug import AutoSlugField
 from bs4 import BeautifulSoup
+from django.conf import settings
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.gdal import CoordTransform, SpatialReference
 from django.contrib.gis.geos import Point
@@ -80,6 +81,8 @@ class Restaurant(TimeStampedModel, HitCountMixin):
             url = self.image_header.url.replace("//media", "/media")
         else:
             url = self.first_post_image()
+            if url == "#":
+                url = settings.STATIC_URL + "wpfamily/img/logo2.png"
         return url
 
     def first_post_image(self):

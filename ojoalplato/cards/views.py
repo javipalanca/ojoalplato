@@ -22,7 +22,7 @@ from ojoalplato.guide.models import Guide
 class MapView(ListView):
     template_name = "blog/wpfamily/map_list.html"
     model = Guide
-    ordering = ["-city"]
+    ordering = ["city"]
 
 
 class RestaurantDetailView(DetailView):
