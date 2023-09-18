@@ -180,12 +180,13 @@
             .then(function (response) {
                 for (var index in response.data) {
                     var rest = response.data[index];
+                    console.log(rest);
                     try {
                       var x = rest.location.coordinates[0];
                       var y = rest.location.coordinates[1];
                       var m = L.marker({'lat': x, 'lon': y},
                         {icon: restIcon})
-                        .bindPopup(gencard(rest.name, rest.image_src, rest.absolute_url));
+                        .bindPopup(gencard(rest.name, rest.img_src, rest.absolute_url));
                       markers.addLayer(m);
                       markers_list[rest.name] = m;
                     }
