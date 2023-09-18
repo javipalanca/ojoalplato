@@ -21,12 +21,13 @@ class RestaurantSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'img_src', 'absolute_url')
 
 
-class SimpleRestaurantSerializer(serializers.ModelSerializer):
+class SimpleRestaurantSerializer(serializers.Serializer):
     location = GeometryField(source="location_wgs84")
-
-    class Meta:
-        model = Restaurant
-        fields = ('id', 'name', 'absolute_url', 'slug', 'location', 'img_src',)
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    absolute_url = serializers.CharField()
+    slug = serializers.CharField()
+    img_src = serializers.CharField()
 
 
 class RestaurantAutocompleteSerializer(HaystackSerializer):
