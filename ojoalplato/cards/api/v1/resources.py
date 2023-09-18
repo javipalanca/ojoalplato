@@ -19,7 +19,7 @@ class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = SimpleRestaurantSerializer
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
-    @method_decorator(cache_page(60 * 60 * 24))
+    # @method_decorator(cache_page(60 * 60 * 24))
     @action(detail=False)
     def opened(self, request):
         restaurants = Restaurant.objects.filter(is_closed=False)

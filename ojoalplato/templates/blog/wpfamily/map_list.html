@@ -180,7 +180,6 @@
             .then(function (response) {
                 for (var index in response.data) {
                     var rest = response.data[index];
-                    console.log(rest);
                     try {
                       var x = rest.location.coordinates[0];
                       var y = rest.location.coordinates[1];
