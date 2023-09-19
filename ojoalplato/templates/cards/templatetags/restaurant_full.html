@@ -142,7 +142,7 @@
                     </tr>
                     </tbody>
                 </table>
-                {% if show_description %}
+                {% if show_description and restaurant.guide_notes %}
                 <p>{{ restaurant.guide_notes }}</p>
                 {% endif %}
             </div>

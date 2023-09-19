@@ -22,7 +22,9 @@
             </header><!-- .entry-header -->
 
             <div class="entry-content text-center">
+              {%  if restaurant.guide_notes %}
                 <p>{{ restaurant.guide_notes }}</p>
+              {% endif %}
 
                 {% render_restaurant  restaurant show_description=False %}
 
