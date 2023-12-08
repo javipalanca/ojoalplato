@@ -70,3 +70,9 @@ class WeekdayWidget(forms.CheckboxSelectMultiple):
     def value_from_datadict(self, data, files, name):
         value = super(WeekdayWidget, self).value_from_datadict(data, files, name)
         return ",".join([x for x in value])
+
+    def render(self, name, value, attrs=None, renderer=None):
+        # Convert the string value to a list before calling render.
+        if isinstance(value, str):
+            value = value.split(',')
+        return super().render(name, value, attrs, renderer)
