@@ -91,7 +91,7 @@ class RestaurantAdmin(VersionAdmin):
 
 @admin.register(Winery)
 class WineryAdmin(VersionAdmin):
-    pass
+    search_fields = ("name",)
 
 
 @admin.register(VarietyTag)
