@@ -184,6 +184,18 @@ class TaggedVariety(TaggedItemBase):
     content_object = ForeignKey('Wine', on_delete=CASCADE)
 
 
+class ClassTag(TagBase):
+    # Puedes agregar campos adicionales aquí si lo deseas
+    class Meta:
+        verbose_name = "Clase"
+        verbose_name_plural = "Clases"
+
+
+class TaggedClass(TaggedItemBase):
+    tag = ForeignKey(ClassTag, on_delete=CASCADE, related_name="%(app_label)s_%(class)s_items")
+    content_object = ForeignKey('Wine', on_delete=CASCADE, null=True)
+
+
 class Wine(TimeStampedModel, HitCountMixin):
     name = CharField(verbose_name="Nombre", max_length=200)
     slug = AutoSlugField(populate_from='name', verbose_name="slug", max_length=200, blank=True, null=True)
@@ -196,6 +208,9 @@ class Wine(TimeStampedModel, HitCountMixin):
                            help_text="Lista de variedades de uva separadas por comas.",
                            through=TaggedVariety,
                            blank=True)
+    classes = TaggableManager(through=TaggedClass, verbose_name="Clase",
+                              help_text="Lista de clases de envejecimiento, separadas por comas.",
+                              blank=True)
     preparation = TextField(verbose_name="Elaboración", blank=True, null=True)
     last_taste = DateField(verbose_name="Fecha última cata", blank=True, null=True)
     price = CharField(verbose_name="Precio medio", max_length=50, blank=True, null=True)

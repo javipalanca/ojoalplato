@@ -111,14 +111,14 @@ class VarietyTagAdmin(VersionAdmin):
 @admin.register(Wine)
 class WineAdmin(VersionAdmin):
     search_fields = ("name", "year", "kind")
-    list_filter = ['year']
+    list_filter = ['year', 'kind']
     list_display = ['name', 'year', 'winery']
     save_on_top = True
     form = WineForm
 
     fieldsets = (
         (None, {
-            "fields": ["name", "winery", "year", "kind", "image_header",
+            "fields": ["name", "winery", "year", "kind", "classes", "image_header",
                        "image_bottle", "image_back", "country", "region",
                        "tags", "preparation", "last_taste", "price",
                        "parker_points", "penyin_points", "other",

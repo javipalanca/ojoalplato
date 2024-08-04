@@ -51,6 +51,12 @@
                             <td>{{ wine.tags|as_comma_list }}</td>
                         </tr>
                     {% endif %}
+                    {% if wine.classes %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Clases de envejecimiento</th>
+                            <td>{{ wine.classes|as_comma_list }}</td>
+                        </tr>
+                    {% endif %}
                     {% if wine.country %}
                         <tr>
                             <th scope="row" class="col-xs-4">País</th>
