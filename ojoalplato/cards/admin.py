@@ -89,9 +89,18 @@ class RestaurantAdmin(VersionAdmin):
         )
 
 
+class WineInline(admin.TabularInline):
+    model = Wine
+    fields = ['name', 'year']  # Campos que se mostrarán en el inline
+    readonly_fields = ['name', 'year']  # Campos que no se podrán editar
+    extra = 0  # Número de formularios vacíos adicionales a mostrar
+    show_change_link = False  # Mostrar enlace al formulario de edición de Wine
+
+
 @admin.register(Winery)
 class WineryAdmin(VersionAdmin):
     search_fields = ("name",)
+    inlines = [WineInline]
 
 
 @admin.register(VarietyTag)
@@ -103,7 +112,7 @@ class VarietyTagAdmin(VersionAdmin):
 class WineAdmin(VersionAdmin):
     search_fields = ("name", "year", "kind")
     list_filter = ['year']
-    list_display = ['name', 'year']
+    list_display = ['name', 'year', 'winery']
     save_on_top = True
     form = WineForm
 

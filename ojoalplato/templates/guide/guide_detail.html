@@ -42,7 +42,7 @@
             <h3 id="indice">Índice de restaurantes</h3>
             <table>
               {% for restaurant in guide.restaurants.all %}
-                <tr><td><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></td></tr>
+                <tr><td><h4><a href="#{{ restaurant.slug }}">{{ restaurant.name }}</a></h4></td></tr>
               {% endfor %}
             {% if guide.restaurants.all.count|divisibleby:2 %}
                 <tr><td>&nbsp;</td></tr>
