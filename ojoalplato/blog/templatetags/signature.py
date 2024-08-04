@@ -5,10 +5,12 @@ register = template.Library()
 
 @register.inclusion_tag('signature.html', takes_context=False)
 def signature(post):
+    m = """<span style="font-size: 10px;">Fotografías: © Paco Palanca /&nbsp;Instagram: @ojoalplato.blog&nbsp; /&nbsp;Facebook: @ojoalplato /Twitter: @ojoalplato /Twitter: @pacopalanca</span><br>"""
     try:
-        has_signature = 'ojoalplato.blog' in post.content
-        ret =  {"signature": ""}
+        has_signature = '@pacopalanca' in post.content
+        if has_signature:
+            m = ""
     except AttributeError:
-        m = """<span style="font-size: 10px;">Fotografías: © Paco Palanca /&nbsp;Instagram: @ojoalplato.blog&nbsp; /&nbsp;Facebook: @ojoalplato /Twitter: @ojoalplato /Twitter: @pacopalanca</span><br>"""
-        ret = {"signature": m}
+        pass
+    ret = {"signature": m}
     return ret
