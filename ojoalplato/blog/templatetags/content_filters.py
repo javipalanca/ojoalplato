@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django import template
 from django.urls import reverse, NoReverseMatch
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 from django.utils.text import normalize_newlines, slugify
 
 register = template.Library()
@@ -129,7 +129,7 @@ def og_img_size(context, url):
 
 @register.filter
 def escape_slash(value):
-    return value.replace("/", "\/")
+    return value.replace("/", r"\/")
 
 
 @register.filter

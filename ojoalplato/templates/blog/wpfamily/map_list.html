@@ -85,9 +85,11 @@
         <ul class="guide-list">
           {% for guide in object_list %}
           <li>
+          {% if guide.image %}
           <div class="circle-img">
             <img src="{{ guide.image.url|media }}" alt="Guide image">
           </div>
+            {% endif %}
             <div>
               <h2><a href="{{ guide.get_absolute_url }}"
                      style="color: chocolate; text-decoration: none !important;"

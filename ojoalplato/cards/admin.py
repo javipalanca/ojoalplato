@@ -22,7 +22,7 @@ class RestaurantAdminForm(forms.ModelForm):
         widgets = {
             'location': PointWidget(),
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
-            'phone': PhoneNumberWidget(),
+            # 'phone': PhoneNumberWidget(),
             'stars': StarsWidget(),
             'suns': SunsWidget(),
             'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ sin vino'}),

@@ -1,85 +1,77 @@
-# -*- coding: utf-8 -*-
-"""
-Local settings
-
-- Run in Debug mode
-- Use console backend for emails
-- Add Django Debug Toolbar
-- Add django-extensions as app
-"""
+# ruff: noqa: E501
 import dj_database_url
+from .base import *  # noqa: F403
+from .base import INSTALLED_APPS
+from .base import MIDDLEWARE
+from .base import env
 
-from .common import *  # noqa
-import socket
-import os
-
-# DEBUG
+# GENERAL
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
+# https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+SECRET_KEY = env(
+    "DJANGO_SECRET_KEY",
+    default="LoN3uCheSeGhB6T3qJHBtXayZ3ttV6wLH8TbQ6pctnkfQjuFdvbyCQSmAV86wShK",
+)
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]  # noqa: S104
 
-# SECRET CONFIGURATION
+# CACHES
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key only used for development and testing.
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='4tg6no4=eh0@yf#v1+*kqcho!0q(@^4m81t94yeivxhmkmg5(n')
-
-# Mail settings
-# ------------------------------------------------------------------------------
-
-EMAIL_PORT = 1025
-
-EMAIL_HOST = env("EMAIL_HOST", default='mailhog')
-
-
-# CACHING
-# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': ''
-    }
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "",
+    },
 }
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = env("EMAIL_HOST", default="mailpit")
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = 1025
 
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
-MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
-
-INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', ]
-# tricks to have debug toolbar when developing with docker
-if os.environ.get('USE_DOCKER') == 'yes':
-    ip = socket.gethostbyname(socket.gethostname())
-    INTERNAL_IPS += [ip[:-1]+"1"]
-
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
+INSTALLED_APPS += ["debug_toolbar"]
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
+# https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
 DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS': [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
+    "DISABLE_PANELS": [
+        "debug_toolbar.panels.redirects.RedirectsPanel",
+        # Disable profiling panel due to an issue with Python 3.12:
+        # https://github.com/jazzband/django-debug-toolbar/issues/1875
+        "debug_toolbar.panels.profiling.ProfilingPanel",
     ],
-    'SHOW_TEMPLATE_CONTEXT': True,
+    "SHOW_TEMPLATE_CONTEXT": True,
 }
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+if env("USE_DOCKER") == "yes":
+    import socket
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
 
 # django-extensions
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', )
-
-# TESTING
+# https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
+INSTALLED_APPS += ["django_extensions"]
+# Celery
 # ------------------------------------------------------------------------------
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-# CELERY
-# In development, all tasks will be executed locally by blocking until the task returns
-# CELERY_ALWAYS_EAGER = True
-# END CELERY
-
-MEDIA_ROOT = str(APPS_DIR('media'))
-
-# Your local stuff: Below this line define 3rd party library settings
-DATABASES = {
-    # 'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
-    'default': dj_database_url.parse("postgis://ojoalplato:ojoalplato@postgres/ojoalplato"),
-}
-
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html#task-eager-propagates
+CELERY_TASK_EAGER_PROPAGATES = True
+# Your stuff...
+# ------------------------------------------------------------------------------
+#DATABASES = {
+#    # 'mysql': env.db("DATABASE_URL", default="mysql://ojoalplato:ojoalplato@mysql:3306/wordpress"),
+#    'default': dj_database_url.parse("postgis://ojoalplato:ojoalplato@postgres/ojoalplato"),
+#}
 WP_TABLE_PREFIX = 'wp_d3r46v'
 WP_READ_ONLY = True
-

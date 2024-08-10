@@ -1,0 +1,104 @@
+volumes:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
+  production_traefik: {}
+
+  production_redis_data: {}
+
+
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/django/Dockerfile
+
+    image: ojoalplato_production_django
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.envs/.production/.django
+      - ./.envs/.production/.postgres
+    volumes:
+      - /staticfiles
+      - /mnt/volume_ams3_01/data/media:/media
+    command: /start
+    links:
+      - "elasticsearch"
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: ojoalplato_production_postgres
+    volumes:
+      - /mnt/volume_ams3_01/data/postgres:/var/lib/postgresql/data
+      - /mnt/volume_ams3_01/data/postgres_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./compose/production/traefik/Dockerfile
+    image: ojoalplato_production_traefik
+    depends_on:
+      - django
+    volumes:
+      - production_traefik:/etc/traefik/acme
+    ports:
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
+      - '0.0.0.0:5555:5555'
+    volumes_from:
+      - django
+
+  redis:
+    image: docker.io/redis:6
+
+    volumes:
+      - production_redis_data:/data
+
+
+  celeryworker:
+    <<: *django
+    image: ojoalplato_production_celeryworker
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - "elasticsearch"
+    command: /start-celeryworker
+
+  #celerybeat:
+  #  <<: *django
+  #  image: ojoalplato_production_celerybeat
+  #  command: /start-celerybeat
+
+  flower:
+    <<: *django
+    image: ojoalplato_production_flower
+    command: /start-flower
+
+  #awscli:
+  #  build:
+  #    context: .
+  #    dockerfile: ./compose/production/aws/Dockerfile
+  #  env_file:
+  #    - ./.envs/.production/.django
+  #  volumes:
+  #    - production_postgres_data_backups:/backups:z
+
+  elasticsearch:
+    image: elasticsearch:2.4.5
+    hostname: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g

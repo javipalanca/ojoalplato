@@ -2,7 +2,7 @@
 from envelope.forms import ContactForm as EnvelopeContactForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from captcha.fields import ReCaptchaField
+from django_recaptcha.fields import ReCaptchaField
 
 
 class ContactForm(EnvelopeContactForm):

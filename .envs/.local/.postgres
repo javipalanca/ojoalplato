@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=ojoalplato
+POSTGRES_USER=qlkaIDtLqMryUVXJsCaSffIWLXbTLqrD
+POSTGRES_PASSWORD=q2XFjYG1bW0zIxD79TR8sI2CoRm39WCh6KxeseMBWBkOYqXfIWzZUGvu2WbCnorb

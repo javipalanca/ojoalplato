@@ -1,7 +1,13 @@
-{% extends "httpcode.html" %}
+{% extends "base.html" %}
 
-{% block title %}404 Not Found{% endblock %}
-
-{% block error_message %}
-¡Vaya! Nos falta algún ingrediente para mostrarte lo que estás buscando. ¡Lo sentimos!
-{% endblock error_message %}
+{% block title %}Page not found{% endblock title %}
+{% block content %}
+  <h1>Page not found</h1>
+  <p>
+    {% if exception %}
+      {{ exception }}
+    {% else %}
+      This is not the page you were looking for.
+    {% endif %}
+  </p>
+{% endblock content %}

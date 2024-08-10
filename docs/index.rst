@@ -4,17 +4,15 @@
    contain the root `toctree` directive.
 
 Welcome to Ojoalplato's documentation!
-====================================================================
-
-Contents:
+======================================================================
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
-   install
-   deploy
-   docker_ec2
-   tests
+   howto
+   pycharm/configuration
+   users
 
 
 

@@ -8,11 +8,13 @@
              class="post-1 family_blog_members type-family_blog_members status-publish has-post-thumbnail hentry"
               style="padding-top:0">
 
+        {% if guide.image %}
         <div class="featured-image"
              style="background-image:url('{{ guide.image.url|media }}');">
         <a href="{{ guide.get_absolute_url }}"><img
                 src="{% static 'wpfamily/img/post-header-trans.png' %}" alt=""></a>
         </div>
+        {% endif %}
 
         <div class="has-family-list">
 

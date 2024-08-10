@@ -1,3 +1,4 @@
+from django.utils import timezone
 from haystack import indexes
 from .models import Post
 
@@ -11,9 +12,13 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
     # We add this for autocomplete.
     content_auto = indexes.EdgeNgramField(model_attr='autocomplete_text')
 
+    status = indexes.CharField(model_attr='status')
+    post_date = indexes.DateTimeField(model_attr='post_date')
+
     def get_model(self):
         return Post
 
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return self.get_model().objects.published()
+        # return self.get_model().objects.published()
+        return self.get_model().objects.filter(status='publish', post_date__lte=timezone.now())
