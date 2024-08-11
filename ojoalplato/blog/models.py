@@ -157,6 +157,7 @@ class Post(TimeStampedModel, HitCountMixin):
                                  verbose_name="Categoría", on_delete=models.CASCADE)
     tags = TaggableManager(verbose_name="Etiquetas",
                            help_text="Lista de etiquetas separadas por comas.",
+                           related_name="post",
                            blank=True)
 
     image_header = ImageField(
