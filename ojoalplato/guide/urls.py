@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import re_path
 
 from .views import GuideDetailView
 
 urlpatterns = [
-    path('<slug:slug>/', GuideDetailView.as_view(), name='guide-detail'),
+    re_path(r'^(?P<slug>[-\w]+)/$', GuideDetailView.as_view(), name='guide-detail'),
 ]

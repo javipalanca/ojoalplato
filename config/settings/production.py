@@ -104,22 +104,22 @@ AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 # STATIC & MEDIA
 # ------------------------
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "location": "media",
-            "file_overwrite": False,
-        },
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "location": "static",
-            "default_acl": "public-read",
-        },
-    },
-}
+#STORAGES = {
+#    "default": {
+#        "BACKEND": "storages.backends.s3.S3Storage",
+#        "OPTIONS": {
+#            "location": "media",
+#            "file_overwrite": False,
+#        },
+#    },
+#    "staticfiles": {
+#        "BACKEND": "storages.backends.s3.S3Storage",
+#        "OPTIONS": {
+#            "location": "static",
+#            "default_acl": "public-read",
+#        },
+#    },
+#}
 
 from storages.backends.s3boto3 import S3Boto3Storage
 
@@ -138,14 +138,17 @@ StaticRootS3BotoStorage = lambda: CustomS3BotoStorage(location='static')
 MediaRootS3BotoStorage = lambda: CustomS3BotoStorage(location='media')
 
 DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
+STATICFILES_STORAGE = 'config.settings.production.StaticRootS3BotoStorage'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_MEDIA_LOCATION = 'media'
 # MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 MEDIA_ROOT = ''
 
 MEDIA_URL = f"https://{aws_s3_domain}/media/"
-COLLECTFASTA_STRATEGY = "collectfasta.strategies.boto3.Boto3Strategy"
+#COLLECTFASTA_STRATEGY = "collectfasta.strategies.boto3.Boto3Strategy"
+COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 STATIC_URL = f"https://{aws_s3_domain}/static/"
+
 
 # EMAIL
 # ------------------------------------------------------------------------------
@@ -182,7 +185,7 @@ AWS_SES_REGION_ENDPOINT = 'email.eu-west-1.amazonaws.com'
 # Collectfasta
 # ------------------------------------------------------------------------------
 # https://github.com/jasongi/collectfasta#installation
-INSTALLED_APPS = ["collectfasta", *INSTALLED_APPS]
+INSTALLED_APPS = ["collectfast", *INSTALLED_APPS]
 
 # LOGGING
 # ------------------------------------------------------------------------------

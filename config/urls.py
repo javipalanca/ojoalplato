@@ -55,7 +55,7 @@ urlpatterns = [
     path('robots.txt', include('robots.urls')),
 
     # Blog app
-    path('<slug:slug>/', PostDetail.as_view(), name='post-detail'),
+    re_path(r'^(?P<slug>[-\w]+)/$', PostDetail.as_view(), name='post-detail'),
     path('archivos/<int:pk>/*', PostDetailById.as_view(), name='post-detail-wp'),
     path('archives/<int:pk>/*', PostDetailById.as_view(), name='post-detail-wp-en'),
     path('author/<str:author>/', AuthorList.as_view(), name='author-list'),
