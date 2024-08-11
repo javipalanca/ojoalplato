@@ -120,6 +120,29 @@ STORAGES = {
         },
     },
 }
+
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
+class CustomS3BotoStorage(S3Boto3Storage):
+
+    def _normalize_name(self, name):
+        if name.startswith("/"):
+            name = name[1:]
+        if not name.startswith(self.location):
+            return self.location + "/" + name
+        return name
+
+
+StaticRootS3BotoStorage = lambda: CustomS3BotoStorage(location='static')
+MediaRootS3BotoStorage = lambda: CustomS3BotoStorage(location='media')
+
+DEFAULT_FILE_STORAGE = 'config.settings.production.MediaRootS3BotoStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_MEDIA_LOCATION = 'media'
+# MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
+MEDIA_ROOT = ''
+
 MEDIA_URL = f"https://{aws_s3_domain}/media/"
 COLLECTFASTA_STRATEGY = "collectfasta.strategies.boto3.Boto3Strategy"
 STATIC_URL = f"https://{aws_s3_domain}/static/"
