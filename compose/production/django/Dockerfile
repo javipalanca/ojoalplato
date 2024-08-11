@@ -9,10 +9,11 @@ ARG BUILD_ENVIRONMENT=production
 
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # dependencies for building Python packages
   build-essential \
-  # psycopg dependencies
-  libpq-dev
+  libpq-dev libmariadb-dev \
+  spatialite-bin \
+  gdal-bin libgdal-dev python3-gdal libgeos-dev libproj-dev \
+  git
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements .
@@ -40,11 +41,10 @@ RUN addgroup --system django \
 
 # Install required system dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  # psycopg dependencies
-  libpq-dev \
-  # Translations dependencies
+  libpq-dev libmariadb-dev \
   gettext \
-  # cleaning up unused files
+  spatialite-bin \
+  gdal-bin libgdal-dev python3-gdal libgeos-dev libproj-dev \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
