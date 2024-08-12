@@ -23,7 +23,7 @@ class WatermarkUploader(SimpleUploader):
         image_x, image_y = rgba_image.size
         watermark_x = watermark_y = max(math.floor(image_x / 10), math.floor(image_y / 10))
         new_size = (watermark_x, watermark_y)
-        rgba_watermark = rgba_watermark.resize(new_size, resample=Image.ANTIALIAS)
+        rgba_watermark = rgba_watermark.resize(new_size, resample=Image.LANCZOS)
 
         # apply watermark
         position = ((image_x - watermark_x - 10), (image_y - watermark_y - 10))

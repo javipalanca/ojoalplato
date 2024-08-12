@@ -32,7 +32,7 @@ urlpatterns = [
 
     # User management
     # path(r'^users/', include('ojoalplato.users.urls', namespace='users')),
-    # path(r'^accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
 
     # 3rd party apps
     path('redactor/', include('redactor.urls')),
