@@ -1,6 +1,7 @@
 # ruff: noqa: E501
 import dj_database_url
 import logging
+import os
 
 import sentry_sdk
 from sentry_sdk.integrations.celery import CeleryIntegration
@@ -98,7 +99,7 @@ AWS_S3_MAX_MEMORY_SIZE = env.int(
     default=100_000_000,  # 100MB
 )
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
-AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
+AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default="eu-west-1")
 # https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
 AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
 aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
@@ -155,7 +156,7 @@ STATIC_URL = f"https://{aws_s3_domain}/static/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
-    default="Ojoalplato <noreply@ojoalplato.com>",
+    default="Ojoalplato <no-reply@ojoalplato.com>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
@@ -177,10 +178,34 @@ INSTALLED_APPS += ["anymail"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 # https://anymail.readthedocs.io/en/stable/esps/amazon_ses/
-EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
-ANYMAIL = {}
+
+
+from anymail.backends.amazon_ses import EmailBackend as AnymailSESEmailBackend
+
+class CustomSESEmailBackend(AnymailSESEmailBackend):
+    def close(self):
+        pass  # Esto evita el error si SESV2 no tiene un método close
+
+EMAIL_BACKEND = "config.settings.production.CustomSESEmailBackend"
+#EMAIL_BACKEND = "anymail.backends.amazon_ses.EmailBackend"
 AWS_SES_REGION_NAME = 'eu-west-1'
+DJANGO_AWS_SES_REGION_NAME = 'eu-west-1'
 AWS_SES_REGION_ENDPOINT = 'email.eu-west-1.amazonaws.com'
+
+ANYMAIL = {
+    "AWS_SES_CLIENT_PARAMS": {
+        "region_name": AWS_SES_REGION_NAME,  # Establece la región aquí
+        "aws_access_key_id": AWS_ACCESS_KEY_ID,
+        "aws_secret_access_key": AWS_SECRET_ACCESS_KEY,
+        # Otras configuraciones si es necesario
+        "service_name": "sesv2",  # Especificar que se use el cliente sesv2
+    },
+    "AMAZON_SES_SESSION_PARAMS": {
+        "region_name": os.getenv('DJANGO_AWS_SES_REGION_NAME', 'eu-west-1'),
+        "aws_access_key_id": os.getenv('DJANGO_AWS_ACCESS_KEY_ID'),
+        "aws_secret_access_key": os.getenv('DJANGO_AWS_SECRET_ACCESS_KEY'),
+    },
+}
 
 # Collectfasta
 # ------------------------------------------------------------------------------
