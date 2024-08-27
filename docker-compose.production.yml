@@ -25,7 +25,9 @@ services:
       - /mnt/volume_ams3_01/data/media:/media
     command: /start
     links:
-      - "elasticsearch"
+      - elasticsearch
+      - postgres
+      - redis
 
   postgres:
     build:

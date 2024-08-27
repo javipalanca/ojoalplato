@@ -316,6 +316,9 @@ class Recipe(TimeStampedModel, HitCountMixin):
                     images.append(img.attrs["src"])
         return images
 
+    def get_absolute_url(self):
+        return reverse("cards:recipe-detail", kwargs={"slug": self.slug})
+
     def __str__(self):
         return self.name
 

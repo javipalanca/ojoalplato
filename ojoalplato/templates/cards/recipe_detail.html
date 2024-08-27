@@ -1,0 +1,20 @@
+{% extends 'cards/card_detail.html' %}
+{% load card_tags %}
+
+{% block render_card %}
+    {% with card as recipe %}
+        {%  render_recipe recipe %}
+    {% endwith %}
+{% endblock %}
+
+{% block nopost_msg %}
+    Todavía no hay artículos sobre esta receta.
+{% endblock nopost_msg %}
+
+{% block css_custom %}
+<style>
+.text-white {
+    color: white;
+}
+</style>
+{% endblock css_custom %}

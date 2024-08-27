@@ -1,0 +1,28 @@
+{% load card_tags content_filters %}
+
+<div class="row">
+    <div class="col-sm-3 map">
+        {% if recipe.image_header %}
+            <img src="{{ recipe.image_header.url|media}}" class="img-fluid mx-auto d-block" alt="{{ recipe.name }}">
+        {% endif %}
+    </div>
+    <div class="col-sm-9">
+        <table class="table table-responsive table-condensed font-size-16">
+            <tbody>
+            {% if recipe.ingredients %}
+                <tr>
+                    <th scope="row" class="col-xs-4">Ingredientes</th>
+                    <td>
+                        {% for ingredient in recipe.ingredients.all %}
+                          <span class="badge">{{ ingredient.name }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        {% if recipe.content %}
+        <p>{{ recipe.content | lightbox | safe }}</p>
+        {% endif %}
+    </div>
+</div>

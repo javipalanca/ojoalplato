@@ -33,6 +33,14 @@ def render_restaurant(context, restaurant, show_description=True):
     return context
 
 
+@register.inclusion_tag('cards/templatetags/recipe_full.html', takes_context=True)
+def render_recipe(context, recipe):
+    """Renders a restaurant mini card."""
+    request = context["request"]
+    context["recipe"] = recipe
+    return context
+
+
 def make_point(point, origin_coord_srid, destiny_coord_srid):
     origin_coord = SpatialReference(origin_coord_srid)
     destination_coord = SpatialReference(destiny_coord_srid)
@@ -162,6 +170,14 @@ def render_wine_mini(context, wine):
     """Renders a restaurant mini card."""
     request = context["request"]
     context["wine"] = wine
+    return context
+
+
+@register.inclusion_tag('cards/templatetags/recipe_mini.html', takes_context=True)
+def render_recipe_mini(context, recipe):
+    """Renders a restaurant mini card."""
+    request = context["request"]
+    context["recipe"] = recipe
     return context
 
 
