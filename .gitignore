@@ -333,3 +333,5 @@ ojoalplato/media/
 .env
 .envs/*
 !.envs/.local/
+!/ojoalplato/users/migrations/0004_auto_20210209_1852.py
+!/ojoalplato/users/migrations/0004_auto_20220828_1326.py
