@@ -276,6 +276,9 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+###
+
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend

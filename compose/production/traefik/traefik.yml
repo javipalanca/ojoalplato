@@ -56,6 +56,7 @@ http:
       # https://docs.djangoproject.com/en/dev/ref/csrf/#ajax
       headers:
         hostsProxyHeaders: ['X-CSRFToken']
+        referrerPolicy: strict-origin-when-cross-origin
 
   services:
     django:
