@@ -472,7 +472,7 @@ LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 6,
     'MAX_ZOOM': 20,
     'MIN_ZOOM': 1,
-    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    'TILES': 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     'RESET_VIEW': False,
 }
 

@@ -11,6 +11,7 @@ services:
     image: ojoalplato_local_django
     container_name: ojoalplato_local_django
     depends_on:
+      - elasticsearch
       - postgres
       - redis
       - mailpit

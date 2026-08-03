@@ -86,20 +86,38 @@
                 </header>
         <div class="entry-content">
         <div class="guide-directory-toolbar">
-          <label class="screen-reader-text" for="guide-directory-search">Buscar una guía</label>
-          <span class="fa fa-search" aria-hidden="true"></span>
-          <input type="search" id="guide-directory-search"
-                 placeholder="Buscar una guía…" autocomplete="off"
-                 aria-describedby="guide-directory-hint">
+          <div class="guide-directory-search-control">
+            <label class="screen-reader-text" for="guide-directory-search">Buscar una guía</label>
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <input type="search" id="guide-directory-search"
+                   placeholder="Buscar una guía…" autocomplete="off"
+                   aria-describedby="guide-directory-hint">
+          </div>
           <p class="guide-directory-hint" id="guide-directory-hint">
             Busca por comunidad, provincia, ciudad o distrito
           </p>
+          <fieldset class="guide-directory-filters">
+            <legend>Mostrar</legend>
+            <label>
+              <input type="checkbox" value="province" data-guide-type-filter checked>
+              Provincia
+            </label>
+            <label>
+              <input type="checkbox" value="city" data-guide-type-filter checked>
+              Ciudad
+            </label>
+            <label>
+              <input type="checkbox" value="district" data-guide-type-filter checked>
+              Distrito
+            </label>
+          </fieldset>
         </div>
         <ul class="guide-list">
           {% for guide in object_list %}
           {% with guide_name=guide.title|cut:"Mis favoritos de " %}
           <li class="guide-list-item{% if forloop.counter > 6 %} guide-list-extra{% endif %}"
-              data-guide-search="{{ guide.title }} {{ guide.city }}">
+              data-guide-search="{{ guide.title }} {{ guide.city }}"
+              data-guide-type="{% if 'Distrito' in guide.title %}district{% elif 'Provincia' in guide.title %}province{% else %}city{% endif %}">
           <a class="guide-list-link" href="{{ guide.get_absolute_url }}">
           {% if guide.image %}
           <div class="circle-img guide-list-image">
@@ -383,6 +401,7 @@
         var empty = document.getElementById('guide-directory-empty');
         var more = document.getElementById('guide-directory-more');
         var guides = Array.prototype.slice.call(directory.querySelectorAll('.guide-list-item'));
+        var filters = Array.prototype.slice.call(directory.querySelectorAll('[data-guide-type-filter]'));
         var extras = directory.querySelectorAll('.guide-list-extra').length;
         var expanded = false;
 
@@ -392,12 +411,24 @@
 
         function updateGuides() {
             var query = normalize(search.value.trim());
+            var enabledTypes = {};
+            var isTypeFiltered = false;
             var visible = 0;
 
+            filters.forEach(function (filter) {
+                if (filter.checked) {
+                    enabledTypes[filter.value] = true;
+                } else {
+                    isTypeFiltered = true;
+                }
+            });
+
             guides.forEach(function (guide) {
-                var matches = !query || normalize(guide.dataset.guideSearch).indexOf(query) !== -1;
-                var hiddenByLimit = !query && !expanded && guide.classList.contains('guide-list-extra');
-                var show = matches && !hiddenByLimit;
+                var matchesText = !query || normalize(guide.dataset.guideSearch).indexOf(query) !== -1;
+                var matchesType = Boolean(enabledTypes[guide.dataset.guideType]);
+                var isFiltered = Boolean(query) || isTypeFiltered;
+                var hiddenByLimit = !isFiltered && !expanded && guide.classList.contains('guide-list-extra');
+                var show = matchesText && matchesType && !hiddenByLimit;
                 guide.hidden = !show;
                 if (show) {
                     visible += 1;
@@ -405,14 +436,17 @@
             });
 
             empty.hidden = visible !== 0;
-            count.textContent = query
+            count.textContent = query || isTypeFiltered
                 ? visible + (visible === 1 ? ' coincidencia' : ' coincidencias')
                 : guides.length + (guides.length === 1 ? ' guía' : ' guías');
-            more.hidden = Boolean(query) || extras === 0;
+            more.hidden = Boolean(query) || isTypeFiltered || extras === 0;
         }
 
         directory.classList.add('guide-directory-enhanced');
         search.addEventListener('input', updateGuides);
+        filters.forEach(function (filter) {
+            filter.addEventListener('change', updateGuides);
+        });
         more.addEventListener('click', function () {
             expanded = !expanded;
             more.setAttribute('aria-expanded', expanded.toString());

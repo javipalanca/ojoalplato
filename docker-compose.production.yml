@@ -15,6 +15,7 @@ services:
 
     image: ojoalplato_production_django
     depends_on:
+      - elasticsearch
       - postgres
       - redis
     env_file:

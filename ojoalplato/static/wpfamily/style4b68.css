@@ -2932,6 +2932,9 @@ form label {
 .guide-directory-toolbar {
   display: none;
   margin-bottom: 16px;
+}
+
+.guide-directory-search-control {
   position: relative;
 }
 
@@ -2939,7 +2942,7 @@ form label {
   display: block;
 }
 
-.guide-directory-toolbar .fa-search {
+.guide-directory-search-control .fa-search {
   color: #736f66;
   font-size: 16px;
   left: 14px;
@@ -2949,7 +2952,7 @@ form label {
   transform: translateY(-50%);
 }
 
-.guide-directory-toolbar input {
+.guide-directory-search-control input[type="search"] {
   background: #fff;
   border: 1px solid #b9b7b0;
   border-radius: 22px;
@@ -2962,6 +2965,39 @@ form label {
   color: #746f63;
   font-size: 12px;
   margin: 6px 12px 0;
+}
+
+.guide-directory-filters {
+  align-items: center;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 10px 12px 0;
+  padding: 0;
+}
+
+.guide-directory-filters legend {
+  color: #746f63;
+  float: left;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  width: auto;
+}
+
+.guide-directory-filters label {
+  align-items: center;
+  color: #5f5a50;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 13px;
+  gap: 5px;
+  margin: 0;
+}
+
+.guide-directory-filters input[type="checkbox"] {
+  margin: 0;
 }
 
 .guide-list-copy {
