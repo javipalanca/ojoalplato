@@ -11,7 +11,7 @@ import tweepy
 import time
 
 
-@shared_task
+@shared_task(soft_time_limit=600, time_limit=660)
 def post_published_task(post_id):
     time.sleep(10)
     send_newsletter(post_id=post_id)

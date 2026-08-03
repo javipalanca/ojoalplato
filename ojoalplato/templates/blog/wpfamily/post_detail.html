@@ -127,6 +127,10 @@
                 {% render_wine_mini post.wine_card %}
             {% endif %}
 
+            {% if post.recipe_card %}
+                {% render_recipe_mini post.recipe_card %}
+            {% endif %}
+
 
             <div class="fb-lile-btn">
                 {% facebook_js %}{% fb_like_button post %}

@@ -3,9 +3,9 @@ from django.urls import reverse
 from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic import View
-from django.db.models import Count
+from django.db.models import Count, Q
 
-from taggit.models import Tag
+from taggit.models import Tag, TaggedItem
 from hitcount.views import HitCountDetailView
 
 from ojoalplato.blog.models import Post
@@ -70,7 +70,13 @@ class TagList(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Post.objects.published().filter(tags__slug__in=[self.kwargs['tag']])
+        tag_slug = self.kwargs['tag']
+        #return Post.objects.published().filter(tags__slug__in=[self.kwargs['tag']])
+        return Post.objects.published().filter(
+            id__in=TaggedItem.objects.filter(
+                tag__slug=tag_slug
+            ).values_list('object_id', flat=True)
+        )
 
     def get_context_data(self, **kwargs):
         context = super(TagList, self).get_context_data(**kwargs)
@@ -93,9 +99,17 @@ class CategoriesAndTagsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CategoriesAndTagsView, self).get_context_data(**kwargs)
-        context.update({
-            'tags_list': Tag.objects.all().annotate(num_posts=Count("post")).filter(num_posts__gt=0).order_by("name")
-        })
+        #context.update({
+        #    'tags_list': Tag.objects.annotate(num_posts=Count("post")).filter(num_posts__gt=0).order_by("name")
+        #    #'tags_list': Tag.objects.annotate(num_posts=Count("taggit_taggeditem_items")).filter(num_posts__gt=0).order_by("name")
+        #})
+        tags_list = Tag.objects.annotate(
+            num_posts=Count(
+                'taggit_taggeditem_items',
+                filter=Q(taggit_taggeditem_items__content_type__model='post')
+            )
+        ).filter(num_posts__gt=0).order_by('name')
+        context.update({'tags_list': tags_list})
         return context
 
     def get_queryset(self):

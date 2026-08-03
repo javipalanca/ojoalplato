@@ -30,9 +30,11 @@
             <div class="familymember-meta">
                 {% if user.is_superuser or user.is_staff%}
                     {% if card|get_class == "Restaurant" %}
-                    &nbsp;&nbsp;<a href="{% url 'admin:cards_restaurant_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    <a href="{% url 'admin:cards_restaurant_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
                     {% elif card|get_class == "Wine" %}
-                    &nbsp;&nbsp;<a href="{% url 'admin:cards_wine_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    <a href="{% url 'admin:cards_wine_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
+                    {% elif card|get_class == "Recipe" %}
+                    <a href="{% url 'admin:cards_recipe_change' card.id %}" type="button" class="btn btn-default btn-xs btn-edit">Editar</a>
                     {% endif %}
                 {% endif %}
             </div>

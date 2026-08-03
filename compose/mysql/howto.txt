@@ -1,2 +1,0 @@
-$ docker exec -it <container_id> bash
-root@<container_id>:# mysql -uojoalplato -p wordpress < mysql.dump

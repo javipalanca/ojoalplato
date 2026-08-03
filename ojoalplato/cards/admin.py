@@ -5,12 +5,14 @@ from django.forms import widgets
 from geopy import Nominatim
 from geopy.exc import GeocoderQueryError
 from reversion.admin import VersionAdmin
+from redactor.widgets import RedactorEditor
 
 from . import DAY_CHOICES, DEFAULT_WGS84_SRID
 from .forms import WineForm
 from .models import Restaurant, Wine, Recipe, Winery, VarietyTag
 from .utils import paraphrase_text
 from .widgets import WeekdayWidget, StarsWidget, PointWidget, PhoneNumberWidget, SunsWidget
+from ..blog.admin import ImageThumbnailFileInput
 
 
 class RestaurantAdminForm(forms.ModelForm):
@@ -22,7 +24,7 @@ class RestaurantAdminForm(forms.ModelForm):
         widgets = {
             'location': PointWidget(),
             'freedays': WeekdayWidget(choices=DAY_CHOICES),
-            'phone': PhoneNumberWidget(),
+            # 'phone': PhoneNumberWidget(),
             'stars': StarsWidget(),
             'suns': SunsWidget(),
             'price': widgets.TextInput(attrs={'style': 'width:100px;', 'placeholder': '€ sin vino'}),
@@ -150,8 +152,27 @@ class WineAdmin(VersionAdmin):
         )
 
 
+class RecipeChangeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        widgets = {
+            'content': RedactorEditor(),
+            'image_header': ImageThumbnailFileInput,
+        }
+        fields = '__all__'
+
 @admin.register(Recipe)
 class RecipeAdmin(VersionAdmin):
     search_fields = ("name",)
     list_display = ['name']
     save_on_top = True
+    form = RecipeChangeForm
+
+    class Media:
+        css = {
+            'all': ('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css',
+                    'wpfamily/style_admin.css'),
+        }
+        js = (
+            'admin/js/jquery.init.alt.js',
+        )

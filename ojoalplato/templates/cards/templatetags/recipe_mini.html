@@ -1,0 +1,44 @@
+{% load card_tags content_filters %}
+
+<figure class="mini-card-header">
+    Receta
+</figure>
+<div class="mini-card ribbon-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+                <h4><a href="{{ recipe.get_absolute_url }}" >{{ recipe.name }}</a></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 map">
+                {% if recipe.image_header %}
+                    <img src="{{ recipe.image_header.url|media}}" class="img-fluid mx-auto d-block" alt="{{ recipe.name }}">
+                {% endif %}
+        </div>
+        <div class="col-sm-9">
+            <table class="table table-responsive table-condensed font-size-16">
+                <tbody>
+                    {% if recipe.ingredients %}
+                        <tr>
+                            <th scope="row" class="col-xs-4">Ingredientes</th>
+                            <td>
+                                {% for ingredient in recipe.ingredients.all %}
+                                  <span class="badge">{{ ingredient.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 col-xs-3 col-xs-offset-3">
+        <a href="{{ recipe.get_absolute_url }}" type="button"
+           class="btn btn-default btn-edit background-orange"
+           style="color:white">
+            Ver receta completa
+        </a>
+        </div>
+    </div>
+</div>

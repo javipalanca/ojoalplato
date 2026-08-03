@@ -199,7 +199,7 @@ def watermark(img, mark, position=(0, 0), opacity=1, scale=1.0, tile=False,
     if not isinstance(scale, tuple):
         scale = determine_scale(scale, img, mark)
 
-    mark = mark.resize(scale, resample=Image.ANTIALIAS)
+    mark = mark.resize(scale, resample=Image.LANCZOS)
 
     if greyscale and mark.mode != 'LA':
         mark = mark.convert('LA')

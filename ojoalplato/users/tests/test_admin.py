@@ -1,39 +1,65 @@
-from test_plus.test import TestCase
+import contextlib
+from http import HTTPStatus
+from importlib import reload
 
-from ..admin import MyUserCreationForm
+import pytest
+from django.contrib import admin
+from django.contrib.auth.models import AnonymousUser
+from django.urls import reverse
+from pytest_django.asserts import assertRedirects
+
+from ojoalplato.users.models import User
 
 
-class TestMyUserCreationForm(TestCase):
-    def setUp(self):
-        self.user = self.make_user()
+class TestUserAdmin:
+    def test_changelist(self, admin_client):
+        url = reverse("admin:users_user_changelist")
+        response = admin_client.get(url)
+        assert response.status_code == HTTPStatus.OK
 
-    def test_clean_username_success(self):
-        # Instantiate the form with a new username
-        form = MyUserCreationForm({
-            'username': 'alamode',
-            'password1': '123456',
-            'password2': '123456',
-        })
-        # Run is_valid() to trigger the validation
-        valid = form.is_valid()
-        self.assertTrue(valid)
+    def test_search(self, admin_client):
+        url = reverse("admin:users_user_changelist")
+        response = admin_client.get(url, data={"q": "test"})
+        assert response.status_code == HTTPStatus.OK
 
-        # Run the actual clean_username method
-        username = form.clean_username()
-        self.assertEqual('alamode', username)
+    def test_add(self, admin_client):
+        url = reverse("admin:users_user_add")
+        response = admin_client.get(url)
+        assert response.status_code == HTTPStatus.OK
 
-    def test_clean_username_false(self):
-        # Instantiate the form with the same username as self.user
-        form = MyUserCreationForm({
-            'username': self.user.username,
-            'password1': '123456',
-            'password2': '123456',
-        })
-        # Run is_valid() to trigger the validation, which is going to fail
-        # because the username is already taken
-        valid = form.is_valid()
-        self.assertFalse(valid)
+        response = admin_client.post(
+            url,
+            data={
+                "username": "test",
+                "password1": "My_R@ndom-P@ssw0rd",
+                "password2": "My_R@ndom-P@ssw0rd",
+            },
+        )
+        assert response.status_code == HTTPStatus.FOUND
+        assert User.objects.filter(username="test").exists()
 
-        # The form.errors dict should contain a single error called 'username'
-        self.assertTrue(len(form.errors) == 1)
-        self.assertTrue('username' in form.errors)
+    def test_view_user(self, admin_client):
+        user = User.objects.get(username="admin")
+        url = reverse("admin:users_user_change", kwargs={"object_id": user.pk})
+        response = admin_client.get(url)
+        assert response.status_code == HTTPStatus.OK
+
+    @pytest.fixture()
+    def _force_allauth(self, settings):
+        settings.DJANGO_ADMIN_FORCE_ALLAUTH = True
+        # Reload the admin module to apply the setting change
+        import ojoalplato.users.admin as users_admin
+
+        with contextlib.suppress(admin.sites.AlreadyRegistered):  # type: ignore[attr-defined]
+            reload(users_admin)
+
+    @pytest.mark.django_db()
+    @pytest.mark.usefixtures("_force_allauth")
+    def test_allauth_login(self, rf, settings):
+        request = rf.get("/fake-url")
+        request.user = AnonymousUser()
+        response = admin.site.login(request)
+
+        # The `admin` login view should redirect to the `allauth` login view
+        target_url = reverse(settings.LOGIN_URL) + "?next=" + request.path
+        assertRedirects(response, target_url, fetch_redirect_response=False)

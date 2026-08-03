@@ -1,62 +1,38 @@
-# -*- coding: utf-8 -*-
-'''
-Test settings
+"""
+With these settings, tests run faster.
+"""
 
-- Used to run tests fast on the continuous integration server and locally
-'''
+from .base import *  # noqa: F403
+from .base import TEMPLATES
+from .base import env
 
-from .common import *  # noqa
-
-
-# DEBUG
+# GENERAL
 # ------------------------------------------------------------------------------
-# Turn debug off so tests run faster
-DEBUG = False
-TEMPLATES[0]['OPTIONS']['debug'] = False
-
-# SECRET CONFIGURATION
-# ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key only used for development and testing.
-SECRET_KEY = env('DJANGO_SECRET_KEY', default='CHANGEME!!!')
-
-# Mail settings
-# ------------------------------------------------------------------------------
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-
-# In-memory email backend stores messages in django.core.mail.outbox
-# for unit testing purposes
-EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
-
-# CACHING
-# ------------------------------------------------------------------------------
-# Speed advantages of in-memory caching without having to run Memcached
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': ''
-    }
-}
-
-# TESTING
-# ------------------------------------------------------------------------------
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
-
-# PASSWORD HASHING
-# ------------------------------------------------------------------------------
-# Use fast password hasher so tests run faster
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.MD5PasswordHasher',
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+SECRET_KEY = env(
+    "DJANGO_SECRET_KEY",
+    default="gKwujQjSnAOjWLeEQ9P76aDbyh2UAcLFDIMMATlBfYW8FGR9lTtpoviZISSUACaY",
 )
+# https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
+TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
-# TEMPLATE LOADERS
+# PASSWORDS
 # ------------------------------------------------------------------------------
-# Keep templates in memory so tests run faster
-TEMPLATES[0]['OPTIONS']['loaders'] = [
-    ('django.template.loaders.cached.Loader', [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    ]),
-]
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
+PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+
+# DEBUGGING FOR TEMPLATES
+# ------------------------------------------------------------------------------
+TEMPLATES[0]["OPTIONS"]["debug"] = True  # type: ignore[index]
+
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "http://media.testserver"
+# Your stuff...
+# ------------------------------------------------------------------------------

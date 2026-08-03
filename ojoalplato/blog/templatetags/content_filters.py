@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 from django import template
 from django.urls import reverse, NoReverseMatch
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 from django.utils.text import normalize_newlines, slugify
 
 register = template.Library()
@@ -50,10 +50,25 @@ def lightbox(post):
             alt = uuid4()
         a = soup.new_tag("a", **{"href": src, "data-lightbox": alt, "alt": alt, "class": "image-link"})  # create an A element
         img.replaceWith(a)  # Put it where the IMG element is
-        if "style" in img.attrs:
-            img.attrs["style"] += ' border-radius:4px;'
-        else:
-            img.attrs["style"] = ' border-radius:4px;'
+
+        # Extract height and width from style
+        style = img.attrs.get("style", "")
+        style += ' border-radius:4px;'
+        height_match = re.search(r'height:\s*([^;]+);?', style)
+        width_match = re.search(r'width:\s*([^;]+);?', style)
+        height = height_match.group(1) if height_match else 'auto'
+        width = width_match.group(1) if width_match else 'auto'
+
+        # Remove height and width from style
+        style = re.sub(r'height:\s*[^;]+;?', '', style)
+        style = re.sub(r'width:\s*[^;]+;?', '', style)
+
+        # Add data attributes for height and width
+        img.attrs["data-height"] = height
+        img.attrs["data-width"] = width
+
+        img.attrs["style"] = style
+        img["class"] = "img-fluid-responsive"
         a.insert(0, img)  # Put the IMG element inside the A (between <a> and </a>)
 
     return str(soup)
@@ -129,7 +144,7 @@ def og_img_size(context, url):
 
 @register.filter
 def escape_slash(value):
-    return value.replace("/", "\/")
+    return value.replace("/", r"\/")
 
 
 @register.filter

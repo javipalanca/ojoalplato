@@ -1,11 +1,12 @@
-from django.conf.urls import url
+from django.urls import path, re_path
 
-from .views import MapView, RestaurantDetailView, WineDetailView, restaurant_search, autocomplete
+from .views import MapView, RestaurantDetailView, WineDetailView, RecipeDetailView, restaurant_search, autocomplete
 
 urlpatterns = [
-    url(r'^map/$', MapView.as_view(), name='map-list'),
-    url(r'^restaurant/(?P<slug>[-\w]+)/$', RestaurantDetailView.as_view(), name='restaurant-detail'),
-    url(r'^wine/(?P<slug>[-\w]+)/$', WineDetailView.as_view(), name='wine-detail'),
-    url(r'^search/$', restaurant_search, name='restaurant-search'),
-    url(r'^search/autocomplete$', autocomplete, name='autocomplete-search'),
+    path('map/', MapView.as_view(), name='map-list'),
+    re_path(r'^restaurant/(?P<slug>[-\w]+)/$', RestaurantDetailView.as_view(), name='restaurant-detail'),
+    re_path(r'^wine/(?P<slug>[-\w]+)/$', WineDetailView.as_view(), name='wine-detail'),
+    re_path(r'^recipe/(?P<slug>[-\w]+)/$', RecipeDetailView.as_view(), name='recipe-detail'),
+    path('search/', restaurant_search, name='restaurant-search'),
+    path('search/autocomplete', autocomplete, name='autocomplete-search'),
 ]
