@@ -88,7 +88,6 @@
         <div class="guide-directory-toolbar">
           <div class="guide-directory-search-control">
             <label class="screen-reader-text" for="guide-directory-search">Buscar una guía</label>
-            <span class="fa fa-search" aria-hidden="true"></span>
             <input type="search" id="guide-directory-search"
                    placeholder="Buscar una guía…" autocomplete="off"
                    aria-describedby="guide-directory-hint">
@@ -97,18 +96,21 @@
             Busca por comunidad, provincia, ciudad o distrito
           </p>
           <fieldset class="guide-directory-filters">
-            <legend>Mostrar</legend>
-            <label>
-              <input type="checkbox" value="province" data-guide-type-filter checked>
-              Provincia
+            <legend class="screen-reader-text">Filtrar por tipo de guía</legend>
+            <label class="guide-directory-filter">
+              <input class="guide-directory-filter-input" type="checkbox"
+                     value="province" data-guide-type-filter checked>
+              <span class="guide-directory-filter-label">Provincia</span>
             </label>
-            <label>
-              <input type="checkbox" value="city" data-guide-type-filter checked>
-              Ciudad
+            <label class="guide-directory-filter">
+              <input class="guide-directory-filter-input" type="checkbox"
+                     value="city" data-guide-type-filter checked>
+              <span class="guide-directory-filter-label">Ciudad</span>
             </label>
-            <label>
-              <input type="checkbox" value="district" data-guide-type-filter checked>
-              Distrito
+            <label class="guide-directory-filter">
+              <input class="guide-directory-filter-input" type="checkbox"
+                     value="district" data-guide-type-filter checked>
+              <span class="guide-directory-filter-label">Distrito</span>
             </label>
           </fieldset>
         </div>

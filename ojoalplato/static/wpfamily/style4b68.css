@@ -2942,8 +2942,10 @@ form label {
   display: block;
 }
 
-.guide-directory-search-control .fa-search {
+.guide-directory-search-control::before {
   color: #736f66;
+  content: "\f002";
+  font-family: FontAwesome;
   font-size: 16px;
   left: 14px;
   pointer-events: none;
@@ -2957,6 +2959,9 @@ form label {
   border: 1px solid #b9b7b0;
   border-radius: 22px;
   box-sizing: border-box;
+  box-shadow: none;
+  display: block;
+  height: 42px;
   padding: 11px 16px 11px 42px;
   width: 100%;
 }
@@ -2972,32 +2977,73 @@ form label {
   border: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  gap: 8px;
   margin: 10px 12px 0;
   padding: 0;
 }
 
-.guide-directory-filters legend {
-  color: #746f63;
-  float: left;
-  font-size: 13px;
-  font-weight: 700;
+.guide-directory-filter {
+  cursor: pointer;
   margin: 0;
-  width: auto;
+  position: relative;
 }
 
-.guide-directory-filters label {
+.guide-directory-filters .guide-directory-filter-input[type="checkbox"] {
+  height: 1px;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  width: 1px;
+}
+
+.guide-directory-filter-label {
   align-items: center;
+  background: #fff;
+  border: 1px solid #d8d3c7;
+  border-radius: 18px;
   color: #5f5a50;
-  cursor: pointer;
   display: inline-flex;
   font-size: 13px;
-  gap: 5px;
-  margin: 0;
+  font-weight: 700;
+  gap: 7px;
+  padding: 6px 11px;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
-.guide-directory-filters input[type="checkbox"] {
-  margin: 0;
+.guide-directory-filter-label::before {
+  align-items: center;
+  border: 1px solid #aaa397;
+  border-radius: 50%;
+  color: transparent;
+  content: "\2713";
+  display: inline-flex;
+  font-size: 10px;
+  height: 15px;
+  justify-content: center;
+  width: 15px;
+}
+
+.guide-directory-filter-input:checked + .guide-directory-filter-label {
+  background: #fff7f0;
+  border-color: chocolate;
+  color: #a9480d;
+}
+
+.guide-directory-filter-input:checked + .guide-directory-filter-label::before {
+  background: chocolate;
+  border-color: chocolate;
+  color: #fff;
+}
+
+.guide-directory-filter-input:focus + .guide-directory-filter-label {
+  box-shadow: 0 0 0 2px rgba(210, 105, 30, .25);
+}
+
+.guide-directory-filter:hover .guide-directory-filter-label {
+  border-color: chocolate;
 }
 
 .guide-list-copy {

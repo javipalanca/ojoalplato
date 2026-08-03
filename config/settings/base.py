@@ -568,6 +568,8 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': 'http://elasticsearch:9200/',
         'INDEX_NAME': 'haystack',
+        'TIMEOUT': 60,
+        'BATCH_SIZE': 100,
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

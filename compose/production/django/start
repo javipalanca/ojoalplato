@@ -6,7 +6,7 @@ set -o nounset
 
 
 python /app/compose/wait_for_elasticsearch.py
-python /app/manage.py rebuild_index --noinput
+python /app/manage.py rebuild_index --noinput --batch-size 100
 python /app/manage.py collectstatic --noinput
 
 exec /usr/local/bin/gunicorn config.asgi --bind 0.0.0.0:5000 --chdir=/app -k uvicorn_worker.UvicornWorker

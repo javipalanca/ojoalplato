@@ -7,5 +7,5 @@ set -o nounset
 
 python manage.py migrate
 python /app/compose/wait_for_elasticsearch.py
-python manage.py rebuild_index --noinput
+python manage.py rebuild_index --noinput --batch-size 100
 exec uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

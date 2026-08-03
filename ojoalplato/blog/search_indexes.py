@@ -6,6 +6,7 @@ from .models import Post
 class PostIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     title = indexes.CharField(model_attr='title', null=True)
+    title_auto = indexes.EdgeNgramField(model_attr='title', null=True, boost=2.0)
     url = indexes.CharField(model_attr="url", null=True)
     img_src = indexes.CharField(model_attr="img_src", null=True)
     category = indexes.CharField(model_attr="category", null=True)

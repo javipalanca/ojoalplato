@@ -1,14 +1,17 @@
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
-from drf_haystack.filters import HaystackAutocompleteFilter
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, AllowAny
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.response import Response
 
 from ojoalplato.cards.models import Restaurant
-from .serializers import SimpleRestaurantSerializer, RestaurantAutocompleteSerializer
+from ojoalplato.search_filters import RankedHaystackAutocompleteFilter
+
+from .serializers import RestaurantAutocompleteSerializer
+from .serializers import SimpleRestaurantSerializer
 
 
 class RestaurantViewSet(viewsets.ReadOnlyModelViewSet):
@@ -31,5 +34,6 @@ class AutocompleteRestaurantSearchViewSet(HaystackViewSet):
 
     index_models = [Restaurant]
     serializer_class = RestaurantAutocompleteSerializer
-    filter_backends = [HaystackAutocompleteFilter]
+    filter_backends = [RankedHaystackAutocompleteFilter]
+    autocomplete_priority_field = "name_auto"
     permission_classes = [AllowAny]

@@ -5,6 +5,7 @@ from .models import Restaurant
 class RestaurantIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr="name", null=False)
+    name_auto = indexes.EdgeNgramField(model_attr="name", boost=2.0)
     chef = indexes.CharField(model_attr='chef', null=True)
     address = indexes.CharField(model_attr="address", null=True)
     img_src = indexes.CharField(model_attr="img_src", null=True)
