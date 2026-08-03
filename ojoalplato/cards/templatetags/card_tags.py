@@ -4,6 +4,7 @@ import io
 import math
 import urllib.request
 from copy import copy
+from functools import lru_cache
 
 from django import template
 from django.conf import settings
@@ -55,6 +56,8 @@ def make_point(point, origin_coord_srid, destiny_coord_srid):
 
 
 TILE_SIZE = 256
+MAX_MERCATOR_LATITUDE = 85.05112878
+
 
 def lon_lat_to_tile_xy(lon, lat, zoom):
     x = int(((lon + 180.0) / 360.0) * (1 << zoom))
@@ -65,18 +68,29 @@ def lon_lat_to_tile_xy(lon, lat, zoom):
 
 def make_tile_url(x, y, zoom):
     base_url = "https://tile.openstreetmap.org"
-    max_tile = (1 << zoom) - 1
-    x = max(0, min(x, max_tile))
-    y = max(0, min(y, max_tile))
+    tile_count = 1 << zoom
+    x %= tile_count
     return f"{base_url}/{zoom}/{x}/{y}.png"
 
 
-def point_in_tile_xy(lon, lat):
+def lon_lat_to_world_pixels(lon, lat, zoom):
     lon = ((lon + 180) % 360 + 360) % 360 - 180
+    lat = max(-MAX_MERCATOR_LATITUDE, min(lat, MAX_MERCATOR_LATITUDE))
     x_frac = (lon + 180) / 360
     lat_rad = math.radians(lat)
     y_frac = (1 - math.log(math.tan(lat_rad) + 1.0 / math.cos(lat_rad)) / math.pi) / 2
-    return int(x_frac * TILE_SIZE), int(y_frac * TILE_SIZE)
+    world_size = TILE_SIZE * (1 << zoom)
+    return x_frac * world_size, y_frac * world_size
+
+
+@lru_cache(maxsize=512)
+def fetch_osm_tile(x, y, zoom):
+    request = urllib.request.Request(
+        make_tile_url(x, y, zoom),
+        headers={"User-Agent": "ojoalplato/1.0 (+https://ojoalplato.com)"},
+    )
+    with urllib.request.urlopen(request, timeout=3) as response:
+        return response.read()
 
 
 @register.simple_tag
@@ -86,31 +100,44 @@ def osm_static_map(point, width=600, height=300, zoom=10):
     except ImportError:
         return ""
 
-    lon = point[0]
-    lat = point[1]
-
-    x_tile, y_tile = lon_lat_to_tile_xy(lon, lat, zoom)
-
     try:
-        tile_img = Image.open(urllib.request.urlopen(make_tile_url(x_tile, y_tile, zoom), timeout=3)).convert("RGB")
-    except Exception:
+        lon, lat = point[0], point[1]
+        width, height, zoom = int(width), int(height), int(zoom)
+        if width <= 0 or height <= 0 or zoom < 0:
+            return ""
+        center_x, center_y = lon_lat_to_world_pixels(lon, lat, zoom)
+    except (IndexError, TypeError, ValueError):
         return ""
 
-    scale = max(width / TILE_SIZE, height / TILE_SIZE)
-    tile_width = int(TILE_SIZE * scale)
-    tile_height = int(TILE_SIZE * scale)
-
     canvas = Image.new("RGB", (width, height), (236, 236, 236))
+    left = center_x - width / 2
+    top = center_y - height / 2
+    first_tile_x = math.floor(left / TILE_SIZE)
+    last_tile_x = math.floor((left + width - 1) / TILE_SIZE)
+    first_tile_y = math.floor(top / TILE_SIZE)
+    last_tile_y = math.floor((top + height - 1) / TILE_SIZE)
+    tile_count = 1 << zoom
 
-    px, py = point_in_tile_xy(lon, lat)
-    tile_offset_x = (TILE_SIZE - 256 + px) / scale
-    tile_offset_y = (TILE_SIZE - 256 + py) / scale
+    fetched_any_tile = False
+    for tile_y in range(first_tile_y, last_tile_y + 1):
+        if not 0 <= tile_y < tile_count:
+            continue
+        for tile_x in range(first_tile_x, last_tile_x + 1):
+            try:
+                tile_data = fetch_osm_tile(tile_x, tile_y, zoom)
+                tile_img = Image.open(io.BytesIO(tile_data)).convert("RGB")
+            except Exception:
+                continue
+            paste_x = round(tile_x * TILE_SIZE - left)
+            paste_y = round(tile_y * TILE_SIZE - top)
+            canvas.paste(tile_img, (paste_x, paste_y))
+            fetched_any_tile = True
 
-    tile_resized = tile_img.resize((tile_width, tile_height), Image.LANCZOS)
-    canvas.paste(tile_resized, (int(tile_offset_x), int(tile_offset_y)))
+    if not fetched_any_tile:
+        return ""
 
-    marker_x = int((px / TILE_SIZE) * width)
-    marker_y = int((py / TILE_SIZE) * height)
+    marker_x = width // 2
+    marker_y = height // 2
     marker_radius = max(4, min(width, height) * 0.02)
     draw = ImageDraw.Draw(canvas)
     draw.ellipse(
