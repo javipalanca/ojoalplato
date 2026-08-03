@@ -75,29 +75,59 @@
     </div>
 
     <div class="col-md-6" style="padding-left: 40px; padding-right: 40px;">
-      <div class="article-padding has-family-list">
+      <div class="article-padding has-family-list guide-directory" id="guide-directory">
                 <header class="entry-header">
-                  <h2 class="entry-title"><a
-                    style="color: chocolate; text-decoration: none !important;"
-                    href="#">Guías por ciudades</a></h2>
+                  <div class="guide-directory-heading">
+                    <h2 class="entry-title guide-directory-title">Guías por ciudades</h2>
+                    <span class="guide-directory-count" id="guide-directory-count">
+                      {{ object_list|length }} guías
+                    </span>
+                  </div>
                 </header>
         <div class="entry-content">
+        <div class="guide-directory-toolbar">
+          <label class="screen-reader-text" for="guide-directory-search">Buscar una guía</label>
+          <span class="fa fa-search" aria-hidden="true"></span>
+          <input type="search" id="guide-directory-search"
+                 placeholder="Buscar una guía…" autocomplete="off"
+                 aria-describedby="guide-directory-hint">
+          <p class="guide-directory-hint" id="guide-directory-hint">
+            Busca por comunidad, provincia, ciudad o distrito
+          </p>
+        </div>
         <ul class="guide-list">
           {% for guide in object_list %}
-          <li>
+          {% with guide_name=guide.title|cut:"Mis favoritos de " %}
+          <li class="guide-list-item{% if forloop.counter > 6 %} guide-list-extra{% endif %}"
+              data-guide-search="{{ guide.title }} {{ guide.city }}">
+          <a class="guide-list-link" href="{{ guide.get_absolute_url }}">
           {% if guide.image %}
-          <div class="circle-img">
-            <img src="{{ guide.image.url|media }}" alt="Guide image">
+          <div class="circle-img guide-list-image">
+            <img src="{{ guide.image.url|media }}" alt="{{ guide_name }}">
+          </div>
+          {% else %}
+          <div class="circle-img guide-list-image guide-list-image-placeholder" aria-hidden="true">
+            <span class="fa fa-map-marker"></span>
           </div>
             {% endif %}
-            <div>
-              <h2><a href="{{ guide.get_absolute_url }}"
-                     style="color: chocolate; text-decoration: none !important;"
-              >{{ guide.title }}</a></h2>
+            <div class="guide-list-copy">
+              <span class="guide-list-city">{{ guide_name }}</span>
+              <span class="guide-list-scope">
+                {% if guide.city != guide_name %}{{ guide.city }}{% else %}Guía gastronómica{% endif %}
+              </span>
             </div>
+          </a>
             </li>
+          {% endwith %}
           {% endfor %}
         </ul>
+        <p class="guide-directory-empty" id="guide-directory-empty" hidden>
+          No hay guías que coincidan con la búsqueda.
+        </p>
+        <button class="guide-directory-more" id="guide-directory-more" type="button"
+                aria-expanded="false">
+          Ver todas las guías
+        </button>
         </div>
       </div>
 
@@ -341,6 +371,56 @@
               }
         });
     });
+
+    (function () {
+        var directory = document.getElementById('guide-directory');
+        if (!directory) {
+            return;
+        }
+
+        var search = document.getElementById('guide-directory-search');
+        var count = document.getElementById('guide-directory-count');
+        var empty = document.getElementById('guide-directory-empty');
+        var more = document.getElementById('guide-directory-more');
+        var guides = Array.prototype.slice.call(directory.querySelectorAll('.guide-list-item'));
+        var extras = directory.querySelectorAll('.guide-list-extra').length;
+        var expanded = false;
+
+        function normalize(value) {
+            return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+
+        function updateGuides() {
+            var query = normalize(search.value.trim());
+            var visible = 0;
+
+            guides.forEach(function (guide) {
+                var matches = !query || normalize(guide.dataset.guideSearch).indexOf(query) !== -1;
+                var hiddenByLimit = !query && !expanded && guide.classList.contains('guide-list-extra');
+                var show = matches && !hiddenByLimit;
+                guide.hidden = !show;
+                if (show) {
+                    visible += 1;
+                }
+            });
+
+            empty.hidden = visible !== 0;
+            count.textContent = query
+                ? visible + (visible === 1 ? ' coincidencia' : ' coincidencias')
+                : guides.length + (guides.length === 1 ? ' guía' : ' guías');
+            more.hidden = Boolean(query) || extras === 0;
+        }
+
+        directory.classList.add('guide-directory-enhanced');
+        search.addEventListener('input', updateGuides);
+        more.addEventListener('click', function () {
+            expanded = !expanded;
+            more.setAttribute('aria-expanded', expanded.toString());
+            more.textContent = expanded ? 'Mostrar menos' : 'Ver todas las guías';
+            updateGuides();
+        });
+        updateGuides();
+    }());
 
 </script>
 
