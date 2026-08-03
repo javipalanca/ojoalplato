@@ -335,3 +335,7 @@ ojoalplato/media/
 !.envs/.local/
 !/ojoalplato/users/migrations/0004_auto_20210209_1852.py
 !/ojoalplato/users/migrations/0004_auto_20220828_1326.py
+
+compose/mysql/
+ojoalplato/static/wpfamily/img/logo3_whit_crespon.png
+restaurant_with_coords.json
