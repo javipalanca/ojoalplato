@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sites', '0002_set_site_domain_and_name'),
+        ('sites', '0003_auto_20160805_1707'),
     ]
 
     operations = [
