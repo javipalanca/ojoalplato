@@ -22,7 +22,7 @@ def seed_defaults(apps, schema_editor):
         )
 
     circles = [
-        ("Mapa y Guías", "/map/", "images/fork_map.png", 0),
+        ("Mapa y Guías", "/cards/map/", "images/fork_map.png", 0),
         ("Restaurantes", "/category/restaurantes/", "wpfamily/img/cuberteria.jpg", 1),
         ("Vinos", "/category/vinos/", "wpfamily/img/wine.jpg", 2),
         ("Recetas", "/category/recetas/", "wpfamily/img/recipe.jpg", 3),
