@@ -1,9 +1,10 @@
 import datetime
 from django.utils import timezone
 
-from django.db.models.signals import pre_save, post_save
+from django.core.cache import cache
+from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
-from .models import Post
+from .models import Post, SiteSettings, MenuItem, CircleCategory
 from .tasks import post_published_task
 
 
@@ -37,3 +38,20 @@ def blogpost_post_save(sender, instance, created, **kwargs):
         eta = now + delay if post_date < now + delay else post_date
         # print("(post.doesnotexist)")
         post_published_task.apply_async((instance.id,), eta=eta)
+
+
+# --- Invalidación de caché de la configuración del sitio ---
+
+@receiver([post_save, post_delete], sender=SiteSettings)
+def invalidate_site_settings(sender, **kwargs):
+    cache.delete("site_settings")
+
+
+@receiver([post_save, post_delete], sender=MenuItem)
+def invalidate_menu(sender, **kwargs):
+    cache.delete("site_menu_items")
+
+
+@receiver([post_save, post_delete], sender=CircleCategory)
+def invalidate_circles(sender, **kwargs):
+    cache.delete("site_circle_categories")

@@ -339,3 +339,6 @@ ojoalplato/media/
 compose/mysql/
 ojoalplato/static/wpfamily/img/logo3_whit_crespon.png
 restaurant_with_coords.json
+
+# Estado de django-maintenance-mode (artefacto de runtime)
+config/settings/maintenance_mode_state.txt

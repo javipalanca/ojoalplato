@@ -91,31 +91,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="primary-menu-area">
                     <div class="menu-main-menu-container">
                         <ul id="primary-menu" class="menu">
-                            <li id="menu-item-32"
-                                class="menu-item menu-item-type-custom menu-item-object-custom current_page_item menu-item-home menu-item-32
-                                {% active '^/$' %}"> <a href="{% url 'home' %}">Inicio</a></li>
-                            <li id="menu-item-30"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-30
-                                {% active '/contact/' %}"><a href="{% url 'contact' %}">Contacto</a></li>
-                            <li id="menu-item-29"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-29
-                                {% active '/subscription/ojoalplato/.*' %}">
-                                <a href="/subscription/ojoalplato/">Suscribirse</a></li>
-                            <li id="menu-item-31"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31
-                                {% active '/curso-rapido-de-cata-de-vinos/' %}">
-                                <a href="{% url 'post-detail' slug='curso-rapido-de-cata-de-vinos' %}">
-                                Curso de cata de vinos</a></li>
-                            <li id="menu-item-104"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-104
-                                {% active '/la-celebracion-del-millon-de-ojoalplato/' %}">
-                                <a href="{% url 'post-detail' slug='la-celebracion-del-millon-de-ojoalplato' %}">
-                                Comida del millón</a></li>
-                            <li id="menu-item-116"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-116
-                                {% active '/sobre-mi/' %}">
-                                <a href="{% url 'post-detail' slug='sobre-mi' %}">
-                                Sobre mí</a></li>
+                            {% for item in menu_items %}
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom{% if request.path == item.url %} current-menu-item{% endif %}">
+                                <a href="{{ item.url }}">{{ item.label }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div><!-- .collapse -->
@@ -133,43 +112,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="site-branding">
                     <div class="site-title img-fluid">
                         <a href="{% url 'home' %}" rel="home">
-                            <img class="img-logo" src="{% static 'wpfamily/img/logo3_white.png' %}">
+                            {% if site_settings.logo %}
+                                <img class="img-logo" src="{{ site_settings.logo.url|media }}" alt="{{ site_settings.logo_alt }}">
+                            {% else %}
+                                <img class="img-logo" src="{% static 'wpfamily/img/logo3_white.png' %}" alt="{{ site_settings.site_name }}">
+                            {% endif %}
                         </a>
                     </div>
-                  <div class="site-since">Desde 2008</div>
+                  {% if site_settings.site_since %}<div class="site-since">{{ site_settings.site_since }}</div>{% endif %}
                 </div><!-- .site-branding -->
 
                 <ul class="family-list">
-                    <li><a href="{% url 'cards:map-list' %}">
+                    {% for circle in circle_categories %}
+                    <li><a href="{{ circle.url }}">
                         <div class="circle"
-                             style="background-image:url({% static 'images/fork_map.png' %})"></div>
-                        <div class="name" style="max-width: 128px;">Mapa y Guías</div>
+                             style="background-image:url({% if circle.image %}{{ circle.image.url|media }}{% else %}{% static circle.image_static %}{% endif %})"></div>
+                        <div class="name"{% if circle.max_width %} style="max-width: {{ circle.max_width }}px;"{% endif %}>{{ circle.name }}</div>
                     </a></li>
-                    <li><a href="{% url "category-list" category="restaurantes" %}">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/cuberteria.jpg' %})"></div>
-                        <div class="name">Restaurantes</div>
-                    </a></li>
-                    <li><a href="{% url "category-list" category="vinos" %}">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/wine.jpg' %})"></div>
-                        <div class="name">Vinos</div>
-                    </a></li>
-                    <li><a href="{% url "category-list" category="recetas" %}">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/recipe.jpg' %})"></div>
-                        <div class="name">Recetas</div>
-                    </a></li>
-                    <li><a href="{% url "category-list" category="cervezas" %}">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/beer.jpg' %})"></div>
-                        <div class="name">Cervezas</div>
-                    </a></li>
-                    <li><a href="{% url "more-list" %}">
-                        <div class="circle"
-                             style="background-image:url({% static 'wpfamily/img/plus_ic3.png' %})"></div>
-                        <div class="name" style="max-width: 128px;">Categorías y Etiquetas</div>
-                    </a></li>
+                    {% endfor %}
                 </ul><!-- .family-list -->
             </header><!-- #site-header -->
 

@@ -1,6 +1,7 @@
 python-slugify==8.0.4  # https://github.com/un33k/python-slugify
 Pillow==10.4.0  # https://github.com/python-pillow/Pillow
 argon2-cffi==23.1.0  # https://github.com/hynek/argon2_cffi
+setuptools<81  # pkg_resources, requerido por django-haystack (eliminado de setuptools 81+; python:3.12-slim ya no lo incluye)
 redis==5.0.8  # https://github.com/redis/redis-py
 hiredis==3.0.0  # https://github.com/redis/hiredis-py
 celery==5.4.0  # pyup: < 6.0  # https://github.com/celery/celery

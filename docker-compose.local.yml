@@ -20,6 +20,9 @@ services:
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
+    environment:
+      # Elasticsearch 2.x no funciona en ARM (Apple Silicon): se omite en local
+      - SKIP_ELASTICSEARCH=1
     ports:
       - '8000:8000'
     command: /start

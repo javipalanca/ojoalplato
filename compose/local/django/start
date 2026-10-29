@@ -6,6 +6,15 @@ set -o nounset
 
 
 python manage.py migrate
-python /app/compose/wait_for_elasticsearch.py
-python manage.py rebuild_index --noinput --batch-size 100
+
+# Elasticsearch 2.x no funciona en arquitectura ARM (Apple Silicon).
+# SKIP_ELASTICSEARCH=1 permite levantar el entorno local sin él
+# (la búsqueda no funcionará, pero el resto del sitio sí).
+if [ "${SKIP_ELASTICSEARCH:-0}" = "1" ]; then
+    echo "SKIP_ELASTICSEARCH=1: omitiendo wait_for_elasticsearch y rebuild_index"
+else
+    python /app/compose/wait_for_elasticsearch.py
+    python manage.py rebuild_index --noinput --batch-size 100
+fi
+
 exec uvicorn config.asgi:application --host 0.0.0.0 --reload --reload-include '*.html'

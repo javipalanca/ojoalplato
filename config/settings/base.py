@@ -244,6 +244,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 # "ojoalplato.users.context_processors.allauth_settings",
+                "ojoalplato.blog.context_processors.site_settings",
             ],
             'libraries': {
                 'signature': 'ojoalplato.blog.templatetags.signature',

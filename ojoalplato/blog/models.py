@@ -5,6 +5,7 @@ import collections
 import itertools
 from bs4 import BeautifulSoup
 #from autoslug import AutoSlugField
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
 from django.db import models
@@ -414,6 +415,117 @@ class Comment(models.Model):
 
     def is_spam(self):
         return self.approved == 'spam'
+
+
+class SiteSettings(models.Model):
+    """
+    Configuración global del sitio (singleton).
+    Editable desde el admin para parametrizar elementos como el logo.
+    """
+    site_name = models.CharField(
+        verbose_name="Nombre del sitio",
+        max_length=100,
+        default="Ojo al plato",
+    )
+    logo = models.ImageField(
+        verbose_name="Logo principal",
+        help_text="Logo que aparece en la cabecera. PNG con fondo transparente recomendado.",
+        upload_to="site/",
+        blank=True,
+        null=True,
+    )
+    logo_alt = models.CharField(
+        verbose_name="Texto alternativo del logo",
+        max_length=100,
+        default="Ojo al plato",
+    )
+    site_since = models.CharField(
+        verbose_name="Texto bajo el logo",
+        max_length=100,
+        default="Desde 2008",
+        blank=True,
+    )
+
+    class Meta:
+        verbose_name = "Configuración del sitio"
+        verbose_name_plural = "Configuración del sitio"
+
+    def __str__(self):
+        return "Configuración del sitio"
+
+    def save(self, *args, **kwargs):
+        # Patrón singleton: forzar pk=1 para que solo exista un registro
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def load(cls):
+        """Devuelve la única instancia (cacheada), creándola si no existe."""
+        obj = cache.get("site_settings")
+        if obj is None:
+            obj, _ = cls.objects.get_or_create(pk=1)
+            cache.set("site_settings", obj, timeout=None)
+        return obj
+
+
+class MenuItem(models.Model):
+    """Entrada del menú superior de navegación."""
+    label = models.CharField(verbose_name="Etiqueta", max_length=100)
+    url = models.CharField(
+        verbose_name="URL",
+        max_length=300,
+        help_text="Ruta interna (p.ej. /contact/) o URL absoluta.",
+    )
+    order = models.PositiveSmallIntegerField(verbose_name="Orden", default=0)
+    active = models.BooleanField(verbose_name="Activa", default=True)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Entrada de menú"
+        verbose_name_plural = "Entradas de menú"
+
+    def __str__(self):
+        return self.label
+
+
+class CircleCategory(models.Model):
+    """Categoría circular de la cabecera (familia de accesos con imagen)."""
+    name = models.CharField(verbose_name="Nombre", max_length=100)
+    url = models.CharField(
+        verbose_name="URL",
+        max_length=300,
+        help_text="Ruta interna (p.ej. /map/) o URL absoluta.",
+    )
+    image = models.ImageField(
+        verbose_name="Imagen",
+        help_text="Imagen circular de la categoría. Si no se sube ninguna, se usa la imagen estática.",
+        upload_to="site/circles/",
+        blank=True,
+        null=True,
+    )
+    image_static = models.CharField(
+        verbose_name="Imagen estática",
+        max_length=200,
+        blank=True,
+        help_text="Ruta dentro de static/ (p.ej. wpfamily/img/wine.jpg) a usar si no hay imagen subida.",
+    )
+    order = models.PositiveSmallIntegerField(verbose_name="Orden", default=0)
+    active = models.BooleanField(verbose_name="Activa", default=True)
+    max_width = models.PositiveSmallIntegerField(
+        verbose_name="Ancho máximo del texto (px)",
+        blank=True,
+        null=True,
+        help_text="Opcional. Limita el ancho del texto para que salte a dos líneas "
+                  "(p.ej. 128 en 'Mapa y Guías' y 'Categorías y Etiquetas').",
+    )
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Categoría circular"
+        verbose_name_plural = "Categorías circulares"
+
+    def __str__(self):
+        return self.name
 
 
 class Term(models.Model):

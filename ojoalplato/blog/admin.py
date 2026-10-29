@@ -5,7 +5,7 @@ from redactor.widgets import RedactorEditor
 
 from reversion.admin import VersionAdmin
 
-from .models import Post, PostMeta, Comment, Term, Taxonomy
+from .models import Post, PostMeta, Comment, Term, Taxonomy, SiteSettings, MenuItem, CircleCategory
 
 from django.contrib.admin import site
 import adminactions.actions as actions
@@ -86,3 +86,30 @@ class TermAdmin(VersionAdmin):
 @admin.register(Taxonomy)
 class TaxonomyAdmin(VersionAdmin):
     pass
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    """Admin singleton: no permite borrar ni crear segundas instancias."""
+
+    def has_add_permission(self, request):
+        return not SiteSettings.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(MenuItem)
+class MenuItemAdmin(admin.ModelAdmin):
+    list_display = ['label', 'url', 'order', 'active']
+    list_editable = ['order', 'active']
+    list_filter = ['active']
+    ordering = ['order', 'id']
+
+
+@admin.register(CircleCategory)
+class CircleCategoryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'url', 'order', 'active', 'max_width']
+    list_editable = ['order', 'active', 'max_width']
+    list_filter = ['active']
+    ordering = ['order', 'id']
